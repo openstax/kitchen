@@ -7,7 +7,7 @@ require "kitchen"
 # Skipping stuff from previous tutorials, also skipped moving practice b/c that is
 # not numbering
 
-recipe_04 = Kitchen::Recipe.new do |doc|
+recipe_04 = Kitchen::Recipe.new do |doc:|
 
   doc.each("div[data-type='chapter']") do |chapter|
     doc.counter(:chapter).inc

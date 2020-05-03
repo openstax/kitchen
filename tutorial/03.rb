@@ -4,7 +4,7 @@ require "bundler/setup"
 require "byebug"
 require "kitchen"
 
-recipe_03 = Kitchen::Recipe.new do |doc|
+recipe_03 = Kitchen::Recipe.new do |doc:|
 
   # Querying is namespace aware, so a CSS selector for the metadata div is not
   # sufficient and errors out:

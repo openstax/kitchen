@@ -13,8 +13,8 @@ module Kitchen
       error_filename, error_line_number = error_location.match(/(.*):(\d+):/)[1..2]
       error_line_number = error_line_number.to_i
 
-      puts "The recipe has an error: " + Rainbow(error.message).bright
-      puts "at or near the following #{Rainbow('highlighted').red} line"
+      puts "The recipe has an error: " + Rainbow(error.message).bright +
+           " at or near the following #{Rainbow('highlighted').red} line"
       puts "\n"
       puts "-----+ #{Rainbow(error_filename).bright} -----"
 
@@ -38,7 +38,7 @@ module Kitchen
 
       print_specific_help_line(error)
 
-      current_node = document.location&.raw
+      current_node = document&.location&.raw
 
       if current_node
         puts "Encountered on line #{Rainbow(current_node.line).red} in the input document on element:"

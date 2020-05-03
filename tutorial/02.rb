@@ -4,7 +4,7 @@ require "bundler/setup"
 require "byebug"
 require "kitchen"
 
-recipe_02 = Kitchen::Recipe.new do |doc|
+recipe_02 = Kitchen::Recipe.new do |doc:|
 
   doc.each("div[data-type='chapter']") do |elem|
     elem.each("div.review-questions")  {|rq| rq.cut to: :review_questions  }

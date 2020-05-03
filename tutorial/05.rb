@@ -4,7 +4,7 @@ require "bundler/setup"
 require "byebug"
 require "kitchen"
 
-recipe_05 = Kitchen::Recipe.new do |doc|
+recipe_05 = Kitchen::Recipe.new do |doc:|
 
   doc.each("table") do |table|
     doc.counter(:table).inc

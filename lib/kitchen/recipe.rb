@@ -4,6 +4,8 @@ module Kitchen
     attr_reader :document
     attr_reader :source_location
 
+    ALLOWED_BLOCK_KEYWORD_ARGUMENTS = [:doc]
+
     def document=(document)
       @document =
         case document
@@ -16,11 +18,32 @@ module Kitchen
 
     # Make a new Recipe
     #
-    # @yieldparam doc [Document] an object representing an XML document
+    # @yieldparam doc [Document] an object representing an XML document, must be
+    #   named `doc:`
     #
     def initialize(&block)
       @source_location = block.source_location[0]
       @block = block
+
+      begin
+        @block_keyword_arguments = @block.parameters.map do |parameter|
+          type = parameter[0]
+          argument = parameter[1]
+
+          if !ALLOWED_BLOCK_KEYWORD_ARGUMENTS.include?(argument)
+            raise RecipeError, "`#{argument}` is not an allowed argument"
+          end
+
+          if :opt == type
+            raise RecipeError, "The `#{argument}` argument should be a keyword argument " \
+                               "with a colon at the end, i.e. `#{argument}:`"
+          end
+
+          argument
+        end
+      rescue RecipeError => ee
+        print_recipe_error_and_exit(ee)
+      end
     end
 
     def node!
@@ -29,7 +52,12 @@ module Kitchen
 
     def bake
       begin
-        @block.to_proc.call(document)
+        # Only yield the arguments that are asked for by the block
+        args = {
+          doc: document
+        }.slice(*@block_keyword_arguments)
+
+        @block.to_proc.call(*[args])
       rescue RecipeError => ee
         print_recipe_error_and_exit(ee)
       rescue ArgumentError => ee

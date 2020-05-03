@@ -4,7 +4,7 @@ require "bundler/setup"
 require "byebug"
 require "kitchen"
 
-recipe_06 = Kitchen::Recipe.new do |doc|
+recipe_06 = Kitchen::Recipe.new do |doc:|
 
   doc.each(".note") do |note|
     note.append child: <<~HTML
