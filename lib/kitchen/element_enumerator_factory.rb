@@ -101,6 +101,8 @@ module Kitchen
             end
           end
 
+          element.mark_that_sub_elements_is_counted(css_or_xpath: sub_element.short_type)
+
           # Record this sub element's ancestors and increment their descendant counts
           sub_element.add_ancestors(grand_ancestors, parent_ancestor)
           sub_element.count_as_descendant
@@ -117,10 +119,6 @@ module Kitchen
 
           block.yield(sub_element)
         end
-
-        element.remember_that_sub_elements_are_already_counted(
-          css_or_xpath: css_or_xpath, count: num_sub_elements
-        )
       end
     end
 

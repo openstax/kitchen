@@ -264,6 +264,11 @@ module Kitchen
       @css_or_xpath_that_has_been_counted[css_or_xpath] = count
     end
 
+    def mark_that_sub_elements_is_counted(css_or_xpath:)
+      @css_or_xpath_that_has_been_counted[css_or_xpath] ||= 0
+      @css_or_xpath_that_has_been_counted[css_or_xpath] += 1
+    end
+
     # Returns true if subelements with given selectors have been counted already
     #
     # @param css_or_xpath [String] the selectors
@@ -309,8 +314,8 @@ module Kitchen
     # @yieldparam [Element] the matched XML element
     # @return [Element, nil] the matched XML element or nil if no match found
     #
-    def first(*selector_or_xpath_args)
-      search(*selector_or_xpath_args).first.tap do |element|
+    def first(*selector_or_xpath_args, reload: false)
+      cache_search_and_call(selector_or_xpath_args, method: :first, reload: reload).tap do |element|
         yield(element) if block_given?
       end
     end
@@ -323,8 +328,8 @@ module Kitchen
     # @raise [ElementNotFoundError] if no matching element is found
     # @return [Element] the matched XML element
     #
-    def first!(*selector_or_xpath_args)
-      search(*selector_or_xpath_args).first!.tap do |element|
+    def first!(*selector_or_xpath_args, reload: false)
+      cache_search_and_call(selector_or_xpath_args, method: :first!, reload: reload).tap do |element|
         yield(element) if block_given?
       end
     end
@@ -635,6 +640,15 @@ module Kitchen
       else
         string
       end
+    end
+
+    def cache_search_and_call(*selector_or_xpath_args, method:, reload: false)
+      key = [method, selector_or_xpath_args]
+      @search_and_call_cache ||= {}
+      @search_and_call_cache[key] = nil if reload
+      # cache nil search results with a fake -1 value
+      @search_and_call_cache[key] ||= search(*selector_or_xpath_args).send(method.to_sym) || -1
+      @search_and_call_cache[key] == -1 ? nil : @search_and_call_cache[key]
     end
 
   end

@@ -21,9 +21,12 @@ module Kitchen
     # @raise [ElementNotFoundError] if no matching element is found
     # @return [Element]
     #
-    def title
+    def title(reload: false)
       # The selector for intro titles changes during the baking process
-      first!(is_introduction? ? selectors.title_in_introduction_page : selectors.title_in_page)
+      @title ||= first!(is_introduction? ?
+                          selectors.title_in_introduction_page :
+                          selectors.title_in_page,
+                        reload: reload)
     end
 
     # Returns true if this page is an introduction
