@@ -107,7 +107,7 @@ doc.search("div.example").each do |div|
   div.cut(to: my_clipboard)
 end
 
-new_html = new_clipboard.paste
+new_html = my_clipboard.paste
 ```
 
 This is often the better way to go because if you use the named ones in the document you have to remember to `clear` them before you use it to not get stuck with whatever you left there the last time you used it.
