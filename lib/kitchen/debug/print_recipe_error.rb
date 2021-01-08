@@ -35,7 +35,7 @@ module Kitchen
 
       print_specific_help_line(error)
 
-      current_node = document.location&.raw
+      current_node = document&.location&.raw
 
       if current_node
         puts "Encountered on line #{Rainbow(current_node.line).red} in the input document on element:"

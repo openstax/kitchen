@@ -4,6 +4,9 @@ Layout/EmptyLinesAroundClassBody:
 Layout/EmptyLinesAroundBlockBody:
   Enabled: false
 
+Metrics/AbcSize:
+  Max: 50
+
 Metrics/LineLength:
   Max: 100
 
