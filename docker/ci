@@ -1,8 +1,31 @@
 #!/usr/bin/env bash
-
+set -o xtrace
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-docker run -v $DIR/..:/code \
+echo "ENV VARS 2"
+echo $CODECOV_ENV
+echo $CODECOV_TOKEN
+echo $CODECOV_URL
+echo $CODECOV_SLUG
+echo $VCS_COMMIT_ID
+echo $VCS_BRANCH_NAME
+echo $VCS_PULL_REQUEST
+echo $VCS_SLUG
+echo $VCS_TAG
+echo $CI_BUILD_URL
+echo $CI_BUILD_ID
+echo $CI_JOB_ID
+echo $GITHUB_ACTIONS
+echo $GITHUB_REF
+echo $GITHUB_REPOSITORY
+echo $GITHUB_HEAD_REF
+echo $GITHUB_SHA
+echo $GITHUB_RUN_ID
+
+docker run $CI_ENV \
+           -v $DIR/..:/code \
            -w /code \
            openstax/kitchen-ci:latest \
-           rspec
+           rspec; bash <(curl -s https://codecov.io/bash)
+
+          #  -e ENABLE_CODECOV=1 \
