@@ -26,7 +26,8 @@ echo $GITHUB_RUN_ID
 docker run $CI_ENV \
            -v $DIR/..:/code \
            -w /code \
+          -e ENABLE_CODECOV=1 -e CI=true \
            openstax/kitchen-ci:latest \
-           rspec; bash <(curl -s https://codecov.io/bash)
+           rspec
 
-          #  -e ENABLE_CODECOV=1 \
+           #; bash <(curl -s https://codecov.io/bash)
