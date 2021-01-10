@@ -4,6 +4,15 @@ module Kitchen
   module Debug
     CONTEXT_LINES = 2
 
+    # class FileLine
+    #   attr_reader :filename, :line_number
+
+    #   def initialize(filename, line_number)
+    #     @filename = filename
+    #     @line_number = line_number
+    #   end
+    # end
+
     def self.print_recipe_error(error:, source_location:, document:)
       error_location = error.backtrace.detect do |entry|
         entry.start_with?(source_location) || entry.match?(/kitchen\/lib\/kitchen\/directions/)
@@ -43,13 +52,26 @@ module Kitchen
         puts "\n"
       end
 
-      if ENV['VERBOSE']
+      if verbose?
         puts "Full backtrace:\n"
         puts error.backtrace.map { |line| Rainbow(line).blue }
       else
         puts 'Full backtrace suppressed (enable by setting the VERBOSE environment variable to something)'
       end
     end
+
+    def self.verbose?
+      !ENV['VERBOSE'].nil?
+    end
+
+    # def self.get_error_location(error:, source_location:)
+    #   error_location = error.backtrace.detect do |entry|
+    #     entry.start_with?(source_location) || entry.match?(/kitchen\/lib\/kitchen\/directions/)
+    #   end
+
+    #   error_filename, error_line_number = error_location.match(/(.*):(\d+):/)[1..2]
+    #   error_line_number = error_line_number.to_i
+    # end
 
     def self.print_file_line(line_number, line)
       puts "#{'%5s' % line_number}| #{line}"
