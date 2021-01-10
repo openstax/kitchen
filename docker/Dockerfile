@@ -21,7 +21,7 @@ WORKDIR /code
 COPY . /code/
 
 RUN gem install solargraph && \
-    gem install bundler --no-document && \
+    gem install bundler --no-document --version 2.2.4 && \
     bundle config set no-cache 'true' && \
     bundle config set silence_root_warning 'true' && \
     bundle install && \
