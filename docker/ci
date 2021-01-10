@@ -10,6 +10,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 docker run $CI_ENV \
            -e ENABLE_CODECOV=1 -e CI=true \
            -v $DIR/..:/code \
+           -v vendor/bundle \
            -w /code \
            openstax/kitchen-ci:latest \
-           rspec
+           /bin/bash -c "cd /code; bundle config path vendor/bundle; bundle install; bundle exec rspec"
