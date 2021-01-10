@@ -2,6 +2,17 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-docker build -f $DIR/Dockerfile \
-             -t openstax/kitchen:latest \
+if [ "$1" == "--ci" ]; then
+  DOCKERFILE=Dockerfile.ci
+  IMAGE_NAME=openstax/kitchen-ci
+  IN_CI=1
+else
+  DOCKERFILE=Dockerfile
+  IMAGE_NAME=openstax/kitchen
+  IN
+fi
+
+docker build -f $DIR/$DOCKERFILE \
+             -t $IMAGE_NAME:latest \
+             --build-arg bundler_version=2.2.4 \
              $DIR/..
