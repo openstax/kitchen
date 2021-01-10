@@ -15,8 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        # with:
-        #   fetch-depth: 2
       - uses: actions/cache@v2
         with:
           path: vendor/bundle
@@ -24,6 +22,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gems-
       - name: Build docker image and run specs within it
+        # See https://docs.codecov.io/docs/testing-with-docker
         run: |
           ./docker/build --ci
           CI_ENV=`bash <(curl -s https://codecov.io/env)` ./docker/ci
