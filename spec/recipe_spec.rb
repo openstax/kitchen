@@ -20,7 +20,7 @@ RSpec.describe Kitchen::Recipe do
     end
 
     it 'blows up when not a Kitchen::Document' do
-      expect { (described_class.new {}).document = 'foo' }.to raise_error
+      expect { (described_class.new {}).document = 'foo' }.to raise_error(StandardError)
     end
   end
 
