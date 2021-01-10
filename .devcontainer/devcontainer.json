@@ -27,6 +27,7 @@
     "solargraph.bundlerPath": "/usr/local/bin/bundle",
     "ruby.rubocop.executePath": "/usr/local/bundle/bin/",
     "ruby.rubocop.onSave": true,
-    "ruby.rubocop.configFilePath": "/code/.rubocop.yml"
+    "ruby.rubocop.configFilePath": "/code/.rubocop.yml",
+    "terminal.integrated.scrollback": 100000
   }
 }
