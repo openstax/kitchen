@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe Kitchen::Counter do
-  describe ".initialize" do
+  describe '.initialize' do
     it 'creates a counter' do
       expect(Kitchen::Counter.new).to be_truthy
     end
   end
-  describe ".increment" do
+  describe '.increment' do
     counter = Kitchen::Counter.new
     it 'increments by 1 given no args' do
       val = counter.instance_variable_get(:@value)
@@ -21,16 +21,16 @@ RSpec.describe Kitchen::Counter do
     it 'increments by -5' do
       val = counter.instance_variable_get(:@value)
       counter.increment(by: -5)
-      expect(counter.instance_variable_get(:@value)).to eq(val -5)
+      expect(counter.instance_variable_get(:@value)).to eq(val - 5)
     end
   end
-  describe ".get" do
+  describe '.get' do
     it 'gets the counter value' do
       counter = Kitchen::Counter.new
       expect(counter.get).to eq(counter.instance_variable_get(:@value))
     end
   end
-  describe ".reset" do
+  describe '.reset' do
     counter = Kitchen::Counter.new
     counter.increment
     it 'resets to zero given no args' do
