@@ -57,6 +57,7 @@ module Kitchen
     # Makes a new Ancestor around the same element, with new counts
     #
     def clone
+      # @todo Delete later if not used
       Ancestor.new(element)
     end
 

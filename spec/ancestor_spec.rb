@@ -40,7 +40,8 @@ RSpec.describe Kitchen::Ancestor do
 
   describe '#clone' do
     it 'makes a new ancestor around the same element with new counts' do
-
+      @ancestor_clone = ancestor.clone()
+      expect(@ancestor_clone.get_descendant_count(descendant.short_type)).to eq 0
     end
   end
 end
