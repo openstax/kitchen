@@ -17,13 +17,13 @@ RSpec.describe Kitchen::SearchHistory do
 
   context '#add' do
     it 'adds nil if given nil value' do
-      expect(described_class.empty.add(nil).to_a).to eq [nil]
+      expect(described_class.empty.add(nil).latest).to be_nil
     end
   end
 
   context '#to_s' do
     it 'works' do
-      expect(described_class.empty.add(nil).add("foo").add([".blah",".bar"]).to_s).to eq "[?] [foo] [.blah, .bar]"
+      expect(described_class.empty.add(nil).add('foo').add(['.blah', '.bar']).to_s).to eq '[?] [foo] [.blah, .bar]'
     end
   end
 
@@ -33,17 +33,17 @@ RSpec.describe Kitchen::SearchHistory do
     end
 
     it 'returns array with upstream and latest' do
-      expect(described_class.empty.add('foo').add(["blah","bar"]).add(['baz']).to_a).to eq(['foo','blah, bar','baz'])
+      expect(described_class.empty.add('foo').add(['blah', 'bar']).add(['baz']).to_a).to eq(['foo', 'blah, bar', 'baz'])
     end
   end
 
-  context "#empty?" do
+  context '#empty?' do
     it 'returns true if empty' do
-      expect(described_class.empty.empty?).to eq(true)
+      expect(described_class.empty).to be_empty
     end
 
     it 'returns false if not empty' do
-      expect(described_class.empty.add('foo').empty?). to eq(false)
+      expect(described_class.empty.add('foo')).not_to be_empty
     end
   end
 end
