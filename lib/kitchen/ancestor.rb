@@ -36,12 +36,14 @@ module Kitchen
     #
     # @param descendant_type [String, Symbol] the descendent's type
     # @param by [Integer] the amount by which to decrement
+    # @raise [RangeError] if descendant count is a negative number
     #
     def decrement_descendant_count(descendant_type, by: 1)
-      if @descendant_counts.has_key?(descendant_type.to_sym)
-        @descendant_counts[descendant_type.to_sym] = get_descendant_count(descendant_type) - by
+      if (@descendant_counts.has_key?(descendant_type.to_sym)) &&
+        (@descendant_counts[descendant_type.to_sym] <= by)
+          @descendant_counts[descendant_type.to_sym] = get_descendant_count(descendant_type) - by
       else
-        raise "An element cannot have negative descendants"
+        raise(RangeError, "An element cannot have negative descendants")
       end
     end
 
