@@ -18,12 +18,12 @@ RSpec.describe Kitchen::Pantry do
   end
 
   it 'raises if item is not in pantry' do
-    expect(instance.get!('thud')).to raise_error(
-      Kitchen::RecipeError, "There is no pantry item labeled '#{label}'"
+    expect{ instance.get!('thud') }.to raise_error(
+      Kitchen::RecipeError, "There is no pantry item labeled 'thud'"
     )
   end
 
-  xit 'iterate over the pantry items' do
+  it 'iterate over the pantry items' do
     expect(instance.each(&block)).to include(TK)
   end
 
