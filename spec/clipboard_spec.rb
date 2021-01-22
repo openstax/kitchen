@@ -1,85 +1,76 @@
 require 'spec_helper'
+require 'ostruct'
 
 RSpec.describe Kitchen::Clipboard do
   let(:my_clipboard) { described_class.new }
-  let(:element_1) do
-    new_element(
-      <<~HTML
-        <div id='e1'>
-          <span>Element 1</span>
-          <span>ABC</span>
-          <span>Zebra</span>
-          <span>B</span>
-        </div>
-      HTML
-    )
-  end
 
-  let(:element_2) do
-    new_element(
-      <<~HTML
-        <h1 id='e2'>Title</h1>
-      HTML
-    )
+  def fake_element(value)
+    OpenStruct.new(paste: value)
   end
 
   context '#add' do
-    it 'throws error when no item was given' do
-      expect{my_clipboard.add}.to raise_error(ArgumentError)
-    end
-
-    it 'returns array with added item' do
-      my_clipboard.add(1)
-      expect(my_clipboard.add(2)).to eq([1, 2])
+    it 'returns array with added items' do
+      expect(my_clipboard.add(1).add(2).items).to eq([1, 2])
     end
   end
 
   context '#clear' do
     it 'clears clipboard contents' do
-      expect(my_clipboard.add(1)).to eq([1])
-      expect(my_clipboard.clear).to be {}
+      my_clipboard.add(1)
+      expect(my_clipboard.clear).to be my_clipboard
     end
   end
 
   context '#paste' do
     it 'returns a concatenation of the pasting' do
-      element_2.cut(to: my_clipboard)
-      element_1.cut(to: my_clipboard)
-      expect(my_clipboard.paste).to match(/[e1][e2]/)
+      my_clipboard.add(fake_element(2))
+      my_clipboard.add(fake_element(3))
+      expect(my_clipboard.paste).to match('23')
     end
 
     it 'returns empty object when theres nothing to paste' do
-      expect(my_clipboard.paste).to be {}
+      expect(my_clipboard.paste).to eq("")
     end
   end
 
   context '#each' do
-    it 'returns self when the clipboard has contents' do
-      element_1.cut(to: my_clipboard)
-      expect(my_clipboard.each{}).to be my_clipboard
-    end
+    context 'return self' do
+      context 'when the clipboard has contents' do
+        before { my_clipboard.add(fake_element(2)) }
 
-    it 'returns self when the clipboard is empty' do
-      expect(my_clipboard.each).to be my_clipboard
-    end
+        it 'and block is given' do
+          expect(my_clipboard.each{}).to be my_clipboard
+        end
 
-    it 'handles clipboard not empty and no block given' do
-      element_1.cut(to: my_clipboard)
-      expect{my_clipboard.each}.to raise_error(NoMethodError)
+        it 'and block is not given' do
+          expect(my_clipboard.each).to be my_clipboard
+        end
+      end
+
+      it 'when the clipboard is empty' do
+        expect(my_clipboard.each).to be my_clipboard
+      end
+
+      it 'when clipboard is not empty and no block is given' do
+        my_clipboard.add(2)
+        expect(my_clipboard.each).to be my_clipboard
+      end
     end
   end
 
   context '#sort_by' do
     it 'returns empty object when no block given' do
-      element_1.cut(to: my_clipboard)
-      expect(my_clipboard.sort_by!).to be {}
+      my_clipboard.add(fake_element(2))
+      expect(my_clipboard.sort_by!).to be_an_instance_of Enumerator
     end
 
     it 'returns sorted object when block given' do
-      element_1.search('span').cut(to: my_clipboard)
+      my_clipboard.add(fake_element('Zebra'))
+      my_clipboard.add(fake_element('ABC'))
+      my_clipboard.add(fake_element('Element 1'))
       expect(
-        my_clipboard.sort_by!{|element| element.text}.to_s
-      ).to eq("[<span>ABC</span>, <span>B</span>, <span>Element 1</span>, <span>Zebra</span>]")
+        my_clipboard.sort_by!(&:paste)[0].paste
+      ).to eq("ABC")
     end
   end
 end
