@@ -7,7 +7,6 @@ module Kitchen::Directions::BakeChapterTitle
     end
 
     def fix_up_chapter_title(chapter:)
-      # Fix up chapter titles
       heading = chapter.at('h1[2]')
       heading[:id] = "chapTitle#{chapter.count_in(:book)}"
       heading.replace_children(with:
