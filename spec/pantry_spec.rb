@@ -25,7 +25,8 @@ RSpec.describe Kitchen::Pantry do
     end
 
     it 'iterates over the pantry items' do
-      expect(instance.each(&block)).to include(TK)
+      instance.store 'baz', label: 'qux'
+      expect { |block| instance.each(&block) }.to yield_successive_args([:foo, 'bar'], [:qux, 'baz'])
     end
 
     it 'returns the number of items in the pantry' do
