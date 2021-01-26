@@ -70,7 +70,7 @@ RSpec.describe Kitchen::Clipboard do
 
   context '#sort_by' do
     it 'returns empty object when no block given' do
-      expect(my_clipboard.sort_by!).to be_an_instance_of Enumerator
+      expect(my_clipboard.sort_by!).to be my_clipboard
     end
 
     it 'returns sorted object when block given' do
