@@ -5,33 +5,27 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary do
   # TODO: test that...
   # 1) definitions with the same term sort next by the definition
 
-  let(:doc) do
-    Kitchen::BookDocument.new(document: Nokogiri::XML(
+  let(:chapter) do
+    chapter_element(
       <<~HTML
-        <html>
-        <body>
-          <div data-type="chapter">
-            <div data-type='glossary'>
-              <div>
-                <dl>
-                  <dt>ZzZ</dt>
-                  <dd>Test 1</dd>
-                </dl>
-                <dl>
-                  <dt>ZzZ</dt>
-                  <dd>Achoo</dd>
-                </dl>
-                <dl>
-                  <dt>ABD</dt>
-                  <dd>Test 2</dd>
-                </dl>
-              </div>
-            </div>
+        <div data-type='glossary'>
+          <div>
+            <dl>
+              <dt>ZzZ</dt>
+              <dd>Test 1</dd>
+            </dl>
+            <dl>
+              <dt>ZzZ</dt>
+              <dd>Achoo</dd>
+            </dl>
+            <dl>
+              <dt>ABD</dt>
+              <dd>Test 2</dd>
+            </dl>
           </div>
-        </body>
-        </html>
+        </div>
       HTML
-    ))
+    )
   end
 
   let(:metadata) do
@@ -43,6 +37,7 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary do
           <div class="print-style" id="print-style">Print Style</div>
           <div class="permissions" id="permissions">Permissions</div>
           <div data-type="subject" id="subject">Subject</div>
+          <div data-type="random" id="subject">Random - should not be included</div>
         </div>
       HTML
     )
@@ -50,7 +45,7 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary do
 
   it 'works' do
     expect(
-      described_class.v1(chapter: doc.book.chapters.first, metadata_source: metadata)
+      described_class.v1(chapter: chapter, metadata_source: metadata)
     ).to match_normalized_html(
       <<~HTML
         <div data-type="chapter">
