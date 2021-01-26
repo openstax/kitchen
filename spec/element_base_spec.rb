@@ -23,12 +23,17 @@ RSpec.describe Kitchen::ElementBase do
   end
 
   describe '#id' do
-    it 'returns the elements ID' do
+    it 'returns the element\'s ID' do
       expect(element.id).to eq 'div1'
     end
   end
 
   describe '#id=' do
+    it 'sets the element\'s ID' do
+      para = element.search('p').first
+      para.id = 'para1'
+      expect(para.id).to match('para1')
+    end
   end
 
   describe '#set' do
