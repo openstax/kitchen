@@ -9,15 +9,20 @@ RSpec.describe Kitchen::Clipboard do
   end
 
   context '#add' do
-    it 'returns array with added items' do
+    it 'allows for clipboard calls to be chained' do
       expect(my_clipboard.add(1).add(2).items).to eq([1, 2])
+    end
+
+    it 'adds an item to the clipboard' do
+      expect(my_clipboard.add(1).items).to eq [1]
     end
   end
 
   context '#clear' do
     it 'clears clipboard contents' do
       my_clipboard.add(1)
-      expect(my_clipboard.clear).to be my_clipboard
+      my_clipboard.clear
+      expect(my_clipboard.items).to eq []
     end
   end
 
@@ -56,21 +61,25 @@ RSpec.describe Kitchen::Clipboard do
         expect(my_clipboard.each).to be my_clipboard
       end
     end
+
+    it 'iterates on elements' do
+      my_clipboard.add("howdy").add("y'all")
+      expect{ |block| my_clipboard.each(&block) }.to yield_successive_args("howdy", "y'all")
+    end
   end
 
   context '#sort_by' do
     it 'returns empty object when no block given' do
-      my_clipboard.add(fake_element(2))
       expect(my_clipboard.sort_by!).to be_an_instance_of Enumerator
     end
 
     it 'returns sorted object when block given' do
       my_clipboard.add(fake_element('Zebra'))
       my_clipboard.add(fake_element('ABC'))
-      my_clipboard.add(fake_element('Element 1'))
+      my_clipboard.add(fake_element('Element'))
       expect(
-        my_clipboard.sort_by!(&:paste)[0].paste
-      ).to eq("ABC")
+        my_clipboard.sort_by!(&:paste).map(&:paste).join('-')
+      ).to eq("ABC-Element-Zebra")
     end
   end
 end
