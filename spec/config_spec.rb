@@ -15,10 +15,9 @@ RSpec.describe Kitchen::Config do
     end
   end
 
-  #NYI
   describe 'self.new_from_file' do
     it "isn't implemented yet" do
-      expect{ described_class.new_from_file('bleh') }.to raise_error('NYI')
+      expect { described_class.new_from_file('bleh') }.to raise_error('NYI')
     end
   end
 
