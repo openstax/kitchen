@@ -7,7 +7,7 @@ RSpec.describe Kitchen::Pantry do
     expect(instance).to be_truthy
   end
 
-  context 'When the pantry has contents' do
+  context 'when the pantry has contents' do
     before { instance.store 'bar', label: 'foo' }
 
     it 'adds an item to the pantry with the provided label' do
