@@ -78,8 +78,8 @@ RSpec.describe Kitchen::Clipboard do
       my_clipboard.add(fake_element('ABC'))
       my_clipboard.add(fake_element('Element'))
       expect(
-        my_clipboard.sort_by!(&:paste).map(&:paste).join('-')
-      ).to eq("ABC-Element-Zebra")
+        my_clipboard.sort_by!(&:paste).paste
+      ).to eq("ABCElementZebra")
     end
   end
 end

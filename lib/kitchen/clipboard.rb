@@ -58,6 +58,7 @@ module Kitchen
     #
     def sort_by!(&block)
       @items.sort_by!(&block)
+      self
     end
   end
 end
