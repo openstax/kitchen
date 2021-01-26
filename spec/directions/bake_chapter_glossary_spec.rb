@@ -16,6 +16,12 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary do
                 <dl>
                   <dt>ZzZ</dt>
                   <dd>Test 1</dd>
+                </dl>
+                <dl>
+                  <dt>ZzZ</dt>
+                  <dd>Achoo</dd>
+                </dl>
+                <dl>
                   <dt>ABD</dt>
                   <dd>Test 2</dd>
                 </dl>
@@ -61,10 +67,16 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary do
               <div data-type="subject" id="subject_copy_1">Subject</div>
             </div>
             <dl>
-              <dt>ZzZ</dt>
-              <dd>Test 1</dd>
               <dt>ABD</dt>
               <dd>Test 2</dd>
+            </dl>
+            <dl>
+              <dt>ZzZ</dt>
+              <dd>Achoo</dd>
+            </dl>
+            <dl>
+              <dt>ZzZ</dt>
+              <dd>Test 1</dd>
             </dl>
           </div>
         </div>
