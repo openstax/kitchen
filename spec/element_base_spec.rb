@@ -81,48 +81,14 @@ RSpec.describe Kitchen::ElementBase do
 
   describe '#has_ancestor?' do
     it 'returns true if element has ancestor of given type' do
+      p_element = element.chapters.pages.examples.search('p').first
+      expect(p_element.has_ancestor?(:chapter)).to eq true
     end
 
     it 'returns false if element does not have ancestor of given type' do
+      p_element = element.chapters.pages.examples.search('p').first
+      expect(p_element.has_ancestor?(:figure)).to eq false
     end
   end
-
-  context 'add_ancestors' do
-  end
-
-  describe '#add_ancestor' do
-  end
-
-  describe '#ancestor_elements' do
-  end
-
-  describe '#count_as_descendant' do
-  end
-
-  describe '#count_in' do
-  end
-
-  describe '#remember_that_sub_elements_are_already_counted' do
-  end
-
-  describe '#have_sub_elements_already_been_counted?' do
-  end
-
-  describe '#number_of_sub_elements_already_counted' do
-  end
-
-  describe '#search_history' do
-  end
-
-  describe '#search' do
-  end
-
-  describe '#first' do
-  end
-
-  describe '#first!' do
-  end
-
-
 
 end
