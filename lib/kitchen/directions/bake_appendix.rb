@@ -16,7 +16,7 @@ module Kitchen
         # Make a section with data-depth of X have a header level of X+1
         page.search('section').each do |section|
           title = section.first!("[data-type='title']")
-          title.name = "h#{section['data-depth'].to_i + 1}"
+          title.name = "h#{section['data-depth'].to_i + 1}"  # doesn't work
         end
         page
       end
