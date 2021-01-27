@@ -3,28 +3,33 @@ require 'spec_helper'
 RSpec.describe Kitchen::ElementBase do
 
   let(:element) do
-    new_element(
-      <<~HTML
-        <div class="class1" id="div1">
-          <p>This is a paragraph.</p>
-        </div>
-      HTML
+    book_containing(html:
+      one_chapter_with_one_page_containing(
+        <<~HTML
+          <div data-type="example" class="class1" id="div1">
+            <p>This is a paragraph.</p>
+          </div>
+        HTML
+      )
     )
   end
 
   describe '#has_class?' do
     it 'returns true if element has given class' do
-      expect(element.has_class?('class1')).to eq true
+      div_element = element.search('div[data-type="example"]').first
+      expect(div_element.has_class?('class1')).to eq true
     end
 
     it 'returns false if element does not have given class' do
-      expect(element.has_class?('class2')).to eq false
+      div_element = element.search('div[data-type="example"]').first
+      expect(div_element.has_class?('class2')).to eq false
     end
   end
 
   describe '#id' do
     it 'returns the element\'s ID' do
-      expect(element.id).to eq 'div1'
+      div_element = element.search('div[data-type="example"]').first
+      expect(div_element.id).to eq 'div1'
     end
   end
 
@@ -60,9 +65,26 @@ RSpec.describe Kitchen::ElementBase do
   end
 
   describe '#ancestor' do
+    it 'returns element\'s ancestor of the given type' do
+      p_element = element.chapters.pages.examples.search('p').first
+      expect(p_element.ancestor(:example).id).to eq 'div1'
+    end
+
+    it 'raises an error when there is no ancestor of the given type' do
+      p_element = element.chapters.pages.examples.search('p').first
+      type = :figure
+      expect {
+        p_element.ancestor(type).id
+      }.to raise_error("No ancestor of type '#{type}'")
+    end
   end
 
   describe '#has_ancestor?' do
+    it 'returns true if element has ancestor of given type' do
+    end
+
+    it 'returns false if element does not have ancestor of given type' do
+    end
   end
 
   context 'add_ancestors' do

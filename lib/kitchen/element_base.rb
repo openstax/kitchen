@@ -182,7 +182,7 @@ module Kitchen
       @ancestors[type.to_sym]&.element || raise("No ancestor of type '#{type}'")
     end
 
-    # Returns true iff this element has an ancestor of the given type
+    # Returns true if this element has an ancestor of the given type
     #
     # @param type [String, Symbol] e.g. +:page+, +:term+
     # @return [Boolean]
