@@ -162,6 +162,7 @@ module Kitchen
     #   element.set(:name,"div").set("id","foo")
     #
     def set(property, value)
+      # currently not being used outside tutorial
       case property.to_sym
       when :name
         self.name = value

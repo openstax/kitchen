@@ -37,6 +37,26 @@ RSpec.describe Kitchen::ElementBase do
   end
 
   describe '#set' do
+    it 'changes the tag name of an element' do
+      element.set(:name, 'section')
+      expect(element.name).to match('section')
+    end
+
+    it 'sets the value of a element\'s property' do
+      element.set(:id, 'newDivID')
+      expect(element.id).to match('newDivID')
+    end
+
+    it 'changes the tag name of an element and gives it a property and value' do
+      p_element = element.search('p').first
+      p_matcher = /<p>This is a paragraph.<\/p>/
+      span_matcher = /<span class="span1">This is a paragraph.<\/span>/
+      expect {
+        p_element.set(:name, 'span').set(:class, 'span1')
+      }.to change {
+        p_element.to_html
+      }.from(p_matcher).to(span_matcher)
+    end
   end
 
   describe '#ancestor' do
