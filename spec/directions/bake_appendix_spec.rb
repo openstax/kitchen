@@ -1,27 +1,22 @@
 require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::BakeAppendix do
-  let(:doc) do
-    Kitchen::BookDocument.new(document: Nokogiri::XML(<<~HTML
-      <html>
-      <body>
-        <div data-type="chapter">
-          <div data-type="page">
-            <div data-type="document-title">zzzzzzz</div>
-            <section>
-              <div data-type="title">hello</div>
-              <div>world</div>
-            </section>
-          </div>
+  let(:page) do
+    page_element(
+      <<~HTML
+        <div data-type="document-title">zzzzzzz</div>
+              <section>
+                <div data-type="title">hello</div>
+                <section>
+                  <div data-type="title">world</div>
+                </section>
+              </section>
         </div>
-      </body>
-      </html>
-    HTML
-    ))
+      HTML
+    )
   end
 
   it 'works' do
-    page = doc.book.chapters.first.pages.first
     described_class.v1(page: page, number: 3)
     expect(page).to match_normalized_html(
       <<~HTML
@@ -34,7 +29,9 @@ RSpec.describe Kitchen::Directions::BakeAppendix do
           </h1>
           <section>
             <h1 data-type="title">hello</h1>
-            <div>world</div>
+            <section>
+              <h2 data-type="title">world</h2>
+            </section>
           </section>
         </div>
       HTML
