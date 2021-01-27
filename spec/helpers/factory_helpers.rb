@@ -48,7 +48,7 @@ def chapter_element(chapter_children_html)
   book_containing(html: "<div data-type='chapter'>#{chapter_children_html}</div>").chapters.first
 end
 
-def metadata_source
+def metadata_element
   new_element(
     <<~HTML
       <div data-type="metadata" style="display: none;">

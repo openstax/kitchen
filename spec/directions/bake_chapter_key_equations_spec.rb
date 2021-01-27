@@ -14,7 +14,7 @@ RSpec.describe Kitchen::Directions::BakeChapterKeyEquations do
 
   it 'works' do
     expect(
-      described_class.v1(chapter: chapter, metadata_source: metadata_source)
+      described_class.v1(chapter: chapter, metadata_source: metadata_element)
     ).to match_normalized_html(
       <<~HTML
         <div data-type="chapter">

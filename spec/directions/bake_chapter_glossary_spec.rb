@@ -25,7 +25,7 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary do
   end
 
   it 'works' do
-    metadata = metadata_source.append(child:
+    metadata = metadata_element.append(child:
       <<~HTML
         <div data-type="random" id="subject">Random - should not be included</div>
       HTML
