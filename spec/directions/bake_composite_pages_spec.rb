@@ -20,7 +20,7 @@ RSpec.describe Kitchen::Directions::BakeCompositePages do
   it 'works' do
     described_class.v1(book: book1)
     expect(
-      book_1.body.children.to_s
+      book1.body.children.to_s
     ).to match_normalized_html(
       <<~HTML
         <div data-type="composite-page" id="composite-page-1">
