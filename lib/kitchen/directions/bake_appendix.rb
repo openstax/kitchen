@@ -18,7 +18,6 @@ module Kitchen
           title = section.first!("[data-type='title']")
           title.name = "h#{section['data-depth'].to_i + 1}"
         end
-        page
       end
     end
   end
