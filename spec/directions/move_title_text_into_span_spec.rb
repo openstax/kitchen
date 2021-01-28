@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::MoveTitleTextIntoSpan do
 
-  let(:element_1) do
+  let(:title) do
     new_element(
       <<~HTML
         <h1 data-type="document-title">foo</h1>
@@ -10,8 +10,7 @@ RSpec.describe Kitchen::Directions::MoveTitleTextIntoSpan do
     )
   end
 
-  it 'calls v1' do
-    title = element_1
+  it 'works' do
     described_class.v1(title: title)
     expect(title).to match_normalized_html(
       <<~HTML
