@@ -27,6 +27,7 @@ WORKDIR /code
 COPY . /code/
 
 RUN gem install solargraph && \
+    gem install lefthook && \
     gem install bundler --no-document --version $bundler_version && \
     bundle config set no-cache 'true' && \
     bundle config set silence_root_warning 'true' && \
