@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::BakeChapterSummary do
-  let(:book) do
-    book_containing(html:
+
+  let(:chapter) do
+    chapter_element(
       <<~HTML
-        <div> </div>
+        <section class="key-equations">
+          <h3>WWF History</h3>
+          <p>Equations blah.</p>
+        </section>
       HTML
     )
   end
@@ -15,9 +19,9 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
 
   context 'when v1 is called on a book' do
     it 'works' do
-      described_class.v1(book: book)
-      byebug
-      expect(book).to match_normalized_html(
+      expect(
+        described_class.v1(chapter: chapter, metadata_source: metadata_element)
+      ).to match_normalized_html(
         <<~HTML
           <div> </div>
         HTML
