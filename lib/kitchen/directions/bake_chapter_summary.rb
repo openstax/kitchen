@@ -2,8 +2,6 @@ module Kitchen
   module Directions
     module BakeChapterSummary
       def self.v1(chapter:, metadata_source:)
-        byebug
-
         metadata_elements = metadata_source.search(%w(.authors .publishers .print-style
                                                       .permissions [data-type='subject'])).copy
 
