@@ -154,7 +154,7 @@ RSpec.describe Kitchen::Directions::BakeToc do
               <ol class="os-chapter">
                 <li class="os-toc-chapter-composite-page" cnx-archive-shortid="" cnx-archive-uri="p6">
                   <a href="#p6">
-                    <span class="os-text">1</span>
+                    <span class="os-text">Chapter 1</span>
                   </a>
                 </li>
               </ol>
