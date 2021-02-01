@@ -40,7 +40,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedTable::V1 do
 
     expect(table.document.search('.os-table').first).to match_normalized_html(
       <<~HTML
-        <div class="os-table">
+        <div class="os-table os-top-titled-container">
           <div class="os-table-title">A title</div>
           <table class="top-titled" id="tId" summary="Table 2.3  A caption">
             <thead>
