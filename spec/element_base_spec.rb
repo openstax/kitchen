@@ -10,8 +10,7 @@ RSpec.describe Kitchen::ElementBase do
             <p>This is a paragraph.</p>
           </div>
         HTML
-      )
-    )
+      ))
   end
 
   describe '#has_class?' do
@@ -81,6 +80,7 @@ RSpec.describe Kitchen::ElementBase do
 
   describe '#has_ancestor?' do
     it 'returns true if element has ancestor of given type' do
+      debugger
       p_element = element.chapters.pages.examples.search('p').first
       expect(p_element.has_ancestor?(:chapter)).to eq true
     end
@@ -88,6 +88,37 @@ RSpec.describe Kitchen::ElementBase do
     it 'returns false if element does not have ancestor of given type' do
       p_element = element.chapters.pages.examples.search('p').first
       expect(p_element.has_ancestor?(:figure)).to eq false
+    end
+  end
+
+  describe '#add_ancestors' do
+    it 'adds ancestors to an element' do
+      expect {
+        parent_ancestor = Ancestor.new()
+        element.add_ancestors(Hash, Ancestor, Element, Document)
+      }.to change {
+
+      }.from().to()
+    end
+
+    it 'raises an error if given an unsupported ancestor type' do
+      expect(element.add_ancestors(arg)).to raise_error("Unsupported ancestor type `#{arg.class}`")
+    end
+  end
+
+  describe '#add_ancestor' do
+    it 'adds one ancestor to an element' do
+      expect {
+        element.add_ancestor(ancestor)
+      }.to change {
+
+      }.from().to()
+    end
+  end
+
+  describe '#ancestor_elements' do
+    it 'returns the elements in all of the ancestors' do
+      expect(element.ancestor_elements).to eq all_ancestors
     end
   end
 
