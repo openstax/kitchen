@@ -17,6 +17,10 @@ module Kitchen::Directions::BakeNumberedTable
         table.title_row.trash
       end
 
+      if table.column_header?
+        table.parent.add_class('os-column-header-container')
+      end
+
       # TODO: extra spaces added here to match legacy implementation, but probably not meaningful?
       new_summary = table_label + '  '
       new_caption = ''

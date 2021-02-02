@@ -35,6 +35,17 @@ RSpec.describe Kitchen::Directions::BakeNumberedTable::V1 do
     ).tables.first
   end
 
+  let(:column_header_table) do
+    book_containing(html:
+      one_chapter_with_one_page_containing(
+        <<~HTML
+          <table class="column-header" id="tId" summary="column header summary">
+          </table>
+        HTML
+      )
+    ).tables.first
+  end
+
   let(:other_table) do
     book_containing(html:
       one_chapter_with_one_page_containing(
@@ -85,6 +96,25 @@ RSpec.describe Kitchen::Directions::BakeNumberedTable::V1 do
             <span class="os-divider"> </span>
             <span class="os-divider"> </span>
             <span class="os-caption">A caption</span>
+          </div>
+        </div>
+      HTML
+    )
+  end
+
+  it 'bakes a column header table' do
+    described_class.new.bake(table: column_header_table, number: '2.3')
+
+    expect(column_header_table.document.search('.os-table').first).to match_normalized_html(
+      <<~HTML
+        <div class="os-table os-column-header-container">
+          <table class="column-header" id="tId" summary="Table 2.3  ">
+        </table>
+          <div class="os-caption-container">
+            <span class="os-title-label">Table </span>
+            <span class="os-number">2.3</span>
+            <span class="os-divider"> </span>
+            <span class="os-divider"> </span>
           </div>
         </div>
       HTML
