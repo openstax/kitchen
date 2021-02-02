@@ -88,11 +88,6 @@ module Kitchen
           number.prepend(child: part_text.paste)
         end
 
-        # Targets the Answer Key
-        if page.has_ancestor?('composite_chapter') && page.ancestor('composite_chapter').search('span').first.text == 'Answer Key'
-          title.first('.os-text').prepend(child: 'Chapter ')
-        end
-
         <<~HTML
           <li class="#{li_class}" cnx-archive-shortid="" cnx-archive-uri="#{page.id}">
             <a href="##{page.id}">

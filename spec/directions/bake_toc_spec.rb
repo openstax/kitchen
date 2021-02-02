@@ -69,7 +69,7 @@ RSpec.describe Kitchen::Directions::BakeToc do
           </h1>
           <div data-type="composite-page" id="p6">
             <h2 data-type="document-title">
-              <span class="os-text">1</span>
+              <span class="os-text">Chapter 1</span>
             </h2>
           </div>
         </div>
