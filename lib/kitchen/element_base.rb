@@ -162,7 +162,6 @@ module Kitchen
     #   element.set(:name,"div").set("id","foo")
     #
     def set(property, value)
-      # currently not being used outside tutorial
       case property.to_sym
       when :name
         self.name = value
@@ -182,7 +181,7 @@ module Kitchen
       @ancestors[type.to_sym]&.element || raise("No ancestor of type '#{type}'")
     end
 
-    # Returns true if this element has an ancestor of the given type
+    # Returns true iff this element has an ancestor of the given type
     #
     # @param type [String, Symbol] e.g. +:page+, +:term+
     # @return [Boolean]
