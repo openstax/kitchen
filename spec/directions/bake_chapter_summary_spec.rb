@@ -2,18 +2,31 @@ require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::BakeChapterSummary do
 
+  before do
+    stub_locales({
+      'eoc_summary_title': 'Summary'
+    })
+  end
+
   let(:chapter) do
     chapter_element(
       <<~HTML
+        <div data-type='page' id="00" class="introduction">
+          <h1 data-type="document-title" itemprop="name" id="intro">Introduction page!</h1>
+          <section class="summary" data-element-type="section-summary">
+              <h3 data-type='title'>Summary</h3>
+              <p>This should stay where it is.</p>
+          </section>
+        </div>
         <div data-type='page' id ="01">
-          <h1 data-type="document-title" itemprop="name">First Title</h1>
+          <h1 data-type="document-title" itemprop="name" id="first">First Title</h1>
           <section class="summary" data-element-type="section-summary">
               <h3 data-type='title'>Summary</h3>
               <p>Many paragraphs provide a good summary.</p>
           </section>
         </div>
         <div data-type='page' id="02">
-          <h1 data-type="document-title" itemprop="name">Second Title</h1>
+          <h1 data-type="document-title" itemprop="name" id="second">Second Title</h1>
           <section class="summary" data-element-type="section-summary">
               <h3 data-type='title'>Summary</h3>
               <p>Ooh, it's another bit of text.</p>
@@ -23,10 +36,6 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
     )
   end
 
-  #TODO: check that it:
-  #Replaces title with h3 title (children: os-number, os-divider, os-text)
-  #
-
   context 'when v1 is called on a chapter' do
     it 'works' do
       described_class.v1(chapter: chapter, metadata_source: metadata_element)
@@ -35,11 +44,18 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
       ).to match_normalized_html(
         <<~HTML
           <div data-type="chapter">
+            <div data-type='page' id="00" class="introduction">
+              <h1 data-type="document-title" id="intro" itemprop="name">Introduction page!</h1>
+              <section class="summary" data-element-type="section-summary">
+                <h3 data-type='title'>Summary</h3>
+                <p>This should stay where it is.</p>
+              </section>
+            </div>
             <div data-type="page" id="01">
-              <h1 data-type="document-title" itemprop="name">First Title</h1>
+              <h1 data-type="document-title" id="first" itemprop="name">First Title</h1>
             </div>
             <div data-type="page" id="02">
-              <h1 data-type="document-title" itemprop="name">Second Title</h1>
+              <h1 data-type="document-title" id="second" itemprop="name">Second Title</h1>
             </div>
             <div class="os-eoc os-summary-container" data-type="composite-page" data-uuid-key=".summary">
               <h2 data-type="document-title">
@@ -54,8 +70,8 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
                 <div data-type="subject" id="subject_copy_1">Subject</div>
               </div>
               <section class="summary" data-element-type="section-summary">
-                <a href="#">
-                  <h3 data-type="document-title" itemprop="name">
+                <a href="#first">
+                  <h3 data-type="document-title" id="first_copy_1" itemprop="name">
                     <span class="os-number">1.1</span>
                     <span class="os-divider"> </span>
                     <span class="os-text" data-type="" itemprop="">First Title</span>
@@ -64,8 +80,8 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
                 <p>Many paragraphs provide a good summary.</p>
               </section>
               <section class="summary" data-element-type="section-summary">
-                <a href="#">
-                  <h3 data-type="document-title" itemprop="name">
+                <a href="#second">
+                  <h3 data-type="document-title" id="second_copy_1" itemprop="name">
                     <span class="os-number">1.2</span>
                     <span class="os-divider"> </span>
                     <span class="os-text" data-type="" itemprop="">Second Title</span>
