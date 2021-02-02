@@ -6,7 +6,7 @@ RSpec.describe Kitchen::Directions::BakeUnnumberedTables do
   let(:book1) do
     book_containing(html:
       <<~HTML
-        <table class="unnumbered top-titled" id="tableId" summary="A summary...">
+        <table class="unnumbered unstyled" id="tableId" summary="A summary...">
           <thead>
             <tr>
               <th colspan="1" data-align="center">The Title</th>
@@ -31,8 +31,8 @@ RSpec.describe Kitchen::Directions::BakeUnnumberedTables do
       book1.body.children.to_s
     ).to match_normalized_html(
       <<~HTML
-        <div class="os-table">
-          <table class="unnumbered top-titled" id="tableId">
+        <div class="os-table os-unstyled-container">
+          <table class="unnumbered unstyled" id="tableId">
             <thead>
               <tr>
                 <th colspan="1" data-align="center">The Title</th>

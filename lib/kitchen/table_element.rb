@@ -48,6 +48,14 @@ module Kitchen
       has_class?('unnumbered')
     end
 
+    # Returns true if the table is unstyled
+    #
+    # @return [Boolean]
+    #
+    def unstyled?
+      has_class?('unstyled')
+    end
+
     # Returns an element for the table caption, if present
     #
     # @return [Element, nil]
