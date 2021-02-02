@@ -2,19 +2,19 @@ module Kitchen::Directions::BakeNumberedTable
   class V1
 
     def bake(table:, number:)
+      table.wrap(%(<div class="os-table">))
+
       table_label = "#{I18n.t(:table_label)} #{number}"
       table.document.pantry(name: :link_text).store table_label, label: table.id
 
       if table.top_titled?
-        table.wrap(%(<div class="os-table os-top-titled-container">))
+        table.parent.add_class('os-top-titled-container')
         table.prepend(sibling:
           <<~HTML
             <div class="os-table-title">#{table.title}</div>
           HTML
         )
         table.title_row.trash
-      else
-        table.wrap(%(<div class="os-table">))
       end
 
       # TODO: extra spaces added here to match legacy implementation, but probably not meaningful?
