@@ -25,7 +25,18 @@ RSpec.describe Kitchen::Directions::BakeUnnumberedTables do
     )
   end
 
-  it 'works' do
+  let(:book_with_column_header_table) do
+    book_containing(html:
+      one_chapter_with_one_page_containing(
+        <<~HTML
+          <table class="unnumbered column-header" id="tId" summary="column header summary">
+          </table>
+        HTML
+      )
+    )
+  end
+
+  it 'bakes unstyled table' do
     described_class.v1(book: book1)
     expect(
       book1.body.children.to_s
@@ -47,6 +58,18 @@ RSpec.describe Kitchen::Directions::BakeUnnumberedTables do
               </tr>
             </tbody>
           </table>
+        </div>
+      HTML
+    )
+  end
+
+  it 'bakes column header table' do
+    described_class.v1(book: book_with_column_header_table)
+    expect(book_with_column_header_table.tables.first.parent). to match_normalized_html(
+      <<~HTML
+        <div class="os-table os-column-header-container">
+          <table class="unnumbered column-header" id="tId">
+        </table>
         </div>
       HTML
     )
