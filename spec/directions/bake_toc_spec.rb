@@ -114,7 +114,7 @@ RSpec.describe Kitchen::Directions::BakeToc do
   it 'works' do
     described_class.v1(book: book1)
 
-    expect(book1.dup.search('nav').to_s).to match_normalized_html(
+    expect(book1.search('nav').to_s).to match_normalized_html(
       <<~HTML
         <nav id="toc">
           <h1 class="os-toc-title">Contents</h1>
