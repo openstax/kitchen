@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kitchen
   # Builds specific subclasses of ElementEnumeratorBase
   #
@@ -57,7 +59,7 @@ module Kitchen
     #
     def or_with(other_factory)
       self.class.new(
-        default_css_or_xpath: default_css_or_xpath + ', ' + other_factory.default_css_or_xpath,
+        default_css_or_xpath: "#{default_css_or_xpath}, #{other_factory.default_css_or_xpath}",
         enumerator_class: TypeCastingElementEnumerator,
         detect_sub_element_class: true
       )
@@ -90,8 +92,8 @@ module Kitchen
           # If the provided `css_or_xpath` has already been counted, we need to uncount
           # them on the ancestors so that when they are counted again below, the counts
           # are correct.  Only do this on the first loop!
-          if index == 0 && element.have_sub_elements_already_been_counted?(css_or_xpath)
-            grand_ancestors.values.each do |ancestor|
+          if index.zero? && element.have_sub_elements_already_been_counted?(css_or_xpath)
+            grand_ancestors.each_value do |ancestor|
               ancestor.decrement_descendant_count(
                 sub_element.short_type,
                 by: element.number_of_sub_elements_already_counted(css_or_xpath)
