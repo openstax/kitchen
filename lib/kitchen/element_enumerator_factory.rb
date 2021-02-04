@@ -63,15 +63,13 @@ module Kitchen
       )
     end
 
-    protected
-
     def self.apply_default_css_or_xpath_and_normalize(css_or_xpath: nil, default_css_or_xpath: nil)
-      css_or_xpath ||= '$'
-      [css_or_xpath].flatten.each do |item|
-        item.gsub!(/\$/, [default_css_or_xpath].flatten.join(', '))
+      [css_or_xpath || '$'].flatten.map do |item|
+        item.gsub(/\$/, [default_css_or_xpath].flatten.join(', '))
       end
-      [css_or_xpath].flatten
     end
+
+    protected
 
     def build_within_element(element, css_or_xpath:)
       enumerator_class.new(css_or_xpath: css_or_xpath) do |block|
