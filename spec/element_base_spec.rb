@@ -35,7 +35,6 @@ RSpec.describe Kitchen::ElementBase do
 
   describe '#id=' do
     it 'sets the element\'s ID' do
-      para = book.first!('p')
       para.id = 'para1'
       expect(para.id).to eq 'para1'
     end
