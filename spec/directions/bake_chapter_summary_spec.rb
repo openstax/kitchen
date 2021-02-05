@@ -38,7 +38,12 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
 
   context 'when v1 is called on a chapter' do
     it 'works' do
-      described_class.v1(chapter: chapter, metadata_source: metadata_element)
+      metadata = metadata_element.append(child:
+        <<~HTML
+          <div data-type="random" id="subject">Random - should not be included</div>
+        HTML
+      )
+      described_class.v1(chapter: chapter, metadata_source: metadata)
       expect(
         chapter
       ).to match_normalized_html(
