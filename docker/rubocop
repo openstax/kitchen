@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -x
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# See https://docs.codecov.io/docs/testing-with-docker, also note that it is
+# critical to set CI=true because codecov-ruby won't detect GitHub Actions
+# without it per:
+# https://github.com/codecov/codecov-ruby/blob/484767f1c3d7992a9d7fedd6dc72d35a80d04f70/lib/codecov.rb#L68-L69
+
+git status
+git branch
+git diff
+git diff --name-only
+git log
+
+changed_ruby_files=`git diff --name-only master | egrep "*.rb" | tr '\n' ' '`
+
+docker run -v $DIR/..:/code \
+           -v vendor/bundle \
+           -w /code \
+           openstax/kitchen.ci:latest \
+           /bin/bash -c "bundle config path vendor/bundle; bundle install; bundle exec rubocop $changed_ruby_files --disable-pending-cops"
