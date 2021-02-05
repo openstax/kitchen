@@ -14,21 +14,21 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
         <div data-type='page' id="00" class="introduction">
           <h1 data-type="document-title" itemprop="name" id="intro">Introduction page!</h1>
           <section class="summary" data-element-type="section-summary">
-              <h3 data-type='title'>Summary</h3>
+              <h3 data-type='title'>Kitchen Prep</h3>
               <p>This should stay where it is.</p>
           </section>
         </div>
         <div data-type='page' id ="01">
           <h1 data-type="document-title" itemprop="name" id="first">First Title</h1>
           <section class="summary" data-element-type="section-summary">
-              <h3 data-type='title'>Summary</h3>
+              <h3 data-type='title'>Roasting</h3>
               <p>Many paragraphs provide a good summary.</p>
           </section>
         </div>
         <div data-type='page' id="02">
           <h1 data-type="document-title" itemprop="name" id="second">Second Title</h1>
           <section class="summary" data-element-type="section-summary">
-              <h3 data-type='title'>Summary</h3>
+              <h3 data-type='title'>Frying</h3>
               <p>Ooh, it's another bit of text.</p>
           </section>
         </div>
@@ -47,7 +47,7 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
             <div data-type='page' id="00" class="introduction">
               <h1 data-type="document-title" id="intro" itemprop="name">Introduction page!</h1>
               <section class="summary" data-element-type="section-summary">
-                <h3 data-type='title'>Summary</h3>
+                <h3 data-type='title'>Kitchen Prep</h3>
                 <p>This should stay where it is.</p>
               </section>
             </div>
@@ -59,7 +59,7 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
             </div>
             <div class="os-eoc os-summary-container" data-type="composite-page" data-uuid-key=".summary">
               <h2 data-type="document-title">
-                <span class="os-text">Summary</span>
+                <span class="os-text">#{I18n.t(:eoc_summary_title)}</span>
               </h2>
               <div data-type="metadata" style="display: none;">
                 <h1 data-type="document-title" itemprop="name">Summary</h1>
