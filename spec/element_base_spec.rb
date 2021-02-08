@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Kitchen::ElementBase do
@@ -25,8 +27,7 @@ RSpec.describe Kitchen::ElementBase do
           </div>
           <div data-type="page" id="page2"> This is a page </div>
         HTML
-      )
-    )
+      ))
   end
 
   let(:example) { book.first!('div[data-type="example"]') }
@@ -70,9 +71,9 @@ RSpec.describe Kitchen::ElementBase do
     it 'changes the tag name of an element and gives it a property and value' do
       p_matcher = /<p>This is a paragraph.<\/p>/
       span_matcher = /<span class="span1">This is a paragraph.<\/span>/
-      expect {
+      expect do
         para.set(:name, 'span').set(:class, 'span1')
-      }.to change(para, :to_html).from(p_matcher).to(span_matcher)
+      end.to change(para, :to_html).from(p_matcher).to(span_matcher)
     end
   end
 
@@ -85,9 +86,9 @@ RSpec.describe Kitchen::ElementBase do
 
     it 'raises an error when there is no ancestor of the given type' do
       type = :figure
-      expect {
+      expect do
         p_element.ancestor(type).id
-      }.to raise_error("No ancestor of type '#{type}'")
+      end.to raise_error("No ancestor of type '#{type}'")
     end
   end
 
