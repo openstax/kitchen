@@ -77,7 +77,7 @@ RSpec.describe Kitchen::Directions::BakeExercises do
   it 'works' do
     described_class.v1(book: book_1)
 
-    expect(book_1.body.to_s).to match_normalized_html(
+    expect(book_1.body).to match_normalized_html(
       <<~HTML
         <body>
           #{metadata(title: 'Book Title')}
