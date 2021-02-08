@@ -1,3 +1,5 @@
+# frozen-string-literal: true
+
 module FactoryHelpers
   def book_containing(html:, short_name: :not_set, add_math_namespace: true)
     Kitchen::BookDocument.new(short_name: short_name, document: Nokogiri::XML(

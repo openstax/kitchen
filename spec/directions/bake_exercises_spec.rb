@@ -1,3 +1,5 @@
+# frozen-string-literal: true
+
 require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::BakeExercises do
@@ -10,7 +12,7 @@ RSpec.describe Kitchen::Directions::BakeExercises do
     })
   end
 
-  let(:book_1) do
+  let(:book1) do
     book_containing(html:
       <<~HTML
         #{metadata(title: 'Book Title')}
@@ -75,9 +77,9 @@ RSpec.describe Kitchen::Directions::BakeExercises do
   end
 
   it 'works' do
-    described_class.v1(book: book_1)
+    described_class.v1(book: book1)
 
-    expect(book_1.body).to match_normalized_html(
+    expect(book1.body).to match_normalized_html(
       <<~HTML
         <body>
           #{metadata(title: 'Book Title')}
@@ -204,7 +206,7 @@ RSpec.describe Kitchen::Directions::BakeExercises do
     )
   end
 
-  context '#bake_exercise_in_place' do
+  describe '#bake_exercise_in_place' do
     let(:exercise) do
       book_containing(html:
         one_chapter_with_one_page_containing(
@@ -216,8 +218,7 @@ RSpec.describe Kitchen::Directions::BakeExercises do
               #{solution}
             </div>
           HTML
-        )
-      ).chapters.search('#exerciseId').first
+      )).chapters.search('#exerciseId').first
     end
 
     context 'with a solution' do

@@ -1,3 +1,5 @@
+# frozen-string-literal: true
+
 require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
