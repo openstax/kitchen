@@ -13,6 +13,22 @@ RSpec.describe Kitchen::ElementBase do
       ))
   end
 
+  let(:searchable_book) do
+    book_containing(html:
+      chapter_element(
+        <<~HTML
+          <div data-type="page" id="page1">
+            <div data-type="example" class="class1" id="example1">
+              <p>This is an example.</p>
+            </div>
+            <figure id="figure1">can't touch this (stop! hammer time)</figure>
+          </div>
+          <div data-type="page" id="page2"> This is a page </div>
+        HTML
+      )
+    )
+  end
+
   let(:example) { book.first!('div[data-type="example"]') }
 
   let(:para) { book.first!('p') }
@@ -98,6 +114,13 @@ RSpec.describe Kitchen::ElementBase do
       it 'returns the elements in all of the ancestors' do
         expect(para.ancestor_elements).to eq Array(book)
       end
+    end
+  end
+
+  describe '#search_with' do
+    it 'returns elements in the right order' do
+      result = searchable_book.search_with(Kitchen::PageElementEnumerator, Kitchen::ExampleElementEnumerator)
+      expect(result.map(&:id)).to eq %w[page1 example1 page2]
     end
   end
 end
