@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 
 module Kitchen
@@ -18,6 +20,7 @@ module Kitchen
     #   @return [Selectors::Base]
     def_delegators :config, :selectors
 
+    # rubocop:disable Layout/LineLength
     # @!method to_xhtml
     #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#to_xhtml-instance_method Nokogiri::XML::Node#to_xhtml
     #   @return [String] the document as an XHTML string
@@ -33,6 +36,7 @@ module Kitchen
     #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#to_html-instance_method Nokogiri::XML::Node#to_html
     #   @return [String] the document as an HTML string
     def_delegators :@nokogiri_document, :to_xhtml, :to_s, :to_xml, :to_html
+    # rubocop:enable Layout/LineLength
 
     # Return a new instance of Document
     #
@@ -58,9 +62,11 @@ module Kitchen
 
       ElementEnumerator.new do |block|
         nokogiri_document.search(*selector_or_xpath_args).each do |inner_node|
-          element = Kitchen::Element.new(node: inner_node,
-                                         document: self,
-                                         short_type: Utils.search_path_to_type(selector_or_xpath_args))
+          element = Kitchen::Element.new(
+            node: inner_node,
+            document: self,
+            short_type: Utils.search_path_to_type(selector_or_xpath_args)
+          )
           self.location = element
           block.yield(element)
         end
@@ -131,11 +137,7 @@ module Kitchen
     # @return [Element]
     #
     def create_element_from_string(string)
-      Kitchen::Element.new(
-        node: @nokogiri_document.create_element(string),
-        document: self,
-        short_type: "created_element_#{SecureRandom.hex(4)}"
-      ).element_children.first
+      new_element(html: string)
     end
 
     # Keeps track that an element with the given ID has been copied.  When such
@@ -163,7 +165,7 @@ module Kitchen
 
       # A count of 0 means the element was cut and this is the first paste, do not
       # modify the ID; otherwise, use the uniquified ID.
-      if count == 0
+      if count.zero?
         original_id
       else
         "#{original_id}#{@id_copy_suffix}#{count}"
