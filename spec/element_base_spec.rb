@@ -104,6 +104,24 @@ RSpec.describe Kitchen::ElementBase do
     end
   end
 
+  describe '#add_ancestor' do
+    it 'adds one ancestor' do
+      examplekey = 'div[data-type="example"]'
+      para.add_ancestor(Kitchen::Ancestor.new(example))
+      expect(para.ancestors[examplekey].type).to eq examplekey
+    end
+
+    it 'raises an error if there is already an ancestor with the given ancestors type' do
+      para = book.chapters.pages.examples.search('p').first!
+      example_copy = para.ancestors['example'].element
+      type = :example
+      expect do
+        para.add_ancestor(Kitchen::Ancestor.new(example_copy))
+      end.to raise_error("Trying to add an ancestor of type '#{type}' but one of that " \
+        "type is already present")
+    end
+  end
+
   describe '#ancestor_elements' do
     context 'when the element has no ancestors' do
       it 'returns an empty array' do
