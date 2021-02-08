@@ -105,10 +105,10 @@ RSpec.describe Kitchen::ElementBase do
   end
 
   describe '#add_ancestor' do
-    it 'adds one ancestor' do
-      examplekey = 'div[data-type="example"]'
+    it 'adds one ancestor to an element' do
+      example_key = 'div[data-type="example"]'
       para.add_ancestor(Kitchen::Ancestor.new(example))
-      expect(para.ancestors[examplekey].type).to eq examplekey
+      expect(para.ancestors[example_key].type).to eq example_key
     end
 
     it 'raises an error if there is already an ancestor with the given ancestors type' do
