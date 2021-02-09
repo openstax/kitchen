@@ -20,7 +20,6 @@ module Kitchen
     #   @return [Selectors::Base]
     def_delegators :config, :selectors
 
-    # rubocop:disable Layout/LineLength
     # @!method to_xhtml
     #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#to_xhtml-instance_method Nokogiri::XML::Node#to_xhtml
     #   @return [String] the document as an XHTML string
@@ -36,7 +35,6 @@ module Kitchen
     #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#to_html-instance_method Nokogiri::XML::Node#to_html
     #   @return [String] the document as an HTML string
     def_delegators :@nokogiri_document, :to_xhtml, :to_s, :to_xml, :to_html
-    # rubocop:enable Layout/LineLength
 
     # Return a new instance of Document
     #
@@ -137,7 +135,25 @@ module Kitchen
     # @return [Element]
     #
     def create_element_from_string(string)
-      new_element(html: string)
+      nokogiri_document = Nokogiri::XML(
+        <<~HTML
+          <html>
+            <body>
+              #{string}
+            </body>
+          </html>
+        HTML
+      )
+
+      children = nokogiri_document.search('body').first.element_children
+      raise('new_element must only make one top-level element') if children.many?
+
+      node = children.first
+
+      Kitchen::Element.new(
+        node: node,
+        document: Kitchen::Document.new(nokogiri_document: nokogiri_document)
+      )
     end
 
     # Keeps track that an element with the given ID has been copied.  When such
