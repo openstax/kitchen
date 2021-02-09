@@ -1,5 +1,7 @@
 # Kitchen
 
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/from-referrer/)
+
 [![Tests](https://github.com/openstax/kitchen/workflows/Tests/badge.svg)](https://github.com/openstax/kitchen/actions?query=workflow:Tests)
 [![Coverage Status](https://img.shields.io/codecov/c/github/openstax/kitchen.svg)](https://codecov.io/gh/openstax/kitchen)
 
