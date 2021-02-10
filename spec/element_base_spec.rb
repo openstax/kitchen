@@ -110,6 +110,13 @@ RSpec.describe Kitchen::ElementBase do
       expect(para).to receive(:add_ancestor).with(ancestor_example)
       para.add_ancestors(ancestor_example)
     end
+
+    it 'raises an error if unsupported ancestor type given' do
+      random_string = 'blah'
+      expect do
+        para.add_ancestors(random_string)
+      end.to raise_error("Unsupported ancestor type `#{random_string.class}`")
+    end
   end
 
   describe '#add_ancestor' do
