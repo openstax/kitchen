@@ -180,15 +180,10 @@ RSpec.describe Kitchen::ElementBase do
 
     context 'when child argument is given' do
       it 'prepends child before the element\'s current children' do
+        para.prepend(child: child)
+        expect(para.children.to_s).to eq '<div>Child</div>This is a paragraph.'
       end
     end
-
-    context 'when sibling argument is given' do
-      it 'prepends sibling to the element' do
-      end
-    end
-
-
   end
 
   describe '#append' do
