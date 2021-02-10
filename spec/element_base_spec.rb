@@ -104,6 +104,14 @@ RSpec.describe Kitchen::ElementBase do
     end
   end
 
+  describe '#add_ancestors' do
+    it 'add ancestors to an element' do
+      ancestor_example = Kitchen::Ancestor.new(example)
+      expect(para).to receive(:add_ancestor).with(ancestor_example)
+      para.add_ancestors(ancestor_example)
+    end
+  end
+
   describe '#add_ancestor' do
     it 'adds one ancestor to an element' do
       example_key = 'div[data-type="example"]'
