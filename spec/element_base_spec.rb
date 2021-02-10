@@ -124,4 +124,41 @@ RSpec.describe Kitchen::ElementBase do
       expect(result.map(&:id)).to eq %w[page1 example1 page2]
     end
   end
+
+  describe '#prepend' do
+    sibling = '<div>Sibling</div>'
+    child = '<div>Child</div>'
+
+    it 'raises a RecipeError when a child and sibling are specified' do
+      expect do
+        para.prepend(child: child, sibling: sibling)
+      end.to raise_error(
+        Kitchen::RecipeError, 'Only one of `child` or `sibling` can be specified'
+      )
+    end
+
+    it 'raises a RecipeError when neither a child and sibling are specified' do
+      expect do
+        para.prepend
+      end.to raise_error(
+        Kitchen::RecipeError, 'One of `child` or `sibling` must be specified'
+      )
+    end
+
+    context 'when child argument is given' do
+      it 'prepends child before the element\'s current children' do
+      end
+    end
+
+    context 'when sibling argument is given' do
+      it 'prepends sibling to the element' do
+      end
+    end
+
+
+  end
+
+  describe '#append' do
+
+  end
 end
