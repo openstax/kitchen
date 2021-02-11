@@ -184,6 +184,18 @@ RSpec.describe Kitchen::ElementBase do
         expect(para.children.to_s).to eq '<div>Child</div>This is a paragraph.'
       end
     end
+
+    context 'when sibling argument is given' do
+      it 'prepends as a sibling to the element' do
+        para.prepend(sibling: sibling)
+        expect(example.children.to_s).to match_normalized_html(
+          <<~HTML
+            <div>Sibling</div>
+            <p>This is a paragraph.</p>
+          HTML
+        )
+      end
+    end
   end
 
   describe '#append' do
@@ -210,6 +222,18 @@ RSpec.describe Kitchen::ElementBase do
       it 'appends child after the element\'s current children' do
         para.append(child: child)
         expect(para.children.to_s).to eq 'This is a paragraph.<div>Child</div>'
+      end
+    end
+
+    context 'when sibling argument is given' do
+      it 'appends as a sibling to the element' do
+        para.append(sibling: sibling)
+        expect(example.children.to_s).to match_normalized_html(
+          <<~HTML
+            <p>This is a paragraph.</p>
+            <div>Sibling</div>
+          HTML
+        )
       end
     end
   end
