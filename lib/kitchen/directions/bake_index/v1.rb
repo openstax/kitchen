@@ -111,7 +111,7 @@ module Kitchen::Directions::BakeIndex
     end
 
     def bake(book:)
-      @metadata_elements = book.metadata.search(%w(.authors .publishers .print-style
+      @metadata_elements = book.metadata.search(%w([data-type='revised'] .authors .publishers .print-style
                                                    .permissions [data-type='subject'])).copy
       @index = Index.new
 

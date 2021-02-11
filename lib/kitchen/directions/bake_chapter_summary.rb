@@ -2,7 +2,7 @@ module Kitchen
   module Directions
     module BakeChapterSummary
       def self.v1(chapter:, metadata_source:)
-        metadata_elements = metadata_source.search(%w(.authors .publishers .print-style
+        metadata_elements = metadata_source.search(%w([data-type='revised'] .authors .publishers .print-style
                                                       .permissions [data-type='subject'])).copy
 
         summaries = Clipboard.new
