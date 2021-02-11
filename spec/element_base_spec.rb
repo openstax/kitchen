@@ -154,6 +154,30 @@ RSpec.describe Kitchen::ElementBase do
   end
 
   describe '#append' do
+    sibling = '<div>Sibling</div>'
+    child = '<div>Child</div>'
 
+    it 'raises a RecipeError when a child and sibling are specified' do
+      expect do
+        para.append(child: child, sibling: sibling)
+      end.to raise_error(
+        Kitchen::RecipeError, 'Only one of `child` or `sibling` can be specified'
+      )
+    end
+
+    it 'raises a RecipeError when neither a child and sibling are specified' do
+      expect do
+        para.append
+      end.to raise_error(
+        Kitchen::RecipeError, 'One of `child` or `sibling` must be specified'
+      )
+    end
+
+    context 'when child argument is given' do
+      it 'appends child after the element\'s current children' do
+        para.append(child: child)
+        expect(para.children.to_s).to eq 'This is a paragraph.<div>Child</div>'
+      end
+    end
   end
 end
