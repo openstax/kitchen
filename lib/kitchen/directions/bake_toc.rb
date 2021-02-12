@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 module Kitchen
   module Directions
     module BakeToc
       def self.v1(book:)
         li_tags = book.body.element_children.map do |element|
           case element
+          when UnitElement
+            li_for_unit(element)
           when ChapterElement
             li_for_chapter(element)
           when PageElement, CompositePageElement
@@ -20,6 +24,29 @@ module Kitchen
           </ol>
         HTML
         )
+      end
+
+      def self.li_for_unit(unit)
+        chapters = unit.element_children.only(ChapterElement)
+        <<~HTML
+          <li cnx-archive-uri="" cnx-archive-shortid="" class="os-toc-unit">
+            <a href="#">
+              <span class="os-number">
+                <span class="os-part-text">Unit</span>
+                1
+              </span>
+              <span class="os-divider"> </span>
+              <span data-type itemprop class="os-text">
+                #{unit.title}
+              </span>
+            </a>
+            <ol class="os-unit">
+              <li cnx-archive-uri cnx-archive-shortid class="os-toc-chapter">
+              #{chapters.map { |chapter| li_for_page(chapter) }.join("\n")}
+              <li>
+            </ol>
+          </li>
+        HTML
       end
 
       def self.li_for_composite_chapter(chapter)
