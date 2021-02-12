@@ -135,25 +135,14 @@ module Kitchen
     # @return [Element]
     #
     def create_element_from_string(string)
-      nokogiri_document = Nokogiri::XML(
-        <<~HTML
-          <html>
-            <body>
-              #{string}
-            </body>
-          </html>
-        HTML
-      )
-
-      children = nokogiri_document.search('body').first.element_children
+      children = Nokogiri::XML("<foo>#{string}</foo>").search('foo').first.element_children
       raise('new_element must only make one top-level element') if children.many?
 
       node = children.first
 
-      Kitchen::Element.new(
-        node: node,
-        document: Kitchen::Document.new(nokogiri_document: nokogiri_document)
-      )
+      create_element(node.name, node.attributes).tap do |element|
+        element.inner_html = node.children
+      end
     end
 
     # Keeps track that an element with the given ID has been copied.  When such
