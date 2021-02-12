@@ -2,6 +2,8 @@
 
 module Kitchen
   module Directions
+    # Bake directions for eoc summary
+    #
     module BakeChapterSummary
       def self.v1(chapter:, metadata_source:)
         metadata_elements = metadata_source.data.copy
@@ -31,22 +33,22 @@ module Kitchen
           summary.cut(to: summaries)
         end
 
-        unless summaries.none?
-          chapter.append(child:
-            <<~HTML
-              <div class="os-eoc os-summary-container" data-type="composite-page" data-uuid-key=".summary">
-                <h2 data-type="document-title">
-                  <span class="os-text">#{I18n.t(:eoc_summary_title)}</span>
-                </h2>
-                <div data-type="metadata" style="display: none;">
-                  <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_summary_title)}</h1>
-                  #{metadata_elements.paste}
-                </div>
-                #{summaries.paste}
+        return if summaries.none?
+
+        chapter.append(child:
+          <<~HTML
+            <div class="os-eoc os-summary-container" data-type="composite-page" data-uuid-key=".summary">
+              <h2 data-type="document-title">
+                <span class="os-text">#{I18n.t(:eoc_summary_title)}</span>
+              </h2>
+              <div data-type="metadata" style="display: none;">
+                <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_summary_title)}</h1>
+                #{metadata_elements.paste}
               </div>
-            HTML
-          )
-        end
+              #{summaries.paste}
+            </div>
+          HTML
+        )
       end
     end
   end

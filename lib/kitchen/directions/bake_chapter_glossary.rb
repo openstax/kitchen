@@ -2,6 +2,8 @@
 
 module Kitchen
   module Directions
+    # Bake directons for eoc glossary
+    #
     module BakeChapterGlossary
       def self.v1(chapter:, metadata_source:)
         metadata_elements = metadata_source.data.copy

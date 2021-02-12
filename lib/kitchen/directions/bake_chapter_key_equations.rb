@@ -2,6 +2,8 @@
 
 module Kitchen
   module Directions
+    # Bake directions for eoc key equations
+    #
     module BakeChapterKeyEquations
       def self.v1(chapter:, metadata_source:)
         metadata_elements = metadata_source.data.copy

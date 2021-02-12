@@ -2,6 +2,8 @@
 
 module Kitchen
   module Directions
+    # Bake directions for exercises
+    #
     module BakeExercises
       def self.v1(book:)
         metadata_elements = book.metadata.data.copy
@@ -82,22 +84,22 @@ module Kitchen
           HTML
         end
 
-        unless solutions.none?
-          book.first('body').append(child:
-            <<~HTML
-              <div class="os-eob os-solution-container " data-type="composite-chapter" data-uuid-key=".solution">
-                <h1 data-type="document-title" id="composite-chapter-1">
-                  <span class="os-text">#{I18n.t(:eoc_answer_key_title)}</span>
-                </h1>
-                <div data-type="metadata" style="display: none;">
-                  <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_answer_key_title)}</h1>
-                  #{eob_metadata}
-                </div>
-                #{solutions.join("\n")}
+        return if solutions.none?
+
+        book.first('body').append(child:
+          <<~HTML
+            <div class="os-eob os-solution-container " data-type="composite-chapter" data-uuid-key=".solution">
+              <h1 data-type="document-title" id="composite-chapter-1">
+                <span class="os-text">#{I18n.t(:eoc_answer_key_title)}</span>
+              </h1>
+              <div data-type="metadata" style="display: none;">
+                <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_answer_key_title)}</h1>
+                #{eob_metadata}
               </div>
-            HTML
-          )
-        end
+              #{solutions.join("\n")}
+            </div>
+          HTML
+        )
       end
 
       def self.bake_exercise_in_place(exercise:)
