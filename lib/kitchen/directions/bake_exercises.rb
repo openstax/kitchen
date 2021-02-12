@@ -6,7 +6,7 @@ module Kitchen
     #
     module BakeExercises
       def self.v1(book:)
-        metadata_elements = book.metadata.data.copy
+        metadata_elements = book.metadata.children_to_keep.copy
 
         solutions_clipboards = []
 

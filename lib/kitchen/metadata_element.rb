@@ -20,7 +20,7 @@ module Kitchen
     #
     # @return [ElementEnumerator]
     #
-    def data
+    def children_to_keep
       search(%w([data-type='revised'] .authors .publishers .print-style .permissions
                 [data-type='subject']))
     end

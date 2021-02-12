@@ -6,7 +6,7 @@ module Kitchen
     #
     module BakeChapterSummary
       def self.v1(chapter:, metadata_source:)
-        metadata_elements = metadata_source.data.copy
+        metadata_elements = metadata_source.children_to_keep.copy
 
         summaries = Clipboard.new
 

@@ -593,7 +593,7 @@ module Kitchen
     # @!method pages
     #   Returns a pages enumerator
     def_delegators :as_enumerator, :pages, :chapters, :terms, :figures, :notes, :tables, :examples,
-                   :metadatas # doing my best with the plural of data :/
+                   :metadatas
 
     # Returns this element as an enumerator (over only one element, itself)
     #
