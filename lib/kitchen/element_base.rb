@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 require 'securerandom'
 
@@ -590,7 +592,8 @@ module Kitchen
 
     # @!method pages
     #   Returns a pages enumerator
-    def_delegators :as_enumerator, :pages, :chapters, :terms, :figures, :notes, :tables, :examples
+    def_delegators :as_enumerator, :pages, :chapters, :terms, :figures, :notes, :tables, :examples,
+                   :metadatas # doing my best with the plural of data :/
 
     # Returns this element as an enumerator (over only one element, itself)
     #

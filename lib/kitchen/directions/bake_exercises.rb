@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 module Kitchen
   module Directions
     module BakeExercises
       def self.v1(book:)
-        metadata_elements = book.metadata.search(%w([data-type='revised'] .authors .publishers .print-style
-                                                    .permissions [data-type='subject'])).copy
+        metadata_elements = book.metadata.data.copy
 
         solutions_clipboards = []
 

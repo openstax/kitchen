@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kitchen::Directions::BakeIndex
   class V1
     renderable
@@ -111,8 +113,7 @@ module Kitchen::Directions::BakeIndex
     end
 
     def bake(book:)
-      @metadata_elements = book.metadata.search(%w([data-type='revised'] .authors .publishers .print-style
-                                                   .permissions [data-type='subject'])).copy
+      @metadata_elements = book.metadata.data.copy
       @index = Index.new
 
       book.pages.terms.each do |term_element|

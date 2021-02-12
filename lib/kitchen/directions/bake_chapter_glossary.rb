@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 module Kitchen
   module Directions
     module BakeChapterGlossary
       def self.v1(chapter:, metadata_source:)
-        metadata_elements = metadata_source.search(%w([data-type='revised'] .authors .publishers .print-style
-                                                      .permissions [data-type='subject'] )).copy
+        metadata_elements = metadata_source.data.copy
 
         definitions = chapter.glossaries.search('dl').cut
         definitions.sort_by! do |definition|
