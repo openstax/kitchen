@@ -21,14 +21,12 @@ RSpec.describe Kitchen::Directions::BakeLinkPlaceholders do
     )
   end
 
-  let(:pantry) { Kitchen::Pantry.new }
-
   before do
-    pantry.store('Example x.y', label: 'key')
+    book.document.pantry(name: :link_text).store('Example x.y', label: 'key')
   end
 
   it 'bakes' do
-    described_class.v1(book: book, pantry: pantry)
+    described_class.v1(book: book)
     expect(book.body).to match_normalized_html(
       <<~HTML
         <body>
@@ -42,6 +40,6 @@ RSpec.describe Kitchen::Directions::BakeLinkPlaceholders do
   it 'logs a warning' do
     allow($stdout).to receive(:puts)
     expect($stdout).to receive(:puts).with("warning! could not find a replacement for '[link]' on an element with ID 'invalid_key'")
-    described_class.v1(book: invalid_book, pantry: pantry)
+    described_class.v1(book: invalid_book)
   end
 end

@@ -5,12 +5,12 @@ module Kitchen
     # Bake directions for link placeholders
     #
     module BakeLinkPlaceholders
-      def self.v1(book:, pantry:)
+      def self.v1(book:)
         book.search('a').each do |anchor|
           next unless anchor.text == '[link]'
 
           id = anchor[:href][1..-1]
-          replacement = pantry.get(id)
+          replacement = book.document.pantry(name: :link_text).get(id)
           if replacement.present?
             anchor.replace_children(with: replacement)
           else
