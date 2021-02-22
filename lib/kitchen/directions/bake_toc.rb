@@ -37,12 +37,12 @@ module Kitchen
               </span>
               <span class="os-divider"> </span>
               <span data-type itemprop class="os-text">
-                #{unit.title}
+                #{unit.title.children}
               </span>
             </a>
             <ol class="os-unit">
               <li cnx-archive-uri cnx-archive-shortid class="os-toc-chapter">
-              #{chapters.map { |chapter| li_for_page(chapter) }.join("\n")}
+              #{chapters.map { |chapter| li_for_chapter(chapter) }.join("\n")}
               <li>
             </ol>
           </li>
