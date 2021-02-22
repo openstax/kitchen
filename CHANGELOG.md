@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.?.?] - 2020-02-??
+
+* Do this before requesting review Brittany
+
 ## [2.0.0] - 2020-12-18
 
 * Changed the main gem source file to have the same name as the gem (`openstax_kitchen`) so that you don't have to `require` a different name than you use in your `gem` call.

@@ -33,7 +33,7 @@ module Kitchen
             <a href="#">
               <span class="os-number">
                 <span class="os-part-text">Unit</span>
-                1
+                #{unit.count_in(:book)}
               </span>
               <span class="os-divider"> </span>
               <span data-type itemprop class="os-text">
@@ -41,9 +41,7 @@ module Kitchen
               </span>
             </a>
             <ol class="os-unit">
-              <li cnx-archive-uri cnx-archive-shortid class="os-toc-chapter">
               #{chapters.map { |chapter| li_for_chapter(chapter) }.join("\n")}
-              <li>
             </ol>
           </li>
         HTML
