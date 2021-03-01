@@ -19,8 +19,8 @@ module Kitchen
     #
     # @return [Element, nil]
     #
-    def caption
-      first('figcaption')
+    def caption(classname: 'figcaption')
+      first(classname)
     end
 
     # Returns true if this class represents the element for the given node
