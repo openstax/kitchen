@@ -9,7 +9,7 @@ module Kitchen
         metadata_elements = metadata_source.children_to_keep.copy
 
         fix_titles = chapter.pages.map do |page|
-          key_concepts = page.search('section.key-concepts')
+          key_concepts = page.key_concepts
           next if key_concepts.none?
 
           key_concepts.search('h3').trash
@@ -18,7 +18,7 @@ module Kitchen
             key_concept.prepend(child:
               <<~HTML
                 <a href="##{id[0]}0">
-                  <h3 data-type="document-title" id="#{id[0]}0_copy_XXX">
+                  <h3 data-type="document-title" id="#{id[0]}0">
                     <span class="os-number">#{chapter.count_in(:book)}.#{key_concept.count_in(:chapter)}</span>
                     <span class="os-divider"> </span>
                     <span class="os-text" data-type="" itemprop="">#{page.title.text}</span>
@@ -27,13 +27,15 @@ module Kitchen
               HTML
             )
 
+            new_key_concept = key_concept.cut
+
             <<~HTML
               <div class="os-section-area">
-                #{key_concept}
+                #{new_key_concept.paste}
               </div>
             HTML
-          end.compact.join("\n")
-        end.compact.join("\n")
+          end.join("\n")
+        end.join("\n")
 
         chapter.append(child:
           <<~HTML
