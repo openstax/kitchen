@@ -19,7 +19,7 @@ module Kitchen
               <<~HTML
                 <a href="##{id[0]}0">
                   <h3 data-type="document-title" id="#{id[0]}0">
-                    <span class="os-number">#{chapter.count_in(:book)}.#{key_concept.count_in(:chapter)}</span>
+                    <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter) - 1}</span>
                     <span class="os-divider"> </span>
                     <span class="os-text" data-type="" itemprop="">#{page.title.text}</span>
                   </h3>
