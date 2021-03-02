@@ -14,6 +14,9 @@ Style/BlockDelimiters:
   IgnoredMethods:
     - expect
 
+Style/Semicolon:
+  Enabled: false
+
 Style/SymbolProc:
   Enabled: false
 
