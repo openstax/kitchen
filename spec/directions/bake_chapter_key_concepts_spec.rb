@@ -13,6 +13,7 @@ RSpec.describe Kitchen::Directions::BakeChapterKeyConcepts do
     chapter_element(
       page_element(
         <<~HTML
+          <div data-type="document-title">Page 1</div>
           <section id="auto_7c_fs-id1" class="key-concepts">
             <h3 data-type="document-title">WWF History</h3>
             <p>Concepts blah.</p>
@@ -29,13 +30,13 @@ RSpec.describe Kitchen::Directions::BakeChapterKeyConcepts do
       <<~HTML
         <div data-type="chapter">
           <div data-type="page">
-            <h1 data-type="document-title">Page1</h1>
+            <div data-type="document-title">Page 1</div>
             <section id="auto_7c_fs-id1" class="key-concepts">
               <a href="#auto_7c_0">
                 <h3 data-type="document-title" id="auto_7c_0_copy_XXX">
                   <span class="os-number">1.2</span>
                   <span class="os-divider"> </span>
-                  <span class="os-text" data-type="" itemprop="">Page1</span>
+                  <span class="os-text" data-type="" itemprop="">Page 1</span>
                 </h3>
               </a>
               <p>Concepts blah.</p>
@@ -56,7 +57,7 @@ RSpec.describe Kitchen::Directions::BakeChapterKeyConcepts do
                     <h3 data-type="document-title" id="auto_7c_0_copy_XXX">
                       <span class="os-number">1.2</span>
                       <span class="os-divider"> </span>
-                      <span class="os-text" data-type="" itemprop="">Page1</span>
+                      <span class="os-text" data-type="" itemprop="">Page 1</span>
                     </h3>
                   </a>
                   <p>Concepts blah.</p>
