@@ -1,12 +1,12 @@
 module Kitchen
   module Directions
     module BakeFigure
-      def self.v1(figure:, number:, caption_selector: 'figcaption')
+      def self.v1(figure:, number:)
         figure.wrap(%(<div class="os-figure#{' has-splash' if figure.has_class?('splash')}">))
 
         figure.document.pantry(name: :link_text).store "#{I18n.t(:figure)} #{number}", label: figure.id
 
-        caption = figure.caption(classname: caption_selector)&.cut
+        caption = figure.caption&.cut
         figure.append(sibling:
           <<~HTML
             <div class="os-caption-container">
