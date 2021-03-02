@@ -33,3 +33,12 @@ RSpec/MessageSpies:
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4

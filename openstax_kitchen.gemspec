@@ -2,6 +2,7 @@
 
 require_relative 'lib/kitchen/version'
 
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name          = 'openstax_kitchen'
   spec.version       = Kitchen::VERSION
@@ -43,3 +44,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'yard'
 end
+# rubocop:enable Metrics/BlockLength
