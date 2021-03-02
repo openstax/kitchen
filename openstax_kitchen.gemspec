@@ -2,7 +2,6 @@
 
 require_relative 'lib/kitchen/version'
 
-# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name          = 'openstax_kitchen'
   spec.version       = Kitchen::VERSION
@@ -13,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'OpenStax content baking library'
   spec.homepage      = 'https://github.com/openstax/kitchen'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.4.0')
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.org'
 
@@ -44,4 +43,3 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'yard'
 end
-# rubocop:enable Metrics/BlockLength
