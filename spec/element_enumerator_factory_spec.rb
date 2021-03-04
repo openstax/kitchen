@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Kitchen::ElementEnumeratorFactory do
-  context 'apply_default_css_or_xpath_and_normalize' do
+  describe 'apply_default_css_or_xpath_and_normalize' do
     let(:method) { described_class.method(:apply_default_css_or_xpath_and_normalize) }
 
     it 'arrayifies a string' do
@@ -34,7 +36,7 @@ RSpec.describe Kitchen::ElementEnumeratorFactory do
     end
   end
 
-  context 'specific enumerators create a factory' do
+  describe 'specific enumerators create a factory' do
     [
       Kitchen::ChapterElementEnumerator,
       Kitchen::CompositePageElementEnumerator,
@@ -46,7 +48,7 @@ RSpec.describe Kitchen::ElementEnumeratorFactory do
       Kitchen::TermElementEnumerator,
       Kitchen::TypeCastingElementEnumerator
     ].each do |enumerator_class|
-      it "it is created by #{enumerator_class}" do
+      it "is created by #{enumerator_class}" do
         expect(described_class).to receive(:new)
         enumerator_class.factory
       end

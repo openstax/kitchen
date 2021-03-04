@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Monkey patches for +Object+
 #
 class Object
@@ -17,7 +19,7 @@ class Object
       File.dirname(location_that_called_renderable.path)
     end
 
-    class_eval <<~METHOD
+    class_eval <<~METHOD, __FILE__, __LINE__ + 1
       def renderable_base_dir
         "#{dir}"
       end

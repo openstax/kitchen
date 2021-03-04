@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'ostruct'
 
@@ -8,7 +10,7 @@ RSpec.describe Kitchen::Clipboard do
     OpenStruct.new(paste: value)
   end
 
-  context '#add' do
+  describe '#add' do
     it 'allows for clipboard calls to be chained' do
       expect(my_clipboard.add(1).add(2).items).to eq([1, 2])
     end
@@ -18,7 +20,7 @@ RSpec.describe Kitchen::Clipboard do
     end
   end
 
-  context '#clear' do
+  describe '#clear' do
     it 'clears clipboard contents' do
       my_clipboard.add(1)
       my_clipboard.clear
@@ -26,7 +28,7 @@ RSpec.describe Kitchen::Clipboard do
     end
   end
 
-  context '#paste' do
+  describe '#paste' do
     it 'returns a concatenation of the pasting' do
       my_clipboard.add(fake_element(2))
       my_clipboard.add(fake_element(3))
@@ -34,17 +36,17 @@ RSpec.describe Kitchen::Clipboard do
     end
 
     it 'returns empty object when theres nothing to paste' do
-      expect(my_clipboard.paste).to eq("")
+      expect(my_clipboard.paste).to eq('')
     end
   end
 
-  context '#each' do
-    context 'return self' do
-      context 'when the clipboard has contents' do
+  describe '#each' do
+    describe 'return self' do
+      describe 'when the clipboard has contents' do
         before { my_clipboard.add(fake_element(2)) }
 
         it 'and block is given' do
-          expect(my_clipboard.each{}).to be my_clipboard
+          expect(my_clipboard.each {}).to be my_clipboard
         end
 
         it 'and block is not given' do
@@ -63,12 +65,12 @@ RSpec.describe Kitchen::Clipboard do
     end
 
     it 'iterates on elements' do
-      my_clipboard.add("howdy").add("y'all")
-      expect{ |block| my_clipboard.each(&block) }.to yield_successive_args("howdy", "y'all")
+      my_clipboard.add('howdy').add("y'all")
+      expect { |block| my_clipboard.each(&block) }.to yield_successive_args('howdy', "y'all")
     end
   end
 
-  context '#sort_by' do
+  describe '#sort_by' do
     it 'returns empty object when no block given' do
       expect(my_clipboard.sort_by!).to be my_clipboard
     end
@@ -79,7 +81,7 @@ RSpec.describe Kitchen::Clipboard do
       my_clipboard.add(fake_element('Element'))
       expect(
         my_clipboard.sort_by!(&:paste).paste
-      ).to eq("ABCElementZebra")
+      ).to eq('ABCElementZebra')
     end
   end
 end
