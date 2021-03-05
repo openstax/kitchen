@@ -6,7 +6,8 @@ RSpec.describe Kitchen::Directions::BakeToc do
   before do
     stub_locales({
       'toc_title': 'Contents',
-      'chapter': 'Chapter'
+      'chapter': 'Chapter',
+      'unit': 'Unit'
     })
   end
 
@@ -19,49 +20,69 @@ RSpec.describe Kitchen::Directions::BakeToc do
             <span data-type="" itemprop="" class="os-text">Preface</span>
           </h1>
         </div>
-        <div data-type="chapter">
-          <h1 data-type="document-title" id="chapTitle1">
-            <span class="os-part-text">Chapter </span>
-            <span class="os-number">1</span>
-            <span class="os-divider"> </span>
-            <span class="os-text" data-type="" itemprop="">Chapter 1 Title</span>
-          </h1>
-          <div data-type="page" class="introduction" id="p2">
-            <div class="intro-body">
-              <div class="intro-text">
-                <h2 data-type="document-title" id="auto_m68760_38230">
-                  <span data-type="" itemprop="" class="os-text">Introduction</span>
-                </h2>
+        <div data-type="unit">
+          <h1 xmlns="http://www.w3.org/1999/xhtml" data-type="document-title">Unit 1 Title</h1>
+          <div data-type="chapter">
+            <h1 data-type="document-title" id="chapTitle1">
+              <span class="os-part-text">Chapter </span>
+              <span class="os-number">1</span>
+              <span class="os-divider"> </span>
+              <span class="os-text" data-type="" itemprop="">Chapter 1 Title</span>
+            </h1>
+            <div data-type="page" class="introduction" id="p2">
+              <div class="intro-body">
+                <div class="intro-text">
+                  <h2 data-type="document-title" id="auto_m68760_38230">
+                    <span data-type="" itemprop="" class="os-text">Introduction</span>
+                  </h2>
+                </div>
               </div>
             </div>
+            <div data-type="page" id="p3">
+              <h2 data-type="document-title">
+                <span class="os-number">1.1</span>
+                <span class="os-divider"> </span>
+                <span data-type="" itemprop="" class="os-text">Page 1.1 Title</span>
+              </h2>
+            </div>
+            <div data-type="composite-page" id="composite-page-1">
+              <h2 data-type="document-title">
+                <span class="os-text">Key Terms</span>
+              </h2>
+            </div>
           </div>
-          <div data-type="page" id="p3">
-            <h2 data-type="document-title">
-              <span class="os-number">1.1</span>
+          <div data-type="chapter">
+            <h1 data-type="document-title" id="chapTitle2">
+              <span class="os-part-text">Chapter </span>
+              <span class="os-number">2</span>
               <span class="os-divider"> </span>
-              <span data-type="" itemprop="" class="os-text">Page 1.1 Title</span>
-            </h2>
-          </div>
-          <div data-type="composite-page" id="composite-page-1">
-            <h2 data-type="document-title">
-              <span class="os-text">Key Terms</span>
-            </h2>
+              <span class="os-text" data-type="" itemprop="">Chapter 2 Title</span>
+            </h1>
+            <div data-type="page" id="p4">
+              <h2 data-type="document-title">
+                <span class="os-number">2.1</span>
+                <span class="os-divider"> </span>
+                <span data-type="" itemprop="" class="os-text">Page 2.1 Title</span>
+              </h2>
+            </div>
           </div>
         </div>
-        <div data-type="chapter">
-          <h1 data-type="document-title" id="chapTitle2">
+        <div data-type="unit">
+          <div data-type="chapter">
+          <h1 data-type="document-title" id="chapTitle3">
             <span class="os-part-text">Chapter </span>
-            <span class="os-number">2</span>
+            <span class="os-number">3</span>
             <span class="os-divider"> </span>
-            <span class="os-text" data-type="" itemprop="">Chapter 2 Title</span>
+            <span class="os-text" data-type="" itemprop="">Chapter 3 Title</span>
           </h1>
           <div data-type="page" id="p4">
             <h2 data-type="document-title">
               <span class="os-number">2.1</span>
               <span class="os-divider"> </span>
-              <span data-type="" itemprop="" class="os-text">Page 2.1 Title</span>
+              <span data-type="" itemprop="" class="os-text">Page 3.1 Title</span>
             </h2>
           </div>
+        </div>
         </div>
         <div data-type="page" id="p5" class="appendix">
           <h1 data-type="document-title">
@@ -130,31 +151,33 @@ RSpec.describe Kitchen::Directions::BakeToc do
                 <span class="os-text" data-type="" itemprop="">Preface</span>
               </a>
             </li>
-            <li class="os-toc-chapter" cnx-archive-shortid="" cnx-archive-uri="">
-              <a href="#chapTitle1">
-                <span class="os-number"><span class="os-part-text">Chapter </span>1</span>
-                <span class="os-divider"> </span>
-                <span class="os-text" data-type="" itemprop="">Chapter 1 Title</span>
-              </a>
-              <ol class="os-chapter">
-                <li class="os-toc-chapter-page" cnx-archive-shortid="" cnx-archive-uri="p2">
-                  <a href="#p2">
-                    <span class="os-text" data-type="" itemprop="">Introduction</span>
-                  </a>
-                </li>
-                <li class="os-toc-chapter-page" cnx-archive-shortid="" cnx-archive-uri="p3">
-                  <a href="#p3">
-                    <span class="os-number">1.1</span>
-                    <span class="os-divider"> </span>
-                    <span class="os-text" data-type="" itemprop="">Page 1.1 Title</span>
-                  </a>
-                </li>
-                <li class="os-toc-chapter-composite-page" cnx-archive-shortid="" cnx-archive-uri="composite-page-1">
-                  <a href="#composite-page-1">
-                    <span class="os-text">Key Terms</span>
-                  </a>
-                </li>
-              </ol>
+            <li cnx-archive-uri cnx-archive-shortid class="os-toc-unit">
+              <li class="os-toc-chapter" cnx-archive-shortid="" cnx-archive-uri="">
+                <a href="#chapTitle1">
+                  <span class="os-number"><span class="os-part-text">Chapter </span>1</span>
+                  <span class="os-divider"> </span>
+                  <span class="os-text" data-type="" itemprop="">Chapter 1 Title</span>
+                </a>
+                <ol class="os-chapter">
+                  <li class="os-toc-chapter-page" cnx-archive-shortid="" cnx-archive-uri="p2">
+                    <a href="#p2">
+                      <span class="os-text" data-type="" itemprop="">Introduction</span>
+                    </a>
+                  </li>
+                  <li class="os-toc-chapter-page" cnx-archive-shortid="" cnx-archive-uri="p3">
+                    <a href="#p3">
+                      <span class="os-number">1.1</span>
+                      <span class="os-divider"> </span>
+                      <span class="os-text" data-type="" itemprop="">Page 1.1 Title</span>
+                    </a>
+                  </li>
+                  <li class="os-toc-chapter-composite-page" cnx-archive-shortid="" cnx-archive-uri="composite-page-1">
+                    <a href="#composite-page-1">
+                      <span class="os-text">Key Terms</span>
+                    </a>
+                  </li>
+                </ol>
+              </li>
             </li>
             <li class="os-toc-chapter" cnx-archive-shortid="" cnx-archive-uri="">
               <a href="#chapTitle2">
