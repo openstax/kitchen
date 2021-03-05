@@ -22,25 +22,31 @@ module Kitchen
     # @return [Element, nil]
     #
     def caption
-      first('figcaption', "div[data-type='description']")
+      first('figcaption')
+    end
+
+    # Returns the Figure Title
+    #
+    # @return [Element, nil]
+    #
+    def title
+      first("div[data-type='title']")
     end
 
     # Returns true if the figure is a child of another figure
     #
     # @return [Boolean]
     #
-
-    def is_subfigure?
-      parent.node.to_s.end_with?('</figure>')
+    def subfigure?
+      parent.name == 'figure'
     end
 
-    # Increments the count of this element in all of this element's ancestors
-    # unless it's a subfigure
-
-    def count_as_descendant
-      @ancestors.each_pair do |type, ancestor|
-        @counts_in[type] = ancestor.increment_descendant_count(short_type) unless is_subfigure?
-      end
+    # Returns weather the figure is countable or not
+    #
+    # @return [Boolean]
+    #
+    def countable?
+      !subfigure?
     end
 
     # Returns true if this class represents the element for the given node
