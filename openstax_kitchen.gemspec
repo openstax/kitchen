@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lib/kitchen/version'
 
 Gem::Specification.new do |spec|
@@ -10,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'OpenStax content baking library'
   spec.homepage      = 'https://github.com/openstax/kitchen'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.4.0')
 
   spec.metadata['allowed_push_host'] = 'https://rubygems.org'
 
@@ -37,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'nokogiri-diff'
   spec.add_development_dependency 'rainbow'
   spec.add_development_dependency 'rubocop'
-  spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'rubocop-rake'
+  spec.add_development_dependency 'rubocop-rspec'
   spec.add_development_dependency 'yard'
 end

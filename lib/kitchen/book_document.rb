@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kitchen
   # A specialized form of +Document+ for our books.
   #

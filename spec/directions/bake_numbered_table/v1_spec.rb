@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::BakeNumberedTable::V1 do
@@ -154,8 +156,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedTable::V1 do
     )
   end
 
-
-  context 'no caption' do
+  context 'when no caption' do
     let(:caption) { '' }
 
     it 'does not include an os-caption div' do

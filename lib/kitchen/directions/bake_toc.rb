@@ -53,7 +53,7 @@ module Kitchen
         <<~HTML
           <li class="os-toc-composite-chapter" cnx-archive-shortid="" cnx-archive-uri="">
             <a href="##{chapter.title.id}">
-              #{chapter.title.children.to_s}
+              #{chapter.title.children}
             </a>
             <ol class="os-chapter">
               #{pages.map { |page| li_for_page(page) }.join("\n")}
@@ -81,7 +81,8 @@ module Kitchen
 
       def self.li_for_page(page)
         li_class =
-          if page.is_a?(PageElement)
+          case page
+          when PageElement
             if page.has_ancestor?(:chapter)
               'os-toc-chapter-page'
             elsif page.is_appendix?
@@ -91,7 +92,7 @@ module Kitchen
             else
               raise "do not know what TOC class to use for page with classes #{page.classes}"
             end
-          elsif page.is_a?(CompositePageElement)
+          when CompositePageElement
             if page.is_index?
               'os-toc-index'
             elsif page.has_ancestor?(:composite_chapter) || page.has_ancestor?(:chapter)

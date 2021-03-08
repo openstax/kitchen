@@ -1,4 +1,6 @@
-@solution_2 = Kitchen::BookRecipe.new do |doc|
+# frozen_string_literal: true
+
+@solution2 = Kitchen::BookRecipe.new do |doc|
   book = doc.book
 
   # Solution 1 treats figures and tables almost identically and ends up duplicating

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module StringHelpers
   def with_captured_stdout(clear_colors: false)
     original_stdout = $stdout   # capture previous value of $stdout
@@ -6,7 +8,7 @@ module StringHelpers
 
     # return the captured string
     if clear_colors
-      $stdout.string.gsub(/\e\[(\d+)(;\d+)*m/,'')
+      $stdout.string.gsub(/\e\[(\d+)(;\d+)*m/, '')
     else
       $stdout.string
     end

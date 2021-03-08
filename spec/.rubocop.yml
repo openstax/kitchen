@@ -11,12 +11,11 @@ Layout/FirstHashElementIndentation:
   Enabled: false
 
 Style/BlockDelimiters:
-  FunctionalMethods:
-    - let
-    - let!
-    - subject
-    - watch
-    - expect # added this
+  IgnoredMethods:
+    - expect
+
+Style/Semicolon:
+  Enabled: false
 
 Style/SymbolProc:
   Enabled: false
@@ -31,3 +30,18 @@ RSpec/ExampleLength:
 # doing things and saying `expect().to have_received(:blah)` afterwards
 RSpec/MessageSpies:
   EnforcedStyle: receive
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/MultipleExpectations:
+  Max: 4

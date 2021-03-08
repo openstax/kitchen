@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::BakeFootnotes::V1 do
 
-  let(:book_1) do
+  let(:book1) do
     book_containing(html:
       <<~HTML
         <div data-type="page">
@@ -34,9 +36,9 @@ RSpec.describe Kitchen::Directions::BakeFootnotes::V1 do
   end
 
   it 'works' do
-    described_class.new.bake(book: book_1)
+    described_class.new.bake(book: book1)
 
-    expect(book_1.body.children.to_s).to match_normalized_html(
+    expect(book1.body.children.to_s).to match_normalized_html(
       <<~HTML
         <div data-type="page">
           <p><a href="#aside1" role="doc-noteref">1</a> Blah.</p>
