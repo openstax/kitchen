@@ -67,7 +67,7 @@ RSpec.describe Kitchen::ElementBase do
   end
 
   describe '#countable?' do
-    it 'returns false if not countable (default true)' do
+    it 'defaults to true' do
       expect(example.countable?).to eq true
     end
   end

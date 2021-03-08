@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2021-02-08
+### Added
+* changes the FigureElement count to skip subfigures (may affect past builds)
+* adjusts BakeFigure to format titles as well
+* adds .countable? to BaseElement
+
 ## [2.0.0] - 2020-12-18
 
 * Changed the main gem source file to have the same name as the gem (`openstax_kitchen`) so that you don't have to `require` a different name than you use in your `gem` call.

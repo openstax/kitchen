@@ -108,11 +108,7 @@ RSpec.describe Kitchen::Directions::BakeFigure do
 
   describe '#subfigure?' do
     it 'can detect subfigures' do
-      is_subfigure = []
-      book2.chapters.figures.each do |figure|
-        is_subfigure.push(figure.subfigure?)
-      end
-      expect(is_subfigure).to eq([false, true, true])
+      expect(book2.chapters.figures.map(&:subfigure?)).to eq([false, true, true])
     end
   end
 
