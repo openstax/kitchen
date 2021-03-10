@@ -31,7 +31,7 @@ module Kitchen
         <<~HTML
           <li cnx-archive-uri="" cnx-archive-shortid="" class="os-toc-unit">
             <a href="#">
-              <span class="os-number"><span class="os-part-text">Unit </span> #{unit.count_in(:book)}</span>
+              <span class="os-number"><span class="os-part-text">#{I18n.t(:unit)} </span> #{unit.count_in(:book)}</span>
               <span class="os-divider"> </span>
               <span data-type itemprop class="os-text"> #{unit.title.children} </span>
             </a>

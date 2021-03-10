@@ -6,7 +6,8 @@ RSpec.describe Kitchen::Directions::BakeToc do
   before do
     stub_locales({
       'toc_title': 'Contents',
-      'chapter': 'Chapter'
+      'chapter': 'Chapter',
+      'unit': 'Unit'
     })
   end
 
@@ -66,7 +67,39 @@ RSpec.describe Kitchen::Directions::BakeToc do
             </div>
           </div>
         </div>
-        <div data-type="page" id="p5" class="appendix">
+        <div data-type="unit">
+          <h1 data-type="document-title">Unit 2 Title</h1>
+          <div data-type="chapter">
+            <h1 data-type="document-title" id="chapTitle3">
+              <span class="os-part-text">Chapter </span>
+              <span class="os-number">3</span>
+              <span class="os-divider"> </span>
+              <span class="os-text" data-type="" itemprop="">Chapter 3 Title</span>
+            </h1>
+            <div data-type="page" class="introduction" id="p5">
+              <div class="intro-body">
+                <div class="intro-text">
+                  <h2 data-type="document-title" id="auto_m68760_38230">
+                    <span data-type="" itemprop="" class="os-text">Introduction</span>
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div data-type="page" id="p6">
+              <h2 data-type="document-title">
+                <span class="os-number">3.1</span>
+                <span class="os-divider"> </span>
+                <span data-type="" itemprop="" class="os-text">Page 3.1 Title</span>
+              </h2>
+            </div>
+            <div data-type="composite-page" id="composite-page-2">
+              <h2 data-type="document-title">
+                <span class="os-text">Key Terms</span>
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div data-type="page" id="p7" class="appendix">
           <h1 data-type="document-title">
             <span class="os-part-text">Appendix </span>
             <span class="os-number">A</span>
@@ -78,13 +111,13 @@ RSpec.describe Kitchen::Directions::BakeToc do
           <h1 data-type="document-title" id="composite-chapter-1">
             <span class="os-text">Answer Key</span>
           </h1>
-          <div data-type="composite-page" id="p6">
+          <div data-type="composite-page" id="p8">
             <h2 data-type="document-title">
               <span class="os-text">Chapter 1</span>
             </h2>
           </div>
         </div>
-        <div class="os-index-container" data-type="composite-page" id="p7">
+        <div class="os-index-container" data-type="composite-page" id="p9">
           <h1 data-type="document-title">
             <span class="os-text">Index</span>
           </h1>
@@ -184,8 +217,43 @@ RSpec.describe Kitchen::Directions::BakeToc do
                 </li>
               </ol>
             </li>
-            <li class="os-toc-appendix" cnx-archive-shortid="" cnx-archive-uri="p5">
-              <a href="#p5">
+            <li class="os-toc-unit" cnx-archive-shortid="" cnx-archive-uri="">
+              <a href="#">
+                <span class="os-number"><span class="os-part-text">Unit </span> 2</span>
+                <span class="os-divider"> </span>
+                <span class="os-text" data-type="" itemprop=""> Unit 2 Title </span>
+              </a>
+              <ol class="os-unit">
+                <li class="os-toc-chapter" cnx-archive-shortid="" cnx-archive-uri="">
+                  <a href="#chapTitle3">
+                    <span class="os-number"><span class="os-part-text">Chapter </span>3</span>
+                    <span class="os-divider"> </span>
+                    <span class="os-text" data-type="" itemprop="">Chapter 3 Title</span>
+                  </a>
+                  <ol class="os-chapter">
+                    <li class="os-toc-chapter-page" cnx-archive-shortid="" cnx-archive-uri="p5">
+                      <a href="#p5">
+                        <span class="os-text" data-type="" itemprop="">Introduction</span>
+                      </a>
+                    </li>
+                    <li class="os-toc-chapter-page" cnx-archive-shortid="" cnx-archive-uri="p6">
+                      <a href="#p6">
+                        <span class="os-number">3.1</span>
+                        <span class="os-divider"> </span>
+                        <span class="os-text" data-type="" itemprop="">Page 3.1 Title</span>
+                      </a>
+                    </li>
+                    <li class="os-toc-chapter-composite-page" cnx-archive-shortid="" cnx-archive-uri="composite-page-2">
+                      <a href="#composite-page-2">
+                        <span class="os-text">Key Terms</span>
+                      </a>
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li class="os-toc-appendix" cnx-archive-shortid="" cnx-archive-uri="p7">
+              <a href="#p7">
                 <span class="os-number"><span class="os-part-text">Appendix </span>A</span>
                 <span class="os-divider"> </span>
                 <span class="os-text" data-type="" itemprop="">Appendix A Title</span>
@@ -196,15 +264,15 @@ RSpec.describe Kitchen::Directions::BakeToc do
                 <span class="os-text">Answer Key</span>
               </a>
               <ol class="os-chapter">
-                <li class="os-toc-chapter-composite-page" cnx-archive-shortid="" cnx-archive-uri="p6">
-                  <a href="#p6">
+                <li class="os-toc-chapter-composite-page" cnx-archive-shortid="" cnx-archive-uri="p8">
+                  <a href="#p8">
                     <span class="os-text">Chapter 1</span>
                   </a>
                 </li>
               </ol>
             </li>
-            <li class="os-toc-index" cnx-archive-shortid="" cnx-archive-uri="p7">
-              <a href="#p7">
+            <li class="os-toc-index" cnx-archive-shortid="" cnx-archive-uri="p9">
+              <a href="#p9">
                 <span class="os-text">Index</span>
               </a>
             </li>
