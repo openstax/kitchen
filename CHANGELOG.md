@@ -6,9 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.?.?] - 2020-02-??
+## [2.1.0] - 2020-03-10
 
-* Do this before requesting review Brittany
+* Created `UnitElement` and `UnitElementEnumerator` classes
+
+* Added support for Units in `BakeToc` direction
+
+* Added `Unit` to `en.yml`
+
+* Remove chapter summary titles only if they exist
 
 ## [2.0.0] - 2020-12-18
 
