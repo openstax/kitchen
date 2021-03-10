@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.1.0] - 2020-03-10
+## [2.1.0] - 2021-03-10
 
 * Created `UnitElement` and `UnitElementEnumerator` classes
 
