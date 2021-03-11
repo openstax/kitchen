@@ -148,6 +148,12 @@ module Kitchen
     #
     # @param enumerator_class [ElementEnumeratorBase] the enumerator to use for the iteration
     # @param css_or_xpath [String] additional selectors to further narrow the element iterated over
+    # @param only [Symbol, Callable] the name of a method to call on an element or a
+    #   lambda or proc that accepts an element; elements will only be included in the
+    #   search results if the method or callable returns true
+    # @param except [Symbol, Callable] the name of a method to call on an element or a
+    #   lambda or proc that accepts an element; elements will not be included in the
+    #   search results if the method or callable returns false
     #
     def chain_to(enumerator_class, css_or_xpath: nil, only: nil, except: nil)
       block_error_if(block_given?)

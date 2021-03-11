@@ -29,10 +29,7 @@ module Kitchen
     # @return [Boolean]
     #
     def conditions_match?(element)
-      return false if except&.call(element)
-      return true if only&.call(element)
-
-      true
+      condition_passes?(except, element, false) && condition_passes?(only, element, true)
     end
 
     def apply_default_css_or_xpath_and_normalize(default_css_or_xpath=nil)
@@ -52,6 +49,21 @@ module Kitchen
 
     def to_s
       as_type
+    end
+
+    protected
+
+    def condition_passes?(method_or_callable, element, success_outcome)
+      return true if method_or_callable.nil?
+
+      result =
+        if method_or_callable.is_a?(Symbol)
+          element.send(method_or_callable)
+        else
+          method_or_callable.call(element)
+        end
+
+      !!result == success_outcome
     end
   end
 end
