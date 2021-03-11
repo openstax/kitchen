@@ -33,7 +33,9 @@ module Kitchen
     # @return [String]
     #
     def to_s(missing_string='?')
-      to_a.map { |item| "[#{item || missing_string}]" }.join(' ')
+      array = to_a
+      array.shift while array.any? && array[0].nil?
+      array.map { |item| "[#{item || missing_string}]" }.join(' ')
     end
 
     # Returns this instance as an array of selectors
