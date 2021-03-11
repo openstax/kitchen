@@ -15,17 +15,16 @@ module Kitchen
       new
     end
 
-    # Returns a new +SearchHistory+ that contains the current selector history plus the
-    # provided selector
+    # Returns a new +SearchHistory+ that contains the current history plus the
+    # provided query
     #
-    # @param css_or_xpath [String] the selector history to add
+    # @param search_query [SearchQuery] the search query to add to the history
     # @return [SearchHistory]
     #
-    def add(css_or_xpath)
-      self.class.new(self, css_or_xpath.nil? ? nil : [css_or_xpath].join(', '))
+    def add(search_query)
+      search_query = SearchQuery.new(css_or_xpath: search_query) if search_query.is_a?(String)
+      self.class.new(self, search_query)
     end
-
-    # TODO fix this
 
     # Returns the history as a string
     #
@@ -58,9 +57,12 @@ module Kitchen
     # Create a new instance
     #
     # @param upstream [SearchHistory] prior search history
-    # @param latest [String] the new history
+    # @param latest [SearchQuery] the new history
     #
     def initialize(upstream=nil, latest=nil)
+      raise 'Upstream must be a SearchHistory' unless upstream.nil? || upstream.is_a?(SearchHistory)
+      raise 'Latest must be a SearchQuery' unless latest.nil? || latest.is_a?(SearchQuery)
+
       @upstream = upstream
       @latest = latest
     end
