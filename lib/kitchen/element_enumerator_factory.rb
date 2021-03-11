@@ -37,7 +37,7 @@ module Kitchen
     # @return [ElementEnumeratorBase] actually returns the concrete enumerator class
     #   given to the factory in its constructor.
     #
-    def build_within(enumerator_or_element, css_or_xpath: nil)
+    def build_within(enumerator_or_element, css_or_xpath: nil, only: nil, except: nil)
       css_or_xpath = self.class.apply_default_css_or_xpath_and_normalize(
         css_or_xpath: css_or_xpath,
         default_css_or_xpath: default_css_or_xpath
@@ -45,9 +45,9 @@ module Kitchen
 
       case enumerator_or_element
       when ElementBase
-        build_within_element(enumerator_or_element, css_or_xpath: css_or_xpath)
+        build_within_element(enumerator_or_element, css_or_xpath: css_or_xpath, only: only, except: except)
       when ElementEnumeratorBase
-        build_within_other_enumerator(enumerator_or_element, css_or_xpath: css_or_xpath)
+        build_within_other_enumerator(enumerator_or_element, css_or_xpath: css_or_xpath, only: only, except: except)
       end
     end
 
@@ -73,8 +73,8 @@ module Kitchen
 
     protected
 
-    def build_within_element(element, css_or_xpath:)
-      enumerator_class.new(css_or_xpath: css_or_xpath) do |block|
+    def build_within_element(element, css_or_xpath:, only:, except:)
+      enumerator_class.new(search_query: css_or_xpath) do |block|
         grand_ancestors = element.ancestors
         parent_ancestor = Ancestor.new(element)
 
@@ -88,6 +88,8 @@ module Kitchen
             default_short_type: Utils.search_path_to_type(css_or_xpath),
             detect_element_class: detect_sub_element_class
           )
+
+          next if except&.call(sub_element)
 
           # If the provided `css_or_xpath` has already been counted, we need to uncount
           # them on the ancestors so that when they are counted again below, the counts
@@ -124,13 +126,13 @@ module Kitchen
       end
     end
 
-    def build_within_other_enumerator(other_enumerator, css_or_xpath:)
+    def build_within_other_enumerator(other_enumerator, css_or_xpath:, only:, except:)
       # Return a new enumerator instance that internally iterates over `other_enumerator`
       # running a new enumerator for each element returned by that other enumerator.
-      enumerator_class.new(css_or_xpath: css_or_xpath,
+      enumerator_class.new(search_query: css_or_xpath,
                            upstream_enumerator: other_enumerator) do |block|
         other_enumerator.each do |element|
-          build_within_element(element, css_or_xpath: css_or_xpath).each do |sub_element|
+          build_within_element(element, css_or_xpath: css_or_xpath, only: only, except: except).each do |sub_element|
             block.yield(sub_element)
           end
         end

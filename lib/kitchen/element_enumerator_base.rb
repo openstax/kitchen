@@ -6,17 +6,24 @@ module Kitchen
   class ElementEnumeratorBase < Enumerator
     include Mixins::BlockErrorIf
 
+    # Return the selectors or other search strings that this enumerator uses to
+    # search through the document
+    #
+    # @return [String]
+    #
+    attr_reader :search_query
+
     # Creates a new instance
     #
     # @param size [Integer, Proc] How to calculate the size lazily, either a value
     #   or a callable object
-    # @param css_or_xpath [String] the selectors this enumerator uses to search through
-    #   the document
+    # @param search_query [String] the selectors or other search strings that this
+    #   enumerator uses to search through the document
     # @param upstream_enumerator [ElementEnumeratorBase] the enumerator to which this
     #   enumerator is chained, used to access the upstream search history
     #
-    def initialize(size=nil, css_or_xpath: nil, upstream_enumerator: nil)
-      @css_or_xpath = css_or_xpath
+    def initialize(size=nil, search_query: nil, upstream_enumerator: nil)
+      @search_query = search_query
       @upstream_enumerator = upstream_enumerator
       super(size)
     end
@@ -26,7 +33,7 @@ module Kitchen
     # @return [SearchHistory]
     #
     def search_history
-      (@upstream_enumerator&.search_history || SearchHistory.empty).add(@css_or_xpath)
+      (@upstream_enumerator&.search_history || SearchHistory.empty).add(@search_query)
     end
 
     # Returns an enumerator that iterates through terms within the scope of this enumerator
@@ -79,9 +86,9 @@ module Kitchen
     #   a "$" in this argument will be replaced with the default selector for the element being
     #   iterated over.
     #
-    def figures(css_or_xpath=nil)
+    def figures(css_or_xpath=nil, only: nil, except: nil)
       block_error_if(block_given?)
-      chain_to(FigureElementEnumerator, css_or_xpath: css_or_xpath)
+      chain_to(FigureElementEnumerator, css_or_xpath: css_or_xpath, only: only, except: except)
     end
 
     # Returns an enumerator that iterates through notes within the scope of this enumerator
@@ -142,9 +149,14 @@ module Kitchen
     # @param enumerator_class [ElementEnumeratorBase] the enumerator to use for the iteration
     # @param css_or_xpath [String] additional selectors to further narrow the element iterated over
     #
-    def chain_to(enumerator_class, css_or_xpath: nil)
+    def chain_to(enumerator_class, css_or_xpath: nil, only: nil, except: nil)
       block_error_if(block_given?)
-      enumerator_class.factory.build_within(self, css_or_xpath: css_or_xpath)
+      enumerator_class.factory.build_within(
+        self,
+        css_or_xpath: css_or_xpath,
+        only: only,
+        except: except
+      )
     end
 
     # Returns the first element in this enumerator

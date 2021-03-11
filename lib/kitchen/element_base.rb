@@ -601,7 +601,7 @@ module Kitchen
     #
     # @return [ElementEnumeratorBase] (actually returns the appropriate enumerator class for this element)
     def as_enumerator
-      enumerator_class.new(css_or_xpath: css_or_xpath_that_found_me) { |block| block.yield(self) }
+      enumerator_class.new(search_query: css_or_xpath_that_found_me) { |block| block.yield(self) }
     end
 
     protected
