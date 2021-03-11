@@ -153,9 +153,11 @@ module Kitchen
       block_error_if(block_given?)
       enumerator_class.factory.build_within(
         self,
-        css_or_xpath: css_or_xpath,
-        only: only,
-        except: except
+        search_query: SearchQuery.new(
+          css_or_xpath: css_or_xpath,
+          only: only,
+          except: except
+        )
       )
     end
 
