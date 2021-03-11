@@ -289,13 +289,17 @@ module Kitchen
 
     # Returns the search history that found this element
     #
-    # @return [String] a space-separated list of search queries that led to this element
+    # @return [SearchHistory]
     #
     def search_history
-      (
-        ancestor_elements.map(&:search_query_that_found_me) +
-        [search_query_that_found_me]
-      ).compact.join(' ')
+      SearchHistory.new(
+        ancestor_elements.last&.search_history || SearchHistory.empty,
+        search_query_that_found_me
+      )
+      # (
+      #   ancestor_elements.map(&:search_query_that_found_me) +
+      #   [search_query_that_found_me]
+      # ).compact.join(' ')
     end
 
     # TODO above should return SearchHistory

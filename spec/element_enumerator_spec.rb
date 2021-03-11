@@ -102,7 +102,7 @@ RSpec.describe Kitchen::ElementEnumerator do
   describe '#search_history' do
     it 'works' do
       chained_enumerator = element2_enumerator.search('.foo').search('#pId').search('span')
-      expect(chained_enumerator.search_history.to_s).to eq '[?] [.foo] [#pId] [span]'
+      expect(chained_enumerator.search_history.to_s).to eq '[.foo] [#pId] [span]'
     end
   end
 

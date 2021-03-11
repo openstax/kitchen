@@ -33,7 +33,7 @@ RSpec.describe Kitchen::SearchHistory do
     it 'works' do
       expect(described_class.empty.add(nil)
                                   .add(foo_query)
-                                  .add(blah_or_bar_query).to_s).to eq '[?] [foo] [.blah,.bar]'
+                                  .add(blah_or_bar_query).to_s).to eq '[foo] [.blah,.bar]'
     end
   end
 
