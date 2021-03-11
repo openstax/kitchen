@@ -23,9 +23,9 @@ module Kitchen
     # @return [Class]
     attr_reader :enumerator_class
 
-    # The selector that located this element in the DOM
-    # @return [String]
-    attr_accessor :css_or_xpath_that_found_me
+    # The search query that located this element in the DOM
+    # @return [SearchQuery]
+    attr_accessor :search_query_that_found_me
 
     # @!method name
     #   Get the element name (the tag)
@@ -120,7 +120,7 @@ module Kitchen
 
       @ancestors = HashWithIndifferentAccess.new
       @counts_in = HashWithIndifferentAccess.new
-      @css_or_xpath_that_has_been_counted = {}
+      @search_query_matches_that_have_been_counted = Hash.new(0)
       @is_a_clone = false
     end
 
@@ -261,41 +261,44 @@ module Kitchen
       @counts_in[ancestor_type] || raise("No ancestor of type '#{ancestor_type}'")
     end
 
-    # Track the sub elements with the given selectors have been counted
+    # Track that a sub element found by the given query has been counted
     #
-    # @param css_or_xpath [String] the selectors matching elements that need to be counted
-    # @param count [Integer] The count of those matching subelements
+    # @param search_query [SearchQuery] the search query matching the counted element
     #
-    def remember_that_sub_elements_are_already_counted(css_or_xpath:, count:)
-      @css_or_xpath_that_has_been_counted[css_or_xpath] = count
+    def remember_that_a_sub_elements_was_counted(search_query)
+      @search_query_matches_that_have_been_counted[search_query.to_s] += 1
     end
 
     # Returns true if subelements with given selectors have been counted already
     #
-    # @param css_or_xpath [String] the selectors
+    # @param search_query [SearchQuery] the search query you want to check
     # @return [Boolean]
     #
-    def have_sub_elements_already_been_counted?(css_or_xpath)
-      number_of_sub_elements_already_counted(css_or_xpath) != 0
+    def have_sub_elements_already_been_counted?(search_query)
+      number_of_sub_elements_already_counted(search_query) != 0
     end
 
     # Returns the number of subelements with given selectors that have been counted
     #
-    # @param css_or_xpath [String] the selectors
+    # @param search_query [SearchQuery] the search query to check
     # @return [Integer]
     #
-    def number_of_sub_elements_already_counted(css_or_xpath)
-      @css_or_xpath_that_has_been_counted[css_or_xpath] || 0
+    def number_of_sub_elements_already_counted(search_query)
+      @search_query_matches_that_have_been_counted[search_query.to_s] || 0
     end
 
     # Returns the search history that found this element
     #
-    # @return [String] a space-separated list of selectors that led to this element
+    # @return [String] a space-separated list of search queries that led to this element
     #
     def search_history
-      history = ancestor_elements.map(&:css_or_xpath_that_found_me) + [css_or_xpath_that_found_me]
-      history.compact.join(' ')
+      (
+        ancestor_elements.map(&:search_query_that_found_me) +
+        [search_query_that_found_me]
+      ).compact.join(' ')
     end
+
+    # TODO above should return SearchHistory
 
     # Returns an ElementEnumerator that iterates over the provided selector or xpath queries
     #
@@ -305,7 +308,12 @@ module Kitchen
     def search(*selector_or_xpath_args)
       block_error_if(block_given?)
 
-      ElementEnumerator.factory.build_within(self, css_or_xpath: selector_or_xpath_args)
+      # TODO add only and if
+
+      ElementEnumerator.factory.build_within(
+        self,
+        search_query: SearchQuery.new(css_or_xpath: selector_or_xpath_args)
+      )
     end
 
     # Yields and returns the first child element that matches the provided
@@ -346,7 +354,10 @@ module Kitchen
     #
     def element_children
       block_error_if(block_given?)
-      TypeCastingElementEnumerator.factory.build_within(self, css_or_xpath: './*')
+      TypeCastingElementEnumerator.factory.build_within(
+        self,
+        search_query: SearchQuery.new(css_or_xpath: './*')
+      )
     end
 
     # Searches for elements handled by a list of enumerator classes.  All element that
@@ -600,8 +611,9 @@ module Kitchen
     # Returns this element as an enumerator (over only one element, itself)
     #
     # @return [ElementEnumeratorBase] (actually returns the appropriate enumerator class for this element)
+    #
     def as_enumerator
-      enumerator_class.new(search_query: css_or_xpath_that_found_me) { |block| block.yield(self) }
+      enumerator_class.new(search_query: search_query_that_found_me) { |block| block.yield(self) }
     end
 
     protected

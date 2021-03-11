@@ -25,6 +25,8 @@ module Kitchen
       self.class.new(self, css_or_xpath.nil? ? nil : [css_or_xpath].join(', '))
     end
 
+    # TODO fix this
+
     # Returns the history as a string
     #
     # @param missing_string [String] if there's a missing part of the history, this string
