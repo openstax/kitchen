@@ -114,4 +114,23 @@ RSpec.describe Kitchen::ElementEnumerator do
     end
   end
 
+  describe '#main_figures' do
+    let(:element_with_figures) do
+      new_element(
+        <<~HTML
+          <div id="divId">
+            <figure id="a"></figure>
+            <figure id="b">
+              <figure id="c"></figure>
+            </figure>
+          </div>
+        HTML
+      )
+    end
+
+    it 'works' do
+      expect(element_with_figures.figures(except: ->(f) { f.id == 'c'}).map(&:id)).to eq %w(a b)
+    end
+  end
+
 end
