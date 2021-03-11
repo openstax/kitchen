@@ -44,4 +44,81 @@ RSpec.describe Kitchen::SearchQuery do
     expect(instance.css_or_xpath).to eq to
   end
 
+  describe '#conditions_match?' do
+    let(:element_with_id) { new_element('<div id="divId"/>') }
+    let(:element_without_id) { new_element('<div/>') }
+
+    context 'when neither only nor except are given' do
+      it 'returns true' do
+        expect(instance.conditions_match?(element_with_id)).to eq true
+      end
+    end
+
+    context 'when only is a symbol' do
+      let(:only) { :id }
+
+      it 'returns true when the method returns truthy' do
+        expect(instance.conditions_match?(element_with_id)).to eq true
+      end
+
+      it 'returns false when the method returns falsy' do
+        expect(instance.conditions_match?(element_without_id)).to eq false
+      end
+    end
+
+    context 'when only is a callable' do
+      let(:only) { ->(element) { element.id } }
+
+      it 'returns true when the callable returns truthy' do
+        expect(instance.conditions_match?(element_with_id)).to eq true
+      end
+
+      it 'returns false when the callable returns falsy' do
+        expect(instance.conditions_match?(element_without_id)).to eq false
+      end
+    end
+
+    context 'when except is a symbol' do
+      let(:except) { :id }
+
+      it 'returns false when the method returns truthy' do
+        expect(instance.conditions_match?(element_with_id)).to eq false
+      end
+
+      it 'returns true when the method returns falsy' do
+        expect(instance.conditions_match?(element_without_id)).to eq true
+      end
+    end
+
+    context 'when except is a callable' do
+      let(:except) { ->(element) { element.id } }
+
+      it 'returns false when the callable returns truthy' do
+        expect(instance.conditions_match?(element_with_id)).to eq false
+      end
+
+      it 'returns true when the callable returns falsy' do
+        expect(instance.conditions_match?(element_without_id)).to eq true
+      end
+    end
+
+    context 'when both only and except given' do
+      [
+        [false, false, false],
+        [false, true, false],
+        [true, false, true],
+        [true, true, false]
+      ].each do |only_return, except_return, overall_return|
+        context "when only returns #{only_return} and except returns #{except_return}" do
+          let(:only) { ->(element) { only_return } }
+          let(:except) { ->(element) { except_return } }
+
+          it "returns #{overall_return}" do
+            expect(instance.conditions_match?(element_without_id)).to eq overall_return
+          end
+        end
+      end
+    end
+  end
+
 end
