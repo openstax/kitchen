@@ -114,11 +114,12 @@ RSpec.describe Kitchen::ElementEnumerator do
     end
   end
 
-  describe '#main_figures' do
-    let(:element_with_figures) do
+  describe 'only and except searches' do
+    let(:element) do
       new_element(
         <<~HTML
           <div id="divId">
+            <span id="blah">hi</span>
             <figure id="a"></figure>
             <figure id="b">
               <figure id="c"></figure>
@@ -128,8 +129,12 @@ RSpec.describe Kitchen::ElementEnumerator do
       )
     end
 
-    it 'works' do
-      expect(element_with_figures.figures(except: ->(f) { f.id == 'c'}).map(&:id)).to eq %w(a b)
+    it 'can search via except' do
+      expect(element.figures(except: ->(f) { f.id == 'c' }).map(&:id)).to eq %w[a b]
+    end
+
+    it 'can search via only' do
+      expect(element.figures(only: ->(f) { f.id == 'c' }).map(&:id)).to eq %w[c]
     end
   end
 
