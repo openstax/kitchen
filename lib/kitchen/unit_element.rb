@@ -21,6 +21,8 @@ module Kitchen
     # CSS of ":not([data-type='metadata']) >
     #         [data-type='document-title'], [data-type='document-title']"
     # but xpath is shorter
+    # @return [Element]
+    #
     def title
       first!("./*[@data-type = 'document-title']")
     end
