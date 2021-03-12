@@ -8,9 +8,11 @@ module Kitchen
     attr_reader :only
     attr_reader :except
 
+    # Create a new SearchQuery
     #
-    # @param css_or_xpath [String, Array<String>] selectors to use to limit iteration
-    #   results
+    # @param css_or_xpath [String, Array<String>] selectors to use to limit iteration results
+    #   a "$" in this argument can be replaced with a default selector via
+    #   #apply_default_css_or_xpath_and_normalize
     # @param only [Symbol, Callable] the name of a method to call on an element or a
     #   lambda or proc that accepts an element; elements will only be included in the
     #   search results if the method or callable returns true
@@ -32,6 +34,9 @@ module Kitchen
       condition_passes?(except, element, false) && condition_passes?(only, element, true)
     end
 
+    # Replaces '$' in the `css_or_xpath` with the provided value; also normalizes
+    # `css_or_xpath` to an array
+    #
     def apply_default_css_or_xpath_and_normalize(default_css_or_xpath=nil)
       @as_type = nil
       @css_or_xpath = [css_or_xpath || '$'].flatten.map do |item|
@@ -39,6 +44,8 @@ module Kitchen
       end
     end
 
+    # Returns the search query as a spaceless string suitable for use as an element type
+    #
     def as_type
       @as_type ||= [
         [css_or_xpath].flatten.join(','),
@@ -47,6 +54,8 @@ module Kitchen
       ].compact.join(';')
     end
 
+    # Returns a string representation of the search query
+    #
     def to_s
       as_type
     end

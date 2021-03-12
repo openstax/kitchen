@@ -307,7 +307,6 @@ module Kitchen
     # @param except [Symbol, Callable] the name of a method to call on an element or a
     #   lambda or proc that accepts an element; elements will not be included in the
     #   search results if the method or callable returns false
-
     # @return [ElementEnumerator]
     #
     def search(*selector_or_xpath_args, only: nil, except: nil)
