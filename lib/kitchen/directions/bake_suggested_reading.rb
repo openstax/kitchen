@@ -13,7 +13,7 @@ module Kitchen
             <<~HTML
               <div class="os-eoc os-suggested-reading-container" data-type="composite-page" data-uuid-key=".suggested-reading">
                 <h2 data-type="document-title">
-                  <span class="os-text">Suggestions for Further Study</span>
+                  <span class="os-text">#{I18n.t(:eoc_suggested_reading)}</span>
                 </h2>
                 #{suggested_reading}
               </div>
