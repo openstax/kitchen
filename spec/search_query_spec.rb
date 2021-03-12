@@ -110,8 +110,8 @@ RSpec.describe Kitchen::SearchQuery do
         [true, true, false]
       ].each do |only_return, except_return, overall_return|
         context "when only returns #{only_return} and except returns #{except_return}" do
-          let(:only) { ->(element) { only_return } }
-          let(:except) { ->(element) { except_return } }
+          let(:only) { ->(_) { only_return } }
+          let(:except) { ->(_) { except_return } }
 
           it "returns #{overall_return}" do
             expect(instance.conditions_match?(element_without_id)).to eq overall_return

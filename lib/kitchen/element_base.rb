@@ -296,27 +296,30 @@ module Kitchen
         ancestor_elements.last&.search_history || SearchHistory.empty,
         search_query_that_found_me
       )
-      # (
-      #   ancestor_elements.map(&:search_query_that_found_me) +
-      #   [search_query_that_found_me]
-      # ).compact.join(' ')
     end
-
-    # TODO above should return SearchHistory
 
     # Returns an ElementEnumerator that iterates over the provided selector or xpath queries
     #
     # @param selector_or_xpath_args [Array<String>] Selector or XPath queries
+    # @param only [Symbol, Callable] the name of a method to call on an element or a
+    #   lambda or proc that accepts an element; elements will only be included in the
+    #   search results if the method or callable returns true
+    # @param except [Symbol, Callable] the name of a method to call on an element or a
+    #   lambda or proc that accepts an element; elements will not be included in the
+    #   search results if the method or callable returns false
+
     # @return [ElementEnumerator]
     #
-    def search(*selector_or_xpath_args)
+    def search(*selector_or_xpath_args, only: nil, except: nil)
       block_error_if(block_given?)
-
-      # TODO add only and if
 
       ElementEnumerator.factory.build_within(
         self,
-        search_query: SearchQuery.new(css_or_xpath: selector_or_xpath_args)
+        search_query: SearchQuery.new(
+          css_or_xpath: selector_or_xpath_args,
+          only: only,
+          except: except
+        )
       )
     end
 

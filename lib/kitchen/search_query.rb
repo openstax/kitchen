@@ -21,7 +21,7 @@ module Kitchen
     def initialize(css_or_xpath: nil, only: nil, except: nil)
       @css_or_xpath = css_or_xpath
       @only = only.is_a?(String) ? only.to_sym : only
-      @except = except.is_a?(String)? except.to_sym : except
+      @except = except.is_a?(String) ? except.to_sym : except
     end
 
     # Returns true iff the element passes the `only` and `except` conditions
@@ -43,7 +43,7 @@ module Kitchen
       @as_type ||= [
         [css_or_xpath].flatten.join(','),
         ("only:#{only.is_a?(Symbol) ? only : 'proc'}" if only),
-        ("except:#{except.is_a?(Symbol) ? except : 'proc'}" if except),
+        ("except:#{except.is_a?(Symbol) ? except : 'proc'}" if except)
       ].compact.join(';')
     end
 

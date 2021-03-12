@@ -58,8 +58,6 @@ module Kitchen
     def search(*selector_or_xpath_args)
       selector_or_xpath_args = [selector_or_xpath_args].flatten
 
-      # TODO "Make this use search query too"
-
       ElementEnumerator.new do |block|
         nokogiri_document.search(*selector_or_xpath_args).each do |inner_node|
           element = Kitchen::Element.new(
