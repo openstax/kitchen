@@ -6,8 +6,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.1.0] - 2021-02-08
-### Added
 * changes the FigureElement count to skip subfigures (may affect past builds)
 * adjusts BakeFigure to format titles as well
 * adds .countable? to BaseElement
