@@ -7,10 +7,10 @@ RSpec.describe Kitchen::Directions::BakeUnitTitle::V1 do
     book_containing(html:
       <<~HTML
         <div data-type="unit">
-          <h1 data-type="document-title">Title</h1>
+          <h1 data-type="document-title">First Unit Title</h1>
         </div>
         <div data-type="unit">
-          <h1 data-type="document-title">Title</h1>
+          <h1 data-type="document-title">Second Unit Title</h1>
         </div>
       HTML
     )
@@ -26,7 +26,7 @@ RSpec.describe Kitchen::Directions::BakeUnitTitle::V1 do
             <span class="os-part-text">Unit </span>
             <span class="os-number">1</span>
             <span class="os-divider"> </span>
-            <span data-type="" itemprop="" class="os-text">Title</span>
+            <span data-type="" itemprop="" class="os-text">First Unit Title</span>
           </h1>
         </div>
         <div data-type="unit">
@@ -34,7 +34,7 @@ RSpec.describe Kitchen::Directions::BakeUnitTitle::V1 do
             <span class="os-part-text">Unit </span>
             <span class="os-number">2</span>
             <span class="os-divider"> </span>
-            <span data-type="" itemprop="" class="os-text">Title</span>
+            <span data-type="" itemprop="" class="os-text">Second Unit Title</span>
           </h1>
         </div>
       HTML
