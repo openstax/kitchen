@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kitchen
   # A place to store lists of things during recipe work.  Essentially a
   # slightly fancy array.
@@ -46,9 +48,11 @@ module Kitchen
     # @return [Clipboard] self
     #
     def each(&block)
-      @items.each do |item|
-        block.call(item)
-      end if block_given?
+      if block_given?
+        @items.each do |item|
+          block.call(item)
+        end
+      end
       self
     end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kitchen
   module Directions
     module BakeFigure
@@ -14,7 +16,7 @@ module Kitchen
               <span class="os-number">#{number}</span>
               <span class="os-divider"> </span>
               <span class="os-divider"> </span>
-              #{'<span class="os-caption">' + caption.children.to_s + '</span>' if caption}
+              #{"<span class=\"os-caption\">#{caption.children}</span>" if caption}
             </div>
           HTML
         )

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'tempfile'
 
 RSpec.describe Kitchen::Oven do
-  context 'BakeProfile' do
+  describe 'BakeProfile' do
     it 'can be written to string' do
       expect(Kitchen::Oven::BakeProfile.new.to_s).to eq <<~STRING
         Open:  ?? s
@@ -13,7 +15,7 @@ RSpec.describe Kitchen::Oven do
     end
   end
 
-  context '#bake' do
+  describe '#bake' do
     it 'does nada when there are no recipes' do
       input_file = Tempfile.new.tap { |file| file.write("<div>Howdy</div>\n"); file.rewind }
       output_file = Tempfile.new

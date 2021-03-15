@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module Kitchen
-  # An element for a figure
+  # An element for a unit
   #
-  class FigureElement < ElementBase
+  class UnitElement < ElementBase
 
-    # Creates a new +FigureElement+
+    # Creates a new +UnitElement+
     #
     # @param node [Nokogiri::XML::Node] the node this element wraps
     # @param document [Document] this element's document
@@ -13,16 +13,18 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: FigureElementEnumerator,
-            short_type: :figure)
+            enumerator_class: UnitElementEnumerator,
+            short_type: :unit)
     end
 
-    # Returns the caption element
+    # Get the title in the immediate children, not the one in the metadata.  Could use
+    # CSS of ":not([data-type='metadata']) >
+    #         [data-type='document-title'], [data-type='document-title']"
+    # but xpath is shorter
+    # @return [Element]
     #
-    # @return [Element, nil]
-    #
-    def caption
-      first('figcaption')
+    def title
+      first!("./*[@data-type = 'document-title']")
     end
 
     # Returns true if this class represents the element for the given node
@@ -31,8 +33,7 @@ module Kitchen
     # @return [Boolean]
     #
     def self.is_the_element_class_for?(node)
-      node.name == 'figure'
+      node['data-type'] == 'unit'
     end
-
   end
 end

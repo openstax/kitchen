@@ -1,16 +1,20 @@
-RSpec.describe 'Nokogiri patches' do
-  let (:document) { Nokogiri::XML(
-    <<~XML
-      <div style='blah' class='hi'>
-        <span data-type='foo' blah='howdy'>Hi</span>
-      </div>
-    XML
-  )}
+# frozen_string_literal: true
 
-  context 'Nokogiri::XML::Document' do
+RSpec.describe 'Nokogiri patches' do
+  let(:document) do
+    Nokogiri::XML(
+      <<~XML
+        <div style='blah' class='hi'>
+          <span data-type='foo' blah='howdy'>Hi</span>
+        </div>
+      XML
+  )
+  end
+
+  describe 'Nokogiri::XML::Document' do
     it 'can alphabetize attributes by key' do
       document.alphabetize_attributes!
-      expect(document.to_s.gsub("\n",'')).to match(/class.*style.*blah.*data-type/)
+      expect(document.to_s.gsub("\n", '')).to match(/class.*style.*blah.*data-type/)
     end
 
     it 'does not print the whole document when inspected' do
@@ -18,7 +22,7 @@ RSpec.describe 'Nokogiri patches' do
     end
   end
 
-  context 'Nokogiri::XML::Node' do
+  describe 'Nokogiri::XML::Node' do
     it 'prints to string when inspected' do
       expect_any_instance_of(Nokogiri::XML::Node).to receive(:to_s)
       document.search('div').first.inspect

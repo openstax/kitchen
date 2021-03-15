@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 module Kitchen
   # A simple counting object
   #
-  class Counter # hehe
+  # hehe
+  class Counter
 
     # Creates a new +Counter+ instance
     def initialize
