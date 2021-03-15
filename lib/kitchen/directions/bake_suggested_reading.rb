@@ -7,7 +7,8 @@ module Kitchen
     module BakeSuggestedReading
       def self.v1(book:)
         book.chapters.each do |chapter|
-          suggested_reading = chapter.search('section.suggested-reading')
+          suggested_reading = Clipboard.new
+          chapter.search('section.suggested-reading').cut(to: suggested_reading)
 
           chapter.append(child:
             <<~HTML
@@ -15,7 +16,7 @@ module Kitchen
                 <h2 data-type="document-title">
                   <span class="os-text">#{I18n.t(:eoc_suggested_reading)}</span>
                 </h2>
-                #{suggested_reading}
+                #{suggested_reading.paste}
               </div>
             HTML
           )
