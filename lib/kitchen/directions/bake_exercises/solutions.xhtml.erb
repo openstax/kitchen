@@ -1,0 +1,20 @@
+<div class="os-eob os-solution-container" data-type="composite-page" data-uuid-key=".solutions<%= @index + 1 %>">
+  <h2 data-type="document-title">
+    <span class="os-text"><%= I18n.t(:chapter) %> <%= @index + 1 %></span>
+  </h2>
+  <div data-type="metadata" style="display: none;">
+    <h1 data-type="document-title" itemprop="name"><%= I18n.t(:chapter) %><%= @index + 1%></h1>
+    <%= @eob_metadata %>
+  </div>
+
+  <% @solutions.each do |solution| %>
+    <% solution.each do |key, value| %>
+      <div class="os-solution-area">
+        <h3 data-type="title">
+          <span class="os-title-label"><%= key %></span>
+        </h3>
+        <%= value %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -5,7 +5,7 @@ module Kitchen
     # Bake directions for exercises
     #
     module BakeExercises
-      def self.v1(book:, class_name: "section.exercises")
+      def self.v1(book:, class_name: 'section.exercises', bake_eob: true, bake_section_title: true)
         metadata_elements = book.metadata.search(%w(.authors .publishers .print-style
                                                     .permissions [data-type='subject'])).copy
 
@@ -16,29 +16,28 @@ module Kitchen
           solution_clipboard = Clipboard.new
           solutions_clipboards.push(solution_clipboard)
 
-          #puts "chapter: #{chapter.search(class_name).count}"
-
           chapter.pages('$:not(.introduction)').each do |page|
             sections = page.exercises(class_name: class_name)
 
             sections.each do |exercise_section|
               exercise_section.first("[data-type='title']")&.trash
-              exercise_section_title = page.title.copy
-              exercise_section_title.name = 'h3'
-              exercise_section_title.replace_children(with: <<~HTML
-                <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
-                <span class="os-divider"> </span>
-                <span class="os-text" data-type="" itemprop="">#{exercise_section_title.children}</span>
-              HTML
-              )
-
-              exercise_section.prepend(child:
-                <<~HTML
-                  <a href="##{page.title.id}">
-                    #{exercise_section_title.paste}
-                  </a>
+              if bake_section_title
+                exercise_section_title = page.title.copy
+                exercise_section_title.name = 'h3'
+                exercise_section_title.replace_children(with: <<~HTML
+                  <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
+                  <span class="os-divider"> </span>
+                  <span class="os-text" data-type="" itemprop="">#{exercise_section_title.children}</span>
                 HTML
-              )
+                )
+                exercise_section.prepend(child:
+                  <<~HTML
+                    <a href="##{page.title.id}">
+                      #{exercise_section_title.paste}
+                    </a>
+                  HTML
+                )
+              end
 
               exercise_section.search("[data-type='exercise']").each do |exercise|
                 exercise.document.pantry(name: :link_text).store(
@@ -47,6 +46,8 @@ module Kitchen
                 )
 
                 bake_exercise_in_place(exercise: exercise)
+                next unless bake_eob
+
                 exercise.first("[data-type='solution']")&.cut(to: solution_clipboard)
               end
 
@@ -56,14 +57,15 @@ module Kitchen
 
           next if exercise_clipboard.none?
 
+          classname_title = class_name.sub("section.", '')
           chapter.append(child:
             <<~HTML
-              <div class="os-eoc os-exercises-container" data-type="composite-page" data-uuid-key=".exercises">
+              <div class="os-eoc os-#{classname_title}-container" data-type="composite-page" data-uuid-key=".#{classname_title}">
                 <h2 data-type="document-title">
                   <span class="os-text">#{I18n.t(:eoc_exercises_title)}</span>
                 </h2>
                 <div data-type="metadata" style="display: none;">
-                  <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_exercises_title)}</h1>
+                  <h1 data-type="document-title" itemprop="name">#{I18n.t(:chapter_review)}</h1>
                   #{metadata_elements.paste}
                 </div>
                 #{exercise_clipboard.paste}
@@ -90,7 +92,7 @@ module Kitchen
           HTML
         end
 
-        return if solutions.none?
+        return if solutions.none? || !bake_eob
 
         book.first('body').append(child:
           <<~HTML
@@ -144,18 +146,19 @@ module Kitchen
 
         problem = exercise.first("[data-type='problem']")
         solution = exercise.first("[data-type='solution']")
+        count_in = exercise.count_in(:chapter)
 
-        problem_number = "<span class='os-number'>#{exercise.count_in(:chapter)}</span>"
+        problem_number = "<span class='os-number'>#{count_in}</span>"
 
         if solution.present? && bake_solution
           solution.id = "#{exercise.id}-solution"
 
           exercise.add_class('os-hasSolution')
-          problem_number = "<a href='##{solution.id}' class='os-number' >#{exercise.count_in(:chapter)}</a>"
+          problem_number = "<a href='##{solution.id}' class='os-number'>#{count_in}</a>"
 
           solution.replace_children(with:
             <<~HTML
-              <a class="os-number" href="##{exercise.id}">#{exercise.count_in(:chapter)}</a>
+              <a class="os-number" href="##{exercise.id}">#{count_in}</a>
               <span class="os-divider">. </span>
               <div class="os-solution-container ">#{solution.children}</div>
             HTML
@@ -166,83 +169,6 @@ module Kitchen
           <<~HTML
             #{problem_number}
             <span class="os-divider">. </span>
-            <div class="os-problem-container ">#{problem.children}</div>
-          HTML
-        )
-      end
-
-      def self.bake_exercise_helper(exercise:)
-        # Bake an exercise inside notes and examples going from:
-        #
-        # <div data-type="exercise" id="exerciseId">
-        #   <div data-type="problem" id="problemId">
-        #     Problem Content
-        #   </div>
-        #   <div data-type="solution" id="solutionId">
-        #     Solution Content
-        #   </div>
-        # </div>
-        #
-        # to
-
-        # <div class=" unnumbered" data-type="exercise" id="exercise_id">
-        #  <div data-type="problem" id="problem_id">
-        #    <div class="os-problem-container ">
-        #      <h4 data-type="title" id="problem_id">Problem Title</h4>
-        #      Problem Content
-        #    </div>
-        #    <div data-type="solution" id="solution_id">
-        #      <h4 data-type="solution-title">
-        #        <span class="os-title-label">Solution </span>
-        #      </h4>
-        #      <div class="os-solution-container ">
-        #        Solution Content
-        #      </div>
-        #    </div>
-        #  </div>
-
-        problem = exercise.first("[data-type='problem']")
-        solution = exercise.first("[data-type='solution']")
-
-        # problem_number = "<span class='os-number'>#{exercise.count_in(:chapter)}</span>"
-
-        if solution.present?
-          solution.id = "#{exercise.id}"
-
-          exercise.add_class('unnumbered')
-          # problem_number = "<a href='##{solution.id}' class='os-number' >#{exercise.count_in(:chapter)}</a>"
-
-          solution.replace_children(with:
-            <<~HTML
-              <h4 data-type="solution-title">
-                <span class="os-title-label">Solution </span>
-              </h4>
-              <div class="os-solution-container ">#{solution.children}</div>
-            HTML
-          )
-        end
-
-        problem.search('div[data-type="title"]').each { |title| title.name = 'h4' }
-        problem.replace_children(with:
-          <<~HTML
-            <div class="os-problem-container ">#{problem.children}</div>
-          HTML
-        )
-      end
-
-      def self.bake_note_exercises(exercise:)
-        problem = exercise.first("[data-type='problem']")
-        solution = exercise.first("[data-type='solution']")
-
-        if solution.present?
-          #solution.id = "#{exercise.id}-solution"
-          exercise.add_class('os-hasSolution unnumbered')
-          solution.trash
-          exercise.search('div[data-element-type="hint"]').trash
-        end
-
-        problem.replace_children(with:
-          <<~HTML
             <div class="os-problem-container ">#{problem.children}</div>
           HTML
         )
