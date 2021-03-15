@@ -68,7 +68,9 @@ module Kitchen
         grand_ancestors = element.ancestors
         parent_ancestor = Ancestor.new(element)
 
-        element.raw.search(*search_query.css_or_xpath).each_with_index do |sub_node, index|
+        have_cleaned_up_prior_counts = false
+
+        element.raw.search(*search_query.css_or_xpath).each do |sub_node|
           sub_element = ElementFactory.build_from_node(
             node: sub_node,
             document: element.document,
@@ -81,21 +83,29 @@ module Kitchen
 
           # If the provided `search_query` has already been counted, we need to uncount
           # them on the ancestors so that when they are counted again below, the counts
-          # are correct.  Only do this on the first loop!  Could eventually move this
+          # are correct.  Only do this on the first match!  Could eventually move this
           # just before the loop if we can get the descendant type that build_from_node
           # figures out.
-          if index.zero? && element.have_sub_elements_already_been_counted?(search_query)
-            grand_ancestors.each_value do |ancestor|
-              ancestor.decrement_descendant_count(
-                sub_element.short_type,
-                by: element.number_of_sub_elements_already_counted(search_query)
-              )
+          unless have_cleaned_up_prior_counts
+            if element.have_sub_elements_already_been_counted?(search_query)
+              grand_ancestors.each_value do |ancestor|
+                ancestor.decrement_descendant_count(
+                  sub_element.short_type,
+                  by: element.number_of_sub_elements_already_counted(search_query)
+                  # TODO: move this to element.uncount(sub_element.short_type)
+                  # TODO: should also reset number_of_subelements_already counted
+                  # why is parent ancestor new but grand ancestors aren't?
+                  # does making them new clean up this logic?
+                )
+              end
             end
+            have_cleaned_up_prior_counts = true
           end
 
           # Record this sub element's ancestors and increment their descendant counts
           sub_element.add_ancestors(grand_ancestors, parent_ancestor)
           sub_element.count_as_descendant
+          # TODO: make add_ancestors do counting?
 
           # Remember that we counted this sub element in case we need to later reset the counts
           element.remember_that_a_sub_elements_was_counted(search_query)
@@ -105,6 +115,7 @@ module Kitchen
 
           # Mark the location so that if there's an error we can show the developer where.
           sub_element.document.location = sub_element
+          # TODO: sub_element.set_as_current_location!
 
           block.yield(sub_element)
         end
