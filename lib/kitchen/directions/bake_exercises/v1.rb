@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::BakeExercises
   class V1
-    def bake(book:)
+    def bake(book:, classname: 'section.exercises')
       metadata_elements = book.metadata.children_to_keep.copy
 
       solutions_clipboards = []
@@ -13,7 +13,10 @@ module Kitchen::Directions::BakeExercises
         solutions_clipboards.push(solution_clipboard)
 
         chapter.pages('$:not(.introduction)').each do |page|
-          exercise_section = page.exercises
+          puts classname
+          exercise_section = page.exercises(classname)
+          next if exercise_section.nil?
+
           exercise_section.first("[data-type='title']")&.trash
           exercise_section_title = page.title.copy
           exercise_section_title.name = 'h3'
@@ -46,7 +49,7 @@ module Kitchen::Directions::BakeExercises
         end
 
         next if exercise_clipboard.none?
-
+        puts "hi"
         chapter.append(child:
           <<~HTML
             <div class="os-eoc os-exercises-container" data-type="composite-page" data-uuid-key=".exercises">
