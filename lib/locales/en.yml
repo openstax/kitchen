@@ -9,6 +9,7 @@ en:
   exercise_label: Exercise
   chapter: Chapter
   unit: Unit
+  checkpoint: Checkpoint
   learning_objectives: Learning Objectives
   stepwise_step_label: Step
   eoc_key_terms_title: Key Terms
@@ -20,3 +21,5 @@ en:
   eoc_suggested_reading: Suggestions for Further Study
   eob_index_title: Index
   eob_index_symbols_group: Symbols
+  review_exercises: Review Exercises
+  section_exercises: ! 'Section %{number} Exercises'
