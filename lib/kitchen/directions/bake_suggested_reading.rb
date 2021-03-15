@@ -7,8 +7,7 @@ module Kitchen
     module BakeSuggestedReading
       def self.v1(book:)
         book.chapters.each do |chapter|
-          suggested_reading = Clipboard.new
-          chapter.search('section.suggested-reading').cut(to: suggested_reading)
+          suggested_reading = chapter.search('section.suggested-reading').cut
 
           chapter.append(child:
             <<~HTML
