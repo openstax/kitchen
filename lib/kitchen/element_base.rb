@@ -119,7 +119,6 @@ module Kitchen
         end
 
       @ancestors = HashWithIndifferentAccess.new
-      @counts_in = HashWithIndifferentAccess.new
       @search_query_matches_that_have_been_counted = Hash.new(0)
       @is_a_clone = false
     end
@@ -202,7 +201,7 @@ module Kitchen
     #
     attr_reader :ancestors
 
-    # Adds ancestors to this element
+    # Adds ancestors to this element, for each incrementing descendant counts for this type
     #
     # @param args [Array<Hash, Ancestor, Element, Document>] the ancestors
     # @raise [StandardError] if there is already an ancestor with the one of
@@ -223,7 +222,7 @@ module Kitchen
       end
     end
 
-    # Adds one ancestor
+    # Adds one ancestor, incrementing its descendant counts for this element type
     #
     # @param ancestor [Ancestor]
     # @raise [StandardError] if there is already an ancestor with the given ancestor's type
@@ -234,6 +233,7 @@ module Kitchen
               "type is already present"
       end
 
+      ancestor.increment_descendant_count(short_type)
       @ancestors[ancestor.type] = ancestor
     end
 
@@ -245,20 +245,12 @@ module Kitchen
       @ancestors.values.map(&:element)
     end
 
-    # Increments the count of this element in all of this element's ancestors
-    #
-    def count_as_descendant
-      @ancestors.each_pair do |type, ancestor|
-        @counts_in[type] = ancestor.increment_descendant_count(short_type)
-      end
-    end
-
     # Returns the count of this element's type in the given ancestor type
     #
     # @param ancestor_type [String, Symbol]
     #
     def count_in(ancestor_type)
-      @counts_in[ancestor_type] || raise("No ancestor of type '#{ancestor_type}'")
+      @ancestors[ancestor_type].get_descendant_count(short_type)
     end
 
     # Track that a sub element found by the given query has been counted
