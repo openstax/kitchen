@@ -94,8 +94,6 @@ module Kitchen
                   by: element.number_of_sub_elements_already_counted(search_query)
                   # TODO: move this to element.uncount(sub_element.short_type)
                   # TODO: should also reset number_of_subelements_already counted
-                  # why is parent ancestor new but grand ancestors aren't?
-                  # does making them new clean up this logic?
                 )
               end
             end
@@ -104,8 +102,6 @@ module Kitchen
 
           # Record this sub element's ancestors and increment their descendant counts
           sub_element.add_ancestors(grand_ancestors, parent_ancestor)
-          sub_element.count_as_descendant
-          # TODO: make add_ancestors do counting?
 
           # Remember that we counted this sub element in case we need to later reset the counts
           element.remember_that_a_sub_elements_was_counted(search_query)
