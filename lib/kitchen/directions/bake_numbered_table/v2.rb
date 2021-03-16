@@ -25,8 +25,6 @@ module Kitchen::Directions::BakeNumberedTable
 
       table.parent.add_class('os-column-header-container') if table.column_header?
 
-      # TODO: Why is F critical values (continued) tacked on to the end?
-      # space after os-table?
       new_summary = "#{table_label} "
       new_caption_text = ''
       caption_title = ''
