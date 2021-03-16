@@ -17,23 +17,8 @@ module Kitchen::Directions::BakeExercises
 
           sections.each do |exercise_section|
             exercise_section.first("[data-type='title']")&.trash
-            if bake_section_title
-              exercise_section_title = page.title.copy
-              exercise_section_title.name = 'h3'
-              exercise_section_title.replace_children(with: <<~HTML
-                <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
-                <span class="os-divider"> </span>
-                <span class="os-text" data-type="" itemprop="">#{exercise_section_title.children}</span>
-              HTML
-              )
-              exercise_section.prepend(child:
-                <<~HTML
-                  <a href="##{page.title.id}">
-                    #{exercise_section_title.paste}
-                  </a>
-                HTML
-              )
-            end
+
+            bake_exercise_section_title(exercise_section: exercise_section, page: page, chapter: chapter) if bake_section_title
 
             exercise_section.search("[data-type='exercise']").each do |exercise|
               exercise.document.pantry(name: :link_text).store(
@@ -106,7 +91,25 @@ module Kitchen::Directions::BakeExercises
       )
     end
 
-    def self.bake_exercise_in_place(exercise:, bake_solution: true)
+    def bake_exercise_section_title(exercise_section:, chapter:, page:)
+      exercise_section_title = page.title.copy
+      exercise_section_title.name = 'h3'
+      exercise_section_title.replace_children(with: <<~HTML
+        <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
+        <span class="os-divider"> </span>
+        <span class="os-text" data-type="" itemprop="">#{exercise_section_title.children}</span>
+      HTML
+      )
+      exercise_section.prepend(child:
+        <<~HTML
+          <a href="##{page.title.id}">
+            #{exercise_section_title.paste}
+          </a>
+        HTML
+      )
+    end
+
+    def bake_exercise_in_place(exercise:, bake_solution: true)
       # Bake an exercise in place going from:
       #
       # <div data-type="exercise" id="exerciseId">

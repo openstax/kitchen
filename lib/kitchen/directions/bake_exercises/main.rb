@@ -7,8 +7,8 @@ module Kitchen
         V1.new.bake(book: book)
       end
 
-      def self.v3(book:, class_names:)
-        V3.new.bake(book: book, class_names: class_names)
+      def self.eob(book:, class_names:)
+        EOB.new.bake(book: book, class_names: class_names)
       end
 
       def self.example_exercises(exercise:)
