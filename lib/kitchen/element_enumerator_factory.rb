@@ -114,8 +114,7 @@ module Kitchen
           sub_element.search_query_that_found_me = search_query
 
           # Mark the location so that if there's an error we can show the developer where.
-          sub_element.document.location = sub_element
-          # TODO: sub_element.set_as_current_location!
+          sub_element.mark_as_current_location!
 
           block.yield(sub_element)
         end
