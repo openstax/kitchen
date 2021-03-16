@@ -250,7 +250,8 @@ module Kitchen
     # @param ancestor_type [String, Symbol]
     #
     def count_in(ancestor_type)
-      @ancestors[ancestor_type].get_descendant_count(short_type)
+      @ancestors[ancestor_type]&.get_descendant_count(short_type) ||
+        raise("No ancestor of type '#{ancestor_type}'")
     end
 
     # Track that a sub element found by the given query has been counted
