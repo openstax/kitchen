@@ -74,9 +74,6 @@ module Kitchen
       end
 
       def self.bake_theorems(note:, number:)
-        # puts 'its a theorem!'
-        # puts note
-
         note['use-subtitle'] = true
         title = note.first('.os-title')
         title.name = 'div'
