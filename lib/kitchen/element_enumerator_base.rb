@@ -93,9 +93,9 @@ module Kitchen
     #   a "$" in this argument will be replaced with the default selector for the element being
     #   iterated over.
     #
-    def units(css_or_xpath=nil)
+    def units(css_or_xpath=nil, only: nil, except: nil)
       block_error_if(block_given?)
-      chain_to(UnitElementEnumerator, css_or_xpath: css_or_xpath)
+      chain_to(UnitElementEnumerator, css_or_xpath: css_or_xpath, only: only, except: except)
     end
 
     # Returns an enumerator that iterates through figures within the scope of this enumerator
