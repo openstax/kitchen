@@ -49,8 +49,8 @@ module Kitchen
     def as_type
       @as_type ||= [
         [css_or_xpath].flatten.join(','),
-        ("only:#{only.is_a?(Symbol) ? only : 'proc'}" if only),
-        ("except:#{except.is_a?(Symbol) ? except : 'proc'}" if except)
+        stringify_condition(only, 'only'),
+        stringify_condition(except, 'except')
       ].compact.join(';')
     end
 
@@ -73,6 +73,12 @@ module Kitchen
         end
 
       !!result == success_outcome
+    end
+
+    def stringify_condition(condition, name)
+      return nil unless condition
+
+      "#{name}:#{condition.is_a?(Symbol) ? condition : condition.source_location.join(':')}"
     end
   end
 end
