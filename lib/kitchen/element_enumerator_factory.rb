@@ -68,7 +68,10 @@ module Kitchen
         grand_ancestors = element.ancestors
         parent_ancestor = Ancestor.new(element)
 
-        have_cleaned_up_prior_counts = false
+        # If the provided `search_query` has already been iterated through on this element,
+        # we need to undo any counting on the ancestors so that when they are counted again
+        # below, the counts are correct.
+        element.uncount(search_query)
 
         element.raw.search(*search_query.css_or_xpath).each do |sub_node|
           sub_element = ElementFactory.build_from_node(
@@ -81,30 +84,11 @@ module Kitchen
 
           next unless search_query.conditions_match?(sub_element)
 
-          # If the provided `search_query` has already been counted, we need to uncount
-          # them on the ancestors so that when they are counted again below, the counts
-          # are correct.  Only do this on the first match!  Could eventually move this
-          # just before the loop if we can get the descendant type that build_from_node
-          # figures out.
-          unless have_cleaned_up_prior_counts
-            if element.have_sub_elements_already_been_counted?(search_query)
-              grand_ancestors.each_value do |ancestor|
-                ancestor.decrement_descendant_count(
-                  sub_element.short_type,
-                  by: element.number_of_sub_elements_already_counted(search_query)
-                  # TODO: move this to element.uncount(sub_element.short_type)
-                  # TODO: should also reset number_of_subelements_already counted
-                )
-              end
-            end
-            have_cleaned_up_prior_counts = true
-          end
-
           # Record this sub element's ancestors and increment their descendant counts
           sub_element.add_ancestors(grand_ancestors, parent_ancestor)
 
           # Remember that we counted this sub element in case we need to later reset the counts
-          element.remember_that_a_sub_elements_was_counted(search_query)
+          element.remember_that_a_sub_element_was_counted(search_query, sub_element.short_type)
 
           # Remember how this sub element was found so can trace search history given any element.
           sub_element.search_query_that_found_me = search_query
