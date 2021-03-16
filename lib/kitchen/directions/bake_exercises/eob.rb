@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 module Kitchen::Directions::BakeExercises
-  # Bake directions for exercises
-  class V3
+  class EOB
     renderable
 
     def bake(book:, class_names:)
-      @metadata_elements = book.metadata.search(%w(.authors .publishers .print-style
-                                                  .permissions [data-type='subject'])).copy
+      @metadata_elements = book.metadata.children_to_keep.copy
 
       @composite_chapter_number = book.search('.os-toc-chapter ol.os-chapter').count + 1
       # Store a paste here to use at end so that uniquifyied IDs match legacy baking
@@ -31,11 +29,8 @@ module Kitchen::Directions::BakeExercises
               solution.id = "#{exercise.id}-solution"
               number = classname.eql?('.checkpoint') ? "#{chapter.count_in(:book)}.#{exercise.count_in(:chapter)}" : exercise.count_in(:chapter)
 
-              number = <<~HTML
-                #{number}
-              HTML
-              problem.first('.os-number')&.replace_children(with: number)
-              solution.first('.os-number').replace_children(with: number)
+              problem.first('.os-number')&.inner_html = number.to_s
+              solution.first('.os-number')&.inner_html = number.to_s
               solution&.cut(to: solution_clipboard)
             end
             next unless classname.eql?('section.section-exercises')
