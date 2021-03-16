@@ -84,7 +84,6 @@ module Kitchen
     # @return [Element]
     #
     def exercises(classname)
-      puts classname
       first(classname)
     end
 

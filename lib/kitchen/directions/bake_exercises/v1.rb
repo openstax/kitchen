@@ -13,7 +13,6 @@ module Kitchen::Directions::BakeExercises
         solutions_clipboards.push(solution_clipboard)
 
         chapter.pages('$:not(.introduction)').each do |page|
-          puts classname
           exercise_section = page.exercises(classname)
           next if exercise_section.nil?
 
