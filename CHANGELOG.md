@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Adds a NumberedTables v2
+
 ## [2.0.0] - 2020-12-18
 
 * Refactored bake_exercises to better support parallel work on multiple versions.
