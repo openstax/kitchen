@@ -119,7 +119,7 @@ module Kitchen
         end
 
       @ancestors = HashWithIndifferentAccess.new
-      @search_query_matches_that_have_been_counted = Hash.new(0)
+      @search_query_matches_that_have_been_counted = {}
       @is_a_clone = false
     end
 
@@ -256,27 +256,23 @@ module Kitchen
     # Track that a sub element found by the given query has been counted
     #
     # @param search_query [SearchQuery] the search query matching the counted element
+    # @param type [String] the type of the sub element that was counted
     #
-    def remember_that_a_sub_elements_was_counted(search_query)
-      @search_query_matches_that_have_been_counted[search_query.to_s] += 1
+    def remember_that_a_sub_element_was_counted(search_query, type)
+      @search_query_matches_that_have_been_counted[search_query.to_s] ||= Hash.new(0)
+      @search_query_matches_that_have_been_counted[search_query.to_s][type] += 1
     end
 
-    # Returns true if subelements with given selectors have been counted already
+    # Undo the counts from a prior search query (so that they can be counted again)
     #
-    # @param search_query [SearchQuery] the search query you want to check
-    # @return [Boolean]
+    # @param search_query [SearchQuery] the prior search query whose counts need to be undone
     #
-    def have_sub_elements_already_been_counted?(search_query)
-      number_of_sub_elements_already_counted(search_query) != 0
-    end
-
-    # Returns the number of subelements with given selectors that have been counted
-    #
-    # @param search_query [SearchQuery] the search query to check
-    # @return [Integer]
-    #
-    def number_of_sub_elements_already_counted(search_query)
-      @search_query_matches_that_have_been_counted[search_query.to_s] || 0
+    def uncount(search_query)
+      @search_query_matches_that_have_been_counted.delete(search_query.to_s)&.each do |type, count|
+        ancestors.each_value do |ancestor|
+          ancestor.decrement_descendant_count(type, by: count)
+        end
+      end
     end
 
     # Returns the search history that found this element
