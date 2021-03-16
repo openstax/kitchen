@@ -541,6 +541,12 @@ module Kitchen
       end
     end
 
+    # Mark the location so that if there's an error we can show the developer where.
+    #
+    def mark_as_current_location!
+      document.location = self
+    end
+
     # Returns the underlying Nokogiri object
     #
     # @return [Nokogiri::XML::Node]
