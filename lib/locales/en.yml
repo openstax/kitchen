@@ -7,6 +7,7 @@ en:
   example_label: Example
   exercise_label: Exercise
   chapter: Chapter
+  unit: Unit
   learning_objectives: Learning Objectives
   stepwise_step_label: Step
   eoc_key_terms_title: Key Terms
@@ -14,6 +15,7 @@ en:
   eoc_exercises_title: Exercises
   eoc_answer_key_title: Answer Key
   eoc_key_equations: Key Equations
+  eoc_suggested_reading: Suggestions for Further Study
   eob_index_title: Index
   eob_index_symbols_group: Symbols
   notes:
