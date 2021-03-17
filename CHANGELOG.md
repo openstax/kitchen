@@ -6,8 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Adds a subfigure? method to Figure Elements
-* adjusts BakeFigure to format titles as well
+* Added a subfigure? method to `FigureElements`(minor)
+* Added support for titles in `BakeFigure` (minor)
 
 ## [2.0.0] - 2020-12-18
 
