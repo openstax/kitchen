@@ -66,12 +66,6 @@ RSpec.describe Kitchen::ElementBase do
     end
   end
 
-  describe '#countable?' do
-    it 'defaults to true' do
-      expect(example.countable?).to eq true
-    end
-  end
-
   describe '#id' do
     it 'returns the element\'s ID' do
       expect(example.id).to eq 'div1'

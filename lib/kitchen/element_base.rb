@@ -245,19 +245,9 @@ module Kitchen
       @ancestors.values.map(&:element)
     end
 
-    # Returns if the element is countable, default true
-    #
-    # @return Boolean
-    #
-    def countable?
-      true
-    end
-
     # Increments the count of this element in all of this element's ancestors
     #
     def count_as_descendant
-      return unless countable?
-
       @ancestors.each_pair do |type, ancestor|
         @counts_in[type] = ancestor.increment_descendant_count(short_type)
       end

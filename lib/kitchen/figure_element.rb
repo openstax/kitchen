@@ -41,14 +41,6 @@ module Kitchen
       parent.name == 'figure'
     end
 
-    # Returns weather the figure is countable or not
-    #
-    # @return [Boolean]
-    #
-    def countable?
-      !subfigure?
-    end
-
     # Returns true if this class represents the element for the given node
     #
     # @param node [Nokogiri::XML::Node] the underlying node
