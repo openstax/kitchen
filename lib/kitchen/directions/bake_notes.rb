@@ -58,8 +58,8 @@ module Kitchen
           HTML
         )
 
-        exercise = note.first("[data-type='exercise']")
-        solution = exercise.first("[data-type='solution']")
+        exercise = note.exercises.first
+        solution = exercise.solution
 
         return unless solution.present?
 

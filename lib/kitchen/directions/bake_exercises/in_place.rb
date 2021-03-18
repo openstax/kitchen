@@ -3,16 +3,17 @@
 module Kitchen::Directions::BakeExercises
   class InPlace
     def example_exercises(exercise:)
-      problem = exercise.first("[data-type='problem']")
-      solution = exercise.first("[data-type='solution']")
+      problem = exercise.problem
+      solution = exercise.solution
+      #count_in = exercise.count_in(:chapter)
 
-      # problem_number = "<span class='os-number'>#{exercise.count_in(:chapter)}</span>"
+      #problem_number = "<span class='os-number'>#{count_in}</span>"
 
       if solution.present?
         # solution.id = "#{exercise.id}-solution"
 
         exercise.add_class('unnumbered')
-        # problem_number = "<a href='##{solution.id}' class='os-number' >#{exercise.count_in(:chapter)}</a>"
+        #problem_number = "<a href='##{solution.id}' class='os-number' >#{exercise.count_in(:chapter)}</a>"
 
         solution.replace_children(with:
           <<~HTML
@@ -49,8 +50,8 @@ module Kitchen::Directions::BakeExercises
     end
 
     def section_exercises(exercise:, number:)
-      problem = exercise.first("[data-type='problem']")
-      solution = exercise.first("[data-type='solution']")
+      problem = exercise.problem
+      solution = exercise.solution
 
       problem_number = "<span class='os-number'>#{number}</span><span class='os-divider'>. </span>"
       if solution.present?

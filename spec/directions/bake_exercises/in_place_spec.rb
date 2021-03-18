@@ -52,7 +52,7 @@ RSpec.describe Kitchen::Directions::BakeExercises::InPlace do
 
   it 'bakes example exercises' do
     example = book.chapters.pages.examples.first
-    exercise = example.first('[data-type="exercise"]')
+    exercise = example.exercises.first
     described_class.new.example_exercises(exercise: exercise)
     expect(example).to match_normalized_html(
       <<~HTML
@@ -80,7 +80,7 @@ RSpec.describe Kitchen::Directions::BakeExercises::InPlace do
 
   it 'bakes note exercises' do
     note = book.notes.first
-    exercise = note.first('[data-type="exercise"]')
+    exercise = note.exercises.first
     described_class.new.note_exercises(exercise: exercise)
     expect(book.notes).to match_normalized_html(
       <<~HTML
@@ -106,7 +106,7 @@ RSpec.describe Kitchen::Directions::BakeExercises::InPlace do
 
   it 'bakes section exercises' do
     section = book.search('section.section-exercises').first
-    exercise = section.first('[data-type="exercise"]')
+    exercise = section.exercises.first
     described_class.new.section_exercises(exercise: exercise, number: '1.1')
 
     expect(section).to match_normalized_html(

@@ -77,7 +77,7 @@ RSpec.describe Kitchen::Directions::BakeExercises::V1 do
   end
 
   it 'works' do
-    described_class.new.bake(book: book1)
+    described_class.new.bake(book: book1, bake_eob: true, bake_section_title: true, class_name: 'section.exercises')
 
     expect(book1.body).to match_normalized_html(
       <<~HTML
@@ -218,7 +218,7 @@ RSpec.describe Kitchen::Directions::BakeExercises::V1 do
               #{solution}
             </div>
           HTML
-      )).chapters.search('#exerciseId').first
+      )).chapters.exercises.first
     end
 
     context 'with a solution' do

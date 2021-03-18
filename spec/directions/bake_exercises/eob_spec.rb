@@ -101,9 +101,24 @@ RSpec.describe Kitchen::Directions::BakeExercises::EOB do
 
   it 'works' do
     described_class.new.bake(book: book1, class_names: {
-      'checkpoint': '.checkpoint',
-      'section_exercises': 'section.section-exercises',
-      'review_exercises': 'section.review-exercises'
+      'checkpoint':
+        {
+          classname: '.checkpoint',
+          decimal: true,
+          sectional: false
+        },
+      'section_exercises':
+        {
+          classname: 'section.section-exercises',
+          decimal: false,
+          sectional: true
+        },
+      'review_exercises':
+        {
+          classname: 'section.review-exercises',
+          decimal: false,
+          sectional: false
+        }
     })
 
     expect(book1.body).to match_normalized_html(
@@ -130,7 +145,7 @@ RSpec.describe Kitchen::Directions::BakeExercises::EOB do
                   </div>
                   <div data-type="exercise" id="auto_m68761_fs-idp56789136">
                     <div data-type="problem" id="auto_m68761_fs-idm24701936">
-                      <span class="os-number">1.1</span>
+                      <span class="os-number">2</span>
                       <p id="auto_m68761_fs-idp57923840">Problem 2</p>
                     </div>
                   </div>
@@ -149,13 +164,13 @@ RSpec.describe Kitchen::Directions::BakeExercises::EOB do
                   <h3 data-type="title">2 Chapter Exercises</h3>
                   <div data-type="exercise" id="auto_m68764_fs-idm178529488">
                     <div data-type="problem" id="auto_m68764_fs-idp20517968">
-                      <span class="os-number">1.1</span>
+                      <span class="os-number">4</span>
                       <p id="auto_m68764_fs-idm197064800">Problem 4</p>
                     </div>
                   </div>
                   <div data-type="exercise" id="auto_m68764_fs-idm82765632">
                     <div data-type="problem" id="auto_m68764_fs-idp7685184">
-                      <span class="os-number">2</span>
+                      <span class="os-number">5</span>
                       <p id="auto_m68764_fs-idm164104512">Problem 5</p>
                     </div>
                   </div>
@@ -218,7 +233,7 @@ RSpec.describe Kitchen::Directions::BakeExercises::EOB do
                   <span class="os-title-label">Review Exercises</span>
                 </h3>
                 <div data-type="solution" id="auto_m68764_fs-idm82765632-solution">
-                  <span class="os-number">2</span>
+                  <span class="os-number">5</span>
                   <p id="auto_m68764_fs-idm152759136">Solution 5</p>
                 </div>
               </div>

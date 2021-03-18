@@ -14,33 +14,34 @@ module Kitchen::Directions::BakeExercises
 
       book.chapters.each do |chapter|
         @solutions = []
-        class_names.each do |key, classname|
+        chapter_counter = 0
+        class_names.each do |key, config|
           section_title = I18n.t(key)
           solution_clipboard = Kitchen::Clipboard.new
-          chapter.search(classname).each_with_index do |exercise_section, index|
+          chapter.search(config[:classname]).each_with_index do |exercise_section, index|
             @index = index
             exercise_section.search("[data-element-type='hint']").each(&:trash)
 
-            exercise_section.search("[data-type='exercise']").each do |exercise|
-              problem = exercise.first("[data-type='problem']")
-              solution = exercise.first("[data-type='solution']")
+            exercise_section.exercises.each do |exercise|
+              problem = exercise.problem
+              solution = exercise.solution
+
+              number = config[:decimal] ? "#{chapter.count_in(:book)}.#{exercise.count_in(:chapter)}" : chapter_counter += 1
+              problem.first('.os-number')&.inner_html = number.to_s
               next unless solution.present?
 
               solution.id = "#{exercise.id}-solution"
-              number = classname.eql?('.checkpoint') ? "#{chapter.count_in(:book)}.#{exercise.count_in(:chapter)}" : exercise.count_in(:chapter)
-
-              problem.first('.os-number')&.inner_html = number.to_s
               solution.first('.os-number')&.inner_html = number.to_s
               solution&.cut(to: solution_clipboard)
             end
-            next unless classname.eql?('section.section-exercises')
+            next unless config[:sectional]
 
             # append hash for exercise sections and clear clipboard
             section_title = I18n.t(:section_exercises, number: "#{chapter.count_in(:book)}.#{exercise_section.count_in(:chapter)}")
             @solutions.push({ section_title => solution_clipboard.paste })
             solution_clipboard.clear
           end
-          next if classname.eql?('section.section-exercises')
+          next if config[:sectional]
 
           @solutions.push({ section_title => solution_clipboard.paste })
         end
