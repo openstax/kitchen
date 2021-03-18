@@ -135,8 +135,6 @@ module Kitchen::Directions::BakeExercises
       problem = exercise.problem
       solution = exercise.solution
       count_in = exercise.count_in(:chapter)
-      # puts count_in
-
       problem_number = "<span class='os-number'>#{count_in}</span>"
 
       if solution.present? && bake_solution
