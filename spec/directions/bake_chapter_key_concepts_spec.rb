@@ -39,7 +39,7 @@ RSpec.describe Kitchen::Directions::BakeChapterKeyConcepts do
                 <section id="auto_7c_fs-id1" class="key-concepts">
                   <a href="#auto_7c_0">
                     <h3 data-type="document-title" id="auto_7c_0">
-                      <span class="os-number">1.0</span>
+                      <span class="os-number">1.1</span>
                       <span class="os-divider"> </span>
                       <span class="os-text" data-type="" itemprop="">Page 1</span>
                     </h3>
