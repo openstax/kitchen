@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::BakeExercises
   class V1
-    def bake(book:, class_name: 'section.exercises', bake_eob: true, bake_section_title: true)
+    def bake(book:, class_name:, bake_eob:, bake_section_title:)
       metadata_elements = book.metadata.children_to_keep.copy
 
       solutions_clipboards = []
@@ -17,10 +17,9 @@ module Kitchen::Directions::BakeExercises
 
           sections.each do |exercise_section|
             exercise_section.first("[data-type='title']")&.trash
-
             bake_exercise_section_title(exercise_section: exercise_section, page: page, chapter: chapter) if bake_section_title
 
-            exercise_section.search("[data-type='exercise']").each do |exercise|
+            exercise_section.exercises.each do |exercise|
               exercise.document.pantry(name: :link_text).store(
                 "#{I18n.t(:exercise_label)} #{chapter.count_in(:book)}.#{exercise.count_in(:chapter)}",
                 label: exercise.id
@@ -29,7 +28,7 @@ module Kitchen::Directions::BakeExercises
               bake_exercise_in_place(exercise: exercise)
               next unless bake_eob
 
-              exercise.first("[data-type='solution']")&.cut(to: solution_clipboard)
+              exercise.solution&.cut(to: solution_clipboard)
             end
 
             exercise_section.cut(to: exercise_clipboard)
@@ -38,7 +37,7 @@ module Kitchen::Directions::BakeExercises
 
         next if exercise_clipboard.none?
 
-        classname_title = class_name.sub("section.", '')
+        classname_title = class_name.sub('section.', '')
         chapter.append(child:
           <<~HTML
             <div class="os-eoc os-#{classname_title}-container" data-type="composite-page" data-uuid-key=".#{classname_title}">
@@ -143,9 +142,10 @@ module Kitchen::Directions::BakeExercises
       # If there is no solution, don't add the 'os-hasSolution' class and don't
       # link the number.
 
-      problem = exercise.first("[data-type='problem']")
-      solution = exercise.first("[data-type='solution']")
+      problem = exercise.problem
+      solution = exercise.solution
       count_in = exercise.count_in(:chapter)
+      # puts count_in
 
       problem_number = "<span class='os-number'>#{count_in}</span>"
 
