@@ -2,6 +2,7 @@
 
 module Kitchen::Directions::BakeExercises
   class V1
+    renderable
     def bake(book:, class_name:, bake_eob:, bake_section_title:)
       metadata_elements = book.metadata.children_to_keep.copy
 
@@ -54,10 +55,11 @@ module Kitchen::Directions::BakeExercises
         )
       end
 
-      # Store a paste here to use at end so that uniquifyied IDs match legacy baking
-      eob_metadata = metadata_elements.paste
+      return unless bake_eob
 
-      solutions = solutions_clipboards.map.with_index do |solution_clipboard, index|
+      # Store a paste here to use at end so that uniquifyied IDs match legacy baking
+      @eob_metadata = metadata_elements.paste
+      @solutions = solutions_clipboards.map.with_index do |solution_clipboard, index|
         <<~HTML
           <div class="os-eob os-solution-container " data-type="composite-page" data-uuid-key=".solution#{index + 1}">
             <h2 data-type="document-title">
@@ -72,22 +74,10 @@ module Kitchen::Directions::BakeExercises
         HTML
       end
 
-      return if solutions.none? || !bake_eob
+      return if @solutions.none?
 
-      book.first('body').append(child:
-        <<~HTML
-          <div class="os-eob os-solution-container " data-type="composite-chapter" data-uuid-key=".solution">
-            <h1 data-type="document-title" id="composite-chapter-1">
-              <span class="os-text">#{I18n.t(:eoc_answer_key_title)}</span>
-            </h1>
-            <div data-type="metadata" style="display: none;">
-              <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_answer_key_title)}</h1>
-              #{eob_metadata}
-            </div>
-            #{solutions.join("\n")}
-          </div>
-        HTML
-      )
+      @solutions_classname = 'solution'
+      book.first('body').append(child: render(file: 'eob.xhtml.erb'))
     end
 
     def bake_exercise_section_title(exercise_section:, chapter:, page:)

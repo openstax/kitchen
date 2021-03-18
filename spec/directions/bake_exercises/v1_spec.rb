@@ -168,7 +168,7 @@ RSpec.describe Kitchen::Directions::BakeExercises::V1 do
               </section>
             </div>
           </div>
-          <div class="os-eob os-solution-container " data-type="composite-chapter" data-uuid-key=".solution">
+          <div class="os-eob os-solution-container" data-type="composite-chapter" data-uuid-key=".solution">
             <h1 data-type="document-title" id="composite-chapter-1">
               <span class="os-text">Answer Key</span>
             </h1>
