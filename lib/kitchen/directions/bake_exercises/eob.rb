@@ -9,8 +9,9 @@ module Kitchen::Directions::BakeExercises
 
       @composite_chapter_number = book.search('.os-toc-chapter ol.os-chapter').count + 1
       # Store a paste here to use at end so that uniquifyied IDs match legacy baking
+      @solutions_classname = 'solutions'
       @eob_metadata = @metadata_elements.paste
-      book.first('body').append(child: render(file: 'v1.xhtml.erb'))
+      book.first('body').append(child: render(file: 'eob.xhtml.erb'))
 
       book.chapters.each do |chapter|
         @solutions = []
