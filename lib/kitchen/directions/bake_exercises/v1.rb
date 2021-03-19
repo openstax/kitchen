@@ -48,7 +48,6 @@ module Kitchen::Directions::BakeExercises
         end
 
         next if exercise_clipboard.none?
-        puts "hi"
         chapter.append(child:
           <<~HTML
             <div class="os-eoc os-exercises-container" data-type="composite-page" data-uuid-key=".exercises">
