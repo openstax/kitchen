@@ -76,9 +76,9 @@ module Kitchen
     #   a "$" in this argument will be replaced with the default selector for the element being
     #   iterated over.
     #
-    def non_introduction_pages
+    def non_introduction_pages(only: nil, except: nil)
       block_error_if(block_given?)
-      chain_to(PageElementEnumerator, css_or_xpath: '$:not(.introduction)')
+      chain_to(PageElementEnumerator, css_or_xpath: '$:not(.introduction)', only: only, except: except)
     end
 
     # Returns an enumerator that iterates through chapters within the scope of this enumerator

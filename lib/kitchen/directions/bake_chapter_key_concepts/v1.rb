@@ -4,8 +4,7 @@ module Kitchen::Directions::BakeChapterKeyConcepts
   class V1
     renderable
     def bake(chapter:, metadata_source:)
-      metadata_elements = metadata_source.children_to_keep.copy
-      @chapter_metadata = metadata_elements.paste
+      @metadata_elements = metadata_source.children_to_keep.copy
 
       @key_concepts = []
       key_concepts_clipboard = Kitchen::Clipboard.new
