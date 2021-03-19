@@ -156,12 +156,35 @@ RSpec.describe Kitchen::Directions::BakeNumberedTable::V1 do
     )
   end
 
-  context 'when no caption' do
+  context 'when no caption and always_caption false' do
     let(:caption) { '' }
 
-    it 'does not include an os-caption div' do
+    it 'does not include an os-caption' do
       described_class.new.bake(table: top_titled_table, number: '2.3')
       expect(top_titled_table.document).not_to match('os-caption')
+    end
+  end
+
+  context 'when no caption and always_caption true' do
+    let(:caption) { '' }
+
+    it 'does include an os-caption' do
+      described_class.new.bake(table: column_header_table, number: '2.3', always_caption: true)
+      expect(column_header_table.document.search('.os-table').first).to match_normalized_html(
+        <<~HTML
+          <div class="os-table os-column-header-container">
+            <table class="column-header" id="tId" summary="Table 2.3  ">
+          </table>
+            <div class="os-caption-container">
+              <span class="os-title-label">Table </span>
+              <span class="os-number">2.3</span>
+              <span class="os-divider"> </span>
+              <span class="os-divider"> </span>
+              <span class="os-caption"></span>
+            </div>
+          </div>
+        HTML
+      )
     end
   end
 
