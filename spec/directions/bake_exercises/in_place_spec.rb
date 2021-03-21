@@ -50,32 +50,6 @@ RSpec.describe Kitchen::Directions::BakeExercises::InPlace do
     )
   end
 
-  it 'bakes note exercises' do
-    note = book.notes.first
-    exercise = note.exercises.first
-    described_class.new.note_exercises(exercise: exercise)
-    expect(book.notes).to match_normalized_html(
-      <<~HTML
-        <div data-type="note" id="note_id" class="checkpoint">
-          <div data-type="exercise" id="exercise_id" class="os-hasSolution unnumbered">
-            <div data-type="problem" id="problem_id">
-              <div class="os-problem-container ">
-                <p> problem content </p>
-              </div>
-            </div>
-            <div data-type="solution" id="exercise_id-solution">
-              <p> solution content </p>
-            </div>
-            <div data-type="commentary" id="" data-element-type="hint">
-              <div data-type="title" id="bla">Hint</div>
-              <p> comment </p>
-            </div>
-          </div>
-        </div>
-      HTML
-    )
-  end
-
   it 'bakes section exercises' do
     section = book.search('section.section-exercises').first
     exercise = section.exercises.first

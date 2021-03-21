@@ -2,22 +2,6 @@
 
 module Kitchen::Directions::BakeExercises
   class InPlace
-    def note_exercises(exercise:)
-      problem = exercise.first("[data-type='problem']")
-      solution = exercise.first("[data-type='solution']")
-
-      if solution.present?
-        solution.id = "#{exercise.id}-solution"
-        exercise.add_class('os-hasSolution unnumbered')
-      end
-
-      problem.replace_children(with:
-        <<~HTML
-          <div class="os-problem-container ">#{problem.children}</div>
-        HTML
-      )
-    end
-
     def section_exercises(exercise:, number:)
       problem = exercise.problem
       solution = exercise.solution

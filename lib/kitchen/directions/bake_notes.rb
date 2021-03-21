@@ -53,37 +53,6 @@ module Kitchen
           end
         end
       end
-
-      def self.bake_checkpoint_note(note:, number:)
-        note.replace_children(with:
-          <<~HTML
-            <div class="os-note-body">#{note.children}</div>
-          HTML
-        )
-        note.prepend(child:
-          <<~HTML
-            <h3 class="os-title">
-              <span class="os-title-label">Checkpoint </span>
-              <span class="os-number">#{number}</span>
-              <span class="os-divider"> </span>
-            </h3>
-          HTML
-        )
-
-        exercise = note.exercises.first
-        solution = exercise.solution
-
-        return unless solution.present?
-
-        exercise.add_class('os-hasSolution unnumbered')
-        solution.replace_children(with:
-          <<~HTML
-            <span class="os-divider"> </span>
-            <a class="os-number" href="##{exercise.id}">#{number}</a>
-            <div class="os-solution-container ">#{solution.children}</div>
-          HTML
-        )
-      end
     end
   end
 end

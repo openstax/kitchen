@@ -148,46 +148,5 @@ RSpec.describe Kitchen::Directions::BakeNotes do
 
       end
     end
-
-    context 'with different classnames' do
-      let(:book) { book_with_checkpoints_and_theorems }
-
-      before do
-        described_class.v1(book: book)
-      end
-
-      it 'checkpoints' do
-        note = book.first('.checkpoint')
-        described_class.bake_checkpoint_note(note: note, number: 1.1)
-        expect(note).to match_normalized_html(
-          <<~HTML
-            <div data-type="note" id="note_id" class="checkpoint">
-              <h3 class="os-title">
-                <span class="os-title-label">Checkpoint </span>
-                <span class="os-number">1.1</span>
-                <span class="os-divider"> </span>
-              </h3>
-              <div class="os-note-body">
-                <div data-type="exercise" id="exercise_id" class="os-hasSolution unnumbered">
-                  <div data-type="problem" id="problem_id">
-                    <p>problem content</p>
-                  </div>
-                  <div data-type="solution" id="solution_id"><span class="os-divider"> </span>
-                    <a class="os-number" href="#exercise_id">1.1</a>
-                    <div class="os-solution-container ">
-                      <p>solution content</p>
-                    </div>
-                  </div>
-                  <div data-type="commentary" id="an_id" data-element-type="hint">
-                    <div data-type="title" id="hint_title_id">Hint</div>
-                    <p id="id"/>
-                  </div>
-                </div>
-              </div>
-            </div>
-          HTML
-        )
-      end
-    end
   end
 end
