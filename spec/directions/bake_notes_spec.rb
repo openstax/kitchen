@@ -188,28 +188,6 @@ RSpec.describe Kitchen::Directions::BakeNotes do
           HTML
         )
       end
-
-      it 'theorems' do
-        note = book.first('.theorem')
-        described_class.bake_theorems(note: note, number: 1.1)
-        expect(note).to match_normalized_html(
-          <<~HTML
-            <div data-type="note" id="2note_id" class="theorem" use-subtitle="true">
-              <div class="os-title">
-                <span class="os-title-label">Theorem </span>
-                <span class="os-number">1.1</span>
-                <span class="os-divider"> </span>
-              </div>
-              <div class="os-note-body">
-                <h4 class="os-subtitle" data-type="title" id="title2">
-                  <span class="os-subtitle-label">Two Important Limits</span>
-                </h4>
-                <p id="another_id">Content</p>
-              </div>
-            </div>
-          HTML
-        )
-      end
     end
   end
 end

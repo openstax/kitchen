@@ -4,7 +4,7 @@ module Kitchen
   module Directions
     module BakeNotes
       def self.v1(book:)
-        book.notes('$:not(.checkpoint)').each do |note|
+        book.notes('$:not(.checkpoint):not(.theorem)').each do |note|
           title = note.title&.cut
 
           note.replace_children(with:
@@ -81,30 +81,6 @@ module Kitchen
             <span class="os-divider"> </span>
             <a class="os-number" href="##{exercise.id}">#{number}</a>
             <div class="os-solution-container ">#{solution.children}</div>
-          HTML
-        )
-      end
-
-      def self.bake_theorems(note:, number:)
-        note['use-subtitle'] = true
-        title = note.first('.os-title')
-        title.name = 'div'
-        title.remove_attribute('data-type')
-        theorem_title = title.search('.os-title-label').first
-
-        note.first!('.os-note-body').prepend(child:
-          <<~HTML
-            <h4 class="os-subtitle" data-type="title" id="#{theorem_title.id}">
-              <span class="os-subtitle-label">#{theorem_title.text}</span>
-            </h4>
-          HTML
-        )
-
-        title.replace_children(with:
-          <<~HTML
-            <span class="os-title-label">Theorem </span>
-            <span class="os-number">#{number}</span>
-            <span class="os-divider"> </span>
           HTML
         )
       end

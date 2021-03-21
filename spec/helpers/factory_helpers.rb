@@ -54,6 +54,10 @@ def chapter_element(chapter_children_html)
   book_containing(html: "<div data-type='chapter'>#{chapter_children_html}</div>").chapters.first
 end
 
+def note_element(note_html)
+  book_containing(html: note_html).notes.first
+end
+
 def metadata_element
   book_containing(html:
     <<~HTML
