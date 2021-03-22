@@ -28,7 +28,7 @@ module Kitchen
     # @return [Element]
     #
     def body
-      first!("body", reload: true)
+      first!('body', reload: true)
     end
 
     # Returns the top metadata element

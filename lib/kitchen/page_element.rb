@@ -31,10 +31,10 @@ module Kitchen
     #
     def title(reload: false)
       # The selector for intro titles changes during the baking process
-      @title ||= first!(is_introduction? ?
-                          selectors.title_in_introduction_page :
-                          selectors.title_in_page,
-                        reload: reload)
+      @title ||= begin
+        selector = is_introduction? ? selectors.title_in_introduction_page : selectors.title_in_page
+        first!(selector, reload: reload)
+      end
     end
 
     # Returns the title's text regardless of whether the title has been baked

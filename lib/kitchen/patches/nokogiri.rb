@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Style/Documentation
+
 # Make debug output more useful (dumping entire document out is not useful)
 module Nokogiri
   module XML
@@ -95,13 +97,14 @@ module Nokogiri
 
       class XPathContext
         alias_method :original_evaluate, :evaluate
-        def evaluate(search_path, handler = nil)
+        def evaluate(search_path, handler=nil)
           SEARCH_COUNTS[search_path] += 1
           puts search_path
           original_evaluate(search_path, handler)
         end
       end
     end
-
   end
 end
+
+# rubocop:enable Style/Documentation
