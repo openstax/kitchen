@@ -88,8 +88,6 @@ module Kitchen
 
           next unless search_query.conditions_match?(sub_element)
 
-          element.mark_that_sub_elements_is_counted(css_or_xpath: sub_element.short_type)
-
           # Record this sub element's ancestors and increment their descendant counts
           sub_element.add_ancestors(grand_ancestors, parent_ancestor)
 
