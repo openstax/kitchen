@@ -29,6 +29,18 @@ RSpec.describe Kitchen::ElementBase do
       ))
   end
 
+  let(:title_book) do
+    book_containing(html:
+      one_chapter_with_one_page_containing(
+        <<~HTML
+          <div data-type="example" class="class1" id="div1">
+            <p>This is a paragraph.</p>
+          </div>
+          <div data-type="title">This is a title</div>
+        HTML
+      ))
+  end
+
   let(:searchable_book) do
     book_containing(html:
       chapter_element(
@@ -290,6 +302,12 @@ RSpec.describe Kitchen::ElementBase do
   describe '#contains?' do
     it 'returns true if the element has a child matching the provided selector' do
       expect(book.contains?('.class1')).to eq true
+    end
+  end
+
+  describe '#titles' do
+    it 'returns elements with data-type title' do
+      expect(title_book.titles.to_s).to eq('<div data-type="title">This is a title</div>')
     end
   end
 

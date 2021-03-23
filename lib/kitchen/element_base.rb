@@ -530,6 +530,12 @@ module Kitchen
       end
     end
 
+    # returns the top data-type=title element
+    #
+    def titles
+      search("[data-type='title']")
+    end
+
     # Mark the location so that if there's an error we can show the developer where.
     #
     def mark_as_current_location!
