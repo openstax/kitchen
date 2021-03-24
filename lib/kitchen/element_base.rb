@@ -530,12 +530,6 @@ module Kitchen
       end
     end
 
-    # returns the top data-type=title element
-    #
-    def titles
-      search("[data-type='title']")
-    end
-
     # Mark the location so that if there's an error we can show the developer where.
     #
     def mark_as_current_location!
@@ -613,7 +607,7 @@ module Kitchen
     # @!method pages
     #   Returns a pages enumerator
     def_delegators :as_enumerator, :pages, :chapters, :terms, :figures, :notes, :tables, :examples,
-                   :metadatas, :non_introduction_pages, :units
+                   :metadatas, :non_introduction_pages, :units, :titles
 
     # Returns this element as an enumerator (over only one element, itself)
     #

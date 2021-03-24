@@ -36,7 +36,8 @@ RSpec.describe Kitchen::ElementBase do
           <div data-type="example" class="class1" id="div1">
             <p>This is a paragraph.</p>
           </div>
-          <div data-type="title">This is a title</div>
+          <div data-type="title">Div Title</div>
+          <span data-type="title">Span Title</span>
         HTML
       ))
   end
@@ -307,7 +308,19 @@ RSpec.describe Kitchen::ElementBase do
 
   describe '#titles' do
     it 'returns elements with data-type title' do
-      expect(title_book.titles.to_s).to eq('<div data-type="title">This is a title</div>')
+      expect(title_book.titles.map(&:text)).to eq(['Div Title', 'Span Title'])
+    end
+
+    context 'when just divs are specified' do
+      it 'returns just divs' do
+        expect(title_book.titles('div$').map(&:text)).to eq(['Div Title'])
+      end
+    end
+
+    context 'when just spans are specified' do
+      it 'returns just spans' do
+        expect(title_book.titles('span$').map(&:text)).to eq(['Span Title'])
+      end
     end
   end
 
