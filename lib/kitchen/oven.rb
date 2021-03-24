@@ -12,9 +12,15 @@ module Kitchen
     # @param recipes [Array<Recipe>] an array of recipes with which to bake the document
     # @param output_file [String] the path to the output file
     #
-    def self.bake(input_file:, recipes:, output_file:, config_file: nil)
+    def self.bake(input_file:, recipes:, output_file:, config_file: nil, locales: nil)
       profile = BakeProfile.new
       profile.started!
+
+      if locales
+        I18n.load_path << file_glob("#{__dir__}/#{locales}/*.yml")
+        I18n.backend.reload!
+        # TODO: reload! clears the symbols that are manually stored from TRANSLITERATIONS in openstax_kitchen.rb. Fix: add these to the load_path instead?
+      end
 
       nokogiri_doc = File.open(input_file) do |f|
         profile.opened!
