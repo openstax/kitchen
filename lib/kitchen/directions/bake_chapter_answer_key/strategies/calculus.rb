@@ -1,0 +1,41 @@
+# frozen_string_literal: true
+
+module Kitchen::Directions::BakeChapterAnswerKey
+  module Strategies
+    #module Calculus
+      class Calculus
+        def bake(chapter:, append_to:)
+          # puts append_to
+          checkpoint_solutions = chapter.search('.checkpoint [data-type="solution"]').cut
+          append_solution_area(I18n.t(:checkpoint), checkpoint_solutions, append_to)
+
+          chapter.search('div.section-exercises').each do |section|
+            section_solutions = section.search('[data-type="solution"]').cut
+            section_title = section.search('[data-type="document-title"]')
+            append_solution_area(section_title, section_solutions, append_to)
+          end
+
+          chapter.search('.review-exercises').each do |section|
+            section_solutions = section.search('[data-type="solution"]').cut
+            append_solution_area(I18n.t(:review_exercises), section_solutions, append_to)
+          end
+        end
+
+        protected
+
+        def append_solution_area(title, clipboard, append_to)
+          # return if clipboard.empty?
+
+          append_to.append(child:
+            <<~HTML
+              <div class="os-solution-area">
+                <h2>#{title}</h2>
+                #{clipboard.paste}
+              </div>
+            HTML
+          )
+        end
+      end
+    #end
+  end
+end

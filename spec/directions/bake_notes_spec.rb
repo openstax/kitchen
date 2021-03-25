@@ -41,34 +41,6 @@ RSpec.describe Kitchen::Directions::BakeNotes do
     )
   end
 
-  let(:book_with_checkpoints_and_theorems) do
-    book_containing(html:
-      one_chapter_with_one_page_containing(
-        <<~HTML
-          <div data-type="note" id="note_id" class="checkpoint">
-            <div data-type="exercise" id="exercise_id">
-              <div data-type="problem" id="problem_id">
-                <p>problem content</p>
-              </div>
-              <div data-type="solution" id="solution_id">
-                <p>solution content</p>
-              </div>
-              <div data-type="commentary" id="an_id" data-element-type="hint">
-                <div data-type="title" id="hint_title_id">Hint</div>
-                <p id="id"></p>
-              </div>
-            </div>
-          </div>
-
-          <div data-type="note" id="2note_id" class="theorem">
-            <div data-type="title" id="title2">Two Important Limits</div>
-            <p id="another_id">Content</p>
-          </div>
-        HTML
-      )
-    )
-  end
-
   before do
     stub_locales({
       'notes': {
