@@ -43,7 +43,6 @@ module Kitchen
       end
 
       def self.li_for_composite_chapter(chapter)
-        puts 'gets to composite chapter'
         pages = chapter.element_children.only(CompositePageElement)
         <<~HTML
           <li class="os-toc-composite-chapter" cnx-archive-shortid="" cnx-archive-uri="">
@@ -58,7 +57,6 @@ module Kitchen
       end
 
       def self.li_for_chapter(chapter)
-        puts 'gets here'
         pages = chapter.element_children.only(PageElement, CompositePageElement)
         inner_composite_chapter = chapter.element_children.map do |element|
           case element

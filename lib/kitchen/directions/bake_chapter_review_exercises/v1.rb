@@ -9,7 +9,7 @@ module Kitchen::Directions::BakeChapterReviewExercises
       @exercise_clipboard = Kitchen::Clipboard.new
 
       chapter.non_introduction_pages.each do |page|
-        sections = page.exercises(class_name: 'section.review-exercises')
+        sections = page.search('section.review-exercises')
 
         sections.each do |exercise_section|
           exercise_section.first("[data-type='title']")&.trash

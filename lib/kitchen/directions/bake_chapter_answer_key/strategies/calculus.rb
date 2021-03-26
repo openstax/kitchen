@@ -22,7 +22,7 @@ module Kitchen::Directions::BakeChapterAnswerKey
       protected
 
       def append_solution_area(title, clipboard, append_to)
-        append_to.append(child:
+        append_to.add_child(
           <<~HTML
             <div class="os-solution-area">
               <h3 data-type="title">
