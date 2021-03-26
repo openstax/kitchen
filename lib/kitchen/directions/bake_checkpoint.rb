@@ -21,7 +21,6 @@ module Kitchen
         )
 
         exercise = checkpoint.exercises.first!
-        exercise.add_class('unnumbered')
         exercise.search("[data-type='commentary']").trash
 
         problem = exercise.problem
@@ -44,6 +43,8 @@ module Kitchen
             <div class="os-solution-container">#{solution.children}</div>
           HTML
         )
+
+        exercise.add_class('unnumbered')
       end
     end
   end

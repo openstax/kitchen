@@ -77,7 +77,7 @@ RSpec.describe Kitchen::Directions::BakeExercises::V1 do
   end
 
   it 'works' do
-    described_class.new.bake(book: book1, bake_eob: true, bake_section_title: true, class_name: 'section.exercises')
+    described_class.new.bake(book: book1)
 
     expect(book1.body).to match_normalized_html(
       <<~HTML
@@ -173,7 +173,7 @@ RSpec.describe Kitchen::Directions::BakeExercises::V1 do
               <span class="os-text">Answer Key</span>
             </h1>
             #{metadata(title: 'Answer Key', id_suffix: '_copy_2')}
-            <div class="os-eob os-solution-container " data-type="composite-page" data-uuid-key=".solution1">
+            <div class="os-eob os-solution-container" data-type="composite-page" data-uuid-key=".solution1">
               <h2 data-type="document-title">
                 <span class="os-text">Chapter 1</span>
               </h2>

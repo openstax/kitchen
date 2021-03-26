@@ -3,7 +3,7 @@
 module Kitchen::Directions::BakeExercises
   class V1
     renderable
-    def bake(book:, class_name:, bake_eob:, bake_section_title:)
+    def bake(book:)
       metadata_elements = book.metadata.children_to_keep.copy
 
       solutions_clipboards = []
@@ -13,35 +13,28 @@ module Kitchen::Directions::BakeExercises
         solution_clipboard = Kitchen::Clipboard.new
         solutions_clipboards.push(solution_clipboard)
 
-        chapter.pages('$:not(.introduction)').each do |page|
-          sections = page.exercises(class_name: class_name)
+        chapter.non_introduction_pages.each do |page|
+          exercise_section = page.exercises
+          exercise_section.first("[data-type='title']")&.trash
+          bake_exercise_section_title(exercise_section: exercise_section, page: page, chapter: chapter)
 
-          sections.each do |exercise_section|
-            exercise_section.first("[data-type='title']")&.trash
-            bake_exercise_section_title(exercise_section: exercise_section, page: page, chapter: chapter) if bake_section_title
-
-            exercise_section.exercises.each do |exercise|
-              exercise.document.pantry(name: :link_text).store(
-                "#{I18n.t(:exercise_label)} #{chapter.count_in(:book)}.#{exercise.count_in(:chapter)}",
-                label: exercise.id
-              )
-
-              bake_exercise_in_place(exercise: exercise)
-              next unless bake_eob
-
-              exercise.solution&.cut(to: solution_clipboard)
-            end
-
-            exercise_section.cut(to: exercise_clipboard)
+          exercise_section.exercises.each do |exercise|
+            exercise.document.pantry(name: :link_text).store(
+              "#{I18n.t(:exercise_label)} #{chapter.count_in(:book)}.#{exercise.count_in(:chapter)}",
+              label: exercise.id
+            )
+            bake_exercise_in_place(exercise: exercise)
+            exercise.solution&.cut(to: solution_clipboard)
           end
+
+          exercise_section.cut(to: exercise_clipboard)
         end
 
         next if exercise_clipboard.none?
 
-        classname_title = class_name.sub('section.', '')
         chapter.append(child:
           <<~HTML
-            <div class="os-eoc os-#{classname_title}-container" data-type="composite-page" data-uuid-key=".#{classname_title}">
+            <div class="os-eoc os-exercises-container" data-type="composite-page" data-uuid-key=".exercises">
               <h2 data-type="document-title">
                 <span class="os-text">#{I18n.t(:eoc_exercises_title)}</span>
               </h2>
@@ -55,13 +48,11 @@ module Kitchen::Directions::BakeExercises
         )
       end
 
-      return unless bake_eob
-
       # Store a paste here to use at end so that uniquifyied IDs match legacy baking
-      @eob_metadata = metadata_elements.paste
-      @solutions = solutions_clipboards.map.with_index do |solution_clipboard, index|
+      eob_metadata = metadata_elements.paste
+      solutions = solutions_clipboards.map.with_index do |solution_clipboard, index|
         <<~HTML
-          <div class="os-eob os-solution-container " data-type="composite-page" data-uuid-key=".solution#{index + 1}">
+          <div class="os-eob os-solution-container" data-type="composite-page" data-uuid-key=".solution#{index + 1}">
             <h2 data-type="document-title">
               <span class="os-text">#{I18n.t(:chapter)} #{index + 1}</span>
             </h2>
@@ -74,10 +65,22 @@ module Kitchen::Directions::BakeExercises
         HTML
       end
 
-      return if @solutions.none?
+      return if solutions.none?
 
-      @solutions_classname = 'solution'
-      book.first('body').append(child: render(file: 'eob.xhtml.erb'))
+      book.first('body').append(child:
+        <<~HTML
+          <div class="os-eob os-solution-container" data-type="composite-chapter" data-uuid-key=".solution">
+            <h1 data-type="document-title" id="composite-chapter-1">
+              <span class="os-text">#{I18n.t(:eoc_answer_key_title)}</span>
+            </h1>
+            <div data-type="metadata" style="display: none;">
+              <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_answer_key_title)}</h1>
+              #{eob_metadata}
+            </div>
+            #{solutions.join("\n")}
+          </div>
+        HTML
+      )
     end
 
     def bake_exercise_section_title(exercise_section:, chapter:, page:)

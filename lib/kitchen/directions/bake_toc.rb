@@ -101,7 +101,6 @@ module Kitchen
             elsif page.has_ancestor?(:composite_chapter) || page.has_ancestor?(:chapter)
               'os-toc-chapter-composite-page'
             else
-              puts page.ancestors
               raise "do not know what TOC class to use for page with classes #{page.classes}"
             end
           else

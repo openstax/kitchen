@@ -38,7 +38,7 @@ RSpec.describe Kitchen::Directions::BakeCheckpoint do
               <span class="os-divider"> </span>
             </div>
             <div class="os-note-body">
-              <div data-type="exercise" id="exercise_id" class="unnumbered os-hasSolution">
+              <div data-type="exercise" id="exercise_id" class="os-hasSolution unnumbered">
                 <div data-type="problem" id="problem_id">
                   <div class="os-problem-container">
                     <p> problem content </p>
