@@ -49,12 +49,6 @@ RSpec.describe Kitchen::Oven do
     context 'when both recipe-specific and kitchen locales exist' do
       # This is a rare case when we do not call `stub_locales` because that messes with how
       # locales are found, and here we want to test our recipe-specific chaining logic.
-      # before do
-      #   stub_locales({
-      #     'figure': 'Figure',
-      #     'table': 'Table'
-      #   })
-      # end
 
       it 'uses the recipe-specific ones preferrentially' do
         recipe = Kitchen::Recipe.new do |document|
