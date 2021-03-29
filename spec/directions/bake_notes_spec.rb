@@ -43,11 +43,9 @@ RSpec.describe Kitchen::Directions::BakeNotes do
 
   before do
     stub_locales({
-      'book1': {
-        'notes': {
-          'link-to-learning': 'Link to Learning',
-          'everyday-life': 'Chemistry in Everyday Life'
-        }
+      'notes': {
+        'link-to-learning': 'Link to Learning',
+        'everyday-life': 'Chemistry in Everyday Life'
       }
     })
   end
