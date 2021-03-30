@@ -46,5 +46,9 @@ module Kitchen
       has_class?('os-index-container')
     end
 
+    def is_reference?
+      has_class?('os-reference-container')
+    end
+
   end
 end
