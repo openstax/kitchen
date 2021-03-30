@@ -3,10 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe Kitchen::NoteElement do
-  let(:short_name) { :book1 }
-
   let(:book_with_valid_note) do
-    book_containing(short_name: short_name, html:
+    book_containing(html:
       one_chapter_with_one_page_containing(
         <<~HTML
           <div data-type="note" id="noteId" class="chemistry link-to-learning">
@@ -17,7 +15,7 @@ RSpec.describe Kitchen::NoteElement do
   end
 
   let(:book_with_note_bad_class) do
-    book_containing(short_name: short_name, html:
+    book_containing(html:
       one_chapter_with_one_page_containing(
         <<~HTML
           <div data-type="note" id="noteId" class="bad-class">
@@ -73,7 +71,6 @@ RSpec.describe Kitchen::NoteElement do
     let(:untitled_note) { book_with_valid_note.notes.first }
 
     it 'can get its own enumerator' do
-      expect($stdout).to receive(:puts)
       expect(untitled_note.as_enumerator).to be_a Kitchen::NoteElementEnumerator
     end
   end
