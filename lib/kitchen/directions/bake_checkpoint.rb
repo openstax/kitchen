@@ -4,11 +4,7 @@ module Kitchen
   module Directions
     module BakeCheckpoint
       def self.v1(checkpoint:, number:)
-        checkpoint.replace_children(with:
-          <<~HTML
-            <div class="os-note-body">#{checkpoint.children}</div>
-          HTML
-        )
+        checkpoint.wrap_children(class: 'os-note-body')
 
         checkpoint.prepend(child:
           <<~HTML
@@ -24,11 +20,7 @@ module Kitchen
         exercise.search("[data-type='commentary']").trash
 
         problem = exercise.problem
-        problem.replace_children(with:
-          <<~HTML
-            <div class="os-problem-container">#{problem.children}</div>
-          HTML
-        )
+        problem.wrap_children(class: 'os-problem-container')
 
         solution = exercise.solution
         return unless solution.present?

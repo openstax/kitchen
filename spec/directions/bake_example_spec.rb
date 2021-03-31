@@ -70,7 +70,7 @@ RSpec.describe Kitchen::Directions::BakeExample do
               <p>content</p>
               <div data-type="exercise" id="exercise_id" class="unnumbered">
                 <div data-type="problem" id="problem_id">
-                  <div class="os-problem-container ">
+                  <div class="os-problem-container">
                     <h4 data-type="title" id="title_id">Evaluating Functions</h4>
                     <p>example content</p>
                   </div>
@@ -79,7 +79,7 @@ RSpec.describe Kitchen::Directions::BakeExample do
                   <h4 data-type="solution-title">
                     <span class="os-title-label">Solution </span>
                   </h4>
-                  <div class="os-solution-container ">
+                  <div class="os-solution-container">
                     <p>Solution content</p>
                   </div>
                 </div>

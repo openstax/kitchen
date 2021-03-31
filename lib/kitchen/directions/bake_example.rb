@@ -25,11 +25,7 @@ module Kitchen
         example.exercises.each do |exercise|
           if (problem = exercise.problem)
             problem.titles.each { |title| title.name = 'h4' }
-            problem.replace_children(with:
-              <<~HTML
-                <div class="os-problem-container ">#{problem.children}</div>
-              HTML
-            )
+            problem.wrap_children(class: 'os-problem-container')
           end
 
           if (solution = exercise.solution)
@@ -38,7 +34,7 @@ module Kitchen
                 <h4 data-type="solution-title">
                   <span class="os-title-label">#{I18n.t(:solution)} </span>
                 </h4>
-                <div class="os-solution-container ">#{solution.children}</div>
+                <div class="os-solution-container">#{solution.children}</div>
               HTML
             )
           end

@@ -6,7 +6,7 @@ module Kitchen::Directions::BakeTheorem
       theorem['use-subtitle'] = true
       new_subtitle = theorem.title.cut
 
-      theorem.replace_children(with: %(<div class="os-note-body">#{theorem.children}</div>))
+      theorem.wrap_children(class: 'os-note-body')
       note_body = theorem.first('.os-note-body')
 
       note_body.prepend(sibling:
