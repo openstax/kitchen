@@ -84,9 +84,6 @@ RSpec.describe Kitchen::Directions::BakeNotes do
         expect(book.search("[data-type='note']").first).to match_html_nodes(
           <<~HTML
             <div data-type="note" id="noteId" class="chemistry link-to-learning">
-              <h3 class="os-title" data-type="title">
-                <span class="os-title-label">Link to Learning</span>
-              </h3>
               <div class="os-note-body">
                 <p id="pId">Blah</p>
               </div>
