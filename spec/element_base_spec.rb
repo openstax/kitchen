@@ -29,6 +29,19 @@ RSpec.describe Kitchen::ElementBase do
       ))
   end
 
+  let(:title_book) do
+    book_containing(html:
+      one_chapter_with_one_page_containing(
+        <<~HTML
+          <div data-type="example" class="class1" id="div1">
+            <p>This is a paragraph.</p>
+          </div>
+          <div data-type="title">Div Title</div>
+          <span data-type="title">Span Title</span>
+        HTML
+      ))
+  end
+
   let(:searchable_book) do
     book_containing(html:
       chapter_element(
@@ -281,6 +294,57 @@ RSpec.describe Kitchen::ElementBase do
     end
   end
 
+  describe '#wrap_children' do
+    let(:element) { new_element('<div>something <i>awesome</i></div>') }
+
+    it 'wraps with no arguments' do
+      expect(element.wrap_children).to match_normalized_html(
+        '<div><div>something <i>awesome</i></div></div>'
+      )
+    end
+
+    it 'can set attributes on the wrapper' do
+      expect(element.wrap_children(class: 'foo')).to match_normalized_html(
+        '<div><div class="foo">something <i>awesome</i></div></div>'
+      )
+    end
+
+    it 'works with a different name' do
+      expect(element.wrap_children('span')).to match_normalized_html(
+        '<div><span>something <i>awesome</i></span></div>'
+      )
+    end
+
+    it 'accepts a block to do extra work on the wrapper' do
+      element.wrap_children(class: 'outer') do |wrapper|
+        wrapper.wrap_children(class: 'inner')
+      end
+
+      expect(element).to match_normalized_html(
+        '<div><div class="outer"><div class="inner">something <i>awesome</i></div></div></div>'
+      )
+    end
+
+    it 'returns self for chaining' do
+      element.wrap_children.add_class('foo')
+      expect(element).to match_normalized_html(
+        '<div class="foo"><div>something <i>awesome</i></div></div>'
+      )
+    end
+
+    it 'converts underscores to dashes in attribute keys' do
+      expect(element.wrap_children(data_type: 'foo')).to match_normalized_html(
+        '<div><div data-type="foo">something <i>awesome</i></div></div>'
+      )
+    end
+
+    it 'converts double underscores to single underscores in attribute keys' do
+      expect(element.wrap_children(data__type: 'foo')).to match_normalized_html(
+        '<div><div data_type="foo">something <i>awesome</i></div></div>'
+      )
+    end
+  end
+
   describe '#content' do
     it 'gets the children matching the provided selector' do
       expect(book.content('.class1')).to match_normalized_html('<p>This is a paragraph.</p>')
@@ -290,6 +354,24 @@ RSpec.describe Kitchen::ElementBase do
   describe '#contains?' do
     it 'returns true if the element has a child matching the provided selector' do
       expect(book.contains?('.class1')).to eq true
+    end
+  end
+
+  describe '#titles' do
+    it 'returns elements with data-type title' do
+      expect(title_book.titles.map(&:text)).to eq(['Div Title', 'Span Title'])
+    end
+
+    context 'when just divs are specified' do
+      it 'returns just divs' do
+        expect(title_book.titles('div$').map(&:text)).to eq(['Div Title'])
+      end
+    end
+
+    context 'when just spans are specified' do
+      it 'returns just spans' do
+        expect(title_book.titles('span$').map(&:text)).to eq(['Span Title'])
+      end
     end
   end
 
@@ -338,6 +420,12 @@ RSpec.describe Kitchen::ElementBase do
     it 'delegates to the node' do
       expect(book.raw).to receive(:to_s)
       book.to_s
+    end
+  end
+
+  describe '#count_in' do
+    it 'raises when asked for counts in a non-existent ancestor' do
+      expect { para.count_in(:foo) }.to raise_error(/No ancestor/)
     end
   end
 end

@@ -210,6 +210,13 @@ And we can wrap an element with another element:
 doc.search("span").first.wrap("<span class='other'>")
 ```
 
+or wrap an element's children:
+
+```ruby
+# <div><span>Hi</span></div> => <div><span><span class="other" data-type="foo">Hi</span></span></div>
+doc.search("span").first.wrap_children('span', class: 'other', data_type: 'foo')
+```
+
 ### Checking for elements
 
 You can see if an element contains an element matching a selector:
@@ -272,6 +279,20 @@ The CSS for these specific search methods is hidden away so you don't have to de
 ```ruby
 doc.book.tables("$.unnumbered").cut
 ```
+
+Sometimes, it is difficult to setup a search using CSS.  In such cases, you can also pass `only` and `except` arguments to search methods, e.g.:
+
+```ruby
+doc.book.figures(except: :subfigure?)
+```
+
+`only` and `except` can be the names of methods (that return truthy/falsy values) on the element being iterated over, as shown above, or they can be lambdas or procs as shown here:
+
+```ruby
+doc.book.figures(only: ->(fig) { fig.children.count == 2 })
+```
+
+Obviously this is a somewhat contrived example, but the idea is that by passing a callable you can do complex searches.
 
 ### Overriding Default Book-Oriented Selectors
 
