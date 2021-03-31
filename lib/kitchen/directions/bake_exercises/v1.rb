@@ -16,7 +16,9 @@ module Kitchen::Directions::BakeExercises
         chapter.non_introduction_pages.each do |page|
           exercise_section = page.exercises
           exercise_section.titles.first&.trash
-          bake_exercise_section_title(exercise_section: exercise_section, page: page, chapter: chapter)
+
+          bake_exercise_section_title(
+            exercise_section: exercise_section, page: page, chapter: chapter)
 
           exercise_section.exercises.each do |exercise|
             exercise.document.pantry(name: :link_text).store(

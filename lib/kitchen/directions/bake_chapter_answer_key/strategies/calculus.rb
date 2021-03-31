@@ -9,7 +9,10 @@ module Kitchen::Directions::BakeChapterAnswerKey
 
         chapter.search('.section-exercises').each do |section|
           section_solutions = section.search('[data-type="solution"]').cut
-          section_title = I18n.t(:section_exercises, number: "#{chapter.count_in(:book)}.#{section.count_in(:chapter)}")
+          section_title = I18n.t(
+            :section_exercises,
+            number: "#{chapter.count_in(:book)}.#{section.count_in(:chapter)}"
+          )
           append_solution_area(section_title, section_solutions, append_to)
         end
 
