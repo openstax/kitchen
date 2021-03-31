@@ -32,7 +32,7 @@ RSpec.describe Kitchen::Directions::BakeUnclassifiedNote do
     described_class.v1(note: titled_note)
     expect(titled_note).to match_normalized_html(
       <<~HTML
-        <div class="unclassified" data-type="note" id="noteId">
+        <div data-type="note" id="noteId">
           <h3 class="os-title" data-type="title">
             <span class="os-title-label" data-type="" id="titleId">note <em data-effect="italics">title</em></span>
           </h3>
@@ -48,7 +48,7 @@ RSpec.describe Kitchen::Directions::BakeUnclassifiedNote do
     described_class.v1(note: untitled_note)
     expect(untitled_note).to match_normalized_html(
       <<~HTML
-        <div class="unclassified" data-type="note" id="noteId">
+        <div data-type="note" id="noteId">
           <div class="os-note-body">
             <p>content</p>
           </div>

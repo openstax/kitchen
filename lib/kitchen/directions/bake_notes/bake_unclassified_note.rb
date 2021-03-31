@@ -4,16 +4,9 @@ module Kitchen
   module Directions
     module BakeUnclassifiedNote
       def self.v1(note:)
-        note.add_class('unclassified')
-        title = note.search('div[data-type="title"]').first
-        title&.cut
+        note.wrap_children(class: 'os-note-body')
 
-        note.replace_children(with:
-          <<~HTML
-            <div class="os-note-body">#{note.children}</div>
-          HTML
-        )
-
+        title = note.title&.cut
         return unless title
 
         note.prepend(child:

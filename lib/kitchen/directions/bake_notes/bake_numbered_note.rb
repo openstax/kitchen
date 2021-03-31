@@ -4,11 +4,7 @@ module Kitchen
   module Directions
     module BakeNumberedNote
       def self.v1(note:)
-        note.replace_children(with:
-          <<~HTML
-            <div class="os-note-body">#{note.children}</div>
-          HTML
-        )
+        note.wrap_children(class: 'os-note-body')
 
         chapter_count = note.ancestor(:chapter).count_in(:book)
         note_count = note.count_in(:chapter)
