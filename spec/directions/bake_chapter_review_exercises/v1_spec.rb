@@ -3,6 +3,13 @@
 require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::BakeChapterReviewExercises::V1 do
+  before do
+    stub_locales({
+      'eoc_exercises_title': 'Review Exercises',
+      'eoc_chapter_review': 'Chapter Review'
+    })
+  end
+
   let(:append_to) do
     new_element(
       <<~HTML
@@ -83,7 +90,7 @@ RSpec.describe Kitchen::Directions::BakeChapterReviewExercises::V1 do
                   <span class="os-text">Review Exercises</span>
                 </h3>
                 <div data-type="metadata" style="display: none;">
-                  <h1 data-type="document-title" itemprop="name">Chapter Review</h1>
+                  <h1 data-type="document-title" itemprop="name">Review Exercises</h1>
                   <div data-type="metadata" style="display: none;">
                       <h1 data-type="document-title" itemprop="name">A Title</h1>
                       <div class="authors">

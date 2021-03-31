@@ -2,7 +2,7 @@
 
 module Kitchen
   module Directions
-    module BakePageTitle
+    module BakeNonIntroductionPage
       def self.v1(page:, number:)
         page.search("div[data-type='description']").each(&:trash)
         page.add_class('chapter-content-module')

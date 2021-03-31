@@ -24,7 +24,7 @@ module Kitchen
 
         example.exercises.each do |exercise|
           if (problem = exercise.problem)
-            problem.search('div[data-type="title"]').each { |title| title.name = 'h4' }
+            problem.titles.each { |title| title.name = 'h4' }
             problem.replace_children(with:
               <<~HTML
                 <div class="os-problem-container ">#{problem.children}</div>

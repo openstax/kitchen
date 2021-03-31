@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakePageTitle do
+RSpec.describe Kitchen::Directions::BakeNonIntroductionPage do
   let(:page) do
     page_element(
       <<~HTML

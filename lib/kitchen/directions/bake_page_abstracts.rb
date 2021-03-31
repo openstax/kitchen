@@ -12,7 +12,7 @@ module Kitchen
 
       def self.v2(chapter:)
         chapter.abstracts.each do |abstract|
-          ul = abstract.first('ul')
+          ul = abstract.first!('ul')
           ul.add_class('os-abstract')
           ul.search('li').each_with_index do |li, index|
             li.replace_children(with:

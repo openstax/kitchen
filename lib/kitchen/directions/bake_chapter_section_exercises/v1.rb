@@ -2,8 +2,6 @@
 
 module Kitchen::Directions::BakeChapterSectionExercises
   class V1
-    renderable
-
     def bake(chapter:)
       chapter.pages.each do |page|
         page.search('section.section-exercises').each do |section|

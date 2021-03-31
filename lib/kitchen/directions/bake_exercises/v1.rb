@@ -15,7 +15,7 @@ module Kitchen::Directions::BakeExercises
 
         chapter.non_introduction_pages.each do |page|
           exercise_section = page.exercises
-          exercise_section.first("[data-type='title']")&.trash
+          exercise_section.titles.first&.trash
           bake_exercise_section_title(exercise_section: exercise_section, page: page, chapter: chapter)
 
           exercise_section.exercises.each do |exercise|
@@ -67,7 +67,7 @@ module Kitchen::Directions::BakeExercises
 
       return if solutions.none?
 
-      book.first('body').append(child:
+      book.body.append(child:
         <<~HTML
           <div class="os-eob os-solution-container" data-type="composite-chapter" data-uuid-key=".solution">
             <h1 data-type="document-title" id="composite-chapter-1">
@@ -101,7 +101,7 @@ module Kitchen::Directions::BakeExercises
       )
     end
 
-    def bake_exercise_in_place(exercise:, bake_solution: true)
+    def bake_exercise_in_place(exercise:)
       # Bake an exercise in place going from:
       #
       # <div data-type="exercise" id="exerciseId">
@@ -140,7 +140,7 @@ module Kitchen::Directions::BakeExercises
       count_in = exercise.count_in(:chapter)
       problem_number = "<span class='os-number'>#{count_in}</span>"
 
-      if solution.present? && bake_solution
+      if solution.present?
         solution.id = "#{exercise.id}-solution"
 
         exercise.add_class('os-hasSolution')
