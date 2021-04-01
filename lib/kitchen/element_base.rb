@@ -633,10 +633,14 @@ module Kitchen
       end
     end
 
+    def last_element
+      node.last_element_child
+    end
+
     # @!method pages
     #   Returns a pages enumerator
     def_delegators :as_enumerator, :pages, :chapters, :terms, :figures, :notes, :tables, :examples,
-                   :metadatas, :units, :references, :titles, :non_introduction_pages
+                   :metadatas, :non_introduction_pages, :units, :titles, :exercises, :references
 
     # Returns this element as an enumerator (over only one element, itself)
     #
