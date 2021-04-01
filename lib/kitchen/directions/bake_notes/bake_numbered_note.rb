@@ -3,7 +3,15 @@
 module Kitchen
   module Directions
     module BakeNumberedNote
-      def self.v1(note:)
+      def self.v1(book:, selectors:)
+        selectors.each do |selector|
+          book.chapters.notes("$.#{selector}").each do |note|
+            bake_note(note: note)
+          end
+        end
+      end
+
+      def self.bake_note(note:)
         note.wrap_children(class: 'os-note-body')
 
         chapter_count = note.ancestor(:chapter).count_in(:book)
