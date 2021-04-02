@@ -3,7 +3,11 @@
 module Kitchen::Directions::BakeExercises
   class V1
     renderable
-    def bake(book:)
+    def bake(
+      book:,
+      exercise_section_classname: 'exercises',
+      exercise_section_title: 'eoc_exercises_title'
+    )
       metadata_elements = book.metadata.children_to_keep.copy
 
       solutions_clipboards = []
@@ -14,7 +18,9 @@ module Kitchen::Directions::BakeExercises
         solutions_clipboards.push(solution_clipboard)
 
         chapter.non_introduction_pages.each do |page|
-          exercise_section = page.exercises
+          exercise_section = page.exercises(exercise_section_classname)
+          next if exercise_section.nil?
+
           exercise_section.titles.first&.trash
 
           bake_exercise_section_title(
@@ -36,12 +42,12 @@ module Kitchen::Directions::BakeExercises
 
         chapter.append(child:
           <<~HTML
-            <div class="os-eoc os-exercises-container" data-type="composite-page" data-uuid-key=".exercises">
+            <div class= "os-eoc os-#{exercise_section_classname}-container" data-type="composite-page" data-uuid-key=".#{exercise_section_classname}">
               <h2 data-type="document-title">
-                <span class="os-text">#{I18n.t(:eoc_exercises_title)}</span>
+                <span class="os-text">#{I18n.t(:"#{exercise_section_title}")}</span>
               </h2>
               <div data-type="metadata" style="display: none;">
-                <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_exercises_title)}</h1>
+                <h1 data-type="document-title" itemprop="name">#{I18n.t(:"#{exercise_section_title}")}</h1>
                 #{metadata_elements.paste}
               </div>
               #{exercise_clipboard.paste}
