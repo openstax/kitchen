@@ -2,8 +2,16 @@
 
 module Kitchen
   module Directions
-    module BakeNumberedNote
-      def self.v1(note:)
+    module BakeNumberedNotes
+      def self.v1(book:, classes:)
+        classes.each do |c|
+          book.chapters.notes("$.#{c}").each do |note|
+            bake_note(note: note)
+          end
+        end
+      end
+
+      def self.bake_note(note:)
         note.wrap_children(class: 'os-note-body')
 
         chapter_count = note.ancestor(:chapter).count_in(:book)

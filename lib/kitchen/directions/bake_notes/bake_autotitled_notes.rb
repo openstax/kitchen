@@ -2,8 +2,16 @@
 
 module Kitchen
   module Directions
-    module BakeTitledNote
-      def self.v1(note:)
+    module BakeAutotitledNotes
+      def self.v1(book:, classes:)
+        book.notes.each do |note|
+          next unless (note.classes & classes).any?
+
+          bake_note(note: note)
+        end
+      end
+
+      def self.bake_note(note:)
         note.wrap_children(class: 'os-note-body')
 
         title = note.title&.cut
@@ -20,12 +28,8 @@ module Kitchen
 
         title.name = 'h4'
         title.add_class('os-subtitle')
-        title.replace_children(with:
-          <<~HTML
-            <span class="os-subtitle-label">#{title.children}</span>
-          HTML
-        )
-        note.first!('.os-note-body').prepend(child: title.raw)
+        title.wrap_children('span', class: 'os-subtitle-label')
+        note.first!('.os-note-body').prepend(child: title.to_s)
       end
     end
   end
