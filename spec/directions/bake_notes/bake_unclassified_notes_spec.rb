@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeUnclassifiedNote do
+RSpec.describe Kitchen::Directions::BakeUnclassifiedNotes do
   let(:book_with_notes) do
     book_containing(html:
       one_chapter_with_one_page_containing(

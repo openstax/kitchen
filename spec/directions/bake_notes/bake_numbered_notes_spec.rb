@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeNumberedNote do
+RSpec.describe Kitchen::Directions::BakeNumberedNotes do
   let(:book_with_notes) do
     book_containing(html:
       <<~HTML
@@ -45,10 +45,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedNote do
   end
 
   it 'bakes' do
-    # book_with_notes.chapters.notes.each do |note|
-    #   described_class.v1(note: note)
-    # end
-    described_class.v1(book: book_with_notes, css: %w[foo hello])
+    described_class.v1(book: book_with_notes, classes: %w[foo hello])
     expect(book_with_notes.body).to match_normalized_html(
       <<~HTML
         <body>

@@ -2,7 +2,7 @@
 
 module Kitchen
   module Directions
-    module BakeAutotitledNote
+    module BakeAutotitledNotes
       def self.v1(book:, classes:)
         book.notes.each do |note|
           next unless (note.classes & classes).any?

@@ -2,7 +2,7 @@
 
 module Kitchen
   module Directions
-    module BakeNumberedNote
+    module BakeNumberedNotes
       def self.v1(book:, classes:)
         classes.each do |c|
           book.chapters.notes("$.#{c}").each do |note|

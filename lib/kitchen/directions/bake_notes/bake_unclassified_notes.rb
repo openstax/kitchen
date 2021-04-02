@@ -2,7 +2,7 @@
 
 module Kitchen
   module Directions
-    module BakeUnclassifiedNote
+    module BakeUnclassifiedNotes
       def self.v1(book:)
         book.notes.each do |note|
           next unless note.classes.empty?

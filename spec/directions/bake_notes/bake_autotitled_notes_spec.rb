@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeAutotitledNote do
+RSpec.describe Kitchen::Directions::BakeAutotitledNotes do
   let(:book_with_notes) do
     book_containing(html:
       one_chapter_with_one_page_containing(
@@ -32,7 +32,7 @@ RSpec.describe Kitchen::Directions::BakeAutotitledNote do
   end
 
   it 'bakes' do
-    described_class.v1(book: book_with_notes, css: %w[foo baz])
+    described_class.v1(book: book_with_notes, classes: %w[foo baz])
     expect(book_with_notes.body.pages.first).to match_normalized_html(
       <<~HTML
         <div data-type="page">
