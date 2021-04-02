@@ -3,9 +3,9 @@
 module Kitchen
   module Directions
     module BakeAutotitledNote
-      def self.v1(book:, selectors:)
+      def self.v1(book:, classes:)
         book.notes.each do |note|
-          next unless (note.classes & selectors).any?
+          next unless (note.classes & classes).any?
 
           bake_note(note: note)
         end

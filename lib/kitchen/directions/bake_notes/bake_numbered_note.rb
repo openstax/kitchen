@@ -3,9 +3,9 @@
 module Kitchen
   module Directions
     module BakeNumberedNote
-      def self.v1(book:, selectors:)
-        selectors.each do |selector|
-          book.chapters.notes("$.#{selector}").each do |note|
+      def self.v1(book:, classes:)
+        classes.each do |c|
+          book.chapters.notes("$.#{c}").each do |note|
             bake_note(note: note)
           end
         end
