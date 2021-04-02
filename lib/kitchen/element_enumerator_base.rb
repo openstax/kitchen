@@ -210,6 +210,7 @@ module Kitchen
     def references(css_or_xpath=nil)
       block_error_if(block_given?)
       chain_to(ReferenceElementEnumerator, css_or_xpath: css_or_xpath)
+    end
 
     # Returns an enumerator that iterates through exercises within the scope of this enumerator
     #
