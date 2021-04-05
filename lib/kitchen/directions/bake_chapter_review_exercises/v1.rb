@@ -4,12 +4,13 @@ module Kitchen::Directions::BakeChapterReviewExercises
   class V1
     renderable
 
-    def bake(chapter:, metadata_source:, append_to:)
-      @metadata = metadata_source
+    def bake(chapter:, metadata_source:, append_to:, klass:)
+      @klass = klass
+      @metadata = metadata_source.children_to_keep.copy
       @exercise_clipboard = Kitchen::Clipboard.new
 
       chapter.non_introduction_pages.each do |page|
-        sections = page.search('section.review-exercises')
+        sections = page.search("section.#{@klass}")
 
         sections.each do |exercise_section|
           exercise_section.first("[data-type='title']")&.trash
