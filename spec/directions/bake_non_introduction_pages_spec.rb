@@ -12,7 +12,7 @@ RSpec.describe Kitchen::Directions::BakeNonIntroductionPages do
               <ul>
                 <li>Use functional notation to evaluate a function.</li>
               </ul>
-          </div>
+            </div>
           </div>
           <div data-type="document-title" id="anId">Review of Functions</div>
         HTML
