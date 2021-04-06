@@ -9,7 +9,10 @@ module Kitchen::Directions::BakeChapterReviewExercises
     def bake(chapter:, metadata_source:, append_to:, klass:)
       @klass = klass
       @metadata = metadata_source.children_to_keep.copy
-      @exercise_clipboard = Kitchen::Clipboard.new
+      @title = I18n.t(:"eoc.#{klass}")
+      @content = ''
+
+      exercise_clipboard = Kitchen::Clipboard.new
 
       chapter.non_introduction_pages.each do |page|
         sections = page.search("section.#{@klass}")
@@ -29,7 +32,6 @@ module Kitchen::Directions::BakeChapterReviewExercises
             </a>
           HTML
 
-          # ?
           exercise_section.exercises.each do |exercise|
             exercise.document.pantry(name: :link_text).store(
               "#{I18n.t(:exercise_label)} #{chapter.count_in(:book)}.#{exercise.count_in(:chapter)}",
@@ -41,13 +43,19 @@ module Kitchen::Directions::BakeChapterReviewExercises
           exercise_section.prepend(child: section_title)
           exercise_section.wrap('<div class="os-section-area">')
           exercise_section = exercise_section.parent
-          exercise_section.cut(to: @exercise_clipboard)
+          exercise_section.cut(to: exercise_clipboard)
         end
       end
 
-      return if @exercise_clipboard.none?
+      return if exercise_clipboard.none?
 
-      append_to.append(child: render(file: 'review_conceptual_questions.xhtml.erb'))
+      @content = <<~HTML
+        <div class="os-#{@klass}">
+          #{exercise_clipboard.paste}
+        </div>
+      HTML
+
+      append_to.append(child: render(file: 'review_exercises.xhtml.erb'))
     end
   end
 end

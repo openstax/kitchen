@@ -7,7 +7,10 @@ module Kitchen::Directions::BakeChapterReviewExercises
     def bake(chapter:, metadata_source:, append_to:, klass:)
       @klass = klass
       @metadata = metadata_source.children_to_keep.copy
-      @exercise_clipboard = Kitchen::Clipboard.new
+      @title = I18n.t(:"eoc.#{klass}")
+      @content = ''
+
+      exercise_clipboard = Kitchen::Clipboard.new
 
       chapter.non_introduction_pages.each do |page|
         sections = page.search("section.#{@klass}")
@@ -22,11 +25,13 @@ module Kitchen::Directions::BakeChapterReviewExercises
             )
           end
 
-          exercise_section.cut(to: @exercise_clipboard)
+          exercise_section.cut(to: exercise_clipboard)
         end
       end
 
-      return if @exercise_clipboard.none?
+      return if exercise_clipboard.none?
+
+      @content = exercise_clipboard.paste
 
       append_to.append(child: render(file: 'review_exercises.xhtml.erb'))
     end
