@@ -160,4 +160,16 @@ RSpec.describe Kitchen::Directions::BakeChapterAnswerKey::V1 do
       HTML
     )
   end
+
+  it 'gets composite pages' do
+    book1.chapters.each do |chapter|
+      described_class.new.bake(
+        chapter: chapter,
+        metadata_source: metadata_element,
+        strategy: :uphysics,
+        append_to: append_to
+      )
+    end
+    expect(append_to.composite_pages.count).to eq 2
+  end
 end
