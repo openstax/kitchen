@@ -10,7 +10,6 @@ module Kitchen::Directions::BakeChapterReviewExercises
       @klass = klass
       @metadata = metadata_source.children_to_keep.copy
       @title = I18n.t(:"eoc.#{klass}")
-      @content = ''
 
       exercise_clipboard = Kitchen::Clipboard.new
 
