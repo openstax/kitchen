@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Adds `BakeChapterReviewExercises` v2 and a u-physics `Strategy` to `BakeChapterAnswerKey` to support baking exercises in u-physics (minor)
 * Added `wrap_children` method on elements (minor)
 * Refactored `NoteElement` to infer the note title from book-specific locales (minor)
 * Added support for a recipe to infer or be given a book-specific locale file (minor)
