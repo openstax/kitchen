@@ -4,6 +4,8 @@ module Kitchen::Directions::BakeChapterAnswerKey
   module Strategies
     class UPhysics
       def bake(chapter:, append_to:)
+        bake_from_notes(chapter: chapter, append_to: append_to, klass: 'check-understanding')
+
         classes = %w[review-conceptual-questions review-problems review-additional-problems
                      review-challenge]
         classes.each do |klass|
@@ -25,6 +27,16 @@ module Kitchen::Directions::BakeChapterAnswerKey
 
         title = I18n.t(:"eoc.#{klass}")
         append_solution_area(title, section_solutions_set, append_to)
+      end
+
+      def bake_from_notes(chapter:, append_to:, klass:)
+        solutions = []
+        chapter.notes(".#{klass}").each do |note|
+          solution = note.exercises.first.solution
+          solutions.push(solution.cut) if solution
+        end
+        title = I18n.t(:"notes.#{klass}")
+        append_solution_area(title, solutions, append_to)
       end
 
       def append_solution_area(title, solutions, append_to)
