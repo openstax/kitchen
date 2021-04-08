@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Adds `BakeChapterReviewExercises` v2 and a u-physics `Strategy` to `BakeChapterAnswerKey` to support baking exercises in u-physics (minor)
+* Have deprecated directions log a warning (minor)
 * Added `wrap_children` method on elements (minor)
 * Refactored `NoteElement` to infer the note title from book-specific locales (minor)
 * Added support for a recipe to infer or be given a book-specific locale file (minor)
@@ -30,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added a file for baking key concepts called (`bake_chapter_key_concepts`) and the respective specs.
 (minor change) only affects the book if called from the recipe
 * Changed the main gem source file to have the same name as the gem (`openstax_kitchen`) so that you don't have to `require` a different name than you use in your `gem` call.
+* Added a file for baking composite chapters called (`bake_composite_chapters`) and the respective spec.
+(minor change)
 
 ## [1.0.0] - 2020-12-15
 
