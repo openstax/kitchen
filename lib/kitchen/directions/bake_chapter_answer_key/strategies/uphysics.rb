@@ -35,6 +35,8 @@ module Kitchen::Directions::BakeChapterAnswerKey
           solution = note.exercises.first.solution
           solutions.push(solution.cut) if solution
         end
+        return if solutions.empty?
+
         title = I18n.t(:"notes.#{klass}")
         append_solution_area(title, solutions, append_to)
       end
