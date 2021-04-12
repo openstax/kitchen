@@ -45,7 +45,6 @@ module Kitchen
           next unless commentary.present?
 
           commentary_title = commentary.titles.first
-          puts commentary_title
           commentary_title.name = 'h4'
           commentary_title['data-type'] = 'commentary-title'
           commentary_title.replace_children(with:
