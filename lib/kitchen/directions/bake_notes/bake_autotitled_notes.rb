@@ -26,6 +26,10 @@ module Kitchen
 
         return unless title
 
+        bake_subtitle(note: note, title: title)
+      end
+
+      def self.bake_subtitle(note:, title:)
         title.name = 'h4'
         title.add_class('os-subtitle')
         title.wrap_children('span', class: 'os-subtitle-label')

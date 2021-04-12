@@ -28,6 +28,17 @@ module Kitchen
             </div>
           HTML
         )
+
+        return unless note['use-subtitle']
+
+        bake_subtitle(note: note, title: note.title&.cut)
+      end
+
+      def self.bake_subtitle(note:, title:)
+        title.name = 'h4'
+        title.add_class('os-subtitle')
+        title.wrap_children('span', class: 'os-subtitle-label')
+        note.first!('.os-note-body').prepend(child: title.to_s)
       end
 
       def self.bake_note_exercise(note:)
@@ -36,11 +47,13 @@ module Kitchen
         # bake problem
         exercise.problem.wrap_children('div', class: 'os-problem-container')
         exercise.problem.search('strong').first&.trash
+        exercise.search("[data-type='commentary']").trash
         return unless exercise.solution
 
         # bake solution in place
         exercise.solution[:id] = "#{exercise[:id]}-solution"
         solution_number = note.search('.os-number').first.children.first
+
         exercise.solution.replace_children(with:
           <<~HTML
             <a class="os-number" href="##{exercise[:id]}">#{solution_number}</a>
