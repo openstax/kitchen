@@ -32,7 +32,7 @@ module Kitchen
         exercise = note.exercises.first
         return unless exercise
 
-        exercise.solution ? exercise.add_class('os-hasSolution unnumbered') : exercise.add_class('unnumbered')
+        exercise.add_class('unnumbered')
         # bake problem
         exercise.problem.wrap_children('div', class: 'os-problem-container')
         exercise.problem.first('strong')&.trash
@@ -40,6 +40,7 @@ module Kitchen
         return unless solution
 
         # bake solution in place
+        exercise.add_class('os-hasSolution')
         solution[:id] = "#{exercise[:id]}-solution"
         solution_number = note.first('.os-number').text
         solution.replace_children(with:
