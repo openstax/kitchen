@@ -53,9 +53,7 @@ module Kitchen::Directions::BakeChapterAnswerKey
         ).first
 
         solutions.each do |solution|
-          append_to.add_child(
-            solution.paste
-          )
+          append_to.add_child(solution.raw)
         end
       end
     end
