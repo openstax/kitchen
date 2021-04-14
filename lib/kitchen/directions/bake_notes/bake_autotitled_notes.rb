@@ -14,7 +14,7 @@ module Kitchen
       def self.bake_note(note:)
         note.wrap_children(class: 'os-note-body')
 
-        title = note.title&.cut
+        BakeNoteSubtitle.v1(note: note)
 
         note.prepend(child:
           <<~HTML
@@ -23,17 +23,6 @@ module Kitchen
             </h3>
           HTML
         )
-
-        return unless title
-
-        bake_subtitle(note: note, title: title)
-      end
-
-      def self.bake_subtitle(note:, title:)
-        title.name = 'h4'
-        title.add_class('os-subtitle')
-        title.wrap_children('span', class: 'os-subtitle-label')
-        note.first!('.os-note-body').prepend(child: title.to_s)
       end
     end
   end

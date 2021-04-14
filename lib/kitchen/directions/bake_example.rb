@@ -47,11 +47,7 @@ module Kitchen
           commentary_title = commentary.titles.first
           commentary_title.name = 'h4'
           commentary_title['data-type'] = 'commentary-title'
-          commentary_title.replace_children(with:
-            <<~HTML
-              <span class="os-title-label">#{commentary_title.text}</span>
-            HTML
-          )
+          commentary_title.wrap_children('span', class: 'os-title-label')
         end
       end
     end
