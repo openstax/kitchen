@@ -10,6 +10,10 @@ module Kitchen
       def self.v2(chapter:, metadata_source:, append_to:, klass:)
         V2.new.bake(chapter: chapter, metadata_source: metadata_source, append_to: append_to, klass: klass)
       end
+
+      def self.v3(chapter:, metadata_source:, append_to:, klass:)
+        V2.new.bake(chapter: chapter, metadata_source: metadata_source, append_to: append_to, klass: klass)
+      end
     end
   end
 end
