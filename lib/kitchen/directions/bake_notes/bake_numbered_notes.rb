@@ -36,32 +36,6 @@ module Kitchen
         exercise = note.exercises.first
         return unless exercise
 
-        exercise.solution ? exercise.add_class('os-hasSolution unnumbered') : exercise.add_class('unnumbered')
-        # bake problem
-        exercise.problem.wrap_children('div', class: 'os-problem-container')
-        exercise.problem.first('strong')&.trash
-        exercise.search("[data-type='commentary']")&.trash
-        solution = exercise.solution
-        return unless solution
-
-        # bake solution in place
-        solution[:id] = "#{exercise[:id]}-solution"
-        solution_number = note.first('.os-number').text
-        solution.replace_children(with:
-          <<~HTML
-            <a class="os-number" href="##{exercise[:id]}">#{solution_number}</a>
-            <span class="os-divider"> </span>
-            <div class="os-solution-container">
-              #{solution.children}
-            </div>
-          HTML
-        )
-      end
-
-      def self.bake_note_exercise(note:)
-        exercise = note.exercises.first
-        return unless exercise
-
         exercise.add_class('unnumbered')
         # bake problem
         exercise.problem.wrap_children('div', class: 'os-problem-container')
