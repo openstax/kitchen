@@ -129,7 +129,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
               </div>
               <div class="os-note-body">
                 <p>content 2.1</p>
-                <div class="os-hasSolution unnumbered" data-type="exercise" id="abcde">
+                <div class="unnumbered os-hasSolution" data-type="exercise" id="abcde">
                   <div data-type="problem" id="unchanged">
                     <div class="os-problem-container">what is your favorite color?</div>
                   </div>
