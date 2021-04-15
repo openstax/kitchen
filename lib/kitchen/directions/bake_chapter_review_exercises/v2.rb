@@ -20,16 +20,7 @@ module Kitchen::Directions::BakeChapterReviewExercises
           exercise_section.first("[data-type='title']")&.trash
 
           # Get parent page title
-          id = exercise_section.id.split('fs-id')[0]
-          section_title = <<~HTML
-            <a href="##{id}0">
-              <h3 data-type="document-title" id="#{id}0">
-                <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
-                <span class="os-divider"> </span>
-                <span class="os-text" data-type="" itemprop="">#{page.title.text}</span>
-              </h3>
-            </a>
-          HTML
+          section_title = bake_exercises_title(page: page)
 
           exercise_section.exercises.each do |exercise|
             exercise.document.pantry(name: :link_text).store(
@@ -55,6 +46,23 @@ module Kitchen::Directions::BakeChapterReviewExercises
       HTML
 
       append_to.append(child: render(file: 'review_exercises.xhtml.erb'))
+    end
+
+    protected
+
+    def bake_exercises_title(page:)
+      chapter = page.ancestor(:chapter)
+      original_id = page.title[:id]
+      copied_id = page.document.copy_id(original_id)
+      <<~HTML
+        <a href="##{original_id}">
+          <h3 data-type="document-title" id="#{copied_id}">
+            <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
+            <span class="os-divider"> </span>
+            <span class="os-text" data-type="" itemprop="">#{page.title.text}</span>
+          </h3>
+        </a>
+      HTML
     end
   end
 end

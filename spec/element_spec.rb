@@ -176,6 +176,14 @@ RSpec.describe Kitchen::Element do
     end
   end
 
+  describe '#copy_id' do
+    it 'increments id count on the document' do
+      the_id = element1[:id]
+      expect(element1.document.copy_id(the_id)).to eq('divId_copy_1')
+      expect(element1.document.copy_id(the_id)).to eq('divId_copy_2')
+    end
+  end
+
   describe '#first' do
     it 'records ancestry' do
       inner = element1.search('p').search('span').first

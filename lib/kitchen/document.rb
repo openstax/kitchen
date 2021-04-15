@@ -177,6 +177,18 @@ module Kitchen
       end
     end
 
+    # Copies an ID, returning a unique ID
+    #
+    # @param id [String]
+    #
+    def copy_id(id)
+      return nil if id.nil?
+      return '' if id.blank?
+
+      @next_paste_count_for_id[id] ? @next_paste_count_for_id[id] += 1 : @next_paste_count_for_id[id] = 1
+      "#{id}#{@id_copy_suffix}#{@next_paste_count_for_id[id]}"
+    end
+
     # Returns the underlying Nokogiri Document object
     #
     # @return [Nokogiri::XML::Document]
