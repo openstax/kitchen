@@ -82,7 +82,7 @@ RSpec.describe Kitchen::Directions::BakeProblemFirstElements do
     within = book.search('.section-exercises').first
     described_class.v1(
       within: within,
-      selectors: ['.os-problem-container > .os-table', '.os-problem-container > [data-type="media"]']
+      selectors: ['.os-table', '[data-type="media"]']
     )
 
     expect(book.body).to match_normalized_html(
