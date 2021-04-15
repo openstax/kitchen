@@ -6,10 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Add to `BakeNumberedNotes` directions for baking exercises in a note
+* Add to `BakeNumberedNotes` directions for baking exercises in a note (with this comes removing bake checkpoints and theorems)
 * Add `BakeEquations` direction (minor)
 * Remove `NoteElement` logging (minor)
-* Adds `BakeChapterReviewExercises` v2 and a u-physics `Strategy` to `BakeChapterAnswerKey` to support baking exercises in u-physics (minor) (with this comes removing bake checkpoints and theorems)
+* Adds `BakeChapterReviewExercises` v2 and a u-physics `Strategy` to `BakeChapterAnswerKey` to support baking exercises in u-physics (minor)
 * Have deprecated directions log a warning (minor)
 * Added `wrap_children` method on elements (minor)
 * Refactored `NoteElement` to infer the note title from book-specific locales (minor)
