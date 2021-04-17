@@ -23,12 +23,25 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
           </div>
           <div data-type="note" id="789" class="foo">
             <p>content 2.2</p>
+            <div data-type="exercise">
+              <div data-type="problem">what is your quest?</div>
+            </div>
           </div>
           <div data-type="note" id="333" class="hello">
             <p>content 2.1</p>
+            <div data-type="exercise" id="abcde">
+              <div data-type="problem" id="unchanged">what is your favorite color?</div>
+              <div data-type="solution" id="xyz">
+                <p>chartreuse</p>
+              </div>
+            </div>
           </div>
           <div data-type="note" id="000" class=":/">
             <p>don't bake me</p>
+          </div>
+          <div data-type="note" id="note_id15" class="theorem" use-subtitle="true">
+            <div data-type="title" id="title_id15">Two Important Limits</div>
+            <p> some content </p>
           </div>
         </div>
       HTML
@@ -39,13 +52,14 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
     stub_locales({
       'notes': {
         'foo': 'Bar',
-        'hello': 'Hello World'
+        'hello': 'Hello World',
+        'theorem': 'Theorem'
       }
     })
   end
 
   it 'bakes' do
-    described_class.v1(book: book_with_notes, classes: %w[foo hello])
+    described_class.v1(book: book_with_notes, classes: %w[foo hello theorem])
     expect(book_with_notes.body).to match_normalized_html(
       <<~HTML
         <body>
@@ -100,6 +114,11 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
               </div>
               <div class="os-note-body">
                 <p>content 2.2</p>
+                <div class="unnumbered" data-type="exercise">
+                  <div data-type="problem">
+                    <div class="os-problem-container">what is your quest?</div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="hello" data-type="note" id="333">
@@ -110,10 +129,35 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
               </div>
               <div class="os-note-body">
                 <p>content 2.1</p>
+                <div class="unnumbered os-hasSolution" data-type="exercise" id="abcde">
+                  <div data-type="problem" id="unchanged">
+                    <div class="os-problem-container">what is your favorite color?</div>
+                  </div>
+                  <div data-type="solution" id="abcde-solution">
+                    <a class="os-number" href="#abcde">2.1</a>
+                    <span class="os-divider"> </span>
+                    <div class="os-solution-container">
+                      <p>chartreuse</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div data-type="note" id="000" class=":/">
               <p>don't bake me</p>
+            </div>
+            <div class="theorem" data-type="note" id="note_id15" use-subtitle="true">
+              <div class="os-title">
+                <span class="os-title-label">Theorem</span>
+                <span class="os-number">2.1</span>
+                <span class="os-divider"> </span>
+              </div>
+              <div class="os-note-body">
+                <h4 class="os-subtitle" data-type="title" id="title_id15">
+                  <span class="os-subtitle-label">Two Important Limits</span>
+                </h4>
+                <p> some content </p>
+              </div>
             </div>
           </div>
         </body>
