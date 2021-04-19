@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Add the ability to copy an element's ID to `ElementBase` (minor)
 * Add to `BakeNumberedNotes` directions for baking exercises in a note
 * Add `BakeEquations` direction (minor)
 * Remove `NoteElement` logging (minor)
