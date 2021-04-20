@@ -39,6 +39,22 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
           <div data-type="note" id="000" class=":/">
             <p>don't bake me</p>
           </div>
+          <div data-type="note" id="note_id15" class="theorem" use-subtitle="true">
+            <div data-type="title" id="title_id15">Two Important Limits</div>
+            <p> some content </p>
+          </div>
+          <div data-type="note" id="4" class="foo">
+            <p>A title 4</p>
+            <div data-type="exercise" id="123">
+              <div data-type="problem" id="456">Problem content</div>
+              <div data-type="solution" id="xyz">
+                <p>solution content</p>
+              </div>
+              <div data-type="commentary" id="xyza">
+                <p>remove me</p>
+              </div>
+            </div>
+          </div>
         </div>
       HTML
     )
@@ -48,13 +64,14 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
     stub_locales({
       'notes': {
         'foo': 'Bar',
-        'hello': 'Hello World'
+        'hello': 'Hello World',
+        'theorem': 'Theorem'
       }
     })
   end
 
   it 'bakes' do
-    described_class.v1(book: book_with_notes, classes: %w[foo hello])
+    described_class.v1(book: book_with_notes, classes: %w[foo hello theorem])
     expect(book_with_notes.body).to match_normalized_html(
       <<~HTML
         <body>
@@ -140,6 +157,41 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
             </div>
             <div data-type="note" id="000" class=":/">
               <p>don't bake me</p>
+            </div>
+            <div class="theorem" data-type="note" id="note_id15" use-subtitle="true">
+              <div class="os-title">
+                <span class="os-title-label">Theorem</span>
+                <span class="os-number">2.1</span>
+                <span class="os-divider"> </span>
+              </div>
+              <div class="os-note-body">
+                <h4 class="os-subtitle" data-type="title" id="title_id15">
+                  <span class="os-subtitle-label">Two Important Limits</span>
+                </h4>
+                <p> some content </p>
+              </div>
+            </div>
+            <div class="foo" data-type="note" id="4">
+              <div class="os-title">
+                <span class="os-title-label">Bar</span>
+                <span class="os-number">2.3</span>
+                <span class="os-divider"> </span>
+              </div>
+              <div class="os-note-body">
+                <p>A title 4</p>
+                <div class="unnumbered os-hasSolution" data-type="exercise" id="123">
+                  <div data-type="problem" id="456">
+                    <div class="os-problem-container">Problem content</div>
+                  </div>
+                  <div data-type="solution" id="123-solution">
+                    <a class="os-number" href="#123">2.3</a>
+                    <span class="os-divider"> </span>
+                    <div class="os-solution-container">
+                      <p>solution content</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </body>
