@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.2.0] - 2021-04-19
 
-* Refactors `BakeToc` to expect already-baked unit titles (major)
+* Adds method to allow unit and page title text to be retrieved regardless of bake status (minor)
 * Refactors `BakeFirstElements` and `BakeNumberedExercise` (minor)
 * Adds a decorating option of equation numbers on `BakeEquations` (minor)
 
