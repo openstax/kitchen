@@ -4,7 +4,7 @@ module Kitchen::Directions::BakeChapterReviewExercises
   class V1
     renderable
 
-    def bake(chapter:, metadata_source:, append_to:, klass:)
+    def bake(chapter:, metadata_source:, klass:, append_to: nil)
       @klass = klass
       @metadata = metadata_source.children_to_keep.copy
       @title = I18n.t(:"eoc.#{klass}")
@@ -32,7 +32,13 @@ module Kitchen::Directions::BakeChapterReviewExercises
 
       @content = exercise_clipboard.paste
 
-      append_to.append(child: render(file: 'review_exercises.xhtml.erb'))
+      append_to_element = append_to || chapter
+
+      if append_to_element == append_to
+        append_to_element.append(child: render(file: 'child_review_exercises.xhtml.erb'))
+      elsif append_to_element == chapter
+        append_to_element.append(child: render(file: 'direct_review_exercises.xhtml.erb'))
+      end
     end
   end
 end
