@@ -92,6 +92,14 @@ module Kitchen
     #   @return [Selectors::Base]
     def_delegators :config, :selectors
 
+    # @!method pantry
+    #   Access the pantry for this element's document
+    #   @return [Pantry]
+    # @!method :clipboard
+    #   Access the clipboard for this element's document
+    #   @return [Clipboard]
+    def_delegators :document, :pantry, :clipboard
+
     # Creates a new instance
     #
     # @param node [Nokogiri::XML::Node] the wrapped element
