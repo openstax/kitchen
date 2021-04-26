@@ -7,14 +7,14 @@ module Kitchen
         book.notes.each do |note|
           next unless (note.classes & classes).any?
 
-          bake_note(note: note)
+          bake_note(book: book, note: note)
         end
       end
 
-      def self.bake_note(note:)
+      def self.bake_note(book:, note:)
         note.wrap_children(class: 'os-note-body')
 
-        BakeNoteSubtitle.v1(note: note)
+        BakeNoteSubtitle.v1(book: book, note: note)
 
         note.prepend(child:
           <<~HTML

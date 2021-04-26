@@ -3,10 +3,14 @@
 module Kitchen
   module Directions
     module BakeNoteSubtitle
-      def self.v1(note:)
+      def self.v1(book:, note:)
         title = note.title&.cut
 
         return unless title
+
+        # Store label information
+        note_label = title.children
+        book.document.pantry(name: :link_text).store note_label, label: note.id
 
         title.name = 'h4'
         title.add_class('os-subtitle')
