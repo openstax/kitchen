@@ -4,9 +4,10 @@ module Kitchen
   module Directions
     module BakeNumberedNotes
       def self.v1(book:, classes:)
-        classes.each do |c|
-          book.chapters.notes("$.#{c}").each do |note|
+        classes.each do |klass|
+          book.chapters.notes("$.#{klass}").each do |note|
             bake_note(note: note)
+            bake_note_exercise(note: note)
           end
         end
       end
@@ -25,6 +26,26 @@ module Kitchen
             </div>
           HTML
         )
+
+        return unless note['use-subtitle']
+
+        BakeNoteSubtitle.v1(note: note)
+      end
+
+      def self.bake_note_exercise(note:)
+        exercise = note.exercises.first
+        return unless exercise
+
+        exercise.add_class('unnumbered')
+        # bake problem
+        exercise.problem.wrap_children('div', class: 'os-problem-container')
+        exercise.problem.first('strong')&.trash
+        exercise.search('[data-type="commentary"]').each(&:trash)
+        return unless exercise.solution
+
+        # bake solution in place
+        BakeNumberedExercise.bake_solution_v1(
+          exercise: exercise, number: note.first('.os-number').text, divider: ' ')
       end
     end
   end

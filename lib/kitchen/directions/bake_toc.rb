@@ -31,9 +31,9 @@ module Kitchen
         <<~HTML
           <li cnx-archive-uri="" cnx-archive-shortid="" class="os-toc-unit">
             <a href="#">
-              <span class="os-number"><span class="os-part-text">#{I18n.t(:unit)} </span> #{unit.count_in(:book)}</span>
+              <span class="os-number"><span class="os-part-text">#{I18n.t(:unit)} </span>#{unit.count_in(:book)}</span>
               <span class="os-divider"> </span>
-              <span data-type itemprop class="os-text"> #{unit.title.children} </span>
+              <span data-type itemprop class="os-text">#{unit.title_text}</span>
             </a>
             <ol class="os-unit">
               #{chapters.map { |chapter| li_for_chapter(chapter) }.join("\n")}
@@ -70,7 +70,11 @@ module Kitchen
             </a>
             <ol class="os-chapter">
               #{pages.map { |page| li_for_page(page) }.join("\n")}
-              #{inner_composite_chapters.map { |composite_chapter| li_for_composite_chapter(composite_chapter) }.join("\n")}
+              #{
+                inner_composite_chapters.map do |composite_chapter|
+                  li_for_composite_chapter(composite_chapter)
+                end.join("\n")
+              }
             </ol>
           </li>
         HTML

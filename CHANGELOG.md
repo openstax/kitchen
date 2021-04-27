@@ -6,11 +6,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Access `.pantry` and `.clipboard` through an element instead of just its document (minor)
+
+## [3.2.0] - 2021-04-19
+
+* Adds method to allow unit and page title text to be retrieved regardless of bake status (minor)
+* Rename several directions (major)
+  * `BakeChapterReviewExercises` -> `MoveExercisesToEOC`
+  * `BakeChapterReview` -> `ChapterReviewContainer`
+  * `BakeBookAnswerKey` -> `BookAnswerKeyContainer`
+  * `BakeChapterAnswerKey` -> `MoveSolutionsToAnswerKey`
+* Refactors `BakeFirstElements` and `BakeNumberedExercise` (minor)
+* Adds a decorating option of equation numbers on `BakeEquations` (minor)
+
+## [3.1.0] - 2021-04-19
+
+* Add the ability to copy an element's ID to `ElementBase` (minor)
+* Create `pl.yml` and add pl to available locals in `StubHelpers` module (minor)
+* Add to `BakeNumberedNotes` directions for baking exercises in a note (with this comes removing bake checkpoints and theorems)
+* Add `BakeEquations` direction (minor)
+* Remove `NoteElement` logging (minor)
+* Adds `BakeChapterReviewExercises` v2 and a u-physics `Strategy` to `BakeChapterAnswerKey` to support baking exercises in u-physics (minor)
+* Have deprecated directions log a warning (minor)
 * Added `wrap_children` method on elements (minor)
 * Refactored `NoteElement` to infer the note title from book-specific locales (minor)
 * Added support for a recipe to infer or be given a book-specific locale file (minor)
 * Added `NumberedTable` support for titles and always captions (minor)
 * Added titles method to `ElementEnumeratorBase` and `ElementBase` (minor)
+* Added a file for baking composite chapters called (`bake_composite_chapters`) and the respective spec.
+(minor change)
+* Added `BakeProblemFirstElements` direction (minor)
 
 ## [3.0.0] - 2021-03-17
 
@@ -26,6 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Changed from tracking and using `css_or_xpath` strings and arrays to `search_query` objects that
   wrap `css_or_xpath` variables along with `only` and `except` conditions. (major?)
 * Refactored bake_exercises to better support parallel work on multiple versions. (minor)
+
 ## [2.0.0] - 2020-12-18
 * Added a file for baking key concepts called (`bake_chapter_key_concepts`) and the respective specs.
 (minor change) only affects the book if called from the recipe
