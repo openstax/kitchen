@@ -99,12 +99,15 @@ RSpec.describe Kitchen::Directions::MoveExercisesToEOC::V1 do
       ).to match_normalized_html(
         <<~HTML
           <div data-type="chapter">
+            <div data-type="page">
+              <div data-type="document-title" id="auto_m68761_72010">Page 1 Title</div>
+            </div>
             <div class="os-eoc os-review-exercises-container" data-type="composite-page" data-uuid-key=".review-exercises">
               <h2 data-type="document-title">
                 <span class="os-text">foo</span>
               </h2>
               <div data-type="metadata" style="display: none;">
-                <h1 data-type="document-title" itemprop="name">Review Exercises</h1>
+                <h1 data-type="document-title" itemprop="name">foo</h1>
                 <div class="authors" id="authors_copy_1">Authors</div>
                 <div class="publishers" id="publishers_copy_1">Publishers</div>
                 <div class="print-style" id="print-style_copy_1">Print Style</div>
