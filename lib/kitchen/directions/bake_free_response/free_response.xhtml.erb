@@ -4,6 +4,9 @@
   </h2>
   <div data-type="metadata" style="display: none;">
     <h1 data-type="document-title" itemprop="name"><%= I18n.t(:eoc_free_response) %></h1>
-    <%= @metadata.paste %>
+    <%= @metadata_elements.paste %>
   </div>
+    <% @free_response_questions.each do |free_response_question| %>
+        <%= free_response_question %>
+    <% end %>
 </div>
