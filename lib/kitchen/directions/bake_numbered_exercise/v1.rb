@@ -2,15 +2,19 @@
 
 module Kitchen::Directions::BakeNumberedExercise
   class V1
-    def bake(exercise:, number:)
+    def bake(exercise:, number:, suppress_solution: false)
       problem = exercise.problem
       solution = exercise.solution
 
       problem_number = "<span class='os-number'>#{number}</span>"
 
       if solution.present?
-        problem_number = "<a class='os-number' href='##{exercise.id}-solution'>#{number}</a>"
-        bake_solution(exercise: exercise, number: number)
+        if !suppress_solution
+          problem_number = "<a class='os-number' href='##{exercise.id}-solution'>#{number}</a>"
+          bake_solution(exercise: exercise, number: number)
+        elsif suppress_solution
+          solution.trash
+        end
       end
 
       problem.replace_children(with:
