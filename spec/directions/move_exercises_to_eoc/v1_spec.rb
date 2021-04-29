@@ -34,6 +34,7 @@ RSpec.describe Kitchen::Directions::MoveExercisesToEOC::V1 do
       <<~HTML
         <div data-type="chapter">
           <div data-type="page">
+            <h2 data-type="document-title" id="first" itemprop="name">First Title</h2>
             <section id="sectionId1" class="review-exercises">
               <div data-type="exercise" id="exercise_id1">
                 <div data-type="problem" id="problem_id1">
@@ -94,13 +95,12 @@ RSpec.describe Kitchen::Directions::MoveExercisesToEOC::V1 do
 
   context 'when append_to is null' do
     it 'works' do
-      expect(
-        described_class.new.bake(chapter: book_with_review_exercises.chapters.first, metadata_source: metadata_element, klass: 'review-exercises')
-      ).to match_normalized_html(
+      described_class.new.bake(chapter: book_with_review_exercises.chapters.first, metadata_source: metadata_element, klass: 'review-exercises')
+      expect(book_with_review_exercises.chapters.first).to match_normalized_html(
         <<~HTML
           <div data-type="chapter">
             <div data-type="page">
-              <div data-type="document-title" id="auto_m68761_72010">Page 1 Title</div>
+              <h2 data-type="document-title" id="first" itemprop="name">First Title</h2>
             </div>
             <div class="os-eoc os-review-exercises-container" data-type="composite-page" data-uuid-key=".review-exercises">
               <h2 data-type="document-title">
