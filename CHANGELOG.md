@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Access `.pantry` and `.clipboard` through an element instead of just its document (minor)
+* Add `suppress_solution` option to `BakeNumberedExercise` (minor)
 
 ## [3.2.0] - 2021-04-19
 
