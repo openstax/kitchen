@@ -29,7 +29,7 @@ module Kitchen
 
         return unless note['use-subtitle']
 
-        BakeNoteSubtitle.v1(book: book, note: note)
+        BakeNoteSubtitle.v1(note: note)
       end
 
       def self.bake_note_exercise(note:)
