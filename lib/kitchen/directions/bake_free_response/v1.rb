@@ -7,8 +7,7 @@ module Kitchen::Directions::BakeFreeResponse
     def bake(chapter:, metadata_source:, append_to:)
       @metadata_elements = metadata_source.children_to_keep.copy
 
-      @free_response_questions = []
-      free_response_clipboard = Kitchen::Clipboard.new
+      @free_response_clipboard = Kitchen::Clipboard.new
       chapter.non_introduction_pages.each do |page|
         free_response_questions = page.free_response
         next if free_response_questions.none?
@@ -17,10 +16,8 @@ module Kitchen::Directions::BakeFreeResponse
         title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(page: page)
         free_response_questions.each do |free_response_question|
           free_response_question.prepend(child: title)
-          free_response_question&.cut(to: free_response_clipboard)
+          free_response_question.cut(to: @free_response_clipboard)
         end
-        @free_response_questions.push(free_response_clipboard.paste)
-        free_response_clipboard.clear
       end
 
       append_to_element = append_to || chapter
