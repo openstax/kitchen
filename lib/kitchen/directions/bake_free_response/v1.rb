@@ -24,6 +24,7 @@ module Kitchen::Directions::BakeFreeResponse
       end
 
       append_to_element = append_to || chapter
+      @title_tag = append_to ? 'h3' : 'h2'
 
       append_to_element.append(child: render(file: 'free_response.xhtml.erb'))
     end
