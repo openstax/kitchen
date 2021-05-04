@@ -10,7 +10,6 @@ module Kitchen
 
         further_researches = Clipboard.new
 
-        # TODO: include specific page types somehow without writing it out
         chapter.non_introduction_pages.each do |page|
           further_research = page.first('.further-research')
           further_research.first("[data-type='title']")&.trash # get rid of old title if exists
