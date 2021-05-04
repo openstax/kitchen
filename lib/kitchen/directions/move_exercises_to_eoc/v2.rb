@@ -6,7 +6,7 @@ module Kitchen::Directions::MoveExercisesToEOC
   class V2
     renderable
 
-    def bake(chapter:, metadata_source:, append_to:, klass:)
+    def bake(chapter:, metadata_source:, klass:, append_to: nil)
       @klass = klass
       @metadata = metadata_source.children_to_keep.copy
       @title = I18n.t(:"eoc.#{klass}")
@@ -22,7 +22,7 @@ module Kitchen::Directions::MoveExercisesToEOC
           # Get parent page title
           section_title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(page: page)
           exercise_section.exercises.each do |exercise|
-            exercise.document.pantry(name: :link_text).store(
+            exercise.pantry(name: :link_text).store(
               "#{I18n.t(:exercise_label)} #{chapter.count_in(:book)}.#{exercise.count_in(:chapter)}",
               label: exercise.id
             )
@@ -44,7 +44,11 @@ module Kitchen::Directions::MoveExercisesToEOC
         </div>
       HTML
 
-      append_to.append(child: render(file: 'review_exercises.xhtml.erb'))
+      append_to_element = append_to || chapter
+      @tag = append_to ? 'h3' : 'h2'
+      @metadata_title = append_to ? I18n.t(:eoc_exercises_title) : @title
+
+      append_to_element.append(child: render(file: 'review_exercises.xhtml.erb'))
     end
   end
 end
