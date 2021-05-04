@@ -11,8 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Changed title tag on numbered notes to always be h3 (major)
 * Storing all note subtitles in the pantry for link placeholders (minor)
 
+* Add `BakeFreeResponse` Directions (minor)
+* Add terms from composite pages to index (minor)
+* Access `.pantry` and `.clipboard` through an element instead of just its document (minor)
+
 ## [3.2.0] - 2021-04-19
 
+* Adds method to allow unit and page title text to be retrieved regardless of bake status (minor)
+* Rename several directions (major)
+  * `BakeChapterReviewExercises` -> `MoveExercisesToEOC`
+  * `BakeChapterReview` -> `ChapterReviewContainer`
+  * `BakeBookAnswerKey` -> `BookAnswerKeyContainer`
+  * `BakeChapterAnswerKey` -> `MoveSolutionsToAnswerKey`
 * Refactors `BakeFirstElements` and `BakeNumberedExercise` (minor)
 * Adds a decorating option of equation numbers on `BakeEquations` (minor)
 
