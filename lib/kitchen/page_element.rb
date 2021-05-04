@@ -91,8 +91,8 @@ module Kitchen
     # @raise [ElementNotFoundError] if no matching element is found
     # @return [Element]
     #
-    def exercises(classname)
-      first!(classname)
+    def exercises
+      first!('section.exercises')
     end
 
     # Returns the key concepts
