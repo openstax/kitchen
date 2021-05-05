@@ -8,11 +8,13 @@ module Kitchen::Directions::BakeNumberedExercise
 
       problem_number = "<span class='os-number'>#{number}</span>"
 
-      if solution.present? && !suppress_solution
-        problem_number = "<a class='os-number' href='##{exercise.id}-solution'>#{number}</a>"
-        bake_solution(exercise: exercise, number: number)
-      elsif suppress_solution
-        solution&.trash
+      if solution.present?
+        if suppress_solution
+          solution.trash
+        else
+          problem_number = "<a class='os-number' href='##{exercise.id}-solution'>#{number}</a>"
+          bake_solution(exercise: exercise, number: number)
+        end
       end
 
       problem.replace_children(with:
