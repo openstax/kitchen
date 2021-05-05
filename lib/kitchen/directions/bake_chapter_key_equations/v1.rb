@@ -18,7 +18,8 @@ module Kitchen::Directions::BakeChapterKeyEquations
       append_to_element = append_to || chapter
       @in_composite_chapter = append_to.present?
 
-      append_to_element.append(child: render(file: 'key_equations.xhtml.erb'))
+      append_to_element.append(child: render(file:
+        '../../templates/eoc_section_title_template.xhtml.erb'))
     end
   end
 end
