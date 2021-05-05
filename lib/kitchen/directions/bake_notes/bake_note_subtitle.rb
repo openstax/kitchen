@@ -10,7 +10,7 @@ module Kitchen
 
         # Store label information
         note_label = title.children
-        note.document.pantry(name: :link_text).store note_label, label: note.id
+        note.pantry(name: :link_text).store note_label, label: note.id
 
         title.name = 'h4'
         title.add_class('os-subtitle')

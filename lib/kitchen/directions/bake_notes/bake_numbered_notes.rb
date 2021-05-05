@@ -6,13 +6,13 @@ module Kitchen
       def self.v1(book:, classes:)
         classes.each do |klass|
           book.chapters.notes("$.#{klass}").each do |note|
-            bake_note(book: book, note: note)
+            bake_note(note: note)
             bake_note_exercise(note: note)
           end
         end
       end
 
-      def self.bake_note(book:, note:)
+      def self.bake_note(note:)
         note.wrap_children(class: 'os-note-body')
 
         chapter_count = note.ancestor(:chapter).count_in(:book)
