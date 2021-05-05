@@ -10,7 +10,8 @@ module Kitchen
           chapter: chapter,
           metadata_source: metadata_source,
           append_to: append_to,
-          uuid_prefix: uuid_prefix)
+          uuid_prefix: uuid_prefix
+        )
       end
 
       class V1
@@ -37,21 +38,6 @@ module Kitchen
 
           append_to_element.append(child: render(file:
             '../templates/eoc_section_title_template.xhtml.erb'))
-
-          # append_to_element.append(child:
-          #   <<~HTML
-          #     <div class="os-eoc os-glossary-container" data-type="composite-page" data-uuid-key="glossary">
-          #       <h2 data-type="document-title">
-          #         <span class="os-text">#{I18n.t(:eoc_key_terms_title)}</span>
-          #       </h2>
-          #       <div data-type="metadata" style="display: none;">
-          #         <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_key_terms_title)}</h1>
-          #         #{@metadata.paste}
-          #       </div>
-          #       #{definitions.paste}
-          #     </div>
-          #   HTML
-          # )
         end
       end
     end
