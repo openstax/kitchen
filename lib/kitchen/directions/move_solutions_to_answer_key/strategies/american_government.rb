@@ -10,8 +10,9 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
       protected
 
       def bake_section(chapter:, append_to:, klass:)
-        section_solutions_set = chapter.search(".#{klass} [data-type='solution']").map(&:cut)
-        section_solutions_set.map { |solution| append_to.add_child(solution.raw) }
+        chapter.search(".#{klass} [data-type='solution']").each do |solution|
+          append_to.add_child(solution.cut.to_s)
+        end
       end
     end
   end
