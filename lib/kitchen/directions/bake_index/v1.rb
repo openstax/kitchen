@@ -114,7 +114,7 @@ module Kitchen::Directions::BakeIndex
       end
     end
 
-    def bake(book:)
+    def bake(book:, type: nil)
       @metadata_elements = book.metadata.children_to_keep.copy
       @index = Index.new
 
@@ -137,6 +137,32 @@ module Kitchen::Directions::BakeIndex
           )
         )
       end
+
+      if type
+        @type = type
+
+        book.pages.terms("$[cxlxt|index='#{@type}']").each do |term_element|
+          # Markup the term
+          page = term_element.ancestor(:page)
+          term_element.id = "auto_#{page.id}_term#{term_element.count_in(:book)}"
+
+          group_by = term_element.text.strip[0]
+          group_by = I18n.t(:eob_index_symbols_group) unless group_by.match?(/\w/)
+          term_element['group-by'] = group_by
+
+          # Add it to our index object
+          @index.add_term(
+            Term.new(
+              text: term_element.text,
+              id: term_element.id,
+              group_by: group_by,
+              page_title: page.title.text.gsub(/\n/, '')
+            )
+          )
+        end
+      end
+
+      @index_class = type ? "index-#{@type}" : 'index'
 
       book.first('body').append(child: render(file: 'v1.xhtml.erb'))
     end
