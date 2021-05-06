@@ -28,6 +28,14 @@ module Kitchen
       first!(is_introduction? ? selectors.title_in_introduction_page : selectors.title_in_page)
     end
 
+    # Returns the title's text regardless of whether the title has been baked
+    #
+    # @return [String]
+    #
+    def title_text
+      title.children.one? ? title.text : title.first('.os-text').text
+    end
+
     # Returns an enumerator for titles.
     #
     # @return [ElementEnumerator]
@@ -93,6 +101,14 @@ module Kitchen
     #
     def key_concepts
       search('section.key-concepts')
+    end
+
+    # Returns the free response questions
+    #
+    # @return [Element]
+    #
+    def free_response
+      search('section.free-response')
     end
 
     # Returns true if this class represents the element for the given node

@@ -20,7 +20,11 @@ module Kitchen
                .pantry(name: :link_text)
                .store("#{I18n.t(:example_label)} #{number}", label: example.id)
 
-        example.titles.each { |title| title.name = 'h4' }
+        example.titles.each do |title|
+          next if title.parent.has_class?('os-caption-container')
+
+          title.name = 'h4'
+        end
 
         example.exercises.each do |exercise|
           if (problem = exercise.problem)
@@ -40,6 +44,14 @@ module Kitchen
           end
 
           exercise.add_class('unnumbered')
+
+          commentary = exercise.first('[data-type="commentary"]')
+          next unless commentary.present?
+
+          commentary_title = commentary.titles.first
+          commentary_title.name = 'h4'
+          commentary_title['data-type'] = 'commentary-title'
+          commentary_title.wrap_children('span', class: 'os-title-label')
         end
       end
     end

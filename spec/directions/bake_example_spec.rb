@@ -51,6 +51,9 @@ RSpec.describe Kitchen::Directions::BakeExample do
           <div data-type="solution" id="solution_id">
             <p>Solution content</p>
           </div>
+          <div data-type="commentary" id="commentary_id">
+            <div data-type="title" id="title_id">Analysis</div>
+          </div>
         </div>
       HTML
     end
@@ -83,6 +86,11 @@ RSpec.describe Kitchen::Directions::BakeExample do
                     <p>Solution content</p>
                   </div>
                 </div>
+                <div data-type="commentary" id="commentary_id">
+                  <h4 data-type="commentary-title" id="title_id">
+                    <span class="os-title-label">Analysis</span>
+                  </h4>
+                </div>
               </div>
             </div>
           </div>
@@ -93,7 +101,7 @@ RSpec.describe Kitchen::Directions::BakeExample do
 
   it 'stores info in the pantry' do
     expect { described_class.v1(example: example, number: 4, title_tag: 'title-tag-name') }.to change {
-      example.document.pantry(name: :link_text).get(example.id)
+      example.pantry(name: :link_text).get(example.id)
     }.from(nil)
   end
 end

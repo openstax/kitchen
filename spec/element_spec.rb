@@ -94,7 +94,7 @@ RSpec.describe Kitchen::Element do
       it 'can cut to a named clipboard' do
         element1.cut(to: :something)
         expect(parent.to_s).not_to match(/divId/)
-        expect(element1.document.clipboard(name: :something).first.id).to eq 'divId'
+        expect(element1.clipboard(name: :something).first.id).to eq 'divId'
       end
 
       it 'can cut to an existing clipboard' do
@@ -136,7 +136,7 @@ RSpec.describe Kitchen::Element do
       it 'can copy to a named clipboard' do
         element1.copy(to: :something)
         expect(parent.to_s).to match(/divId/)
-        expect(element1.document.clipboard(name: :something).first.id).to eq 'divId'
+        expect(element1.clipboard(name: :something).first.id).to eq 'divId'
       end
 
       it 'can copy to an existing clipboard' do
@@ -173,6 +173,13 @@ RSpec.describe Kitchen::Element do
         the_copied_element = element1.copy
         expect(the_copied_element.paste).to match(/divId_copy_2"/)
       end
+    end
+  end
+
+  describe '#copied_id' do
+    it 'increments id count on the document' do
+      expect(element1.copied_id).to eq('divId_copy_1')
+      expect(element1.copied_id).to eq('divId_copy_2')
     end
   end
 
