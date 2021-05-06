@@ -16,6 +16,7 @@ module Kitchen
               HTML
             )
           end
+
           chapter.references.each do |reference|
             reference.prepend(child:
               <<~HTML.chomp
@@ -23,8 +24,10 @@ module Kitchen
               HTML
             )
           end
+
           chapter_references = chapter.pages.references.cut
           chapter_title_no_num = chapter.title.search('.os-text')
+
           chapter.append(child:
             <<~HTML
               <div class="os-chapter-area">

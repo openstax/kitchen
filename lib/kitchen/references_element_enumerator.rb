@@ -4,7 +4,6 @@ module Kitchen
   # An enumerator for table elements
   #
   class ReferenceElementEnumerator < ElementEnumeratorBase
-
     # Returns a factory for this enumerator
     #
     # @return [ElementEnumeratorFactory]
