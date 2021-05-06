@@ -5,7 +5,7 @@ module Kitchen
     # Bake directions for eoc summary
     #
     module BakeChapterSummary
-      def self.v1(chapter:, metadata_source:, summary_selector_overriden: false)
+      def self.v1(chapter:, metadata_source:, summary_class: 'summary', summary_uuid: 'summary')
         metadata_elements = metadata_source.children_to_keep.copy
 
         summaries = Clipboard.new
@@ -35,11 +35,9 @@ module Kitchen
 
         return if summaries.none?
 
-        @summary_class = summary_selector_overriden ? 'section-summary' : 'summary'
-
         chapter.append(child:
           <<~HTML
-            <div class="os-eoc os-#{@summary_class}-container" data-type="composite-page" data-uuid-key=".#{@summary_class}">
+            <div class="os-eoc os-#{summary_class}-container" data-type="composite-page" data-uuid-key=".#{summary_uuid}">
               <h2 data-type="document-title">
                 <span class="os-text">#{I18n.t(:eoc_summary_title)}</span>
               </h2>

@@ -39,14 +39,14 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
   end
 
   context 'when v1 is called on a chapter' do
-    context 'when summary_selector_overriden is true' do
+    context 'when summary_class and summary_uuid are set to "section-summary" in book recipe bake file' do
       it 'works' do
         metadata = metadata_element.append(child:
           <<~HTML
             <div data-type="random" id="subject">Random - should not be included</div>
           HTML
         )
-        described_class.v1(chapter: chapter, metadata_source: metadata, summary_selector_overriden: true)
+        described_class.v1(chapter: chapter, metadata_source: metadata, summary_class: 'section-summary', summary_uuid: 'section-summary')
         expect(
           chapter
         ).to match_normalized_html(
