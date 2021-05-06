@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-module Kitchen::Directions::BakeChapterReviewExercises
-  # Main difference from v1 is the presence of a section title
+module Kitchen::Directions::MoveExercisesToEOC
+  # The difference from v1 is the presence of a section title
   # and from v2 the lack of additional "os-section-area" and os-#{@klass} wrappers
   class V3
     renderable
 
-    def bake(chapter:, metadata_source:, append_to:, klass:)
+    def bake(chapter:, metadata_source:, klass:, append_to: nil)
       @klass = klass
       @metadata = metadata_source.children_to_keep.copy
       @title = I18n.t(:"eoc.#{klass}")
@@ -19,17 +19,7 @@ module Kitchen::Directions::BakeChapterReviewExercises
         sections.each do |exercise_section|
           exercise_section.first("[data-type='title']")&.trash
 
-          # Get parent page title
-          id = exercise_section.id.split('fs-id')[0]
-          section_title = <<~HTML
-            <a href="##{id}0">
-              <h3 data-type="document-title" id="#{id}0">
-                <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
-                <span class="os-divider"> </span>
-                <span class="os-text" data-type="" itemprop="">#{page.title.text}</span>
-              </h3>
-            </a>
-          HTML
+          section_title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(page: page)
 
           exercise_section.exercises.each do |exercise|
             exercise.document.pantry(name: :link_text).store(
@@ -38,7 +28,7 @@ module Kitchen::Directions::BakeChapterReviewExercises
             )
           end
 
-          # Configure section title & wrappers
+          # Configure section title
           exercise_section.prepend(child: section_title)
           exercise_section.cut(to: exercise_clipboard)
         end
@@ -46,11 +36,13 @@ module Kitchen::Directions::BakeChapterReviewExercises
 
       return if exercise_clipboard.none?
 
-      @content = <<~HTML
-        #{exercise_clipboard.paste}
-      HTML
+      @content = exercise_clipboard.paste
 
-      append_to.append(child: render(file: 'review_exercises.xhtml.erb'))
+      append_to_element = append_to || chapter
+      @tag = append_to ? 'h3' : 'h2'
+      @metadata_title = append_to ? I18n.t(:eoc_exercises_title) : @title
+
+      append_to_element.append(child: render(file: 'review_exercises.xhtml.erb'))
     end
   end
 end
