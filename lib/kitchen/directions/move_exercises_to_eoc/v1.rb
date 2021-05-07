@@ -35,7 +35,6 @@ module Kitchen::Directions::MoveExercisesToEOC
 
       append_to_element = append_to || chapter
       @in_composite_chapter = append_to.present?
-      @metadata_title = append_to ? I18n.t(:eoc_exercises_title) : @title
 
       append_to_element.append(child: render(file:
         '../../templates/eoc_section_title_template.xhtml.erb'))
