@@ -5,34 +5,54 @@ module Kitchen
     # Bake directons for eoc glossary
     #
     module BakeChapterGlossary
-      def self.v1(chapter:, metadata_source:, append_to: nil)
-        metadata_elements = metadata_source.children_to_keep.copy
+      def self.v1(chapter:, metadata_source:, append_to: nil, uuid_prefix: nil)
+        V1.new.bake(
+          chapter: chapter,
+          metadata_source: metadata_source,
+          append_to: append_to,
+          uuid_prefix: uuid_prefix)
+      end
 
-        definitions = chapter.glossaries.search('dl').cut
-        definitions.sort_by! do |definition|
-          [definition.first('dt').text.downcase, definition.first('dd').text.downcase]
+      class V1
+        renderable
+        def bake(chapter:, metadata_source:, append_to:, uuid_prefix:)
+          @metadata = metadata_source.children_to_keep.copy
+          @klass = 'glossary'
+          @title = I18n.t(:eoc_key_terms_title)
+          @uuid_prefix = uuid_prefix
+
+          definitions = chapter.glossaries.search('dl').cut
+          definitions.sort_by! do |definition|
+            [definition.first('dt').text.downcase, definition.first('dd').text.downcase]
+          end
+
+          chapter.glossaries.trash
+
+          return if definitions.none?
+
+          @content = definitions.paste
+
+          append_to_element = append_to || chapter
+          @in_composite_chapter = append_to.present?
+
+          append_to_element.append(child: render(file:
+            '../templates/eoc_section_title_template.xhtml.erb'))
+
+          # append_to_element.append(child:
+          #   <<~HTML
+          #     <div class="os-eoc os-glossary-container" data-type="composite-page" data-uuid-key="glossary">
+          #       <h2 data-type="document-title">
+          #         <span class="os-text">#{I18n.t(:eoc_key_terms_title)}</span>
+          #       </h2>
+          #       <div data-type="metadata" style="display: none;">
+          #         <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_key_terms_title)}</h1>
+          #         #{@metadata.paste}
+          #       </div>
+          #       #{definitions.paste}
+          #     </div>
+          #   HTML
+          # )
         end
-
-        chapter.glossaries.trash
-
-        return if definitions.none?
-
-        append_to_element = append_to || chapter
-
-        append_to_element.append(child:
-          <<~HTML
-            <div class="os-eoc os-glossary-container" data-type="composite-page" data-uuid-key="glossary">
-              <h2 data-type="document-title">
-                <span class="os-text">#{I18n.t(:eoc_key_terms_title)}</span>
-              </h2>
-              <div data-type="metadata" style="display: none;">
-                <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_key_terms_title)}</h1>
-                #{metadata_elements.paste}
-              </div>
-              #{definitions.paste}
-            </div>
-          HTML
-        )
       end
     end
   end

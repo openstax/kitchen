@@ -5,16 +5,21 @@ module Kitchen
     # Bake directions for further research
     #
     module BakeFurtherResearch
-      def self.v1(chapter:, metadata_source:, append_to: nil)
-        V1.new.bake(chapter: chapter, metadata_source: metadata_source, append_to: append_to)
+      def self.v1(chapter:, metadata_source:, append_to: nil, uuid_prefix: '.')
+        V1.new.bake(
+          chapter: chapter,
+          metadata_source: metadata_source,
+          append_to: append_to,
+          uuid_prefix: uuid_prefix)
       end
 
       class V1
         renderable
-        def bake(chapter:, metadata_source:, append_to:)
+        def bake(chapter:, metadata_source:, append_to:, uuid_prefix:)
           @metadata = metadata_source.children_to_keep.copy
           @klass = 'further-research'
           @title = I18n.t(:eoc_further_research_title)
+          @uuid_prefix = uuid_prefix
 
           further_researches = Clipboard.new
 

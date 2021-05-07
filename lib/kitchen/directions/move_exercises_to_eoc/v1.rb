@@ -4,10 +4,11 @@ module Kitchen::Directions::MoveExercisesToEOC
   class V1
     renderable
 
-    def bake(chapter:, metadata_source:, klass:, append_to: nil)
+    def bake(chapter:, metadata_source:, klass:, append_to: nil, uuid_prefix: '.')
       @klass = klass
       @metadata = metadata_source.children_to_keep.copy
       @title = I18n.t(:"eoc.#{klass}")
+      @uuid_prefix = uuid_prefix
 
       exercise_clipboard = Kitchen::Clipboard.new
 

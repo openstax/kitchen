@@ -5,16 +5,22 @@ module Kitchen
     # Bake directions for eoc summary
     #
     module BakeChapterSummary
-      def self.v1(chapter:, metadata_source:, append_to: nil)
-        V1.new.bake(chapter: chapter, metadata_source: metadata_source, append_to: append_to)
+      def self.v1(chapter:, metadata_source:, append_to: nil, uuid_prefix: '.')
+        V1.new.bake(
+          chapter: chapter,
+          metadata_source: metadata_source,
+          append_to: append_to,
+          uuid_prefix: uuid_prefix
+        )
       end
 
       class V1
         renderable
-        def bake(chapter:, metadata_source:, append_to: nil)
+        def bake(chapter:, metadata_source:, uuid_prefix:, append_to: nil)
           @metadata = metadata_source.children_to_keep.copy
           @klass = 'summary'
           @title = I18n.t(:eoc_summary_title)
+          @uuid_prefix = uuid_prefix
 
           summaries = Clipboard.new
 

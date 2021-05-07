@@ -3,12 +3,12 @@
 module Kitchen::Directions::BakeChapterKeyEquations
   class V1
     renderable
-    def bake(chapter:, metadata_source:, append_to:)
-      @metadata_elements = metadata_source.children_to_keep.copy
-
+    def bake(chapter:, metadata_source:, append_to:, uuid_prefix:)
       @metadata = metadata_source.children_to_keep.copy
       @klass = 'key-equations'
       @title = I18n.t(:eoc_key_equations)
+      @uuid_prefix = uuid_prefix
+
       chapter.key_equations.search('h3').trash
 
       return if chapter.key_equations.none?
