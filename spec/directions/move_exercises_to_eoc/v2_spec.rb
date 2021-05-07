@@ -49,7 +49,7 @@ RSpec.describe Kitchen::Directions::MoveExercisesToEOC::V2 do
         <<~HTML
           <div class="os-eoc os-chapter-review-container">
               <div class="os-eoc os-CLASSNAME-container" data-type="composite-page" data-uuid-key=".CLASSNAME">
-                  <h3 data-type="document-title">
+                  <h3 data-type="title">
                     <span class="os-text">foo</span>
                   </h3>
                   <div data-type="metadata" style="display: none;">
