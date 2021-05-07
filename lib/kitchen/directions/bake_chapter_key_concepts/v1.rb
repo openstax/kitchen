@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
 module Kitchen::Directions::BakeChapterKeyConcepts
-  def self.v1(chapter:, metadata_source:, append_to: nil, uuid_prefix: '.')
-    V1.new.bake(
-      chapter: chapter,
-      metadata_source: metadata_source,
-      append_to: append_to,
-      uuid_prefix: uuid_prefix)
-  end
-
   class V1
     renderable
     def bake(chapter:, metadata_source:, append_to:, uuid_prefix:)
@@ -37,7 +29,7 @@ module Kitchen::Directions::BakeChapterKeyConcepts
       @in_composite_chapter = append_to.present?
 
       append_to_element.append(child: render(file:
-        '../templates/eoc_section_title_template.xhtml.erb'))
+        '../../templates/eoc_section_title_template.xhtml.erb'))
     end
   end
 end
