@@ -14,7 +14,13 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: PageElementEnumerator,
-            short_type: :page)
+            short_type: self.class.short_type)
+    end
+
+    #
+    #
+    def self.short_type
+      :page
     end
 
     # Returns the title element.  This method is aware that the title of the

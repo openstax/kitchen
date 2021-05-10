@@ -14,8 +14,15 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: UnitElementEnumerator,
-            short_type: :unit)
+            short_type: self.class.short_type)
     end
+
+    #
+    #
+    def self.short_type
+      :unit
+    end
+
 
     # Get the title in the immediate children, not the one in the metadata.  Could use
     # CSS of ":not([data-type='metadata']) >

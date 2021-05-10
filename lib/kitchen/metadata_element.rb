@@ -13,7 +13,13 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: MetadataElementEnumerator,
-            short_type: :metadata)
+            short_type: self.class.short_type)
+    end
+
+    #
+    #
+    def self.short_type
+      :metadata
     end
 
     # Returns set of selected data elements

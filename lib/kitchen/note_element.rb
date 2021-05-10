@@ -14,7 +14,13 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: NoteElementEnumerator,
-            short_type: :note)
+            short_type: self.class.short_type)
+    end
+
+    #
+    #
+    def self.short_type
+      :note
     end
 
     # Returns the note's title element

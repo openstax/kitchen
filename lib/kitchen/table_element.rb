@@ -14,7 +14,13 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: TableElementEnumerator,
-            short_type: :table)
+            short_type: self.class.short_type)
+    end
+
+    #
+    #
+    def self.short_type
+      :table
     end
 
     # Returns an element for the title row, if present

@@ -131,6 +131,36 @@ module Kitchen
       @is_a_clone = false
     end
 
+    # Returns ElementBase descendent type or nil if none found
+    #
+    # @param type [ElementBase descendant]
+    #
+    def self.descendant(type)
+      @types_to_descendants ||=
+        descendants.each_with_object({}) do |descendant, hash|
+          hash[descendant.short_type] = descendant
+        end
+
+      @types_to_descendants[type]
+    end
+
+    # Returns ElementBase descendent type or Error if none found
+    #
+    # @param type [ElementBase descendant]
+    #
+    def self.descendant!(type)
+      descendant(type) || raise("Unknown ElementBase descendant type '#{type}'")
+    end
+
+    # Returns true if this class represents the same element as the given type
+    #
+    # @param type [ElementBase descendant] the type of Element being compared
+    # @return [Boolean]
+    #
+    def is?(type)
+      self.class.descendant!(type).is_the_element_class_for?(raw)
+    end
+
     # Returns true if this class represents the element for the given node
     #
     # @param node [Nokogiri::XML::Node] the underlying node

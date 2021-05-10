@@ -14,8 +14,15 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: ExerciseElementEnumerator,
-            short_type: :exercise)
+            short_type: self.class.short_type)
     end
+
+    #
+    #
+    def self.short_type
+      :exercise
+    end
+
 
     # Returns true if this class represents the element for the given node
     #

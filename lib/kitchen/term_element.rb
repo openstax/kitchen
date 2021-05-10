@@ -14,7 +14,13 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: TermElementEnumerator,
-            short_type: :term)
+            short_type: self.class.short_type)
+    end
+
+    #
+    #
+    def self.short_type
+      :term
     end
 
     # Returns true if this class represents the element for the given node

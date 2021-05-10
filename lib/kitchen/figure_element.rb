@@ -14,7 +14,13 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: FigureElementEnumerator,
-            short_type: :figure)
+            short_type: self.class.short_type)
+    end
+
+    #
+    #
+    def self.short_type
+      :figure
     end
 
     # Returns the caption element

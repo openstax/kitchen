@@ -14,7 +14,13 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: ExampleElementEnumerator,
-            short_type: :example)
+            short_type: self.class.short_type)
+    end
+
+    #
+    #
+    def self.short_type
+      :example
     end
 
     # Returns the an enumerator for titles.

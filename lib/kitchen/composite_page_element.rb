@@ -14,7 +14,11 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: CompositePageElementEnumerator,
-            short_type: :composite_page)
+            short_type: self.class.short_type)
+    end
+
+    def self.short_type
+      :composite_page
     end
 
     # Returns the title element (the one in the immediate children, not the one in the metadata)

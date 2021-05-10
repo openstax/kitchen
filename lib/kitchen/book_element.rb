@@ -14,7 +14,13 @@ module Kitchen
       super(node: node,
             document: document,
             enumerator_class: BookElementEnumerator,
-            short_type: :book)
+            short_type: :self.class.short_type)
+    end
+
+    # Returns the short type
+    #
+    def self.short_type
+      :book
     end
 
     # Returns the "body" element
