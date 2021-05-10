@@ -2,7 +2,8 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeChapterGlossary do
+RSpec.describe Kitchen::Directions::BakeChapterGlossary::V1 do
+
   before do
     stub_locales({
       'eoc_key_terms_title': 'Key Terms'
@@ -67,7 +68,7 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary do
         HTML
       )
       expect(
-        described_class.v1(chapter: chapter, metadata_source: metadata)
+        described_class.new.bake(chapter: chapter, metadata_source: metadata)
       ).to match_normalized_html(
         <<~HTML
           <div data-type="chapter">
@@ -100,8 +101,5 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary do
         HTML
       )
     end
-  end
-
-  context 'when append_to is not null' do
   end
 end

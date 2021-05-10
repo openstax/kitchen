@@ -4,7 +4,7 @@ module Kitchen::Directions::BakeChapterGlossary
   class V1
     renderable
 
-    def bake(chapter:, metadata_source:, append_to:, uuid_prefix:)
+    def bake(chapter:, metadata_source:, append_to: nil, uuid_prefix: '')
       @metadata = metadata_source.children_to_keep.copy
       @klass = 'glossary'
       @title = I18n.t(:eoc_key_terms_title)
