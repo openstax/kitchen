@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Add strategy for American Government answer key (minor)
 * Add `BakeReferences` direction (minor)
 
+* Add `template` folder to kitchen to hold templates
+* Add `eoc_section_title_template`
+
 ## [3.2.0] - 2021-04-19
 
 * Adds method to allow unit and page title text to be retrieved regardless of bake status (minor)
