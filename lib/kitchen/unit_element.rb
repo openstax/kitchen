@@ -16,12 +16,12 @@ module Kitchen
             enumerator_class: UnitElementEnumerator)
     end
 
-    #
+    # Returns the short type
+    # @return [Symbol]
     #
     def self.short_type
       :unit
     end
-
 
     # Get the title in the immediate children, not the one in the metadata.  Could use
     # CSS of ":not([data-type='metadata']) >

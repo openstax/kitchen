@@ -17,6 +17,7 @@ module Kitchen
     end
 
     # Returns the short type
+    # @return [Symbol]
     #
     def self.short_type
       :chapter

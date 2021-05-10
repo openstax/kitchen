@@ -15,7 +15,8 @@ module Kitchen
             enumerator_class: MetadataElementEnumerator)
     end
 
-    #
+    # Returns the short type
+    # @return [Symbol]
     #
     def self.short_type
       :metadata

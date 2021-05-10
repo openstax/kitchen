@@ -16,6 +16,9 @@ module Kitchen
             enumerator_class: CompositePageElementEnumerator)
     end
 
+    # Returns the short type
+    # @return [Symbol]
+    #
     def self.short_type
       :composite_page
     end

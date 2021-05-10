@@ -16,7 +16,8 @@ module Kitchen
             enumerator_class: NoteElementEnumerator)
     end
 
-    #
+    # Returns the short type
+    # @return [Symbol]
     #
     def self.short_type
       :note

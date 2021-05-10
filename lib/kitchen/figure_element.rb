@@ -16,7 +16,8 @@ module Kitchen
             enumerator_class: FigureElementEnumerator)
     end
 
-    #
+    # Returns the short type
+    # @return [Symbol]
     #
     def self.short_type
       :figure

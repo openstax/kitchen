@@ -16,7 +16,8 @@ module Kitchen
             enumerator_class: TableElementEnumerator)
     end
 
-    #
+    # Returns the short type
+    # @return [Symbol]
     #
     def self.short_type
       :table

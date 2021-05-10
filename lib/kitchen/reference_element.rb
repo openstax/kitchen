@@ -16,7 +16,8 @@ module Kitchen
             enumerator_class: ReferenceElementEnumerator)
     end
 
-    #
+    # Returns the short type
+    # @return [Symbol]
     #
     def self.short_type
       :reference
