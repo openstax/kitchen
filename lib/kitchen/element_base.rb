@@ -3,6 +3,7 @@
 require 'forwardable'
 require 'securerandom'
 
+# rubocop:disable Metrics/ClassLength
 module Kitchen
   # Abstract base class for all elements.  If you are looking for a simple concrete
   # element class, use `Element`.
@@ -116,7 +117,9 @@ module Kitchen
 
       @enumerator_class = enumerator_class
 
-      @short_type = short_type || "unknown_type_#{SecureRandom.hex(4)}"
+      @short_type = short_type ||
+                    self.class.try(:short_type) ||
+                    "unknown_type_#{SecureRandom.hex(4)}"
 
       @document =
         case document
@@ -742,3 +745,4 @@ module Kitchen
 
   end
 end
+# rubocop:enable Metrics/ClassLength

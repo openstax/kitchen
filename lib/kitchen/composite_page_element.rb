@@ -13,8 +13,7 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: CompositePageElementEnumerator,
-            short_type: self.class.short_type)
+            enumerator_class: CompositePageElementEnumerator)
     end
 
     def self.short_type
