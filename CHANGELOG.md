@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Add `template` folder to kitchen to hold templates (minor)
 * Add `eoc_section_title_template` (minor)
+
 * Expand specs with `append_to` to have with/without `append_to` contexts (minor)
 
 ## [3.2.0] - 2021-04-19
