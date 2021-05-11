@@ -136,11 +136,14 @@ module Kitchen
 
     # Returns ElementBase descendent type or nil if none found
     #
-    # @param type [ElementBase descendant]
+    # @param type [Symbol] the descendant type, e.g. `:page`
+    # @return [Class] the child class for the given type
     #
     def self.descendant(type)
       @types_to_descendants ||=
         descendants.each_with_object({}) do |descendant, hash|
+          next unless descendant.try(:short_type)
+
           hash[descendant.short_type] = descendant
         end
 
@@ -149,19 +152,22 @@ module Kitchen
 
     # Returns ElementBase descendent type or Error if none found
     #
-    # @param type [ElementBase descendant]
+    # @param type [Symbol] the descendant type, e.g. `:page`
+    # @raise if the type is unknown
+    # @return [Class] the child class for the given type
     #
     def self.descendant!(type)
       descendant(type) || raise("Unknown ElementBase descendant type '#{type}'")
     end
 
-    # Returns true if this class represents the same element as the given type
+    # Returns true if this element is the given type
     #
-    # @param type [ElementBase descendant] the type of Element being compared
+    # @param type [Symbol] the descendant type, e.g. `:page`
+    # @raise if the type is unknown
     # @return [Boolean]
     #
     def is?(type)
-      self.class.descendant!(type).is_the_element_class_for?(raw)
+      ElementBase.descendant!(type).is_the_element_class_for?(raw)
     end
 
     # Returns true if this class represents the element for the given node
