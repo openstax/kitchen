@@ -11,6 +11,8 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
           Strategies::UPhysics
         when :american_government
           Strategies::AmericanGovernment
+        when :sociology
+          Strategies::Sociology
         else
           raise 'No such strategy'
         end
