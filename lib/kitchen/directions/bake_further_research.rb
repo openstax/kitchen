@@ -49,7 +49,7 @@ module Kitchen
           @content = further_researches.paste
 
           append_to_element = chapter
-          @in_composite_chapter = append_to_element[:'data-type'] == 'composite-chapter'
+          @in_composite_chapter = append_to_element.is?(:composite_chapter)
 
           append_to_element.append(child: render(file:
             '../templates/eoc_section_title_template.xhtml.erb'))
