@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::MoveSolutionsToAnswerKey
   class V1
-    def bake(chapter:, metadata_source:, strategy:, append_to:)
+    def bake(chapter:, metadata_source:, strategy:, append_to:, klass:)
       strategy =
         case strategy
         when :calculus
@@ -16,10 +16,10 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
         else
           raise 'No such strategy'
         end
-
+      # @klass = klass
       append_to.append(child:
         <<~HTML
-          <div class="os-eob os-solutions-container" data-type="composite-page" data-uuid-key=".solutions#{chapter.count_in(:book)}">
+          <div class="os-eob os-#{klass}container" data-type="composite-page" data-uuid-key=".#{klass}#{chapter.count_in(:book)}">
             <h2 data-type="document-title">
               <span class="os-text">#{I18n.t(:chapter)} #{chapter.count_in(:book)}</span>
             </h2>
