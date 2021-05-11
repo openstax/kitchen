@@ -13,16 +13,15 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: UnitElementEnumerator,
-            short_type: self.class.short_type)
+            enumerator_class: UnitElementEnumerator)
     end
 
-    #
+    # Returns the short type
+    # @return [Symbol]
     #
     def self.short_type
       :unit
     end
-
 
     # Get the title in the immediate children, not the one in the metadata.  Could use
     # CSS of ":not([data-type='metadata']) >

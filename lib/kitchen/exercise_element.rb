@@ -13,16 +13,15 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: ExerciseElementEnumerator,
-            short_type: self.class.short_type)
+            enumerator_class: ExerciseElementEnumerator)
     end
 
-    #
+    # Returns the short type
+    # @return [Symbol]
     #
     def self.short_type
       :exercise
     end
-
 
     # Returns true if this class represents the element for the given node
     #

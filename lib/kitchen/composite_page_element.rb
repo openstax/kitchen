@@ -13,10 +13,12 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: CompositePageElementEnumerator,
-            short_type: self.class.short_type)
+            enumerator_class: CompositePageElementEnumerator)
     end
 
+    # Returns the short type
+    # @return [Symbol]
+    #
     def self.short_type
       :composite_page
     end

@@ -13,11 +13,11 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: BookElementEnumerator,
-            short_type: self.class.short_type)
+            enumerator_class: BookElementEnumerator)
     end
 
     # Returns the short type
+    # @return [Symbol]
     #
     def self.short_type
       :book

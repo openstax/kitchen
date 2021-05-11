@@ -13,8 +13,7 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: ElementEnumerator,
-            short_type: self.class.short_type)
+            enumerator_class: ElementEnumerator)
     end
 
     # Returns short type
