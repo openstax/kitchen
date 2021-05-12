@@ -5,7 +5,7 @@ module Kitchen
     # Bake directions for eoc summary
     #
     module BakeChapterSummary
-      def self.v1(chapter:, metadata_source:, klass:, uuid_prefix: '.')
+      def self.v1(chapter:, metadata_source:, klass: 'summary', uuid_prefix: '.')
         V1.new.bake(
           chapter: chapter,
           metadata_source: metadata_source,
