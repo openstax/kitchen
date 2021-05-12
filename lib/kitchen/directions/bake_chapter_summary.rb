@@ -49,10 +49,9 @@ module Kitchen
           return if summaries.none?
 
           @content = summaries.paste
-          append_to_element = chapter
-          @in_composite_chapter = append_to_element.is?(:composite_chapter)
+          @in_composite_chapter = false
 
-          append_to_element.append(child: render(file:
+          chapter.append(child: render(file:
             '../templates/eoc_section_title_template.xhtml.erb'))
         end
       end
