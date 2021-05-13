@@ -111,6 +111,14 @@ RSpec.describe Kitchen::Element do
         expect(clipboard.paste).to match(/divId_copy_1"/)
         expect(clipboard.paste).to match(/divId_copy_2"/)
       end
+
+      it 'uses the same ID when cutting, pasting, cutting, and pasting again' do
+        clipboard = Kitchen::Clipboard.new
+        element1.cut(to: clipboard)
+        expect(clipboard.paste).to match(/divId"/)
+        element1.cut(to: clipboard)
+        expect(clipboard.paste).to match(/divId"/)
+      end
     end
 
     context 'without clipboards' do
@@ -125,6 +133,13 @@ RSpec.describe Kitchen::Element do
         expect(the_cut_element.paste).to match(/divId"/)
         expect(the_cut_element.paste).to match(/divId_copy_1"/)
         expect(the_cut_element.paste).to match(/divId_copy_2"/)
+      end
+
+      it 'uses the same ID when cutting, pasting, cutting, and pasting again' do
+        the_cut_element = element1.cut
+        expect(the_cut_element.paste).to match(/divId"/)
+        the_cut_element_again = element1.cut
+        expect(the_cut_element_again.paste).to match(/divId"/)
       end
     end
   end

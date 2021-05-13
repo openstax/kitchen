@@ -390,6 +390,7 @@ module Kitchen
     def cut(to: nil)
       block_error_if(block_given?)
 
+      document.record_id_cut(node[:id])
       node.remove
       get_clipboard(to).add(self) if to.present?
       self
@@ -410,7 +411,7 @@ module Kitchen
       the_copy.raw.traverse do |node|
         next if node.text? || node.document?
 
-        document.record_id_copied(node[:id])
+        document.last_copied(node[:id])
       end
       get_clipboard(to).add(the_copy) if to.present?
       the_copy
@@ -423,6 +424,7 @@ module Kitchen
       block_error_if(block_given?)
 
       temp_copy = clone
+      document.record_id_paste(node[:id])
       temp_copy.raw.traverse do |node|
         next if node.text? || node.document?
 

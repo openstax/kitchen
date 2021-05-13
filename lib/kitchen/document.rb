@@ -45,6 +45,7 @@ module Kitchen
       @location = nil
       @config = config || Config.new
       @next_paste_count_for_id = {}
+      @id_count = Hash.new { |hash, key| hash[key] = {} }
       @id_copy_suffix = '_copy_'
     end
 
@@ -154,7 +155,33 @@ module Kitchen
     def record_id_copied(id)
       return if id.blank?
 
-      @next_paste_count_for_id[id] ||= 1
+      @id_count[id][:count]&.positive? ? @id_count[id][:count] += 1 : @id_count[id][:count] = 1
+    end
+
+    # Keeps track that an element with the given ID has been cut.
+    def record_id_cut(id)
+      return if id.blank?
+
+      (@id_count[id][:count] ||= 0).tap do
+        @id_count[id][:count].positive? && @id_count[id][:count] -= 1
+      end
+
+      @id_count[id][:last_pasted] = false
+    end
+
+    def record_id_paste(id)
+      return if id.blank?
+
+      @id_count[id][:last_pasted] == true && @id_count[id][:count] += 1
+      @id_count[id][:last_pasted] = true
+    end
+
+    def last_copied(id)
+      return if id.blank?
+
+      @id_count[id][:count] ||= 0
+      @id_count[id][:count] += 1
+      @id_count[id][:last_pasted] = false
     end
 
     # Returns a unique ID given the ID of an element that was copied and is about
@@ -166,8 +193,7 @@ module Kitchen
       return nil if original_id.nil?
       return '' if original_id.blank?
 
-      count = next_count_for_pasted_id(original_id)
-
+      count = @id_count[original_id][:count] ||= 0
       # A count of 0 means the element was cut and this is the first paste, do not
       # modify the ID; otherwise, use the uniquified ID.
       if count.zero?
@@ -186,14 +212,6 @@ module Kitchen
     end
 
     protected
-
-    def next_count_for_pasted_id(id)
-      return if id.blank?
-
-      (@next_paste_count_for_id[id] ||= 0).tap do
-        @next_paste_count_for_id[id] += 1
-      end
-    end
 
     attr_reader :nokogiri_document
 
