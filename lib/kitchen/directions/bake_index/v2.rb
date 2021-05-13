@@ -3,7 +3,7 @@
 module Kitchen::Directions::BakeIndex
   # Bake directions for eob index
   #
-  class V1
+  class V2
     renderable
 
     class Term
@@ -114,7 +114,7 @@ module Kitchen::Directions::BakeIndex
       end
     end
 
-    def bake(book:)
+    def bake(book:, type:)
       @metadata_elements = book.metadata.children_to_keep.copy
       @index = Index.new
 
@@ -123,7 +123,13 @@ module Kitchen::Directions::BakeIndex
         page = term_element.ancestor(:page)
         term_element.id = "auto_#{page.id}_term#{term_element.count_in(:book)}"
 
-        group_by = term_element.text.strip[0]
+        if term_element.key?('reference')
+          term_reference = term_element['cmlnle:reference']
+          group_by = term_reference[0]
+        else
+          group_by = term_element.text.strip[0]
+        end
+
         group_by = I18n.t(:eob_index_symbols_group) unless group_by.match?(/\w/)
         term_element['group-by'] = group_by
 
