@@ -15,6 +15,7 @@ en:
   chapter_review: Chapter Review
   learning_objectives: Learning Objectives
   stepwise_step_label: Step
+  references: References
   eoc_chapter_review: Chapter Review
   eoc_key_terms_title: Key Terms
   eoc_summary_title: Summary
@@ -23,6 +24,7 @@ en:
   eoc_key_concepts: Key Concepts
   eoc_key_equations: Key Equations
   eoc_suggested_reading: Suggestions for Further Study
+  eoc_further_research_title: Further Research
   eob_index_title: Index
   eob_index_symbols_group: Symbols
   review_exercises: Review Exercises

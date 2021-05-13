@@ -13,8 +13,14 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: PageElementEnumerator,
-            short_type: :page)
+            enumerator_class: PageElementEnumerator)
+    end
+
+    # Returns the short type
+    # @return [Symbol]
+    #
+    def self.short_type
+      :page
     end
 
     # Returns the title element.  This method is aware that the title of the
@@ -101,6 +107,14 @@ module Kitchen
     #
     def key_concepts
       search('section.key-concepts')
+    end
+
+    # Returns the free response questions
+    #
+    # @return [Element]
+    #
+    def free_response
+      search('section.free-response')
     end
 
     # Returns true if this class represents the element for the given node
