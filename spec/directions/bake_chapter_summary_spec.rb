@@ -103,6 +103,7 @@ RSpec.describe Kitchen::Directions::BakeChapterSummary do
         )
       end
     end
+
     context 'when summary_selector_overriden is false' do
       it 'works' do
         metadata = metadata_element.append(child:
