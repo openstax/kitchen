@@ -38,10 +38,9 @@ module Kitchen::Directions::BakeReferences
             </div>
           HTML
         )
-        chapter_area_references = chapter.search('.os-chapter-area').cut
-        @content = chapter_area_references.paste
       end
-
+      chapter_area_references = book.chapters.search('.os-chapter-area').cut
+      @content = chapter_area_references.paste
       book.body.append(child: render(file:
         '../../templates/eob_section_title_template.xhtml.erb'))
     end
