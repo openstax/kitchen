@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* `BakeFootnotes` now looks for footnotes in composite chapters
+* Move exercise pantry label storage to `BakeNumberedExercises` to ensure consistency between exercise number and link text
 * Update `BakeIndex` term capitalization handling to be less case sensitive (minor)
 * Added a title tag variable to choose between h2 and h3 for children of chapter review (minor)
 * Added a fix for examples not to bake table captions (minor)
@@ -22,6 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Add `BakeReferences` direction (minor)
 * Fix xmlns string replacement done in PR #209 (minor)
 * Move title above metadata in `BakeSuggestedReading` direction (major)
+* Remove depreciated directions `BakeNotes` and `BakeExercises` (major)
+
+* Adds `eoc_composite_metadata_title` to en.yml and eoc template (major)
 
 * Add `template` folder to kitchen to hold templates (minor)
 * Add `eoc_section_title_template` (minor)
@@ -30,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Add `is?` method to `ElementBase` (minor)
 * Replaced in_composite_chapter to use `is?` (minor)
 * Add callable `short_type` to Elements (minor)
+* Add template for eob titles - `eob_section_title_template` (minor)
 
 ## [3.2.0] - 2021-04-19
 
