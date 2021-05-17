@@ -29,7 +29,7 @@ module Kitchen
     # @return [Boolean]
     #
     def self.is_the_element_class_for?(node)
-      node[:class] == 'reference'
+      node[:class] == 'reference'    # TODO: tie into selectors config?
     end
 
   end

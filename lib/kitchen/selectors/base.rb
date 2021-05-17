@@ -17,6 +17,9 @@ module Kitchen
       # Selector for the summary in a page
       # @return [String]
       attr_accessor :page_summary
+      # Selector for a reference
+      # @return [String]
+      attr_accessor :reference
 
       # Override specific selectors
       #
