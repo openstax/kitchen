@@ -38,6 +38,9 @@ module Kitchen
       # Selector for a figure
       # @return [String]
       attr_accessor :figure
+      # Selector for a metadata
+      # @return [String]
+      attr_accessor :metadata
 
       # Override specific selectors
       #

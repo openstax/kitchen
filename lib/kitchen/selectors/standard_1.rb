@@ -20,6 +20,7 @@ module Kitchen
         self.term                       = "span[data-type='term']"
         self.table                      = 'table'
         self.figure                     = 'figure'
+        self.metadata                   = "div[data-type='metadata']"
       end
 
     end
