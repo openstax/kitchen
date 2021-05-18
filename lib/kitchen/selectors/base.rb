@@ -47,6 +47,12 @@ module Kitchen
       # Selector for an example
       # @return [String]
       attr_accessor :example
+      # Selector for an exercise
+      # @return [String]
+      attr_accessor :exercise
+      # Selector for an unit
+      # @return [String]
+      attr_accessor :unit
 
       # Override specific selectors
       #
