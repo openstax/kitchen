@@ -122,8 +122,8 @@ module Kitchen
     # @param node [Nokogiri::XML::Node] the underlying node
     # @return [Boolean]
     #
-    def self.is_the_element_class_for?(node, **)
-      node['data-type'] == 'page'
+    def self.is_the_element_class_for?(node, config:)
+      Selector.named(:page).matches?(node, config: config)
     end
 
   end

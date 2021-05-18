@@ -23,6 +23,9 @@ module Kitchen
       # Selector for a chapter
       # @return [String]
       attr_accessor :chapter
+      # Selector for a page
+      # @return [String]
+      attr_accessor :page
       # Selector for a note
       # @return [String]
       attr_accessor :note

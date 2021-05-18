@@ -15,6 +15,7 @@ module Kitchen
         self.page_summary               = 'section.summary'
         self.reference                  = '.reference'
         self.chapter                    = "div[data-type='chapter']"
+        self.page                       = "div[data-type='page']"
         self.note                       = "div[data-type='note']"
       end
 
