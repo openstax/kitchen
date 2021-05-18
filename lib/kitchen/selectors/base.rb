@@ -41,6 +41,9 @@ module Kitchen
       # Selector for a metadata
       # @return [String]
       attr_accessor :metadata
+      # Selector for a composite page
+      # @return [String]
+      attr_accessor :composite_page
 
       # Override specific selectors
       #
