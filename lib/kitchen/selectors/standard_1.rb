@@ -19,6 +19,7 @@ module Kitchen
         self.note                       = "div[data-type='note']"
         self.term                       = "span[data-type='term']"
         self.table                      = 'table'
+        self.figure                     = 'figure'
       end
 
     end
