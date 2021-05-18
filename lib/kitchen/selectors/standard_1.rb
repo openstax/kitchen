@@ -17,6 +17,7 @@ module Kitchen
         self.chapter                    = "div[data-type='chapter']"
         self.page                       = "div[data-type='page']"
         self.note                       = "div[data-type='note']"
+        self.term                       = "span[data-type='term']"
       end
 
     end

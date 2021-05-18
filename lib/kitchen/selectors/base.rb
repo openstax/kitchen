@@ -29,6 +29,9 @@ module Kitchen
       # Selector for a note
       # @return [String]
       attr_accessor :note
+      # Selector for a term
+      # @return [String]
+      attr_accessor :term
 
       # Override specific selectors
       #
