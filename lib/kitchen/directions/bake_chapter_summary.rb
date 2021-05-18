@@ -5,20 +5,20 @@ module Kitchen
     # Bake directions for eoc summary
     #
     module BakeChapterSummary
-      def self.v1(chapter:, metadata_source:, append_to: nil, uuid_prefix: '.')
+      def self.v1(chapter:, metadata_source:, klass: 'summary', uuid_prefix: '.')
         V1.new.bake(
           chapter: chapter,
           metadata_source: metadata_source,
-          append_to: append_to,
-          uuid_prefix: uuid_prefix
+          uuid_prefix: uuid_prefix,
+          klass: klass
         )
       end
 
       class V1
         renderable
-        def bake(chapter:, metadata_source:, uuid_prefix:, append_to: nil)
+        def bake(chapter:, metadata_source:, uuid_prefix: '.', klass: 'summary')
           @metadata = metadata_source.children_to_keep.copy
-          @klass = 'summary'
+          @klass = klass
           @title = I18n.t(:eoc_summary_title)
           @uuid_prefix = uuid_prefix
 
@@ -50,10 +50,9 @@ module Kitchen
           return if summaries.none?
 
           @content = summaries.paste
-          append_to_element = append_to || chapter
-          @in_composite_chapter = append_to_element[:'data-type'] == 'composite-chapter'
+          @in_composite_chapter = false
 
-          append_to_element.append(child: render(file:
+          chapter.append(child: render(file:
             '../templates/eoc_section_title_template.xhtml.erb'))
         end
       end

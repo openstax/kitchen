@@ -18,13 +18,6 @@ module Kitchen::Directions::MoveExercisesToEOC
         sections.each do |exercise_section|
           exercise_section.first("[data-type='title']")&.trash
 
-          exercise_section.exercises.each do |exercise|
-            exercise.pantry(name: :link_text).store(
-              "#{I18n.t(:exercise_label)} #{chapter.count_in(:book)}.#{exercise.count_in(:chapter)}",
-              label: exercise.id
-            )
-          end
-
           exercise_section.cut(to: exercise_clipboard)
         end
       end
@@ -34,7 +27,7 @@ module Kitchen::Directions::MoveExercisesToEOC
       @content = exercise_clipboard.paste
 
       append_to_element = append_to || chapter
-      @in_composite_chapter = append_to_element[:'data-type'] == 'composite-chapter'
+      @in_composite_chapter = append_to_element.is?(:composite_chapter)
 
       append_to_element.append(child: render(file:
         '../../templates/eoc_section_title_template.xhtml.erb'))
