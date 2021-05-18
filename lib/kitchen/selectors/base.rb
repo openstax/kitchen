@@ -20,6 +20,9 @@ module Kitchen
       # Selector for a reference
       # @return [String]
       attr_accessor :reference
+      # Selector for a chapter
+      # @return [String]
+      attr_accessor :chapter
 
       # Override specific selectors
       #

@@ -14,6 +14,7 @@ module Kitchen
         self.title_in_introduction_page = "./*[@data-type = 'document-title']"
         self.page_summary               = 'section.summary'
         self.reference                  = '.reference'
+        self.chapter                    = "div[data-type='chapter']"
       end
 
     end
