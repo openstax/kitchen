@@ -32,6 +32,9 @@ module Kitchen
       # Selector for a term
       # @return [String]
       attr_accessor :term
+      # Selector for a table
+      # @return [String]
+      attr_accessor :table
 
       # Override specific selectors
       #
