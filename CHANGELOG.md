@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Support namespaces defined on elements other than the root (minor)
 * `BakeFootnotes` now looks for footnotes in composite chapters
 * Move exercise pantry label storage to `BakeNumberedExercises` to ensure consistency between exercise number and link text
 * Update `BakeIndex` term capitalization handling to be less case sensitive (minor)
