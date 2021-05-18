@@ -37,8 +37,6 @@ module Kitchen
     #   given to the factory in its constructor.
     #
     def build_within(enumerator_or_element, search_query: SearchQuery.new)
-      search_query.apply_default_css_or_xpath_and_normalize(default_css_or_xpath)
-
       case enumerator_or_element
       when ElementBase
         build_within_element(enumerator_or_element, search_query: search_query)
@@ -55,7 +53,7 @@ module Kitchen
     #
     def or_with(other_factory)
       self.class.new(
-        default_css_or_xpath: "#{default_css_or_xpath}, #{other_factory.default_css_or_xpath}",
+        default_css_or_xpath: [default_css_or_xpath, other_factory.default_css_or_xpath],
         enumerator_class: TypeCastingElementEnumerator,
         detect_sub_element_class: true
       )
@@ -64,6 +62,9 @@ module Kitchen
     protected
 
     def build_within_element(element, search_query:)
+      search_query.apply_default_css_or_xpath_and_normalize(default_css_or_xpath,
+                                                            config: element.config)
+
       enumerator_class.new(search_query: search_query) do |block|
         grand_ancestors = element.ancestors
         parent_ancestor = Ancestor.new(element)
