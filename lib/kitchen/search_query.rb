@@ -36,7 +36,13 @@ module Kitchen
     end
 
     # Replaces '$' in the `css_or_xpath` with the provided value; also normalizes
-    # `css_or_xpath` to an array
+    # `css_or_xpath` to an array.
+    #
+    # @param default_css_or_xpath [String, Proc, Symbol] The selectors to substitute for the "$" character
+    #   when this factory is used to build an enumerator.  A string argument is used literally.  A proc
+    #   is eventually called given the document's Config object (for accessing selectors).  A symbol
+    #   is interpreted as the name of a selector and is called on the document's Config object's
+    #   selectors object.
     #
     def apply_default_css_or_xpath_and_normalize(default_css_or_xpath=nil, config: nil)
       return if @default_already_applied
