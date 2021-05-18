@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Changes `default_css_or_xpath` to optionally be a proc to be evaluated w.r.t. a document's config (minor)
 * `BakeFootnotes` now looks for footnotes in composite chapters
 * Move exercise pantry label storage to `BakeNumberedExercises` to ensure consistency between exercise number and link text
 * Update `BakeIndex` term capitalization handling to be less case sensitive (minor)
