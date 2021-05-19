@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Support namespaces defined on elements other than the root (minor)
+* Non-splash figures now treated like normal intro-body content in `BakeChapterIntroductions`
+* `BakeNumberedNotes` and the uphysics strategy for `MoveSolutionsToAnswerKey` updated to accomodate multiple exercises in a note.
 * `BakeFootnotes` now looks for footnotes in composite chapters
 * Move exercise pantry label storage to `BakeNumberedExercises` to ensure consistency between exercise number and link text
 * Update `BakeIndex` term capitalization handling to be less case sensitive (minor)
@@ -24,7 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Add strategy for American Government answer key (minor)
 * Add `BakeReferences` direction (minor)
 * Fix xmlns string replacement done in PR #209 (minor)
+* Move title above metadata in `BakeSuggestedReading` direction (major)
 * Remove depreciated directions `BakeNotes` and `BakeExercises` (major)
+
+* Adds `eoc_composite_metadata_title` to en.yml and eoc template (major)
 
 * Add `template` folder to kitchen to hold templates (minor)
 * Add `eoc_section_title_template` (minor)
