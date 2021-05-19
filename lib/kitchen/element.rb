@@ -22,5 +22,15 @@ module Kitchen
     # # @!method pages
     # #   Returns a pages enumerator
     # def_delegators :as_enumerator, :pages, :chapters, :terms, :figures, :notes, :tables, :examples
+
+    # Returns true if this class represents the element for the given node; always false
+    # for this generic class
+    #
+    # @param node [Nokogiri::XML::Node] the underlying node
+    # @return [Boolean]
+    #
+    def self.is_the_element_class_for?(_node, **)
+      false
+    end
   end
 end

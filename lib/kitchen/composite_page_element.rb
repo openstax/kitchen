@@ -35,15 +35,6 @@ module Kitchen
       first!("./*[@data-type = 'document-title' or @data-type = 'title']")
     end
 
-    # Returns true if this class represents the element for the given node
-    #
-    # @param node [Nokogiri::XML::Node] the underlying node
-    # @return [Boolean]
-    #
-    def self.is_the_element_class_for?(node, config:)
-      Selector.named(:composite_page).matches?(node, config: config)
-    end
-
     # Returns true if this page is a book index
     #
     # @return [Boolean]
