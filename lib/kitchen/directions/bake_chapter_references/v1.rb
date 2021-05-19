@@ -24,8 +24,7 @@ module Kitchen::Directions::BakeChapterReferences
         end
       end
 
-      references = chapter.pages.references.cut
-      @content = references.paste
+      @content = chapter.pages.references.cut.paste
 
       @in_composite_chapter = false
 
