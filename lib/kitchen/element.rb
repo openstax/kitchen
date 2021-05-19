@@ -19,10 +19,6 @@ module Kitchen
             short_type: short_type)
     end
 
-    # # @!method pages
-    # #   Returns a pages enumerator
-    # def_delegators :as_enumerator, :pages, :chapters, :terms, :figures, :notes, :tables, :examples
-
     # Returns true if this class represents the element for the given node; always false
     # for this generic class
     #
