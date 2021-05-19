@@ -52,6 +52,14 @@ module Kitchen
       has_class?('os-index-container')
     end
 
+    # Returns true if this page is a book index of type
+    #
+    # @return [Boolean]
+    #
+    def is_index_of_type?
+      ["os-index-name-container", "os-index-term-container", "os-index-foreign-container"].any? { |klass| has_class?("#{klass}") }
+    end
+
     # Returns true if this page is a book reference
     #
     # @return [Boolean]

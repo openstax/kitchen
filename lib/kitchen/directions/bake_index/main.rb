@@ -7,8 +7,8 @@ module Kitchen
         V1.new.bake(book: book)
       end
 
-      def self.v2(book:, type:)
-        V2.new.bake(book: book, type: type)
+      def self.v2(book:, types:)
+        V2.new.bake(book: book, types: types)
       end
     end
   end

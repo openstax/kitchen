@@ -114,27 +114,46 @@ module Kitchen::Directions::BakeIndex
       end
     end
 
-    def bake(book:, type:)
+    def bake(book:, types:)
       @metadata_elements = book.metadata.children_to_keep.copy
-      @index = Index.new
+      @uuid_prefix = '.'
 
       book.pages.terms.each do |term_element|
         page = term_element.ancestor(:page)
         term_element.id = "auto_#{page.id}_term#{term_element.count_in(:book)}"
-        page_title = page.title.text
-        add_term_to_index(term_element, page_title)
       end
 
       book.chapters.composite_pages.terms.each do |term_element|
-        page = term_element.ancestor(:composite_page)
-        chapter = term_element.ancestor(:chapter)
         term_element.id = "auto_composite_page_term#{term_element.count_in(:book)}"
-        chapter_number = chapter.count_in(:book)
-        page_title = "#{chapter_number} #{page.title.text.strip}".strip
-        add_term_to_index(term_element, page_title)
       end
 
-      book.first('body').append(child: render(file: 'v1.xhtml.erb'))
+      types.each do |type|
+        @index = Index.new
+        @type = type
+        @title = I18n.t(:"index.#{type}")
+
+        if type == 'term'
+          selector = "$:not([cxlxt|index])"
+        else
+          selector = "$[cxlxt|index='#{@type}']"
+        end
+
+        book.pages.terms("#{selector}").each do |term_element|
+          page = term_element.ancestor(:page)
+          page_title = page.title.text
+          add_term_to_index(term_element, page_title)
+        end
+
+        book.chapters.composite_pages.terms("#{selector}").each do |term_element|
+          page = term_element.ancestor(:composite_page)
+          chapter = term_element.ancestor(:chapter)
+          chapter_number = chapter.count_in(:book)
+          page_title = "#{chapter_number} #{page.title.text.strip}".strip
+          add_term_to_index(term_element, page_title)
+        end
+
+        book.first('body').append(child: render(file: 'v2.xhtml.erb'))
+      end
     end
 
     def add_term_to_index(term_element, page_title)
@@ -142,8 +161,10 @@ module Kitchen::Directions::BakeIndex
       if term_element.key?('reference')
         term_reference = term_element['cmlnle:reference']
         group_by = term_reference[0]
+        content = term_reference
       else
         group_by = term_element.text.strip[0]
+        content = term_element.text
       end
 
       group_by = I18n.t(:eob_index_symbols_group) unless group_by.match?(/\w/)
@@ -152,13 +173,12 @@ module Kitchen::Directions::BakeIndex
       # Add it to our index object
       @index.add_term(
         Term.new(
-          text: term_element.text,
+          text: content,
           id: term_element.id,
           group_by: group_by,
           page_title: page_title.gsub(/\n/, '')
         )
       )
     end
-
   end
 end
