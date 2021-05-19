@@ -22,6 +22,7 @@ module Kitchen
         self.figure                     = 'figure'
         self.metadata                   = "div[data-type='metadata']"
         self.composite_page             = "div[data-type='composite-page']"
+        self.composite_chapter          = "div[data-type='composite-chapter']"
         self.example                    = "div[data-type='example']"
         self.exercise                   = "div[data-type='exercise']"
         self.unit                       = "div[data-type='unit']"

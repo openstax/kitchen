@@ -44,6 +44,9 @@ module Kitchen
       # Selector for a composite page
       # @return [String]
       attr_accessor :composite_page
+      # Selector for a composite chapter
+      # @return [String]
+      attr_accessor :composite_chapter
       # Selector for an example
       # @return [String]
       attr_accessor :example
