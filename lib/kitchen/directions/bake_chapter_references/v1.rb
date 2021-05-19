@@ -4,34 +4,28 @@ module Kitchen::Directions::BakeChapterReferences
   class V1
     renderable
 
-    def bake(chapter:, metadata_source:, uuid_prefix: '.')
+    def bake(chapter:, metadata_source:, uuid_prefix: '.', klass: 'references')
       @metadata = metadata_source.children_to_keep.copy
-      @klass = 'references'
+      @klass = klass
       @title = I18n.t(:references)
       @uuid_prefix = uuid_prefix
 
-      chapter.search('[data-type="cite"]').each do |link|
-        link.prepend(child:
-          <<~HTML
-            <sup class="os-citation-number">#{link.count_in(:chapter)}</sup>
-          HTML
-        )
-        print "CITATION! "
+      chapter.references.search('h3').trash
+
+      chapter.non_introduction_pages.each do |page|
+        references = page.references
+        next if references.none?
+
+        references.search('h3').trash
+        title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(page: page)
+
+        references.each do |reference|
+          reference.prepend(child: title)
+        end
       end
 
-      chapter.references.each do |reference|
-        reference.prepend(child:
-          <<~HTML.chomp
-            <span class="os-reference-number">#{reference.count_in(:chapter)}. </span>
-          HTML
-        )
-        print "REFERENCE! "
-      end
-
-      references = chapter.pages.references.copy
+      references = chapter.pages.references.cut
       @content = references.paste
-
-      # chapter_title_no_num = chapter.title.search('.os-text')
 
       @in_composite_chapter = false
 
