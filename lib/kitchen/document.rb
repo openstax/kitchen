@@ -163,9 +163,10 @@ module Kitchen
     # @param id [String] the ID
     #
     def record_id_copied(id)
-      return if id.blank?
+      return if :id.blank?
 
       @id_cp_count[id][:count]&.positive? ? @id_cp_count[id][:count] += 1 : @id_cp_count[id][:count] = 1
+      @id_cp_count[id][:last_paste] = false
     end
 
     # Keeps track that an element with the given ID has been cut.
@@ -175,11 +176,8 @@ module Kitchen
     def record_id_cut(id)
       return if id.blank?
 
-      (@id_cp_count[id][:count] ||= 0).tap do
-        @id_cp_count[id][:count].positive? && @id_cp_count[id][:count] -= 1
-      end
-
-      @id_cp_count[id][:last_pasted] = false
+      @id_cp_count[id][:count]&.positive? ? @id_cp_count[id][:count] -= 1 : @id_cp_count[id][:count]
+      @id_cp_count[id][:last_paste] = false
     end
 
     # Keeps track that an element with the given ID has been pasted.
@@ -189,20 +187,10 @@ module Kitchen
     def record_id_paste(id)
       return if id.blank?
 
-      @id_cp_count[id][:last_pasted] && @id_cp_count[id][:count] += 1
-      @id_cp_count[id][:last_pasted] = true
-    end
-
-    # Keeps track that an element with the given ID has been copied.
-    #
-    # @param id [String]
-    #
-    def last_copied(id)
-      return if id.blank?
-
       @id_cp_count[id][:count] ||= 0
-      @id_cp_count[id][:count] += 1
-      @id_cp_count[id][:last_pasted] = false
+      @id_cp_count[id][:last_paste] ? @id_cp_count[id][:count] += 1 : @id_cp_count[id][:count]
+
+      @id_cp_count[id][:last_paste] = true
     end
 
     # Returns a unique ID given the ID of an element that was copied and is about

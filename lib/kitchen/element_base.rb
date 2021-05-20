@@ -429,7 +429,12 @@ module Kitchen
     def cut(to: nil)
       block_error_if(block_given?)
 
-      document.record_id_cut(node[:id])
+      temp = clone
+      temp.raw.traverse do |node|
+        next if node.text? || node.document?
+
+        document.record_id_cut(node[:id])
+      end
       node.remove
       get_clipboard(to).add(self) if to.present?
       self
@@ -450,7 +455,7 @@ module Kitchen
       the_copy.raw.traverse do |node|
         next if node.text? || node.document?
 
-        document.last_copied(node[:id])
+        document.record_id_copied(node[:id])
       end
       get_clipboard(to).add(the_copy) if to.present?
       the_copy
@@ -461,12 +466,11 @@ module Kitchen
     def paste
       # See `clone` method for a note about namespaces
       block_error_if(block_given?)
-
       temp_copy = clone
-      document.record_id_paste(node[:id])
       temp_copy.raw.traverse do |node|
         next if node.text? || node.document?
 
+        document.record_id_paste(node[:id])
         node[:id] = document.modified_id_to_paste(node[:id]) unless node[:id].blank?
       end
       temp_copy.to_s
