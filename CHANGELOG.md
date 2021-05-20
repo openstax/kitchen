@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 * Reditributed duplicated id logic across `#record_id_copied`, `#record_id_cut`, `#record_id_paste` and added a couple more tests for `#copy`, `#cut`, and `#paste` (major)
 
+## [4.1.0] - 2021-05-18
+
+* Fixed performance problem with element class detection (patch)
+* Added `BakeChapterReferences` Directions (minor)
+
 ## [4.0.0] - 2021-05-18
 
 * Changes `default_css_or_xpath` to optionally be a proc to be evaluated w.r.t. a document's config (minor)
