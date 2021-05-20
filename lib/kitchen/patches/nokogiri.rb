@@ -45,14 +45,20 @@ module Nokogiri
       end
 
       def quick_matches?(selector)
-        Nokogiri::CSS::Parser.new.parse(selector).any? { |css_node| matches_css_node?(css_node) }
+        self.class.selector_to_css_nodes(selector).any? { |css_node| matches_css_node?(css_node) }
       end
 
       def classes
         self[:class]&.split || []
       end
 
-      private
+      def self.selector_to_css_nodes(selector)
+        # No need to parse the same selector more than once.
+        @parsed_selectors ||= {}
+        @parsed_selectors[selector] ||= Nokogiri::CSS::Parser.new.parse(selector)
+      end
+
+      protected
 
       # rubocop:disable Metrics/CyclomaticComplexity
       def matches_css_node?(css_node)
