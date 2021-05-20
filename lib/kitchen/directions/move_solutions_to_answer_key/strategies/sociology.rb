@@ -10,42 +10,12 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
       protected
 
       def bake_section(chapter:, append_to:, klass:)
-        # section_solutions_set = []
         chapter.search(".#{klass} [data-type='solution']").each do |solution|
-          # section_solutions_set.push(solution.cut)
+          next unless solution.present?
+
           append_to.add_child(solution.cut.to_s)
         end
-
-        # even_solutions_set = []
-        # # even_solutions_set = section_solutions_set.select{|solution| solution.odd?}
-        # # even_solutions_set = section_solutions_set.values_at(*self.each_index.select(&:even?))
-        # even_solutions_set = section_solutions_set.values_at(*section_solutions_set.each_index.select{|i| i.even?})
-
-        # # return if section_solutions_set.empty?
-        # return if even_solutions_set.empty?
-
-        # even_solutions_set.each do |solution|
-        #   append_to.add_child(solution.raw)
-        # end
       end
-
-      # append_solution_area(section_solutions_set, append_to)
-
-      # def append_solution_area(title, solutions, append_to)
-      #   append_to = append_to.add_child(
-      #     <<~HTML
-      #       <div class="os-solution-area">
-      #         <h3 data-type="title">
-      #           <span class="os-title-label">#{title}</span>
-      #         </h3>
-      #       </div>
-      #     HTML
-      #   ).first
-
-        # solutions.each do |solution|
-        #   append_to.add_child(solution.raw)
-        # end
-      # end
     end
   end
 end

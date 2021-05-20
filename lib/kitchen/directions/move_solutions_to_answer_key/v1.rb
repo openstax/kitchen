@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::MoveSolutionsToAnswerKey
   class V1
-    def bake(chapter:, metadata_source:, strategy:, append_to:, klass:)
+    def bake(chapter:, metadata_source:, strategy:, append_to:, klass: 'solutions')
       strategy =
         case strategy
         when :calculus

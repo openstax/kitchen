@@ -1,0 +1,9 @@
+if book.search('.os-eob.os-solution-container[data-type = "composite-chapter"]').first.contains?(' > [data-type="composite-page"] > div[data-type="solution"]')
+    book.search('.os-eob.os-solution-container[data-type = "composite-chapter"]').first.add_class('has-solutions')
+    book.search('body').first.add_class('has-answerkey')
+  else
+    book.search('.os-eob.os-solution-container[data-type = "composite-chapter"]').first.add_class('no-solutions')
+    book.search('.os-eob.os-solution-container.no-solutions[data-type = "composite-chapter"]').first.trash
+    book.search('body').first.add_class('no-answerkey')
+    book.search('body.no-answerkey > #toc > ol > li.os-toc-composite-chapter').trash
+  end
