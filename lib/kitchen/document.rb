@@ -163,7 +163,7 @@ module Kitchen
     # @param id [String] the ID
     #
     def record_id_copied(id)
-      return if :id.blank?
+      return if id.blank?
 
       @id_cp_count[id][:count]&.positive? ? @id_cp_count[id][:count] += 1 : @id_cp_count[id][:count] = 1
       @id_cp_count[id][:last_paste] = false
