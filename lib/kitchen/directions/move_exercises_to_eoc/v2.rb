@@ -6,10 +6,11 @@ module Kitchen::Directions::MoveExercisesToEOC
   class V2
     renderable
 
-    def bake(chapter:, metadata_source:, klass:, append_to: nil)
+    def bake(chapter:, metadata_source:, klass:, append_to: nil, uuid_prefix: '.')
       @klass = klass
       @metadata = metadata_source.children_to_keep.copy
       @title = I18n.t(:"eoc.#{klass}")
+      @uuid_prefix = uuid_prefix
 
       exercise_clipboard = Kitchen::Clipboard.new
 
@@ -21,12 +22,6 @@ module Kitchen::Directions::MoveExercisesToEOC
 
           # Get parent page title
           section_title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(page: page)
-          exercise_section.exercises.each do |exercise|
-            exercise.pantry(name: :link_text).store(
-              "#{I18n.t(:exercise_label)} #{chapter.count_in(:book)}.#{exercise.count_in(:chapter)}",
-              label: exercise.id
-            )
-          end
 
           # Configure section title & wrappers
           exercise_section.prepend(child: section_title)
@@ -45,10 +40,10 @@ module Kitchen::Directions::MoveExercisesToEOC
       HTML
 
       append_to_element = append_to || chapter
-      @tag = append_to ? 'h3' : 'h2'
-      @metadata_title = append_to ? I18n.t(:eoc_exercises_title) : @title
+      @in_composite_chapter = append_to_element[:'data-type'] == 'composite-chapter'
 
-      append_to_element.append(child: render(file: 'review_exercises.xhtml.erb'))
+      append_to_element.append(child: render(file:
+        '../../templates/eoc_section_title_template.xhtml.erb'))
     end
   end
 end

@@ -13,8 +13,14 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: UnitElementEnumerator,
-            short_type: :unit)
+            enumerator_class: UnitElementEnumerator)
+    end
+
+    # Returns the short type
+    # @return [Symbol]
+    #
+    def self.short_type
+      :unit
     end
 
     # Get the title in the immediate children, not the one in the metadata.  Could use
@@ -35,13 +41,5 @@ module Kitchen
       title.children.one? ? title.text : title.first('.os-text').text
     end
 
-    # Returns true if this class represents the element for the given node
-    #
-    # @param node [Nokogiri::XML::Node] the underlying node
-    # @return [Boolean]
-    #
-    def self.is_the_element_class_for?(node)
-      node['data-type'] == 'unit'
-    end
   end
 end

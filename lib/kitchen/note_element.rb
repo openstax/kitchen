@@ -13,8 +13,14 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: NoteElementEnumerator,
-            short_type: :note)
+            enumerator_class: NoteElementEnumerator)
+    end
+
+    # Returns the short type
+    # @return [Symbol]
+    #
+    def self.short_type
+      :note
     end
 
     # Returns the note's title element
@@ -44,15 +50,6 @@ module Kitchen
       else
         "unknown title for note with classes #{classes}"
       end
-    end
-
-    # Returns true if this class represents the element for the given node
-    #
-    # @param node [Nokogiri::XML::Node] the underlying node
-    # @return [Boolean]
-    #
-    def self.is_the_element_class_for?(node)
-      node['data-type'] == 'note'
     end
 
     protected

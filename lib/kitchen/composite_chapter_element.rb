@@ -13,8 +13,13 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: ElementEnumerator,
-            short_type: :composite_chapter)
+            enumerator_class: ElementEnumerator)
+    end
+
+    # Returns short type
+    #
+    def self.short_type
+      :composite_chapter
     end
 
     # Returns the title element (the one in the immediate children, not the one in the metadata)
@@ -27,15 +32,6 @@ module Kitchen
       # CSS of ":not([data-type='metadata']) > [data-type='document-title'], [data-type='document-title']"
       # but xpath is shorter
       first!("./*[@data-type = 'document-title']")
-    end
-
-    # Returns true if this class represents the element for the given node
-    #
-    # @param node [Nokogiri::XML::Node] the underlying node
-    # @return [Boolean]
-    #
-    def self.is_the_element_class_for?(node)
-      node['data-type'] == 'composite-chapter'
     end
 
   end

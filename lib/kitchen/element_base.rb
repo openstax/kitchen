@@ -3,6 +3,7 @@
 require 'forwardable'
 require 'securerandom'
 
+# rubocop:disable Metrics/ClassLength
 module Kitchen
   # Abstract base class for all elements.  If you are looking for a simple concrete
   # element class, use `Element`.
@@ -116,7 +117,9 @@ module Kitchen
 
       @enumerator_class = enumerator_class
 
-      @short_type = short_type || "unknown_type_#{SecureRandom.hex(4)}"
+      @short_type = short_type ||
+                    self.class.try(:short_type) ||
+                    "unknown_type_#{SecureRandom.hex(4)}"
 
       @document =
         case document
@@ -131,14 +134,50 @@ module Kitchen
       @is_a_clone = false
     end
 
+    # Returns ElementBase descendent type or nil if none found
+    #
+    # @param type [Symbol] the descendant type, e.g. `:page`
+    # @return [Class] the child class for the given type
+    #
+    def self.descendant(type)
+      @types_to_descendants ||=
+        descendants.each_with_object({}) do |descendant, hash|
+          next unless descendant.try(:short_type)
+
+          hash[descendant.short_type] = descendant
+        end
+
+      @types_to_descendants[type]
+    end
+
+    # Returns ElementBase descendent type or Error if none found
+    #
+    # @param type [Symbol] the descendant type, e.g. `:page`
+    # @raise if the type is unknown
+    # @return [Class] the child class for the given type
+    #
+    def self.descendant!(type)
+      descendant(type) || raise("Unknown ElementBase descendant type '#{type}'")
+    end
+
+    # Returns true if this element is the given type
+    #
+    # @param type [Symbol] the descendant type, e.g. `:page`
+    # @raise if the type is unknown
+    # @return [Boolean]
+    #
+    def is?(type)
+      ElementBase.descendant!(type).is_the_element_class_for?(raw, config: config)
+    end
+
     # Returns true if this class represents the element for the given node
     #
     # @param node [Nokogiri::XML::Node] the underlying node
+    # @param config [Kitchen::Config]
     # @return [Boolean]
     #
-    def self.is_the_element_class_for?(_node)
-      # override this in subclasses
-      false
+    def self.is_the_element_class_for?(node, config:)
+      Selector.named(short_type).matches?(node, config: config)
     end
 
     # Returns true if this element has the given class
@@ -654,7 +693,8 @@ module Kitchen
     # @!method pages
     #   Returns a pages enumerator
     def_delegators :as_enumerator, :pages, :chapters, :terms, :figures, :notes, :tables, :examples,
-                   :metadatas, :non_introduction_pages, :units, :titles, :exercises, :composite_pages
+                   :metadatas, :non_introduction_pages, :units, :titles, :exercises, :references,
+                   :composite_pages
 
     # Returns this element as an enumerator (over only one element, itself)
     #
@@ -696,7 +736,9 @@ module Kitchen
     # @param string [String] the string to clean
     def remove_default_namespaces_if_clone(string)
       if is_a_clone
-        string.gsub('xmlns:default="http://www.w3.org/1999/xhtml"', '').gsub('default:', '')
+        string.gsub('xmlns:default="http://www.w3.org/1999/xhtml"', '')
+              .gsub('xmlns="http://www.w3.org/1999/xhtml"', '')
+              .gsub('default:', '')
       else
         string
       end
@@ -709,3 +751,4 @@ module Kitchen
 
   end
 end
+# rubocop:enable Metrics/ClassLength

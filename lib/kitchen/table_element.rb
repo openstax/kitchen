@@ -13,8 +13,14 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: TableElementEnumerator,
-            short_type: :table)
+            enumerator_class: TableElementEnumerator)
+    end
+
+    # Returns the short type
+    # @return [Symbol]
+    #
+    def self.short_type
+      :table
     end
 
     # Returns an element for the title row, if present
@@ -72,15 +78,6 @@ module Kitchen
     #
     def caption
       first('caption')
-    end
-
-    # Returns true if this class represents the element for the given node
-    #
-    # @param node [Nokogiri::XML::Node] the underlying node
-    # @return [Boolean]
-    #
-    def self.is_the_element_class_for?(node)
-      node.name == 'table'
     end
 
   end

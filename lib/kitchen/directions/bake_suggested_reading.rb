@@ -6,6 +6,7 @@ module Kitchen
     #
     module BakeSuggestedReading
       def self.v1(book:)
+        metadata_elements = book.metadata.children_to_keep.copy
         book.chapters.each do |chapter|
           suggested_reading = chapter.search('section.suggested-reading').cut
 
@@ -15,6 +16,10 @@ module Kitchen
                 <h2 data-type="document-title">
                   <span class="os-text">#{I18n.t(:eoc_suggested_reading)}</span>
                 </h2>
+                <div data-type="metadata" style="display: none;">
+                  <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_suggested_reading)}</h1>
+                  #{metadata_elements.paste}
+                </div>
                 #{suggested_reading.paste}
               </div>
             HTML

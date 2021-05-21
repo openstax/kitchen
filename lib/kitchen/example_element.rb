@@ -13,8 +13,14 @@ module Kitchen
     def initialize(node:, document: nil)
       super(node: node,
             document: document,
-            enumerator_class: ExampleElementEnumerator,
-            short_type: :example)
+            enumerator_class: ExampleElementEnumerator)
+    end
+
+    # Returns the short type
+    # @return [Symbol]
+    #
+    def self.short_type
+      :example
     end
 
     # Returns the an enumerator for titles.
@@ -23,15 +29,6 @@ module Kitchen
     #
     def titles
       search("span[data-type='title']")
-    end
-
-    # Returns true if this class represents the element for the given node
-    #
-    # @param node [Nokogiri::XML::Node] the underlying node
-    # @return [Boolean]
-    #
-    def self.is_the_element_class_for?(node)
-      node['data-type'] == 'example'
     end
 
   end
