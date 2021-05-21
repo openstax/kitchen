@@ -185,30 +185,4 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
       )
     }.to raise_error('No such strategy')
   end
-
-  # def metadata(title:, id_suffix: '')
-  #   <<~HTML
-  #     <div data-type="metadata" style="display: none;">
-  #       <h1 data-type="document-title" itemprop="name">#{title}</h1>
-  #       <div class="authors">
-  #         <span id="author-1#{id_suffix}" ><a>OpenStaxCollege</a></span>
-  #       </div>
-  #       <div class="publishers">
-  #         <span id="publisher-1#{id_suffix}"><a>OpenStaxCollege</a></span>
-  #       </div>
-  #       <div class="print-style">
-  #         <span data-type="print-style">sociology-prod</span>
-  #       </div>
-  #       <div class="permissions">
-  #         <p class="copyright">
-  #           <span id="copyright-holder-1#{id_suffix}"><a>OSCRiceUniversity</a></span>
-  #         </p>
-  #         <p class="license">
-  #           <a>CC BY</a>
-  #         </p>
-  #       </div>
-  #       <div itemprop="about" data-type="subject">Social Sciences</div>
-  #     </div>
-  #   HTML
-  # end
 end
