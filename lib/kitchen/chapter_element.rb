@@ -41,7 +41,7 @@ module Kitchen
     # @return [Element, nil]
     #
     def introduction_page
-      pages('.introduction').first
+      pages('$.introduction').first
     end
 
     # Returns an enumerator for the glossaries

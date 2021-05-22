@@ -31,7 +31,7 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
 
       def bake_from_notes(chapter:, append_to:, klass:)
         solutions = []
-        chapter.notes(".#{klass}").each do |note|
+        chapter.notes("$.#{klass}").each do |note|
           note.exercises.each do |exercise|
             solution = exercise.solution
             solutions.push(solution.cut) if solution
