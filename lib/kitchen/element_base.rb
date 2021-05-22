@@ -132,6 +132,7 @@ module Kitchen
       @ancestors = HashWithIndifferentAccess.new
       @search_query_matches_that_have_been_counted = {}
       @is_a_clone = false
+      @search_cache = {}
     end
 
     # Returns ElementBase descendent type or nil if none found
@@ -343,19 +344,33 @@ module Kitchen
     # @param except [Symbol, Callable] the name of a method to call on an element or a
     #   lambda or proc that accepts an element; elements will not be included in the
     #   search results if the method or callable returns false
+    # @param method [Symbol] a method to call on the result, e.g. `:first`.  The result
+    #   of the method is cached.  The default of `:itself` caches the raw search result, which
+    #   is an element enumerator.
+    # @param reload [Boolean] if false, may return a cached value; if true, will ignore any
+    #   cached value
     # @return [ElementEnumerator]
     #
-    def search(*selector_or_xpath_args, only: nil, except: nil)
+    def search(*selector_or_xpath_args, only: nil, except: nil, method: :itself, reload: false)
       block_error_if(block_given?)
 
-      ElementEnumerator.factory.build_within(
-        self,
-        search_query: SearchQuery.new(
-          css_or_xpath: selector_or_xpath_args,
-          only: only,
-          except: except
-        )
+      search_query = SearchQuery.new(
+        css_or_xpath: selector_or_xpath_args,
+        only: only,
+        except: except
       )
+
+      key = [method, search_query.as_type]
+
+      @search_cache[key] = nil if reload
+
+      @search_cache[key] ||=
+        ElementEnumerator.factory.build_within(self, search_query: search_query).send(method.to_sym)
+
+      # cache nil search results with a fake -1 value
+      @search_cache[key] ||= -1
+
+      @search_cache[key] == -1 ? nil : @search_cache[key]
     end
 
     # Yields and returns the first child element that matches the provided
@@ -366,7 +381,7 @@ module Kitchen
     # @return [Element, nil] the matched XML element or nil if no match found
     #
     def first(*selector_or_xpath_args, reload: false)
-      cached_search(selector_or_xpath_args, method: :first, reload: reload).tap do |element|
+      search(selector_or_xpath_args, method: :first, reload: reload).tap do |element|
         yield(element) if block_given?
       end
     end
@@ -380,7 +395,7 @@ module Kitchen
     # @return [Element] the matched XML element
     #
     def first!(*selector_or_xpath_args, reload: false)
-      cached_search(selector_or_xpath_args, method: :first!, reload: reload).tap do |element|
+      search(selector_or_xpath_args, method: :first!, reload: reload).tap do |element|
         yield(element) if block_given?
       end
     end
@@ -747,15 +762,6 @@ module Kitchen
     def require_one_of_child_or_sibling(child, sibling)
       raise RecipeError, 'Only one of `child` or `sibling` can be specified' if child && sibling
       raise RecipeError, 'One of `child` or `sibling` must be specified' if !child && !sibling
-    end
-
-    def cached_search(*selector_or_xpath_args, method:, reload: false)
-      key = [method, selector_or_xpath_args]
-      @search_cache ||= {}
-      @search_cache[key] = nil if reload
-      # cache nil search results with a fake -1 value
-      @search_cache[key] ||= search(*selector_or_xpath_args).send(method.to_sym) || -1
-      @search_cache[key] == -1 ? nil : @search_cache[key]
     end
 
   end
