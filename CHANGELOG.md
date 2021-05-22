@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Caches calls to `first` and `first!` which on Chemistry halves baking time (minor)
+* Adds low level Nokogiri caching, disabled by default (patch)
 
 ## [4.1.0] - 2021-05-18
 
