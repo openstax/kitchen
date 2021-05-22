@@ -65,7 +65,7 @@ module Kitchen
     # @return [ElementEnumerator]
     #
     def abstracts
-      search('[data-type="abstract"]')
+      search('div[data-type="abstract"]')
     end
 
   end
