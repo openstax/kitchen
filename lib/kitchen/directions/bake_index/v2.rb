@@ -29,13 +29,6 @@ module Kitchen::Directions::BakeIndex
       def initialize(term_text:)
         @term_text = term_text
         @terms = []
-
-        # Sort by transliterated version first to support accent marks,
-        # then by the raw text to support the same text with different capitalization
-        # @sortable = [
-          # ActiveSupport::Inflector.transliterate(term_text).downcase,
-          # term_text
-        # ]
       end
 
       def add_term(term)
@@ -46,13 +39,13 @@ module Kitchen::Directions::BakeIndex
         @term_text = @term_text.uncapitalize
       end
 
-      #def <=>(other)
-        #sortable <=> other.sortable
-      #end
+      def <=>(other)
+        self.class.collator.compare(term_text, other.term_text)
+      end
 
-      #protected
-
-      #attr_reader :sortable
+      def self.collator
+        @collator ||= TwitterCldr::Collation::Collator.new(:pl)
+      end
     end
 
     class IndexSection
@@ -62,8 +55,7 @@ module Kitchen::Directions::BakeIndex
       def initialize(name:)
         @force_first = name == I18n.t(:eob_index_symbols_group)
         @name = name
-        collator = TwitterCldr::Collation::Collator.new(:pl)
-        @items = SortedSet.new { |a, b| collator.compare(a, b) }
+        @items = SortedSet.new
         @items_by_term_text = {}
       end
 
@@ -160,7 +152,6 @@ module Kitchen::Directions::BakeIndex
     end
 
     def add_term_to_index(term_element, page_title)
-
       if term_element.key?('reference')
         term_reference = term_element['cmlnle:reference']
         group_by = term_reference[0]
