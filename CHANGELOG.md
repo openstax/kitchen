@@ -5,10 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+* Remove line that deletes numbered note title in `BakeNumberedNote` since it will de removed from content (minor)
 
 ## [4.1.1] - 2021-05-24
 
-* Be more specific about deleting numbered note title in `BakeNumberedNote` (minor)
 * Adds low level Nokogiri caching, disabled by default (patch)
 * Cache Selector objects since they don't change (patch)
 * Use more specific selectors when to reduce bake time (patch)
