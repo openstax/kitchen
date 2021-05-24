@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'twitter_cldr'
-
 module Kitchen::Directions::BakeIndex
   # Bake directions for eob index
   #
@@ -40,11 +38,7 @@ module Kitchen::Directions::BakeIndex
       end
 
       def <=>(other)
-        self.class.collator.compare(term_text, other.term_text)
-      end
-
-      def self.collator
-        @collator ||= TwitterCldr::Collation::Collator.new(:pl)
+        I18n.sort_strings(term_text, other.term_text)
       end
     end
 
