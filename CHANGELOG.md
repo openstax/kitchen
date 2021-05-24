@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.1.1] - 2021-05-24
 
+* Be more specific about deleting numbered note title in `BakeNumberedNote` (minor)
 * Adds low level Nokogiri caching, disabled by default (patch)
 * Cache Selector objects since they don't change (patch)
 * Use more specific selectors when to reduce bake time (patch)
