@@ -44,8 +44,6 @@ module Kitchen
       @nokogiri_document = nokogiri_document
       @location = nil
       @config = config || Config.new
-      @id_cp_count = Hash.new { |hash, key| hash[key] = {} }
-      @id_copy_suffix = '_copy_'
 
       # Nokogiri by default only recognizes the namespaces on the root node.  Collect all
       # namespaces and add them manually.
@@ -153,62 +151,6 @@ module Kitchen
 
       create_element(node.name, node.attributes).tap do |element|
         element.inner_html = node.children
-      end
-    end
-
-    # Keeps track that an element with the given ID has been copied.  When such
-    # elements are pasted, this information is used to give those elements unique
-    # IDs that don't duplicate the original element.
-    #
-    # @param id [String] the ID
-    #
-    def record_id_copied(id)
-      return if id.blank?
-
-      @id_cp_count[id][:count]&.positive? ? @id_cp_count[id][:count] += 1 : @id_cp_count[id][:count] = 1
-      @id_cp_count[id][:last_paste] = false
-    end
-
-    # Keeps track that an element with the given ID has been cut.
-    #
-    # @param id [String]
-    #
-    def record_id_cut(id)
-      return if id.blank?
-
-      @id_cp_count[id][:count]&.positive? ? @id_cp_count[id][:count] -= 1 : @id_cp_count[id][:count]
-      @id_cp_count[id][:last_paste] = false
-    end
-
-    # Keeps track that an element with the given ID has been pasted.
-    #
-    # @param id [String]
-    #
-    def record_id_paste(id)
-      return if id.blank?
-
-      @id_cp_count[id][:count] ||= 0
-      @id_cp_count[id][:last_paste] ? @id_cp_count[id][:count] += 1 : @id_cp_count[id][:count]
-
-      @id_cp_count[id][:last_paste] = true
-    end
-
-    # Returns a unique ID given the ID of an element that was copied and is about
-    # to be pasted
-    #
-    # @param original_id [String]
-    #
-    def modified_id_to_paste(original_id)
-      return nil if original_id.nil?
-      return '' if original_id.blank?
-
-      count = @id_cp_count[original_id][:count] ||= 0
-      # A count of 0 means the element was cut and this is the first paste, do not
-      # modify the ID; otherwise, use the uniquified ID.
-      if count.zero?
-        original_id
-      else
-        "#{original_id}#{@id_copy_suffix}#{count}"
       end
     end
 

@@ -129,6 +129,7 @@ module Kitchen
           raise(ArgumentError, '`document` is not a known document type')
         end
 
+      @id_tracker = IdTracker.new
       @ancestors = HashWithIndifferentAccess.new
       @search_query_matches_that_have_been_counted = {}
       @is_a_clone = false
@@ -429,11 +430,10 @@ module Kitchen
     def cut(to: nil)
       block_error_if(block_given?)
 
-      temp = clone
-      temp.raw.traverse do |node|
+      raw.traverse do |node|
         next if node.text? || node.document?
 
-        document.record_id_cut(node[:id])
+        @id_tracker.record_id_cut(node[:id])
       end
       node.remove
       get_clipboard(to).add(self) if to.present?
@@ -455,7 +455,7 @@ module Kitchen
       the_copy.raw.traverse do |node|
         next if node.text? || node.document?
 
-        document.record_id_copied(node[:id])
+        @id_tracker.record_id_copied(node[:id])
       end
       get_clipboard(to).add(the_copy) if to.present?
       the_copy
@@ -470,16 +470,18 @@ module Kitchen
       temp_copy.raw.traverse do |node|
         next if node.text? || node.document?
 
-        document.record_id_paste(node[:id])
-        node[:id] = document.modified_id_to_paste(node[:id]) unless node[:id].blank?
+        if node[:id].present?
+          @id_tracker.record_id_pasted(node[:id])
+          node[:id] = @id_tracker.modified_id_to_paste(node[:id])
+        end
       end
       temp_copy.to_s
     end
 
     # Copy the element's id
     def copied_id
-      document.record_id_copied(id)
-      document.modified_id_to_paste(id)
+      @id_tracker.record_id_copied(id)
+      @id_tracker.modified_id_to_paste(id)
     end
 
     # Delete the element
