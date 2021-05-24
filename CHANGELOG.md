@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 * Reditributed duplicated id logic across `#record_id_copied`, `#record_id_cut`, `#record_id_pasted`, added a couple more tests for `#copy`, `#cut`, and `#paste`, created a new class `IdTracker` and moved `#record_id_copied`, `#record_id_cut`, `#record_id_pasted`, and `modified_id_to_paste` into the new class (major)
 
+## [4.1.1] - 2021-05-24
+
+* Adds low level Nokogiri caching, disabled by default (patch)
+* Cache Selector objects since they don't change (patch)
+* Use more specific selectors when to reduce bake time (patch)
+
 ## [4.1.0] - 2021-05-18
 
 * Fixed performance problem with element class detection (patch)
