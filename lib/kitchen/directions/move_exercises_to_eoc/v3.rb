@@ -39,10 +39,6 @@ module Kitchen::Directions::MoveExercisesToEOC
 
       @content = exercise_clipboard.paste
 
-      # append_to_element = append_to || chapter
-      # @tag = append_to ? 'h3' : 'h2'
-      # @metadata_title = append_to ? I18n.t(:eoc_exercises_title) : @title
-
       append_to_element = append_to || chapter
       @in_composite_chapter = append_to_element.is?(:composite_chapter)
 
