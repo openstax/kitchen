@@ -24,13 +24,17 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
           <div data-type="note" id="789" class="foo">
             <p>content 2.2</p>
             <div data-type="exercise">
-              <div data-type="problem">what is your quest?</div>
+              <div data-type="problem">
+                <p><strong data-effect="bold">unneeded title</strong>what is your quest?</p>
+              </div>
             </div>
           </div>
           <div data-type="note" id="333" class="hello">
             <p>content 2.1</p>
             <div data-type="exercise" id="abcde">
-              <div data-type="problem" id="unchanged">what is your favorite color?</div>
+              <div data-type="problem" id="unchanged">
+                <p>what is your favorite color? <strong data-effect="bold">other bolded element</strong></p>
+              </div>
               <div data-type="solution" id="xyz">
                 <p>chartreuse</p>
               </div>
@@ -134,7 +138,9 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
                 <p>content 2.2</p>
                 <div class="unnumbered" data-type="exercise">
                   <div data-type="problem">
-                    <div class="os-problem-container">what is your quest?</div>
+                    <div class="os-problem-container">
+                      <p>what is your quest?</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -149,7 +155,9 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
                 <p>content 2.1</p>
                 <div class="unnumbered os-hasSolution" data-type="exercise" id="abcde">
                   <div data-type="problem" id="unchanged">
-                    <div class="os-problem-container">what is your favorite color?</div>
+                    <div class="os-problem-container">
+                      <p>what is your favorite color? <strong data-effect="bold">other bolded element</strong></p>
+                    </div>
                   </div>
                   <div data-type="solution" id="abcde-solution">
                     <a class="os-number" href="#abcde">2.1</a>

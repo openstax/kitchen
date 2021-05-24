@@ -37,8 +37,9 @@ module Kitchen
       def self.bake_note_exercise(note:, exercise:)
         exercise.add_class('unnumbered')
         # bake problem
+        unneeded_title = exercise.problem.element_children.first&.children&.first
+        unneeded_title.remove if unneeded_title&.name == 'strong'
         exercise.problem.wrap_children('div', class: 'os-problem-container')
-        exercise.problem.first('strong')&.trash
         exercise.search('[data-type="commentary"]').each(&:trash)
         return unless exercise.solution
 
