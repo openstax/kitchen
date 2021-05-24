@@ -139,7 +139,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
                 <div class="unnumbered" data-type="exercise">
                   <div data-type="problem">
                     <div class="os-problem-container">
-                      <p>what is your quest?</p>
+                      <p><strong data-effect="bold">unneeded title</strong>what is your quest?</p>
                     </div>
                   </div>
                 </div>
