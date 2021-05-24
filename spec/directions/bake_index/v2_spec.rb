@@ -312,12 +312,14 @@ RSpec.describe Kitchen::Directions::BakeIndex::V2 do
   end
 
   it 'sorts terms with polish diacritics' do
-    a_section.add_term(text_only_term('Sąd'))
-    a_section.add_term(text_only_term('Sen'))
-    a_section.add_term(text_only_term('Sad'))
-    a_section.add_term(text_only_term('Sędziwy'))
+    with_locale(:pl) do
+      a_section.add_term(text_only_term('Sąd'))
+      a_section.add_term(text_only_term('Sen'))
+      a_section.add_term(text_only_term('Sad'))
+      a_section.add_term(text_only_term('Sędziwy'))
 
-    expect(a_section.items.map(&:term_text)).to eq %w[Sad Sąd Sen Sędziwy]
+      expect(a_section.items.map(&:term_text)).to eq %w[Sad Sąd Sen Sędziwy]
+    end
   end
 
   def text_only_term(text)
