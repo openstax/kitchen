@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'twitter_cldr'
+
 module Kitchen::Directions::BakeIndex
   # Bake directions for eob index
   #
@@ -30,10 +32,10 @@ module Kitchen::Directions::BakeIndex
 
         # Sort by transliterated version first to support accent marks,
         # then by the raw text to support the same text with different capitalization
-        @sortable = [
-          ActiveSupport::Inflector.transliterate(term_text).downcase,
-          term_text
-        ]
+        # @sortable = [
+          # ActiveSupport::Inflector.transliterate(term_text).downcase,
+          # term_text
+        # ]
       end
 
       def add_term(term)
@@ -44,13 +46,13 @@ module Kitchen::Directions::BakeIndex
         @term_text = @term_text.uncapitalize
       end
 
-      def <=>(other)
-        sortable <=> other.sortable
-      end
+      #def <=>(other)
+        #sortable <=> other.sortable
+      #end
 
-      protected
+      #protected
 
-      attr_reader :sortable
+      #attr_reader :sortable
     end
 
     class IndexSection
@@ -60,7 +62,8 @@ module Kitchen::Directions::BakeIndex
       def initialize(name:)
         @force_first = name == I18n.t(:eob_index_symbols_group)
         @name = name
-        @items = SortedSet.new
+        collator = TwitterCldr::Collation::Collator.new(:pl)
+        @items = SortedSet.new { |a, b| collator.compare(a, b) }
         @items_by_term_text = {}
       end
 

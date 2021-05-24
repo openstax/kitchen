@@ -9,3 +9,5 @@ gem 'rake', '~> 12.0'
 gem 'rspec', '~> 3.0'
 
 gem 'codecov', require: false
+
+gem "twitter_cldr", "~> 6.6"
