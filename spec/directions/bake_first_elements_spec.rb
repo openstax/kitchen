@@ -96,10 +96,7 @@ RSpec.describe Kitchen::Directions::BakeFirstElements do
 
   it 'works' do
     section = book.search('.section-exercises').first
-    described_class.v1(
-      within: section,
-      selectors: ['.os-problem-container > .os-table', '.os-problem-container > [data-type="media"]', '.os-solution-container > [data-type="media"]']
-    )
+    described_class.v1(within: section)
 
     expect(book.body).to match_normalized_html(
       <<~HTML
