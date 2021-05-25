@@ -12,11 +12,10 @@ module Kitchen::Directions::BakeChapterSolutions
 
       solutions_clipboard = Kitchen::Clipboard.new
 
-      # free response solutions?
-      # Go through the os-hasSolution s, take their os-number?
-      # go through each exercise?
       chapter.search('section.free-response').each do |free_response_question|
         exercises = free_response_question.exercises
+        # must run AFTER .free-response notes are baked
+
         next if exercises.none?
 
         exercises.each do |exercise|
