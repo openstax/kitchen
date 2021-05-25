@@ -7,7 +7,8 @@ module Kitchen
     attr_reader :name
 
     def self.named(name)
-      new(name) { |config| config.selectors.send(name) }
+      @instances ||= {}
+      @instances[name] ||= new(name) { |config| config.selectors.send(name) }
     end
 
     def initialize(name, &block)
@@ -18,7 +19,7 @@ module Kitchen
     def matches?(node, config:)
       # This may not be incredibly efficient as it does a search of this node's
       # ancestors to see if the node is in the results.  Watch the performance.
-      node.matches?(call(config))
+      node.quick_matches?(call(config))
     end
   end
 end
