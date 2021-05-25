@@ -3,8 +3,9 @@
 module Kitchen
   module Directions
     module BakeNumberedExercise
-      def self.v1(exercise:, number:, suppress_solution: false, suppress_even_solution: false)
-        V1.new.bake(exercise: exercise, number: number, suppress_solution: suppress_solution, suppress_even_solution: suppress_even_solution)
+      def self.v1(exercise:, number:, suppress_solution: false, note_suppressed_solutions: false)
+        V1.new.bake(exercise: exercise, number: number, suppress_solution: suppress_solution,
+                    note_suppressed_solutions: note_suppressed_solutions)
       end
 
       def self.bake_solution_v1(exercise:, number:, divider: '. ')
