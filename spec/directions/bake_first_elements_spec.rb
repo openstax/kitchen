@@ -76,7 +76,7 @@ RSpec.describe Kitchen::Directions::BakeFirstElements do
               <div data-type="problem"/>
               <div data-type="solution">
                 <div class="os-solution-container">
-                  <span data-type="media">Media</div>
+                  <span data-type="media">Media</span>
                 </div>
               </div>
             </div>
@@ -172,7 +172,7 @@ RSpec.describe Kitchen::Directions::BakeFirstElements do
                   <div data-type="problem"></div>
                   <div data-type="solution">
                     <div class="os-solution-container has-first-element">
-                      <span class="first-element" data-type="media">Media</div>
+                      <span class="first-element" data-type="media">Media</span>
                     </div>
                   </div>
                 </div>
