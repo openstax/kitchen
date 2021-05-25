@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Auto-detect language based on document; force output encoding to UTF-8 (major)
 * Switched to using a library to sort strings in a language-specific way (patch)
 
+* Add `BakeChapterSolutions` which bakes the free response solutions at the eoc (minor)
+* Changed locale `eoc_answer_key_title` to `answer_key_title` as it was only used in eob (major)
+
 ## [4.1.1] - 2021-05-24
 
 * Adds low level Nokogiri caching, disabled by default (patch)
