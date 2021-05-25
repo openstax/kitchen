@@ -12,10 +12,22 @@ module Kitchen::Directions::BakeChapterSolutions
 
       solutions_clipboard = Kitchen::Clipboard.new
 
-      chapter.search("[data-type='solution']").each do |solution|
+      # free response solutions?
+      # Go through the os-hasSolution s, take their os-number?
+      # go through each exercise?
+      chapter.search('section.free-response').each do |free_response_question|
+        exercises = free_response_question.exercises
+        next if exercises.none?
+
+        exercises.each do |exercise|
+          solution = exercise.solution
+          next unless solution.present?
+
+          solution.cut(to: solutions_clipboard)
+        end
       end
 
-      @content = chapter.search("[data-type='solution']").cut.paste
+      @content = solutions_clipboard.paste
 
       @in_composite_chapter = false
 
