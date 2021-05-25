@@ -13,6 +13,8 @@ module Kitchen
     attr_accessor :location
     # @return [Config] the configuration used in this document
     attr_reader :config
+    # @return [IdTracker] the counter for duplicate IDs
+    attr_reader :id_tracker
 
     # @!method selectors
     #   The document's selectors
@@ -44,6 +46,7 @@ module Kitchen
       @nokogiri_document = nokogiri_document
       @location = nil
       @config = config || Config.new
+      @id_tracker = IdTracker.new
 
       # Nokogiri by default only recognizes the namespaces on the root node.  Add all others.
       raw&.add_all_namespaces! if @config.enable_all_namespaces
