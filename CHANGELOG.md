@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 * Remove line that deletes numbered note title in `BakeNumberedNote` since it will de removed from content (minor)
+* Moved selectors from recipe to kitchen on `BakeFirstElements` Direction (minor)
 
 ## [4.1.1] - 2021-05-24
 
