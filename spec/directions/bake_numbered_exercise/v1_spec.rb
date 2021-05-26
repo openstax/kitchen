@@ -48,7 +48,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedExercise::V1 do
 
   context 'when solutions are suppressed' do
     it 'works' do
-      described_class.new.bake(exercise: exercise1, number: '1.1', suppress_solution: true)
+      described_class.new.bake(exercise: exercise1, number: '1.1', suppress_solution_if: true)
 
       expect(exercise1).to match_normalized_html(
         <<~HTML
@@ -69,7 +69,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedExercise::V1 do
   context 'when even solutions are suppressed' do
     context 'when number is odd' do
       it 'works' do
-        described_class.new.bake(exercise: exercise1, number: 1, suppress_even_solution: true)
+        described_class.new.bake(exercise: exercise1, number: 1, suppress_solution_if: :even?, note_suppressed_solutions: true)
         expect(exercise1).to match_normalized_html(
           <<~HTML
             <div data-type="exercise" id="exercise_id" class="os-hasSolution">
@@ -94,7 +94,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedExercise::V1 do
 
     context 'when number is even' do
       it 'works' do
-        described_class.new.bake(exercise: exercise1, number: 2, suppress_even_solution: true)
+        described_class.new.bake(exercise: exercise1, number: 2, suppress_solution_if: :even?, note_suppressed_solutions: true)
         expect(exercise1).to match_normalized_html(
           <<~HTML
             <div data-type="exercise" id="exercise_id" class="os-hasSolution-trashed">

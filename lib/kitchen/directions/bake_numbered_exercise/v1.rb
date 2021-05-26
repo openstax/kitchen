@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::BakeNumberedExercise
   class V1
-    def bake(exercise:, number:, suppress_solution: false, suppress_even_solution: false)
+    def bake(exercise:, number:, suppress_solution_if: false, note_suppressed_solutions: false)
       problem = exercise.problem
       solution = exercise.solution
 
@@ -12,15 +12,18 @@ module Kitchen::Directions::BakeNumberedExercise
       )
       problem_number = "<span class='os-number'>#{number}</span>"
 
+      suppress_solution =
+        case suppress_solution_if
+        when Symbol
+          number.send(suppress_solution_if)
+        else
+          suppress_solution_if
+        end
+
       if solution.present?
         if suppress_solution
           solution.trash
-        elsif suppress_even_solution && number.odd?
-          problem_number = "<a class='os-number' href='##{exercise.id}-solution'>#{number}</a>"
-          bake_solution(exercise: exercise, number: number)
-        elsif suppress_even_solution && number.even?
-          problem_number = "<span class='os-number'>#{number}</span>"
-          bake_even_solution(exercise: exercise)
+          exercise.add_class('os-hasSolution-trashed') if note_suppressed_solutions
         else
           problem_number = "<a class='os-number' href='##{exercise.id}-solution'>#{number}</a>"
           bake_solution(exercise: exercise, number: number)
@@ -48,12 +51,6 @@ module Kitchen::Directions::BakeNumberedExercise
           <div class="os-solution-container">#{solution.children}</div>
         HTML
       )
-    end
-
-    def bake_even_solution(exercise:)
-      solution = exercise.solution
-      exercise.add_class('os-hasSolution-trashed')
-      solution.trash
     end
   end
 end
