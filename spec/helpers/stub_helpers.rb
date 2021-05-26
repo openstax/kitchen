@@ -4,10 +4,10 @@ module StubHelpers
   def stub_locales(hash)
     @locales_are_stubbed = true
 
-    I18n.config.available_locales = %i[test en pl]
+    I18n.config.available_locales = %i[test en es pl]
     allow_any_instance_of(I18n::Config).to receive(:backend).and_return(
       I18n::Backend::Simple.new.tap do |backend|
-        backend.store_translations 'test', hash.merge(Kitchen::TRANSLITERATIONS)
+        backend.store_translations 'test', hash
       end
     )
 

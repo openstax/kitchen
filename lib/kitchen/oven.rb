@@ -28,6 +28,8 @@ module Kitchen
         config: config
       )
 
+      I18n.locale = doc.locale
+
       [recipes].flatten.each do |recipe|
         recipe.document = doc
         recipe.bake
@@ -35,9 +37,11 @@ module Kitchen
       profile.baked!
 
       File.open(output_file, 'w') do |f|
-        f.write doc.to_xhtml(indent: 2)
+        f.write doc.to_xhtml(indent: 2, encoding: doc.encoding || 'utf-8')
       end
       profile.written!
+
+      Nokogiri::XML.print_profile_data if ENV['PROFILE'] && !ENV['TESTING']
 
       profile
     end
