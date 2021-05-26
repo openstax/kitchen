@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Extend `ChapterReviewContainer` to accept other classes
 * Add a `Strategy` for Precalculus (minor)
 * Create a `BakeNumberedNotes` V2 (minor)
 * Moved selectors from recipe to kitchen on `BakeFirstElements` Direction (minor)
