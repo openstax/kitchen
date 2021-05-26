@@ -52,7 +52,6 @@ module Kitchen::Directions::BakeNumberedExercise
 
     def bake_even_solution(exercise:)
       solution = exercise.solution
-      solution.id = "#{exercise.id}-solution"
       exercise.add_class('os-hasSolution-trashed')
       solution.trash
     end
