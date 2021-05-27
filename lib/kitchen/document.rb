@@ -34,7 +34,10 @@ module Kitchen
     # @!method to_html
     #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#to_html-instance_method Nokogiri::XML::Node#to_html
     #   @return [String] the document as an HTML string
-    def_delegators :@nokogiri_document, :to_xhtml, :to_s, :to_xml, :to_html
+    # @!method encoding
+    #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Document#encoding-instance_method Nokogiri::XML::Document#encoding
+    #   @return [String] the document as an HTML string
+    def_delegators :@nokogiri_document, :to_xhtml, :to_s, :to_xml, :to_html, :encoding
 
     # Return a new instance of Document
     #
@@ -47,16 +50,8 @@ module Kitchen
       @next_paste_count_for_id = {}
       @id_copy_suffix = '_copy_'
 
-      # Nokogiri by default only recognizes the namespaces on the root node.  Collect all
-      # namespaces and add them manually.
-      return unless @config.enable_all_namespaces && raw.present?
-
-      raw.collect_namespaces.each do |namespace, url|
-        prefix, name = namespace.split(':')
-        next unless prefix == 'xmlns' && name.present?
-
-        raw.root.add_namespace_definition(name, url)
-      end
+      # Nokogiri by default only recognizes the namespaces on the root node.  Add all others.
+      raw&.add_all_namespaces! if @config.enable_all_namespaces
     end
 
     # Returns an enumerator that iterates over all children of this document
@@ -194,6 +189,17 @@ module Kitchen
     #
     def raw
       @nokogiri_document
+    end
+
+    # Returns the locale for this document, default to `:en` if no locale detected
+    #
+    # @return [Symbol]
+    #
+    def locale
+      raw.root['lang']&.to_sym || begin
+        warn 'No `lang` attribute on this document so cannot detect its locale; defaulting to `:en`'
+        :en
+      end
     end
 
     protected
