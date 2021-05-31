@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# The main difference between v1 and v3 is that in v2 references are also baked form introduction pages
-
+# The main difference between vv1 and v3 is that in v2 references are also baked form introduction pages
 module Kitchen::Directions::BakeChapterReferences
   class V2
     renderable
@@ -19,13 +18,26 @@ module Kitchen::Directions::BakeChapterReferences
         next if references.none?
 
         references.search('h3').trash
-        title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(page: page)
-
-        references.each do |reference|
-          reference.prepend(child: title)
+        if page.is_introduction?
+          references.each do |reference|
+            reference.prepend(child:
+              <<~HTML
+                <a href="##{page.title.id}">
+                  <h3 data-type="document-title" id="#{page.title.copied_id}">
+                    <span class="os-text" data-type="" itemprop="">#{page.title_text}</span>
+                  </h3>
+                </a>
+              HTML
+            )
+          end
+        else
+          @page = page unless page.is_introduction?
+          title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(page: @page)
+          references.each do |reference|
+            reference.prepend(child: title)
+          end
         end
       end
-
       @content = chapter.pages.references.cut.paste
 
       @in_composite_chapter = false
