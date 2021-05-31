@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# The main difference between v1 and v3 is that in v2 references are also baked form introduction pages
+
 module Kitchen::Directions::BakeChapterReferences
-  class V1
+  class V2
     renderable
 
     def bake(chapter:, metadata_source:, uuid_prefix: '.', klass: 'references')
@@ -12,7 +14,7 @@ module Kitchen::Directions::BakeChapterReferences
 
       chapter.references.search('h3').trash
 
-      chapter.non_introduction_pages.each do |page|
+      chapter.pages.each do |page|
         references = page.references
         next if references.none?
 
