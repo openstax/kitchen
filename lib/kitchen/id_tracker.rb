@@ -6,7 +6,7 @@ module Kitchen
   class IdTracker
 
     def initialize
-      @id_cp_count = Hash.new { |hash, key| hash[key] = { count: 0, last_pasted: false } }
+      @id_data = Hash.new { |hash, key| hash[key] = { count: 0, last_pasted: false } }
       @id_copy_suffix = '_copy_'
     end
 
@@ -19,8 +19,8 @@ module Kitchen
     def record_id_copied(id)
       return if id.blank?
 
-      @id_cp_count[id][:count] += 1
-      @id_cp_count[id][:last_pasted] = false
+      @id_data[id][:count] += 1
+      @id_data[id][:last_pasted] = false
     end
 
     # Keeps track that an element with the given ID has been cut.
@@ -30,8 +30,8 @@ module Kitchen
     def record_id_cut(id)
       return if id.blank?
 
-      @id_cp_count[id][:count] -= 1 if @id_cp_count[id][:count].positive?
-      @id_cp_count[id][:last_pasted] = false
+      @id_data[id][:count] -= 1 if @id_data[id][:count].positive?
+      @id_data[id][:last_pasted] = false
     end
 
     # Keeps track that an element with the given ID has been pasted.
@@ -41,20 +41,21 @@ module Kitchen
     def record_id_pasted(id)
       return if id.blank?
 
-      @id_cp_count[id][:count] += 1 if @id_cp_count[id][:last_pasted]
-      @id_cp_count[id][:last_pasted] = true
+      @id_data[id][:count] += 1 if @id_data[id][:last_pasted]
+      @id_data[id][:last_pasted] = true
     end
 
     # Returns a unique ID given the ID of an element that was copied and is about
     # to be pasted
     #
     # @param original_id [String]
+    # @return [String]
     #
     def modified_id_to_paste(original_id)
       return nil if original_id.nil?
       return '' if original_id.blank?
 
-      count = @id_cp_count[original_id][:count]
+      count = @id_data[original_id][:count]
       # A count of 0 means the element was cut and this is the first paste, do not
       # modify the ID; otherwise, use the uniquified ID.
       if count.zero?
