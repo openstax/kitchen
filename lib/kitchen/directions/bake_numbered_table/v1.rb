@@ -26,7 +26,6 @@ module Kitchen::Directions::BakeNumberedTable
       caption_title = ''
 
       if (title = table.first("span[data-type='title']")&.cut)
-        # new_summary += title.text
         caption_title = <<~HTML
           \n<span class="os-title" data-type="title">#{title.children}</span>
         HTML
