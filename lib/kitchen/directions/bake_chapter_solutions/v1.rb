@@ -6,7 +6,7 @@ module Kitchen::Directions::BakeChapterSolutions
 
     def bake(chapter:, metadata_source:, uuid_prefix: '')
       @metadata = metadata_source.children_to_keep.copy
-      @klass = 'key-concepts'
+      @klass = 'solutions'
       @title = I18n.t(:eoc_solutions_title)
       @uuid_prefix = uuid_prefix
 
