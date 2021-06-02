@@ -5,8 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-* Moved selectors from recipe to kitchen on `BakeFirstElements` Direction (minor)
+
 * Added a version of `BakeChapterIntroductions` without a chapter outline (minor)
+
+## [5.0.0] - 2021-06-02
+
+* Reditributed duplicated id logic across `#record_id_copied`, `#record_id_cut`, `#record_id_pasted`, added a couple more tests for `#copy`, `#cut`, and `#paste`, created a new class `IdTracker` and moved `#record_id_copied`, `#record_id_cut`, `#record_id_pasted`, and `modified_id_to_paste` into the new class (major)
+* Moved selectors from recipe to kitchen on `BakeFirstElements` Direction (minor)
+* Auto-detect language based on document; force output encoding to UTF-8 (major)
+* Switched to using a library to sort strings in a language-specific way (patch)
+* Remove summary attribute from `BakeNumberedTable` (major)
 
 ## [4.1.1] - 2021-05-24
 
