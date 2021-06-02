@@ -44,7 +44,7 @@ RSpec.describe Kitchen::Directions::BakeChapterSolutions::V1 do
               </div>
             </section>
           </div>
-          <div class="os-eoc os-key-concepts-container" data-type="composite-page" data-uuid-key="key-concepts">
+          <div class="os-eoc os-solutions-container" data-type="composite-page" data-uuid-key="solutions">
             <h2 data-type="document-title">
               <span class="os-text">Solutions</span>
             </h2>
