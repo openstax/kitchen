@@ -21,10 +21,17 @@ RSpec.describe Kitchen::Directions::BakeChapterReferences::V2 do
           </section>
         </div>
         <div data-type="page">
-          <h1 data-type='document-title'>The History of Sociology</h1>
+          <h1 data-type='document-title'>What Is Sociology?</h1>
           <section data-depth="1" id="2" class="reference">
             <h3 data-type="title">References</h3>
             <p>Abercrombie, Nicholas, Stephen Hill, and Bryan S. Turner. 2000. The Penguin Dictionary of Sociology. London: Penguin.</p>
+          </section>
+        </div>
+        <div data-type="page">
+        <h1 data-type='document-title'>The History of Sociology</h1>
+          <section data-depth="1" id="3" class="reference">
+            <h3 data-type="title">References</h3>
+            <p>Kierns, N. (2010). Ashley’s Alliance, unpublished presentation. Ohio State University.</p>
           </section>
         </div>
       HTML
@@ -38,6 +45,9 @@ RSpec.describe Kitchen::Directions::BakeChapterReferences::V2 do
         <div data-type="chapter">
           <div data-type="page" class="introduction">
             <h1 data-type='document-title'>Introduction to Sociology</h1>
+          </div>
+          <div data-type="page">
+          <h1 data-type="document-title">What Is Sociology?</h1>
           </div>
           <div data-type="page">
             <h1 data-type="document-title">The History of Sociology</h1>
@@ -57,8 +67,6 @@ RSpec.describe Kitchen::Directions::BakeChapterReferences::V2 do
             <section class="reference" data-depth="1" id="1">
               <a href="#">
                 <h3 data-type="document-title" id="">
-                  <span class="os-number">1.1</span>
-                  <span class="os-divider"> </span>
                   <span class="os-text" data-type="" itemprop="">Introduction to Sociology</span>
                 </h3>
               </a>
@@ -67,12 +75,22 @@ RSpec.describe Kitchen::Directions::BakeChapterReferences::V2 do
             <section class="reference" data-depth="1" id="2">
               <a href="#">
                 <h3 data-type="document-title" id="">
+                  <span class="os-number">1.1</span>
+                  <span class="os-divider"> </span>
+                  <span class="os-text" data-type="" itemprop="">What Is Sociology?</span>
+                </h3>
+              </a>
+              <p>Abercrombie, Nicholas, Stephen Hill, and Bryan S. Turner. 2000. The Penguin Dictionary of Sociology. London: Penguin.</p>
+            </section>
+            <section class="reference" data-depth="1" id="3">
+              <a href="#">
+                <h3 data-type="document-title" id="">
                   <span class="os-number">1.2</span>
                   <span class="os-divider"> </span>
                   <span class="os-text" data-type="" itemprop="">The History of Sociology</span>
                 </h3>
               </a>
-              <p>Abercrombie, Nicholas, Stephen Hill, and Bryan S. Turner. 2000. The Penguin Dictionary of Sociology. London: Penguin.</p>
+              <p>Kierns, N. (2010). Ashley’s Alliance, unpublished presentation. Ohio State University.</p>
             </section>
           </div>
         </div>
