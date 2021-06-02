@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 * Moved selectors from recipe to kitchen on `BakeFirstElements` Direction (minor)
+* Added a version of `BakeChapterIntroductions` without a chapter outline (minor)
 
 ## [4.1.1] - 2021-05-24
 
