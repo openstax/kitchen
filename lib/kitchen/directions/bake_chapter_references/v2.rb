@@ -12,32 +12,36 @@ module Kitchen::Directions::BakeChapterReferences
       @uuid_prefix = uuid_prefix
 
       chapter.references.search('h3').trash
-
-      chapter.pages.each do |page|
+      chapter.non_introduction_pages.each do |page|
         references = page.references
         next if references.none?
 
         references.search('h3').trash
-        if page.is_introduction?
-          references.each do |reference|
-            reference.prepend(child:
-              <<~HTML
-                <a href="##{page.title.id}">
-                  <h3 data-type="document-title" id="#{page.title.copied_id}">
-                    <span class="os-text" data-type="" itemprop="">#{page.title_text}</span>
-                  </h3>
-                </a>
-              HTML
-            )
-          end
-        else
-          @page = page unless page.is_introduction?
-          title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(page: @page)
-          references.each do |reference|
-            reference.prepend(child: title)
-          end
+
+        title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(page: page)
+        references.each do |reference|
+          reference.prepend(child: title)
         end
       end
+
+      chapter.pages(only: :is_introduction?).each do |page|
+        references = page.references
+        next if references.none?
+
+        references.search('h3').trash
+        references.each do |reference|
+          reference.prepend(child:
+            <<~HTML
+              <a href="##{page.title.id}">
+                <h3 data-type="document-title" id="#{page.title.copied_id}">
+                  <span class="os-text" data-type="" itemprop="">#{page.title_text}</span>
+                </h3>
+              </a>
+            HTML
+          )
+        end
+      end
+
       @content = chapter.pages.references.cut.paste
 
       @in_composite_chapter = false
