@@ -6,9 +6,9 @@ RSpec.describe Kitchen::Directions::ChapterReviewContainer::V1 do
   before do
     stub_locales({
       'eoc': {
-        'exercises': 'Exercises'
-      },
-      'eoc_chapter_review': 'Chapter Review'
+        'exercises': 'Exercises',
+        'chapter-review': 'Chapter Review'
+      }
     })
   end
 
