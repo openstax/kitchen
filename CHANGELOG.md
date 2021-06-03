@@ -5,8 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-* Reditributed duplicated id logic across `#record_id_copied`, `#record_id_cut`, `#record_id_pasted`, added a couple more tests for `#copy`, `#cut`, and `#paste`, created a new class `IdTracker` and moved `#record_id_copied`, `#record_id_cut`, `#record_id_pasted`, and `modified_id_to_paste` into the new class (major)
 
+* Add a `Strategy` for Precalculus (minor)
+* Create a `BakeNumberedNotes` V2 (minor)
+* Added a version of `BakeChapterIntroductions` without a chapter outline (minor)
+* Add `BakeChapterSolutions` which bakes the free response solutions at the eoc (minor)
+* Changed locale `eoc_answer_key_title` to `answer_key_title` as it was only used in eob (major)
+* Added spec for translations (minor)
+
+## [5.0.0] - 2021-06-02
+
+* Reditributed duplicated id logic across `#record_id_copied`, `#record_id_cut`, `#record_id_pasted`, added a couple more tests for `#copy`, `#cut`, and `#paste`, created a new class `IdTracker` and moved `#record_id_copied`, `#record_id_cut`, `#record_id_pasted`, and `modified_id_to_paste` into the new class (major)
 * Moved selectors from recipe to kitchen on `BakeFirstElements` Direction (minor)
 * Auto-detect language based on document; force output encoding to UTF-8 (major)
 * Switched to using a library to sort strings in a language-specific way (patch)
