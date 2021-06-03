@@ -13,6 +13,8 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
           Strategies::AmericanGovernment
         when :default
           Strategies::Default
+        when :precalculus
+          Strategies::Precalculus
         else
           raise 'No such strategy'
         end
