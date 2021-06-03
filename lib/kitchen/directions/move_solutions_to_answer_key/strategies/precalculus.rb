@@ -4,7 +4,7 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
   module Strategies
     class Precalculus
       def bake(chapter:, append_to:)
-        bake_try_note(chapter: chapter, append_to: append_to)
+        try_note_solutions(chapter: chapter, append_to: append_to)
 
         # Bake section exercises
         chapter.non_introduction_pages.each do |page|
@@ -23,14 +23,14 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
       protected
 
       def bake_section(chapter:, append_to:, klass:, number: nil)
-        section_solutions_set = []
+        section_solutions_set = Kitchen::Clipboard.new
         chapter.search(".#{klass}").each do |section|
           section.search('[data-type="solution"]').each do |solution|
-            section_solutions_set.push(solution.cut)
+            solution.cut(to: section_solutions_set)
           end
         end
 
-        return if section_solutions_set.empty?
+        return if section_solutions_set.items.empty?
 
         title = <<~HTML
           <h3 data-type="title">
@@ -41,7 +41,7 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
         append_solution_area(title: title, solutions: section_solutions_set, append_to: append_to)
       end
 
-      def bake_try_note(chapter:, append_to:)
+      def try_note_solutions(chapter:, append_to:)
         append_to.add_child(
           <<~HTML
             <div class="os-module-reset-solution-area os-try-solution-area">
@@ -52,14 +52,14 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
           HTML
         )
         chapter.non_introduction_pages.each do |page|
-          solutions = []
+          solutions = Kitchen::Clipboard.new
           page.notes('$.try').each do |note|
             note.exercises.each do |exercise|
               solution = exercise.solution
-              solutions.push(solution.cut) if solution
+              solution&.cut(to: solutions) #if solution
             end
           end
-          next if solutions.empty?
+          next if solutions.items.empty?
 
           title_snippet = Kitchen::Directions::EocSectionTitleLinkSnippet.v2(page: page)
 
@@ -77,9 +77,7 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
           HTML
         ).first
 
-        solutions.each do |solution|
-          append_to.add_child(solution.raw)
-        end
+        append_to.add_child(solutions.paste)
       end
     end
   end
