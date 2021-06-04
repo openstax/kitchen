@@ -3,13 +3,13 @@
 module Kitchen
   module Directions
     module MoveSolutionsToAnswerKey
-      def self.v1(chapter:, metadata_source:, strategy:, append_to:, classes:)
+      def self.v1(chapter:, metadata_source:, strategy:, append_to:, strategy_options: {})
         V1.new.bake(
           chapter: chapter,
           metadata_source: metadata_source,
           strategy: strategy,
           append_to: append_to,
-          classes: classes
+          strategy_options: strategy_options
         )
       end
     end

@@ -55,7 +55,7 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
         metadata_source: metadata_element,
         strategy: :default,
         append_to: append_to,
-        classes: %w[review-questions]
+        strategy_options: { classes: %w[review-questions] }
       )
     end
 
