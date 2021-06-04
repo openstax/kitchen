@@ -9,8 +9,6 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
           Strategies::Calculus
         when :uphysics
           Strategies::UPhysics
-        when :american_government
-          Strategies::AmericanGovernment
         when :default
           Strategies::Default
         when :precalculus
