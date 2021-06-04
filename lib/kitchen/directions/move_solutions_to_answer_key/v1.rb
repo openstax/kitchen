@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::MoveSolutionsToAnswerKey
   class V1
-    def bake(chapter:, metadata_source:, strategy:, append_to:, klasses:)
+    def bake(chapter:, metadata_source:, strategy:, append_to:, classes:)
       strategy =
         case strategy
         when :calculus
@@ -30,7 +30,7 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
           </div>
         HTML
       )
-      strategy.new.bake(chapter: chapter, append_to: append_to.last_element, klasses: klasses)
+      strategy.new.bake(chapter: chapter, append_to: append_to.last_element, classes: classes)
     end
   end
 end
