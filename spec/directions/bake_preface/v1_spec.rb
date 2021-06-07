@@ -8,9 +8,11 @@ RSpec.describe Kitchen::Directions::BakePreface::V1 do
       <<~HTML
         <div data-type="page" class="preface">
           <div data-type="document-title">Preface</div>
+          <div class="description" data-type="description" itemprop="description">description</div>
           <div data-type="metadata">
             <div data-type="document-title">Preface</div>
           </div>
+          <div data-type="abstract" id="abcde">abstract</div>
         </div>
       HTML
     )
