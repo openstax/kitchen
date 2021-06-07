@@ -13,6 +13,8 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
           Strategies::AmericanGovernment
         when :sociology
           Strategies::Sociology
+        when :precalculus
+          Strategies::Precalculus
         else
           raise 'No such strategy'
         end

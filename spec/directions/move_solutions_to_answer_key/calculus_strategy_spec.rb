@@ -63,7 +63,7 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
                   <span class="os-number">1.1</span>
                   <p id="auto_m68764_fs-idm164104512">Problem 5</p>
                 </div>
-                <div data-type="solution" id="auto_m68764_fs-idm128797504">
+                <div data-type="solution" id="auto_m68764_fs-idm128798615">
                   <span class="os-number">1.1</span>
                   <p id="auto_m68764_fs-idm152759136">Solution 5</p>
                 </div>
@@ -103,10 +103,10 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
       <<~HTML
         <div class="os-eob os-solutions-container" data-type="composite-chapter" data-uuid-key=".solutions">
           <h1 data-type="document-title" id="composite-chapter-1">
-            <span class="os-text">#{I18n.t(:eoc_answer_key_title)}</span>
+            <span class="os-text">#{I18n.t(:answer_key_title)}</span>
           </h1>
           <div data-type="metadata" style="display: none;">
-            <h1 data-type="document-title" itemprop="name">#{I18n.t(:eoc_answer_key_title)}</h1>
+            <h1 data-type="document-title" itemprop="name">#{I18n.t(:answer_key_title)}</h1>
             #{metadata(title: 'Answer Key', id_suffix: '_copy_1')}
           </div>
         </div>
@@ -203,7 +203,7 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
               <h3 data-type="title">
                 <span class="os-title-label">Review Exercises</span>
               </h3>
-              <div data-type="solution" id="auto_m68764_fs-idm128797504_copy_1">
+              <div data-type="solution" id="auto_m68764_fs-idm128798615">
                 <span class="os-number">1.1</span>
                 <p id="auto_m68764_fs-idm152759136">Solution 5</p>
               </div>
