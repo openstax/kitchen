@@ -53,9 +53,10 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
       described_class.new.bake(
         chapter: chapter,
         metadata_source: metadata_element,
-        strategy: :american_government,
+        strategy: :default,
+        append_to: append_to,
         klass: 'solutions',
-        append_to: append_to
+        strategy_options: { classes: %w[review-questions] }
       )
     end
 

@@ -2,19 +2,17 @@
 
 module Kitchen::Directions::MoveSolutionsToAnswerKey
   class V1
-    def bake(chapter:, metadata_source:, strategy:, append_to:, klass: 'solutions')
+    def bake(chapter:, metadata_source:, strategy:, append_to:, klass: 'solutions', strategy_options: {})
       strategy =
         case strategy
         when :calculus
-          Strategies::Calculus
+          Strategies::Calculus.new
         when :uphysics
-          Strategies::UPhysics
-        when :american_government
-          Strategies::AmericanGovernment
-        when :sociology
-          Strategies::Sociology
+          Strategies::UPhysics.new
         when :precalculus
-          Strategies::Precalculus
+          Strategies::Precalculus.new
+        when :default
+          Strategies::Default.new(strategy_options)
         else
           raise 'No such strategy'
         end
@@ -32,7 +30,7 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
           </div>
         HTML
       )
-      strategy.new.bake(chapter: chapter, append_to: append_to.last_element)
+      strategy.bake(chapter: chapter, append_to: append_to.last_element)
     end
   end
 end
