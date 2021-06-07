@@ -16,6 +16,10 @@ module Kitchen::Directions::BakeFootnotes
       book.chapters.each do |chapter|
         bake_footnotes_within(chapter)
       end
+
+      book.search('a[role="doc-noteref"]').each do |el|
+        el.parent.add_class('has-noteref') if el.parent.name == 'p'
+      end
     end
 
     def bake_footnotes_within(container)
