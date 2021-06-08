@@ -84,4 +84,19 @@ RSpec.describe Kitchen::Clipboard do
       ).to eq('ABCElementZebra')
     end
   end
+
+  describe '#sort' do
+    it 'returns empty object when no block given' do
+      expect(my_clipboard.sort!).to be my_clipboard
+    end
+
+    it 'returns sorted object when block given' do
+      my_clipboard.add(fake_element('Zebra'))
+      my_clipboard.add(fake_element('ABC'))
+      my_clipboard.add(fake_element('Element'))
+      expect(
+        my_clipboard.sort! { |a, b| a[:paste] <=> b[:paste] }.paste
+      ).to eq('ABCElementZebra')
+    end
+  end
 end
