@@ -12,8 +12,13 @@ module Kitchen::Directions::BakeChapterGlossary
 
       definitions = chapter.glossaries.search('dl').cut
       return if definitions.none?
-      definitions.sort_by! do |definition|
-        [definition.first('dt').text.downcase, definition.first('dd').text.downcase]
+
+      definitions.sort! do |def1, def2|
+        if def1.first('dt').text.downcase == def2.first('dt').text.downcase
+          I18n.sort_strings(def1.first('dd').text.downcase, def2.first('dd').text.downcase)
+        else
+          I18n.sort_strings(def1.first('dt').text.downcase, def2.first('dt').text.downcase)
+        end
       end
 
       chapter.glossaries.trash

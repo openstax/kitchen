@@ -57,11 +57,22 @@ module Kitchen
     end
 
     # Sorts the clipboard using the provided block
+    # Block requires one argument
     # @yield each item
     # @return [Clipboard] self
     #
     def sort_by!(&block)
       @items.sort_by!(&block)
+      self
+    end
+
+    # Sorts the clipboard using the provided block
+    # Block requires two arguments
+    # @yield each item
+    # @return [Clipboard] self
+    #
+    def sort!(&block)
+      @items.sort!(&block)
       self
     end
   end
