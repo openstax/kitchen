@@ -18,7 +18,7 @@ RSpec.describe Kitchen::Directions::BookAnswerKeyContainer::V1 do
 
   context 'when klass value is set to default' do
     it 'works' do
-      expect(described_class.new.bake(book: book)).to match_normalized_html(
+      expect(described_class.new.bake(book: book, klass: 'solutions')).to match_normalized_html(
         <<~HTML
           <div class="os-eob os-solutions-container" data-type="composite-chapter" data-uuid-key=".solutions">
             <h1 data-type="document-title">
