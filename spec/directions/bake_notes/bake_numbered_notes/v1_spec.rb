@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeNumberedNotes do
+RSpec.describe Kitchen::Directions::BakeNumberedNotes::V1 do
   let(:book_with_notes) do
     book_containing(html:
       <<~HTML
@@ -55,7 +55,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
               </div>
             </div>
             <div data-type="exercise" id="2_123">
-              <div data-type="problem" id="2_456">a second exercise</div>
+              <div data-type="problem" id="2_456">a <strong>second</strong> exercise</div>
               <div data-type="solution" id="2_xyz">
                 <p>second solution content</p>
               </div>
@@ -77,7 +77,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
   end
 
   it 'bakes' do
-    described_class.v1(book: book_with_notes, classes: %w[foo hello theorem])
+    described_class.new.bake(book: book_with_notes, classes: %w[foo hello theorem])
     expect(book_with_notes.body).to match_normalized_html(
       <<~HTML
         <body>
@@ -199,7 +199,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes do
                 </div>
                 <div class="unnumbered os-hasSolution" data-type="exercise" id="2_123">
                   <div data-type="problem" id="2_456">
-                    <div class="os-problem-container">a second exercise</div>
+                    <div class="os-problem-container">a <strong>second</strong> exercise</div>
                   </div>
                   <div data-type="solution" id="2_123-solution">
                     <a class="os-number" href="#2_123">2.3</a>
