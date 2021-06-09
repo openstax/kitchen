@@ -138,4 +138,10 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V2 do
       HTML
     )
   end
+
+  it 'raises exception if given an unrecognized book' do
+    expect {
+      described_class.new.bake(chapter: '', metadata_source: metadata_element, strategy: :unrecognized_strategy, append_to: append_to)
+    }.to raise_error('No such strategy')
+  end
 end
