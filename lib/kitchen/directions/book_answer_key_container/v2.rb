@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::BookAnswerKeyContainer
   class V2
-    # Difference from v1: singular append_solution_area
+    # Difference from v1: singular "solution" in wrapper classname
     def bake(book:)
       metadata = book.metadata.children_to_keep.copy
       book.body.append(child:
