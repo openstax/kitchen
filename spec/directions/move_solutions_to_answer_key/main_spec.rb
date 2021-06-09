@@ -8,4 +8,10 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey do
       .with(chapter: 'chapter1', metadata_source: 'metadata', strategy: 'strategy', append_to: 'element', strategy_options: {})
     described_class.v1(chapter: 'chapter1', metadata_source: 'metadata', strategy: 'strategy', append_to: 'element')
   end
+
+  it 'calls v2' do
+    expect_any_instance_of(Kitchen::Directions::MoveSolutionsToAnswerKey::V2).to receive(:bake)
+      .with(chapter: 'chapter1', metadata_source: 'metadata', strategy: 'strategy', append_to: 'element')
+    described_class.v2(chapter: 'chapter1', metadata_source: 'metadata', strategy: 'strategy', append_to: 'element')
+  end
 end

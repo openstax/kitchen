@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
+RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V2 do
   before do
     stub_locales({
       'eoc': {
@@ -64,7 +64,7 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
   let(:append_to) do
     new_element(
       <<~HTML
-        <div class="lol"></div>
+        <div class="top-level"></div>
       HTML
     )
   end
@@ -81,8 +81,8 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
 
     expect(append_to).to match_normalized_html(
       <<~HTML
-        <div class="lol">
-          <div class="os-eob os-solutions-container" data-type="composite-page" data-uuid-key=".solutions1">
+        <div class="top-level">
+          <div class="os-eob os-solution-container" data-type="composite-page" data-uuid-key=".solution1">
             <h2 data-type="document-title">
               <span class="os-text">Chapter 1</span>
             </h2>

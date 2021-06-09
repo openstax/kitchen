@@ -12,6 +12,15 @@ module Kitchen
           strategy_options: strategy_options
         )
       end
+
+      def self.v2(chapter:, metadata_source:, strategy:, append_to:)
+        V2.new.bake(
+          chapter: chapter,
+          metadata_source: metadata_source,
+          strategy: strategy,
+          append_to: append_to
+        )
+      end
     end
   end
 end

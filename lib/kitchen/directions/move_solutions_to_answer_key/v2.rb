@@ -1,23 +1,20 @@
 # frozen_string_literal: true
 
 module Kitchen::Directions::MoveSolutionsToAnswerKey
-  class V1
-    def bake(chapter:, metadata_source:, strategy:, append_to:, strategy_options: {})
+  # Difference from v1: singular solution
+  class V2
+    def bake(chapter:, metadata_source:, strategy:, append_to:)
       strategy =
         case strategy
-        when :calculus
-          Strategies::Calculus.new
-        when :uphysics
-          Strategies::UPhysics.new
-        when :default
-          Strategies::Default.new(strategy_options)
+        when :precalculus
+          Strategies::Precalculus.new
         else
           raise 'No such strategy'
         end
 
       append_to.append(child:
         <<~HTML
-          <div class="os-eob os-solutions-container" data-type="composite-page" data-uuid-key=".solutions#{chapter.count_in(:book)}">
+          <div class="os-eob os-solution-container" data-type="composite-page" data-uuid-key=".solution#{chapter.count_in(:book)}">
             <h2 data-type="document-title">
               <span class="os-text">#{I18n.t(:chapter)} #{chapter.count_in(:book)}</span>
             </h2>

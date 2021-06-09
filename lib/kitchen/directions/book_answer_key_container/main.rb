@@ -6,6 +6,10 @@ module Kitchen
       def self.v1(book:)
         V1.new.bake(book: book)
       end
+
+      def self.v2(book:)
+        V2.new.bake(book: book)
+      end
     end
   end
 end

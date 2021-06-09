@@ -8,4 +8,10 @@ RSpec.describe Kitchen::Directions::BookAnswerKeyContainer do
       .with(book: 'book')
     described_class.v1(book: 'book')
   end
+
+  it 'calls v2' do
+    expect_any_instance_of(Kitchen::Directions::BookAnswerKeyContainer::V2).to receive(:bake)
+      .with(book: 'book')
+    described_class.v2(book: 'book')
+  end
 end
