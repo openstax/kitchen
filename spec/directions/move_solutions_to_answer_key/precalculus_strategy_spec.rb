@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V2 do
+RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
   before do
     stub_locales({
       'eoc': {
@@ -75,7 +75,8 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V2 do
         chapter: chapter,
         metadata_source: metadata_element,
         strategy: :precalculus,
-        append_to: append_to
+        append_to: append_to,
+        solutions_plural: false
       )
     end
 
