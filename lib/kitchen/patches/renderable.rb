@@ -26,16 +26,10 @@ class Object
     METHOD
 
     class_eval do
-      def render(file:, variables: {})
+      def render(file:)
         file = File.absolute_path(file, renderable_base_dir)
         template = File.open(file, 'rb', &:read)
-
-        the_binding = binding
-        variables.each do |name, value|
-          the_binding.local_variable_set(name, value)
-        end
-
-        ERB.new(template).result(the_binding)
+        ERB.new(template).result(binding)
       end
     end
   end
