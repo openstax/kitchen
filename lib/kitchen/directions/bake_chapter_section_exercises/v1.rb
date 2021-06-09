@@ -5,6 +5,7 @@ module Kitchen::Directions::BakeChapterSectionExercises
     def bake(chapter:)
       chapter.pages.each do |page|
         page.search('section.section-exercises').each do |section|
+          section.first('h3[data-type="title"]')&.trash
           section.wrap(
             %(<div class="os-eos os-section-exercises-container"
               data-uuid-key=".section-exercises">)

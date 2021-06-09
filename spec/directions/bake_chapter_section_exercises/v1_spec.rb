@@ -9,6 +9,7 @@ RSpec.describe Kitchen::Directions::BakeChapterSectionExercises::V1 do
         <div data-type="chapter">
           <div data-type="page">
             <section id="sectionId1" class="section-exercises">
+              <h3 data-type="title">A title</h3>
               <div data-type="exercise" id="exercise_id1">
                 <div data-type="problem" id="problem_id1">
                   <p>exercise content 1</p>
