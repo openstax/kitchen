@@ -2,13 +2,13 @@
 
 module Kitchen::Directions::BakeNumberedNotes
   class V3
+    # for the try it notes, must be called AFTER bake_exercises
     def bake(book:, classes:, suppress_solution: true)
       classes.each do |klass|
-        book.chapters.pages.notes("$.#{klass}").each do |note|
+        book.chapters.notes("$.#{klass}").each do |note|
           note.wrap_children(class: 'os-note-body')
           previous_example = note.previous
-          os_number = previous_example.content('.os-number')
-          puts "ping! #{klass}"
+          os_number = previous_example&.content('.os-number')
 
           note.prepend(child:
             <<~HTML
@@ -19,7 +19,7 @@ module Kitchen::Directions::BakeNumberedNotes
             HTML
           )
 
-          note.title.trash
+          note.title&.trash
           note.exercises.each do |exercise|
             Kitchen::Directions::BakeNumberedNotes.bake_note_exercise(
               note: note, exercise: exercise, divider: '. ', suppress_solution: suppress_solution

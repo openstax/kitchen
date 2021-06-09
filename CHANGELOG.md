@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added spec for translations (minor)
 * Remove summary attribute from numbered tables, add option to pass title element to `BakePreface` (minor)
 * Renamed `American Government` strategy to `Default` inside `move_solutions_to_answer_key` for other books to use it with a sent in classname (major)
+* Adds `#previous` method to note_elements to find the immediately previous element (minor)
+* Adds `BakeNumberedNotes` V3 (minor)
 
 ## [5.0.0] - 2021-06-02
 

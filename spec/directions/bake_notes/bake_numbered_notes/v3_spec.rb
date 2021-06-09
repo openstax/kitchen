@@ -24,7 +24,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes::V3 do
             <p>content 1.3</p>
           </div>
           <div data-type="exercise">
-            <span class="os-number"> 1.4 </span>
+            <span class="os-number">1.4</span>
           </div>
           <div data-type="note" id="222" class="hello">
             <p>content 1.4</p>
@@ -106,30 +106,36 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes::V3 do
               <h3 class="os-title">
                 <span class="os-title-label">Bar</span>
                 <span class="os-number">1.1</span>
-                <span class="os-divider"> </span>
               </h3>
               <div class="os-note-body">
                 <p>content 1.1</p>
               </div>
+            </div>
+            <div data-type="exercise">
+              <span class="os-number">1.2</span>
+            </div>
+            <div data-type="exercise">
+              <span class="os-number">1.3</span>
             </div>
             <div class="hello" data-type="note" id="111">
               <h3 class="os-title">
                 <span class="os-title-label">Hello World</span>
-                <span class="os-number">1.1</span>
-                <span class="os-divider"> </span>
+                <span class="os-number">1.3</span>
               </h3>
               <div class="os-note-body">
-                <p>content 1.1</p>
+                <p>content 1.3</p>
               </div>
+            </div>
+            <div data-type="exercise">
+              <span class="os-number">1.4</span>
             </div>
             <div class="hello" data-type="note" id="222">
               <h3 class="os-title">
                 <span class="os-title-label">Hello World</span>
-                <span class="os-number">1.2</span>
-                <span class="os-divider"> </span>
+                <span class="os-number">1.4</span>
               </h3>
               <div class="os-note-body">
-                <p>content 1.2</p>
+                <p>content 1.4</p>
               </div>
             </div>
           </div>
@@ -137,8 +143,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes::V3 do
             <div class="foo" data-type="note" id="456">
               <h3 class="os-title">
                 <span class="os-title-label">Bar</span>
-                <span class="os-number">2.1</span>
-                <span class="os-divider"> </span>
+                <span class="os-number"></span>
               </h3>
               <div class="os-note-body">
                 <p>content 2.1</p>
@@ -147,8 +152,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes::V3 do
             <div class="foo" data-type="note" id="789">
               <h3 class="os-title">
                 <span class="os-title-label">Bar</span>
-                <span class="os-number">2.2</span>
-                <span class="os-divider"> </span>
+                <span class="os-number"></span>
               </h3>
               <div class="os-note-body">
                 <p>content 2.2</p>
@@ -159,24 +163,19 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes::V3 do
                 </div>
               </div>
             </div>
+            <div data-type="exercise">
+              <span class="os-number">2.2</span>
+            </div>
             <div class="hello" data-type="note" id="333">
               <h3 class="os-title">
                 <span class="os-title-label">Hello World</span>
-                <span class="os-number">2.1</span>
-                <span class="os-divider"> </span>
+                <span class="os-number">2.2</span>
               </h3>
               <div class="os-note-body">
                 <p>content 2.1</p>
                 <div class="unnumbered os-hasSolution" data-type="exercise" id="abcde">
                   <div data-type="problem" id="unchanged">
                     <div class="os-problem-container">what is your favorite color?</div>
-                  </div>
-                  <div data-type="solution" id="abcde-solution">
-                    <a class="os-number" href="#abcde">2.1</a>
-                    <span class="os-divider"> </span>
-                    <div class="os-solution-container">
-                      <p>chartreuse</p>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -187,21 +186,16 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes::V3 do
             <div class="theorem" data-type="note" id="note_id15" use-subtitle="true">
               <h3 class="os-title">
                 <span class="os-title-label">Theorem</span>
-                <span class="os-number">2.1</span>
-                <span class="os-divider"> </span>
+                <span class="os-number"></span>
               </h3>
               <div class="os-note-body">
-                <h4 class="os-subtitle" data-type="title" id="title_id15">
-                  <span class="os-subtitle-label">Two Important Limits</span>
-                </h4>
                 <p> some content </p>
               </div>
             </div>
             <div class="foo" data-type="note" id="4">
               <h3 class="os-title">
                 <span class="os-title-label">Bar</span>
-                <span class="os-number">2.3</span>
-                <span class="os-divider"> </span>
+                <span class="os-number"></span>
               </h3>
               <div class="os-note-body">
                 <p>A title 4</p>
@@ -209,24 +203,10 @@ RSpec.describe Kitchen::Directions::BakeNumberedNotes::V3 do
                   <div data-type="problem" id="456">
                     <div class="os-problem-container">Problem content</div>
                   </div>
-                  <div data-type="solution" id="123-solution">
-                    <a class="os-number" href="#123">2.3</a>
-                    <span class="os-divider"> </span>
-                    <div class="os-solution-container">
-                      <p>solution content</p>
-                    </div>
-                  </div>
                 </div>
                 <div class="unnumbered os-hasSolution" data-type="exercise" id="2_123">
                   <div data-type="problem" id="2_456">
                     <div class="os-problem-container">a second exercise</div>
-                  </div>
-                  <div data-type="solution" id="2_123-solution">
-                    <a class="os-number" href="#2_123">2.3</a>
-                    <span class="os-divider"> </span>
-                    <div class="os-solution-container">
-                      <p>second solution content</p>
-                    </div>
                   </div>
                 </div>
               </div>
