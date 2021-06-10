@@ -9,7 +9,7 @@ module Kitchen::Directions::BakeFootnotes
       book.body.element_children.only(Kitchen::PageElement,
                                       Kitchen::CompositePageElement,
                                       Kitchen::CompositeChapterElement).each do |page|
-        Kitchen::Directions::BakeFootnotes.bake_footnotes_within(page, roman: true)
+        Kitchen::Directions::BakeFootnotes.bake_footnotes_within(page, number_format: :roman)
       end
 
       Kitchen::Directions::BakeFootnotes.bake_footnotes_within(book.chapters)
