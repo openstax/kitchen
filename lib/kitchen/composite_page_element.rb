@@ -43,12 +43,20 @@ module Kitchen
       has_class?('os-index-container')
     end
 
-    # Returns true if this page is a book reference
+    # Returns true if this page is a book citation reference
     #
     # @return [Boolean]
     #
-    def is_reference?
+    def is_citation_reference?
       has_class?('os-reference-container')
+    end
+
+    # Returns true if this page is a book section reference
+    #
+    # @return [Boolean]
+    #
+    def is_section_reference?
+      has_class?('os-references-container')
     end
 
   end
