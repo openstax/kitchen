@@ -7,12 +7,12 @@ class Integer
 
   # Formats as different types of integers, including roman numerals.
   #
-  # @return [Integer]
+  # @return [String]
   #
   def to_format(format)
     case format
     when :arabic
-      self
+      to_s
     when :roman
       raise 'Unknown conversion to Roman numerals' if self >= ROMAN_NUMERALS.size
 

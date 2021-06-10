@@ -17,7 +17,7 @@ module Kitchen
 
         container.search("a[role='doc-noteref']").each do |anchor|
           footnote_count += 1
-          footnote_number = footnote_count.to_format(number_format).to_s
+          footnote_number = footnote_count.to_format(number_format)
           anchor.replace_children(with: footnote_number)
           aside_id = anchor[:href][1..-1]
           aside_id_to_footnote_number[aside_id] = footnote_number
