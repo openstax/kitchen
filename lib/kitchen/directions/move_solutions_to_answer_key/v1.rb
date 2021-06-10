@@ -17,10 +17,11 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
           raise 'No such strategy'
         end
 
+      solutions_or_solution = solutions_plural ? 'solutions' : 'solution'
       append_to.append(child:
         <<~HTML
-          <div class="os-eob os-solution#{'s' if solutions_plural}-container" data-type="composite-page" \
-          data-uuid-key=".solution#{'s' if solutions_plural}#{chapter.count_in(:book)}">
+          <div class="os-eob os-#{solutions_or_solution}-container" data-type="composite-page" \
+          data-uuid-key=".#{solutions_or_solution}#{chapter.count_in(:book)}">
             <h2 data-type="document-title">
               <span class="os-text">#{I18n.t(:chapter)} #{chapter.count_in(:book)}</span>
             </h2>
