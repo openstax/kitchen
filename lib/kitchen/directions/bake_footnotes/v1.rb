@@ -10,32 +10,12 @@ module Kitchen::Directions::BakeFootnotes
       book.body.element_children.only(Kitchen::PageElement,
                                       Kitchen::CompositePageElement,
                                       Kitchen::CompositeChapterElement).each do |page|
-        bake_footnotes_within(page)
+        Kitchen::Directions::BakeFootnotes.bake_footnotes_within(page)
       end
 
       book.chapters.each do |chapter|
-        bake_footnotes_within(chapter)
+        Kitchen::Directions::BakeFootnotes.bake_footnotes_within(chapter)
       end
     end
-
-    def bake_footnotes_within(container)
-      footnote_number = 0
-      aside_id_to_footnote_number = {}
-
-      container.search("a[role='doc-noteref']").each do |anchor|
-        footnote_number += 1
-        anchor.replace_children(with: footnote_number.to_s)
-        aside_id = anchor[:href][1..-1]
-        aside_id_to_footnote_number[aside_id] = footnote_number
-
-        anchor.parent.add_class('has-noteref') if anchor.parent.name == 'p'
-      end
-
-      container.search('aside').each do |aside|
-        footnote_number = aside_id_to_footnote_number[aside.id]
-        aside.prepend(child: "<div data-type='footnote-number'>#{footnote_number}</div>")
-      end
-    end
-
   end
 end
