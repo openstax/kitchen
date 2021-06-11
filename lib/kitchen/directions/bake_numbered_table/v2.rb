@@ -2,6 +2,7 @@
 
 module Kitchen::Directions::BakeNumberedTable
   # Difference from v1: only in the caption
+  # V2 caption titles are nested within an .os-caption span
   class V2
 
     def bake(table:, number:)
