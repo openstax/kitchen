@@ -5,7 +5,7 @@ module Kitchen::Directions::BakeNumberedTable
   class V2
 
     def bake(table:, number:)
-      Kitchen::Directions::BakeNumberedTable::V1.new.bake_table(table: table, number: number)
+      Kitchen::Directions::BakeTableBody.v1(table: table, number: number)
 
       caption = ''
       if table&.caption&.first("span[data-type='title']")
