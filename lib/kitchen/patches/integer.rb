@@ -17,6 +17,8 @@ class Integer
       raise 'Unknown conversion to Roman numerals' if self >= ROMAN_NUMERALS.size
 
       ROMAN_NUMERALS[self]
+    else
+      raise 'Unknown integer format'
     end
   end
 end

@@ -16,5 +16,11 @@ RSpec.describe Integer do
         21.to_format(:roman)
       }.to raise_error('Unknown conversion to Roman numerals')
     end
+
+    it 'freaks out with unknown case' do
+      expect {
+        3.to_format(:foo)
+      }.to raise_error('Unknown integer format')
+    end
   end
 end
