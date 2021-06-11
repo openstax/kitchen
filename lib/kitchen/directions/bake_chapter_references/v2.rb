@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# The main difference between vv1 and v3 is that in v2 references are also baked form introduction pages
+# The main difference between v1 is that in v2 references are also baked form introduction pages
 module Kitchen::Directions::BakeChapterReferences
   class V2
     renderable
