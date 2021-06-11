@@ -3,7 +3,7 @@
 # Monkey patches for +Integer+
 #
 class Integer
-  ROMAN_NUMERALS = %w[0 i ii iii iv v vi vii viii ix x].freeze
+  ROMAN_NUMERALS = %w[0 i ii iii iv v vi vii viii ix x xi xii xiii xiv xv xvi xvii xviii xix xx].freeze
 
   # Formats as different types of integers, including roman numerals.
   #
