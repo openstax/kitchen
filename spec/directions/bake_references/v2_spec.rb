@@ -29,7 +29,7 @@ RSpec.describe Kitchen::Directions::BakeReferences::V2 do
         </h1>
         <div data-type="page">
           <h2 data-type='document-title'>Stuff and Things</h2>
-          <section data-depth="1" id="1" class="references">
+          <section data-depth="1" id="1" class="reference">
             <h3 data-type="title">References</h3>
             <p>Prattchett, Terry: The Color of Magic</p>
           </section>
@@ -44,7 +44,7 @@ RSpec.describe Kitchen::Directions::BakeReferences::V2 do
         </h1>
         <div data-type="page">
           <h2 data-type='document-title'>Somehing</h2>
-          <section data-depth="1" id="2" class="references">
+          <section data-depth="1" id="2" class="reference">
             <h3 data-type="title">References</h3>
             <p>American Psychological Association</p>
           </section>
@@ -75,7 +75,7 @@ RSpec.describe Kitchen::Directions::BakeReferences::V2 do
             <h2 data-type="document-title">
               <span class="os-text" data-type="" itemprop="">Title Text Chapter 1</span>
             </h2>
-            <section data-depth="1" id="1" class="references">
+            <section data-depth="1" id="1" class="reference">
               <p>Prattchett, Terry: The Color of Magic</p>
             </section>
           </div>
@@ -83,7 +83,7 @@ RSpec.describe Kitchen::Directions::BakeReferences::V2 do
             <h2 data-type="document-title">
               <span class="os-text" data-type="" itemprop="">Title Text Chapter 2</span>
             </h2>
-            <section class="references" data-depth="1" id="2">
+            <section data-depth="1" id="2" class="reference">
               <p>American Psychological Association</p>
             </section>
           </div>
