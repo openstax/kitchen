@@ -3,8 +3,8 @@
 module Kitchen
   module Directions
     module BookAnswerKeyContainer
-      def self.v1(book:, klass: 'solutions')
-        V1.new.bake(book: book, klass: klass)
+      def self.v1(book:, solutions_plural: true)
+        V1.new.bake(book: book, solutions_plural: solutions_plural)
       end
     end
   end
