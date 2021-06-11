@@ -109,8 +109,7 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
         chapter: chapter,
         metadata_source: metadata_element,
         strategy: :uphysics,
-        append_to: append_to,
-        klass: 'solutions'
+        append_to: append_to
       )
     end
 

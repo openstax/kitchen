@@ -220,7 +220,6 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
         chapter: book1.chapters.first,
         metadata_source: book1.metadata,
         strategy: :math,
-        klass: 'solutions',
         append_to: book_answer_key
       )
     }.to raise_error('No such strategy')
