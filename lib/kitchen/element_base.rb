@@ -513,15 +513,14 @@ module Kitchen
     # nil if there's no previous sibling
     #
     def previous
-      node = raw.previous
-      return if node.nil?
+      prev = raw.previous
+      return prev if prev.nil?
 
-      sibling = Element.new(
-        node: node,
+      Element.new(
+        node: prev,
         document: document,
         short_type: "previous(#{short_type})"
       )
-      sibling.to_s =~ /\S/ ? sibling : sibling.previous
     end
 
     # TODO: make it clear if all of these methods take Element, Node, or String

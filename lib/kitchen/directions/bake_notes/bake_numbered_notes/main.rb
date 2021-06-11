@@ -11,6 +11,9 @@ module Kitchen
         V2.new.bake(book: book, classes: classes)
       end
 
+      # V3 bakes notes tied to an example immediately previous ("Try It" notes)
+      # Must be called AFTER BakeExercises
+      #
       def self.v3(book:, classes:, suppress_solution: true)
         V3.new.bake(book: book, classes: classes, suppress_solution: suppress_solution)
       end
@@ -30,7 +33,9 @@ module Kitchen
           exercise.solution.trash
         else
           BakeNumberedExercise.bake_solution_v1(
-            exercise: exercise, number: note.first('.os-number').text.gsub(/#/, ''), divider: divider
+            exercise: exercise,
+            number: note.first('.os-number').text.gsub(/#/, ''),
+            divider: divider
           )
         end
       end
