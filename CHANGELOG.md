@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 and from v2 the lack of additional "os-section-area" and os-#{@klass} wrapper (minor)
 * Add a condition in BakeNumberedExercise to make it possible to suppress even solutions in the Answer Key (minor)
 * Fix BakeFurtherResearch baking with main bake script error by breaking the loop if further research sections are not present (minor)
+* Create v2 of BakeChapterReferences that differs from v1 by baking references also form introduction pages (minor)
 ## [5.0.0] - 2021-06-02
 
 * Reditributed duplicated id logic across `#record_id_copied`, `#record_id_cut`, `#record_id_pasted`, added a couple more tests for `#copy`, `#cut`, and `#paste`, created a new class `IdTracker` and moved `#record_id_copied`, `#record_id_cut`, `#record_id_pasted`, and `modified_id_to_paste` into the new class (major)
