@@ -26,11 +26,10 @@ module Kitchen
 
           # TODO: include specific page types somehow without writing it out
           chapter.non_introduction_pages.each do |page|
-            begin
-              summary = page.summary
-            rescue
-              next
-            end
+            summary = page.summary
+
+            next if summary.nil?
+
             summary.first("[data-type='title']")&.trash # get rid of old title if exists
             summary_title = page.title.copy
             summary_title.name = 'h3'
