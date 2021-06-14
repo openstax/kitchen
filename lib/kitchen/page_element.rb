@@ -94,15 +94,6 @@ module Kitchen
       first(selectors.page_summary)
     end
 
-    # Returns the summary element.
-    #
-    # @raise [ElementNotFoundError] if no matching element is found
-    # @return [Element]
-    #
-    def summary!
-      first!(selectors.page_summary)
-    end
-
     # Returns the exercises element.
     #
     # @raise [ElementNotFoundError] if no matching element is found
