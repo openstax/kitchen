@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Allow `BakeChapterSummary` to skip pages where there is no summary (minor)
+* Change `PageElement#summary` to return nil instead of raise an error if no matches (major?)
+* Add `PageElement#summary!` method that raises an error if no matches (minor)
 
 * Add Rubocop and a working CHANGELOG check to GitHub actions (patch)
 * Allow `BakeFootnotes` to number footnotes with Roman numerals (minor)
