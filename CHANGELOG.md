@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Allow `BakeChapterSummary` to skip pages where there is no summary (minor)
+
 * Add Rubocop and a working CHANGELOG check to GitHub actions (patch)
 * Allow `BakeFootnotes` to number footnotes with Roman numerals (minor)
 * Create V2 for `BakeNumberedTables` (minor)
