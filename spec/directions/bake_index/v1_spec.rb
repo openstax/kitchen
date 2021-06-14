@@ -183,6 +183,15 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
     expect(a_section.items.map(&:term_text)).to eq ['3-PGA', '3-phosphoglycerate', '5’ cap', '70S ribosome']
   end
 
+  it 'groups correctly letters with accent marks' do
+    a_section.add_term(text_only_term('Ötzi the Iceman'))
+    a_section.add_term(text_only_term('éblahblah'))
+    a_section.add_term(text_only_term('Eab-ellipse'))
+    a_section.add_term(text_only_term('Ombre'))
+
+    expect(a_section.items.map(&:term_text)).to eq ['Eab-ellipse', 'éblahblah', 'Ombre', 'Ötzi the Iceman']
+  end
+
   def text_only_term(text)
     described_class::Term.new(text: text, id: nil, group_by: nil, page_title: nil)
   end
