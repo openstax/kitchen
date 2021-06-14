@@ -174,6 +174,15 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
     expect(a_section.items.first.term_text).to eq 'temperature'
   end
 
+  it 'groups by number when word starts with a number' do
+    a_section.add_term(text_only_term('70S ribosome'))
+    a_section.add_term(text_only_term('3-PGA'))
+    a_section.add_term(text_only_term('5’ cap'))
+    a_section.add_term(text_only_term('3-phosphoglycerate'))
+
+    expect(a_section.items.map(&:term_text)).to eq ['3-PGA', '3-phosphoglycerate', '5’ cap', '70S ribosome']
+  end
+
   def text_only_term(text)
     described_class::Term.new(text: text, id: nil, group_by: nil, page_title: nil)
   end
