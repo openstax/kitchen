@@ -4,20 +4,24 @@ module Kitchen::Directions::BakeChapterReferences
   class V1
     renderable
 
-    def bake(chapter:, metadata_source:, uuid_prefix: '.', klass: 'references', from_introduction: false)
+    def bake(
+      chapter:,
+      metadata_source:,
+      uuid_prefix: '.',
+      klass: 'references',
+      from_introduction: false
+    )
       @metadata = metadata_source.children_to_keep.copy
       @klass = klass
       @title = I18n.t(:references)
       @uuid_prefix = uuid_prefix
-      @from_introduction = from_introduction
 
-      chapter.references.search('h3').trash
+      chapter.references.search('h3').each(&:trash)
 
       chapter.non_introduction_pages.each do |page|
         references = page.references
         next if references.none?
 
-        references.search('h3').trash
         title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(page: page)
 
         references.each do |reference|
@@ -26,12 +30,10 @@ module Kitchen::Directions::BakeChapterReferences
       end
 
       if from_introduction == true
-
         chapter.pages(only: :is_introduction?).each do |page|
           references = page.references
           next if references.none?
 
-          references.search('h3').trash
           references.each do |reference|
             reference.prepend(child:
               <<~HTML

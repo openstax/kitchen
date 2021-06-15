@@ -3,7 +3,13 @@
 module Kitchen
   module Directions
     module BakeChapterReferences
-      def self.v1(chapter:, metadata_source:, uuid_prefix: '.', klass: 'references', from_introduction: false )
+      def self.v1(
+        chapter:,
+        metadata_source:,
+        uuid_prefix: '.',
+        klass: 'references',
+        from_introduction: false
+        )
         V1.new.bake(
           chapter: chapter,
           metadata_source: metadata_source,
