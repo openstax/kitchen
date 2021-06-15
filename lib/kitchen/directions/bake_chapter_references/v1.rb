@@ -11,6 +11,7 @@ module Kitchen::Directions::BakeChapterReferences
       @uuid_prefix = uuid_prefix
 
       chapter.references.search('h3').trash
+
       bake_page_references(page: chapter.introduction_page)
 
       chapter.non_introduction_pages.each do |page|
