@@ -6,14 +6,14 @@ module Kitchen
     # Does not separate the last list item
     #
     module BakeInlineLists
-      def self.v1(book:)
-        list_separator = '; '
-        separator_class = '-os-inline-list-separator'
+      LIST_SEPARATOR = '; '
+      SEPARATOR_CLASS = '-os-inline-list-separator'
 
+      def self.v1(book:)
         inline_lists = book.search('span[data-display="inline"][data-type="list"]')
         inline_lists.each do |list|
           list.search('span[data-type="item"]')[0..-2].each do |item|
-            item.append(child: "<span class=\"#{separator_class}\">#{list_separator}</span>")
+            item.append(child: "<span class=\"#{SEPARATOR_CLASS}\">#{LIST_SEPARATOR}</span>")
           end
         end
       end
