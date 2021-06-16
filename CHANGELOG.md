@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Create a `BakeReferences` V2 for unnumbered section references (minor)
 * Don't check for CHANGELOG when merge a PR to main (patch)
 * Added `BakeInlineLists` (minor)
+* Fix Rubocop GitHub Action's regular expression used to select files to lint (patch)
 
 ## [6.0.0] - 2021-06-15
 
