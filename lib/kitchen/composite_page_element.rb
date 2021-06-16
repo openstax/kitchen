@@ -43,6 +43,15 @@ module Kitchen
       has_class?('os-index-container')
     end
 
+    # In books we can find two types of EOB References.
+    #
+    # One of them has form similar to footnotes. There are citation links in the text that provides
+    # to the reference note at the end of the book.
+    #
+    # Second one is a section with references on the Introduction page that is moved to the EOB.
+    #
+    # Difference in classes is important.
+
     # Returns true if this page is a book citation reference
     #
     # @return [Boolean]
