@@ -11,7 +11,7 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
 
       def bake_section(chapter:, append_to:)
         @classes.each do |klass|
-          chapter.search(".#{klass} [data-type='solution']").each do |solution|
+          chapter.search("#{klass} div[data-type='solution']").each do |solution|
             append_to.add_child(solution.cut.to_s)
           end
         end
