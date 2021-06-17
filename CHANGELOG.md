@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Add a `BakeGenericEocSection` to allow for custom sections (minor)
+* Fix metadata title in composite pages (major)
+
 ## [6.1.0] - 2021-06-17
 
 * Create a `BakeReferences` V2 for unnumbered section references (minor)
