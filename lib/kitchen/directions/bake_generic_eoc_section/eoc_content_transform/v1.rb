@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Kitchen::Directions::EocContentTransform
+  # A collection of mini directions that transform <section> elements as needed for EOC sections
   def self.v1(section:, strategy:)
     send(strategy, section: section)
   end
