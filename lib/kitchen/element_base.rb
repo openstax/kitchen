@@ -11,6 +11,7 @@ module Kitchen
   class ElementBase
     extend Forwardable
     include Mixins::BlockErrorIf
+    include Mixins::CacheMethods
 
     # The element's document
     # @return [Document]
