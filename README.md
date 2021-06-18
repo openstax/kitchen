@@ -657,6 +657,15 @@ There's a low-level CSS query caching tool that saves repeated queries.  In some
 doc.config.enable_search_cache = true
 ```
 
+You can also selectively cache certain methods for elements that don't move around.  For example, at the top of your recipe you can say:
+
+```ruby
+Kitchen::BookElement.cache_methods(:metadata, :chapters)
+Kitchen::PageElement.cache_methods(:pages, :non_introduction_pages)
+```
+
+This _should_ be fine to do, but make sure to check your profile stats and baking times with and without this (along with checking that your recipe output looks good).
+
 ### VSCode
 
 1. Visit `vscode:extension/ms-vscode-remote.remote-containers` in a browser
