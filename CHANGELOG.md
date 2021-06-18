@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Add `cache_methods` method to Element classes to enable opt-in caching of queries (minor)
+
 ## [6.1.0] - 2021-06-17
 
 * Create a `BakeReferences` V2 for unnumbered section references (minor)
