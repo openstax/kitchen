@@ -20,7 +20,7 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
       # This method helps to obtain more strategy-specific params through
       # "strategy_options: {blah1: 1, blah2: 2}"
       def initialize(strategy_options)
-        @selectors = strategy_options[:selectors] || (raise 'missing classes for strategy')
+        @selectors = strategy_options[:selectors] || (raise 'missing selectors for strategy')
       end
     end
   end
