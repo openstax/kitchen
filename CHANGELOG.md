@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Add a `BakeGenericEocSection` to allow for custom sections (minor)
 * Fix metadata title in composite pages (major)
+* Fix Rubocop GitHub Action's regular expression used to select files to lint (patch)
 
 ## [6.1.0] - 2021-06-17
 
