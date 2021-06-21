@@ -27,15 +27,22 @@ module Kitchen
           # TODO: include specific page types somehow without writing it out
           chapter.non_introduction_pages.each do |page|
             summary = page.summary
+
+            next if summary.nil?
+
             summary.first("[data-type='title']")&.trash # get rid of old title if exists
             summary_title = page.title.copy
             summary_title.name = 'h3'
-            summary_title.replace_children(with: <<~HTML
-              <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
-              <span class="os-divider"> </span>
-              <span class="os-text" data-type="" itemprop="">#{summary_title.children}</span>
-            HTML
-            )
+
+            unless summary_title.children.search('span.os-number').present?
+              summary_title.replace_children(with:
+                <<~HTML
+                  <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
+                  <span class="os-divider"> </span>
+                  <span class="os-text" data-type="" itemprop="">#{summary_title.children}</span>
+                HTML
+              )
+            end
 
             summary.prepend(child:
               <<~HTML

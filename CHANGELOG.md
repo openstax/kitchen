@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Sort terms in `BakeChapterGlossary` in language specific way (minor)
+
+## [6.1.0] - 2021-06-17
+
+* Create a `BakeReferences` V2 for unnumbered section references (minor)
+* Don't check for CHANGELOG when merge a PR to main (patch)
+* Added `BakeInlineLists` (minor)
+
+## [6.0.0] - 2021-06-15
+
+* Allow `BakeChapterSummary` to skip pages where there is no summary (minor)
+* Change `PageElement#summary` to return nil instead of raise an error if no matches (major?)
+* Fix bug in `BakeNumberedNotes:::V3` when there are multiple os-numbers (minor)
+* Add Rubocop and a working CHANGELOG check to GitHub actions (patch)
+* Allow `BakeFootnotes` to number footnotes with Roman numerals (minor)
+* Create V2 for `BakeNumberedTables` (minor)
+* Remove extraneous title in `BakeChapterSectionExercises` (minor)
+* Create V2 for `BookAnswerKeyContainer` and `MoveSolutionsToEOC` with singular option for wrapper class (minor)
 * Delete `abstract` and `description` elements from preface in `BakePreface` (minor)
 * Stop deleting the first `<strong>` tag in `BakeNumberedNotes` (major)
 * Allow `BakeFigure` to bake unnumbered splash figures (minor)
@@ -19,6 +36,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added spec for translations (minor)
 * Remove summary attribute from numbered tables, add option to pass title element to `BakePreface` (minor)
 * Renamed `American Government` strategy to `Default` inside `move_solutions_to_answer_key` for other books to use it with a sent in classname (major)
+* Adds `#previous` method to note_elements to find the immediately previous element (minor)
+* Adds `BakeNumberedNotes` V3 (minor)
+* Added line that puts the classname `has-footnote` in the footnote ref's parent element (major)
+* Added a condition into `BakeChapterSummary` so it doesn't bake the title if it already includes the respective number in it
+* Create v3 of MoveExercisesToEOC which differs from v1 by the presence of a section title
+and from v2 the lack of additional "os-section-area" and os-#{@klass} wrapper (minor)
+* Add a condition in BakeNumberedExercise to make it possible to suppress even solutions in the Answer Key (minor)
+* Fix BakeFurtherResearch baking with main bake script error by breaking the loop if further research sections are not present (minor)
+* Rework v1 of `BakeChapterReferences` to bake references also from introduction pages (major)
+* Fix for `BakeIndex` for words that start with a number to be grouped as symbols and for first letters with accent marks to be grouped with regular letters in alphabetic order (major)
 
 ## [5.0.0] - 2021-06-02
 
