@@ -16,6 +16,9 @@ RSpec.describe Kitchen::Directions::BakeAutotitledNotes do
           </div>
           <div data-type="note" id="untitlednote" class="123">
             <p>content</p>
+            <div data-type="note" id="untitlednote" class="foo">
+              <p>this is a nested note</p>
+            </div>
           </div>
         HTML
       )
@@ -57,6 +60,14 @@ RSpec.describe Kitchen::Directions::BakeAutotitledNotes do
           </div>
           <div data-type="note" id="untitlednote" class="123">
             <p>content</p>
+            <div class="foo" data-type="note" id="untitlednote">
+              <h3 class="os-title" data-type="title">
+                <span class="os-title-label">Bar</span>
+              </h3>
+              <div class="os-note-body">
+                <p>this is a nested note</p>
+              </div>
+            </div>
           </div>
         </div>
       HTML
