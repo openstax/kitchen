@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Sort terms in `BakeChapterGlossary` in language specific way (minor)
+* Sort terms in `BakeChapterGlossary` in language specific way (major)
 
 ## [6.1.0] - 2021-06-17
 
