@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Fix Rubocop GitHub Action's regular expression used to select files to lint (patch)
+* Add optional numbering to multiple solutions inside examples (minor)
 
 ## [6.1.0] - 2021-06-21
 
