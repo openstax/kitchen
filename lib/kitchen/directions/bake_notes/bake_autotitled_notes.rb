@@ -9,8 +9,6 @@ module Kitchen
 
           bake_note(note: note)
 
-          next unless note.notes.present?
-
           note.notes.each do |nested_notes|
             next unless (nested_notes.classes & classes).any?
 
