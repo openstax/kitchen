@@ -8,7 +8,7 @@ RSpec.describe Kitchen::Directions::BakeGenericEocSection::V1 do
       'eoc': {
         'top-level': 'Top Level Container',
         'some-eoc-section': 'Some Eoc Section'
-      },
+      }
     })
   end
 
