@@ -4,15 +4,12 @@
 #
 class Array
 
-  # Receives a string to add as prefix in each item of the array
+  # Receives a string to add as prefix in each item and returns
+  # a new array with the concatenaded strings
   #
-  # @return [String]
+  # @return [Array<String>]
   #
   def prefix(string)
-    result = []
-
-    each { |item| result << "#{string}#{item}" }
-
-    result
+    map { |item| "#{string}#{item}" }
   end
 end
