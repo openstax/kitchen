@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Monkey patches for +Integer+
+# Monkey patches for +Array+
 #
 class Array
 
@@ -8,12 +8,10 @@ class Array
   #
   # @return [String]
   #
-  def prefix(string:)
+  def prefix(string)
     result = []
 
-    each do |item|
-      result << "#{string}#{item}"
-    end
+    each { |item| result << "#{string[:string]}#{item}" }
 
     result
   end
