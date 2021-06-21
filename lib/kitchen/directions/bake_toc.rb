@@ -99,7 +99,7 @@ module Kitchen
             elsif page.is_citation_reference?
               'os-toc-reference'
             elsif page.is_section_reference? && !page.has_ancestor?(:composite_chapter) && !page.has_ancestor?(:chapter)
-              'os-toc-references'
+              'os-toc-chapter-composite-page'
             elsif page.has_ancestor?(:composite_chapter) || page.has_ancestor?(:chapter)
               'os-toc-chapter-composite-page'
             else
