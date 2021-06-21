@@ -11,7 +11,7 @@ class Array
   def prefix(string)
     result = []
 
-    each { |item| result << "#{string[:string]}#{item}" }
+    each { |item| result << "#{string}#{item}" }
 
     result
   end
