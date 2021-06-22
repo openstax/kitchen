@@ -6,8 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [7.0.0] - 2021-06-21
+
+* Changed selector expected by `default strategy` in `move_solutions_to_answer_key` to optimize search (major)
 * Fix Rubocop GitHub Action's regular expression used to select files to lint (patch)
-* Add more specific book part selector (`os-eob`) for References in `is_citation_reference?`, `is_section_reference?` methods in Element Base to fix toc selector for References which are moved to EoC.
+* Added monkey patch for array to be able to add a prefix: `%w[multiple-choice true-false].prefix('section.')` (minor)
+* Add more specific book part selector (`os-eob`) for References in `is_citation_reference?`, `is_section_reference?` methods in `Element Base` to fix toc selector for References which are moved to EoC (major)
+
 ## [6.1.0] - 2021-06-21
 
 * Create a `BakeReferences` V2 for unnumbered section references (minor)
