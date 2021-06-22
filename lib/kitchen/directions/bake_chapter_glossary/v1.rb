@@ -36,7 +36,7 @@ module Kitchen::Directions::BakeChapterGlossary
 
       chapter.glossaries.trash
 
-      @content = render(file: 'v1.xhtml.erb')
+      @content = @glossary.sort.map { |definition| definition.element.paste }.join
 
       append_to_element = append_to || chapter
       @in_composite_chapter = append_to_element.is?(:composite_chapter)
