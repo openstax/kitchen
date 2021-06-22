@@ -44,7 +44,8 @@ module Kitchen
             solution.replace_children(with:
               <<~HTML
                 <h4 data-type="solution-title">
-                  <span class="os-title-label">#{I18n.t(:solution)} </span>#{solution_number}
+                  <span class="os-title-label">#{I18n.t(:solution)} </span>
+                  #{solution_number}
                 </h4>
                 <div class="os-solution-container">#{solution.children}</div>
               HTML
