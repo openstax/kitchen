@@ -7,8 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Fix Rubocop GitHub Action's regular expression used to select files to lint (patch)
-* Fix selector for section `References` (with class `.references`) which are children of chapter/composite-chapter in `BakeToc` (major)
-
+* Add more specific book part selector (`os-eob`) for References in `is_citation_reference?`, `is_section_reference?` methods in Element Base to fix toc selector for References which are moved to EoC.
 ## [6.1.0] - 2021-06-21
 
 * Create a `BakeReferences` V2 for unnumbered section references (minor)
