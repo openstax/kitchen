@@ -9,11 +9,11 @@ module Kitchen
 
           bake_note(note: note)
 
-          note.notes.each do |nested_notes|
-            next unless (nested_notes.classes & classes).any?
+          # note.notes.each do |nested_notes|
+          #   next unless (nested_notes.classes & classes).any?
 
-            bake_note(note: nested_notes)
-          end
+          #   bake_note(note: nested_notes)
+          #  end
         end
       end
 
