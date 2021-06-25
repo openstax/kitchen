@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeGenericEocSection::V1 do
+RSpec.describe Kitchen::Directions::MoveEocContentToCompositePage do
   before do
     stub_locales({
       'eoc': {
@@ -51,9 +51,24 @@ RSpec.describe Kitchen::Directions::BakeGenericEocSection::V1 do
     )
   end
 
+  let(:book_without_section) do
+    book_containing(html:
+      <<~HTML
+        <div data-type="chapter">
+          <div data-type="page">
+            <h2 data-type="document-title" id="first" itemprop="name">First Title</h2>
+            <section id="sectionId1" class="some-other-eoc-section">
+              <p>content</p>
+            </section>
+          </div>
+        </div>
+      HTML
+    )
+  end
+
   context 'when append_to is not null' do
     it 'works' do
-      described_class.new.bake(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, append_to: append_to, klass: 'some-eoc-section')
+      described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, append_to: append_to, klass: 'some-eoc-section')
       expect(append_to).to match_normalized_html(
         <<~HTML
           <div class="os-eoc os-top-level-container" data-type="composite-chapter" data-uuid-key=".top-level">
@@ -94,7 +109,7 @@ RSpec.describe Kitchen::Directions::BakeGenericEocSection::V1 do
 
   context 'when append_to is null' do
     it 'works' do
-      described_class.new.bake(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, klass: 'some-eoc-section')
+      described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, klass: 'some-eoc-section')
       expect(book_with_section_to_move.chapters.search('.os-eoc').first).to match_normalized_html(
         <<~HTML
           <div class="os-eoc os-some-eoc-section-container" data-type="composite-page" data-uuid-key=".some-eoc-section">
@@ -124,10 +139,17 @@ RSpec.describe Kitchen::Directions::BakeGenericEocSection::V1 do
     end
   end
 
-  it 'sends content to strategies' do
-    expect(Kitchen::Directions::EocContentTransform).to receive(:foo).at_least(:once)
-    expect(Kitchen::Directions::EocContentTransform).to receive(:bar).at_least(:once)
-    described_class.new.bake(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, klass: 'some-eoc-section',
-                             content_transform: %i[foo bar])
+  it 'yields the sections' do
+    counter = 1
+    described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, klass: 'some-eoc-section') do |section|
+      expect(section.id). to eq("sectionId#{counter}")
+      counter += 1
+    end
+  end
+
+  it 'doesn\'t do anything weird when there are no sections' do
+    empty_wrapper = new_element('<div></div>')
+    described_class.v1(chapter: book_without_section.chapters.first, metadata_source: metadata_element, klass: 'some-eoc-section', append_to: empty_wrapper)
+    expect(empty_wrapper).to match_normalized_html('<div></div>')
   end
 end
