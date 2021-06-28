@@ -5,9 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+* Sort terms in `BakeChapterGlossary` in language specific way (major)
+* Spanish translation change (minor)
+* Added a check to bake nested notes inside `BakeAutotitledNotes` (minor)
+
+## [7.0.0] - 2021-06-21
+
 * Changed selector expected by `default strategy` in `move_solutions_to_answer_key` to optimize search (major)
 * Fix Rubocop GitHub Action's regular expression used to select files to lint (patch)
-* Added a check to bake nested notes inside `BakeAutotitledNotes` (minor)
+* Add optional numbering to multiple solutions inside examples (minor)
+* Added monkey patch for array to be able to add a prefix: `%w[multiple-choice true-false].prefix('section.')` (minor)
+* Add more specific book part selector (`os-eob`) for References in `is_citation_reference?`, `is_section_reference?` methods in `Element Base` to fix toc selector for References which are moved to EoC (major)
 
 ## [6.1.0] - 2021-06-21
 
@@ -41,10 +50,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adds `BakeNumberedNotes` V3 (minor)
 * Added line that puts the classname `has-footnote` in the footnote ref's parent element (major)
 * Added a condition into `BakeChapterSummary` so it doesn't bake the title if it already includes the respective number in it
-* Create v3 of MoveExercisesToEOC which differs from v1 by the presence of a section title
-and from v2 the lack of additional "os-section-area" and os-#{@klass} wrapper (minor)
-* Add a condition in BakeNumberedExercise to make it possible to suppress even solutions in the Answer Key (minor)
-* Fix BakeFurtherResearch baking with main bake script error by breaking the loop if further research sections are not present (minor)
+* Create v3 of `MoveExercisesToEOC` which differs from v1 by the presence of a section title
+and from v2 the lack of additional `os-section-area` and `os-#{@klass} wrapper` (minor)
+* Add a condition in `BakeNumberedExercise` to make it possible to suppress even solutions in the Answer Key (minor)
+* Fix `BakeFurtherResearch` baking with main bake script error by breaking the loop if further research sections are not present (minor)
 * Rework v1 of `BakeChapterReferences` to bake references also from introduction pages (major)
 * Fix for `BakeIndex` for words that start with a number to be grouped as symbols and for first letters with accent marks to be grouped with regular letters in alphabetic order (major)
 
