@@ -17,11 +17,6 @@ module Kitchen
       class V1
         renderable
         def bake(chapter:, metadata_source:, uuid_prefix: '.', klass: 'summary')
-          @metadata = metadata_source.children_to_keep.copy
-          @klass = klass
-          @title = I18n.t(:eoc_summary_title)
-          @uuid_prefix = uuid_prefix
-
           summaries = Clipboard.new
 
           # TODO: include specific page types somehow without writing it out
@@ -56,11 +51,13 @@ module Kitchen
 
           return if summaries.none?
 
-          @content = summaries.paste
-          @in_composite_chapter = false
-
-          chapter.append(child: render(file:
-            '../templates/eoc_section_title_template.xhtml.erb'))
+          MoveEocContentToCompositePage.v1(
+            metadata_source: metadata_source,
+            content: summaries.paste,
+            append_to: chapter,
+            klass: klass,
+            uuid_prefix: uuid_prefix
+          )
         end
       end
     end
