@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Sort terms in `BakeChapterGlossary` in language specific way (major)
 * Spanish translation change (minor)
-* Added a check to bake nested notes inside `BakeAutotitledNotes` (minor)
+* Fixed the implementation of `Element#wrap_children` to reuse existing document elements (major).
 
 ## [7.0.0] - 2021-06-21
 
