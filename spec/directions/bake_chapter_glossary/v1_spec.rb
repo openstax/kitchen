@@ -6,8 +6,9 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary::V1 do
 
   before do
     stub_locales({
-      'eoc_key_terms_title': 'Key Terms',
-      'eoc_composite_metadata_title': 'Chapter Review'
+      'eoc': {
+        'glossary': 'Key Terms'
+      }
     })
   end
 

@@ -5,26 +5,22 @@ module Kitchen::Directions::BakeChapterGlossary
     renderable
 
     def bake(chapter:, metadata_source:, append_to: nil, uuid_prefix: '')
-      @metadata = metadata_source.children_to_keep.copy
-      @klass = 'glossary'
-      @title = I18n.t(:eoc_key_terms_title)
-      @uuid_prefix = uuid_prefix
-
       definitions = chapter.glossaries.search('dl').cut
       return if definitions.none?
+
       definitions.sort_by! do |definition|
         [definition.first('dt').text.downcase, definition.first('dd').text.downcase]
       end
 
       chapter.glossaries.trash
 
-      @content = definitions.paste
-
-      append_to_element = append_to || chapter
-      @in_composite_chapter = append_to_element.is?(:composite_chapter)
-
-      append_to_element.append(child: render(file:
-        '../../templates/eoc_section_title_template.xhtml.erb'))
+      Kitchen::Directions::MoveEocContentToCompositePage.v1(
+        metadata_source: metadata_source,
+        content: definitions.paste,
+        klass: 'glossary',
+        append_to: append_to || chapter,
+        uuid_prefix: uuid_prefix
+      )
     end
   end
 end
