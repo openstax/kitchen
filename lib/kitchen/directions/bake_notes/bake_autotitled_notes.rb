@@ -4,16 +4,10 @@ module Kitchen
   module Directions
     module BakeAutotitledNotes
       def self.v1(book:, classes:)
-        book.notes.each do |note|
-          next unless (note.classes & classes).any?
-
-          bake_note(note: note)
-
-          # note.notes.each do |nested_notes|
-          #   next unless (nested_notes.classes & classes).any?
-
-          #   bake_note(note: nested_notes)
-          #  end
+        classes.each do |klass|
+          book.notes("$.#{klass}").each do |note|
+            bake_note(note: note)
+          end
         end
       end
 
