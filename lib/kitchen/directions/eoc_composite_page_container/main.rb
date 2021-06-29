@@ -2,7 +2,7 @@
 
 module Kitchen
   module Directions
-    module MoveEocContentToCompositePage
+    module EocCompositePageContainer
       def self.v1(metadata_source:, klass:, content:, append_to: nil, uuid_prefix: '.')
         V1.new.bake(
           metadata_source: metadata_source,

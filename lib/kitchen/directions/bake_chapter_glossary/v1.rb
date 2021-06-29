@@ -14,7 +14,7 @@ module Kitchen::Directions::BakeChapterGlossary
 
       chapter.glossaries.trash
 
-      Kitchen::Directions::MoveEocContentToCompositePage.v1(
+      Kitchen::Directions::EocCompositePageContainer.v1(
         metadata_source: metadata_source,
         content: definitions.paste,
         klass: 'glossary',

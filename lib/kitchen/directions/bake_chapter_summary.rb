@@ -33,7 +33,7 @@ module Kitchen
 
           return if summaries.none?
 
-          MoveEocContentToCompositePage.v1(
+          EocCompositePageContainer.v1(
             metadata_source: metadata_source,
             content: summaries.paste,
             append_to: chapter,
