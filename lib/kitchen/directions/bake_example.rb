@@ -29,6 +29,11 @@ module Kitchen
           title.name = 'h4'
         end
 
+        example.search('div.body')&.titles&.each do |title|
+          title.name = 'h4'
+          debugger
+        end
+
         example.exercises.each do |exercise|
           if (problem = exercise.problem)
             problem.titles.each { |title| title.name = 'h4' }
