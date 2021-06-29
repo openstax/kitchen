@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Add a `BakeGenericEocSection` to allow for custom sections (minor)
+* Add a `EocCompositePageContainer` direction to handle creation of eoc page wrapper (minor)
+* Refactor `BakeChapterKeyEquations`, `BakeChapterGlossary`, `BakeChapterSummary`, `BakeFurtherResearch` (major)
 * Fix metadata title in composite pages (major)
 
 ## [8.0.0] - 2021-06-29
@@ -23,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added monkey patch for array to be able to add a prefix: `%w[multiple-choice true-false].prefix('section.')` (minor)
 * Add more specific book part selector (`os-eob`) for References in `is_citation_reference?`, `is_section_reference?` methods in `Element Base` to fix toc selector for References which are moved to EoC (major)
 
-## [6.1.0] - 2021-06-17
+## [6.1.0] - 2021-06-21
 
 * Create a `BakeReferences` V2 for unnumbered section references (minor)
 * Don't check for CHANGELOG when merge a PR to main (patch)

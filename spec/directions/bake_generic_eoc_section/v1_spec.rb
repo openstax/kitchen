@@ -32,7 +32,7 @@ RSpec.describe Kitchen::Directions::BakeGenericEocSection do
     book_containing(html:
       <<~HTML
         <div data-type="chapter">
-          <div data-type="page">
+          <div data-type="page" class="introduction">
             <h2 data-type="document-title" id="first" itemprop="name">First Title</h2>
             <section id="sectionId1" class="some-eoc-section">
               <p>content</p>
@@ -67,7 +67,7 @@ RSpec.describe Kitchen::Directions::BakeGenericEocSection do
   end
 
   context 'when append_to is not null' do
-    it 'works' do
+    it 'works with intro pages' do
       described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, append_to: append_to, klass: 'some-eoc-section')
       expect(append_to).to match_normalized_html(
         <<~HTML
@@ -101,6 +101,30 @@ RSpec.describe Kitchen::Directions::BakeGenericEocSection do
                 <p>content</p>
               </section>
             </div>
+          </div>
+        HTML
+      )
+    end
+
+    it 'works without intro pages' do
+      described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, append_to: append_to, klass: 'some-eoc-section', include_intro: false)
+      expect(append_to.first('$.os-some-eoc-section-container')).to match_normalized_html(
+        <<~HTML
+          <div class="os-eoc os-some-eoc-section-container" data-type="composite-page" data-uuid-key=".some-eoc-section">
+            <h3 data-type="title">
+              <span class="os-text">Some Eoc Section</span>
+            </h3>
+            <div data-type="metadata" style="display: none;">
+              <h1 data-type="document-title" itemprop="name">Some Eoc Section</h1>
+              <div class="authors" id="authors_copy_1">Authors</div>
+              <div class="publishers" id="publishers_copy_1">Publishers</div>
+              <div class="print-style" id="print-style_copy_1">Print Style</div>
+              <div class="permissions" id="permissions_copy_1">Permissions</div>
+              <div data-type="subject" id="subject_copy_1">Subject</div>
+            </div>
+            <section class="some-eoc-section" id="sectionId3">
+              <p>content</p>
+            </section>
           </div>
         HTML
       )
@@ -142,7 +166,7 @@ RSpec.describe Kitchen::Directions::BakeGenericEocSection do
   it 'yields the sections' do
     counter = 1
     described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, klass: 'some-eoc-section') do |section|
-      expect(section.id). to eq("sectionId#{counter}")
+      expect(section.id).to eq("sectionId#{counter}")
       counter += 1
     end
   end
