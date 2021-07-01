@@ -245,7 +245,7 @@ RSpec.describe Kitchen::Directions::BakeExample do
     end
   end
 
-  context "when the title is a div" do
+  context 'when the title is a div' do
     let(:title) do
       <<~HTML
         <div data-type="title">also works on divs</div>
