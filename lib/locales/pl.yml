@@ -20,7 +20,9 @@ pl:
   eoc_solutions_title: Rozwiązania
   eoc_summary_title: Podsumowanie
   eoc_key_equations: Najważniejsze wzory
-  eob_index_title: Skorowidz rzeczowy
   eob_index_symbols_group: Symbole
   references: Bibliografia
-
+  index:
+    name: Skorowidz nazwisk
+    term: Skorowidz rzeczowy
+    foreign: Skorowidz terminów obcojęzycznych
