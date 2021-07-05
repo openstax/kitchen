@@ -112,9 +112,11 @@ module Kitchen::Directions::BakeIndex
       end
     end
 
-    def bake(book:)
+    def bake(book:, types: %w[main])
       @metadata_elements = book.metadata.children_to_keep.copy
-      @index = Index.new
+      @indexes = types.with_object({}).each { |type, hash| hash[type] = Index.new }
+
+      # Numbering of IDs doesn't depend on term type
 
       book.pages.terms.each do |term_element|
         page = term_element.ancestor(:page)
@@ -132,18 +134,42 @@ module Kitchen::Directions::BakeIndex
         add_term_to_index(term_element, page_title)
       end
 
-      book.first('body').append(child: render(file: 'v1.xhtml.erb'))
+      types.each do |type|
+        @container_class = "os-index#{'-' + type unless 'main' == type}-container"
+        @uuid_key = "index#{'-' + type unless 'main' == type}"
+        @title = I18n.t("index.#{type}")
+        @index = @indexes[type]
+
+        book.first('body').append(child: render(file: 'v1.xhtml.erb'))
+      end
     end
 
     def add_term_to_index(term_element, page_title)
-      group_by = I18n.transliterate(term_element.text.strip[0])
+      type =
+        if term_element.some_check_of_its_attributes
+          'term'
+        elsif term_element.some_other_check
+          'foreign'
+        elsif term_element.some_different_check
+          'whatever'
+        end
+
+      if term_element.key?('reference') # maybe this check is now duplicated with the setting of `type` just above
+        term_reference = term_element['cmlnle:reference']
+        group_by = term_reference[0]
+        content = term_reference
+      else
+        group_by = I18n.transliterate(term_element.text.strip[0])
+        content = term_element.text
+      end
+
       group_by = I18n.t(:eob_index_symbols_group) unless group_by.match?(/[[:alpha:]]/)
       term_element['group-by'] = group_by
 
       # Add it to our index object
-      @index.add_term(
+      @indexes[type].add_term(
         Term.new(
-          text: term_element.text,
+          text: content,
           id: term_element.id,
           group_by: group_by,
           page_title: page_title.gsub(/\n/, '')
