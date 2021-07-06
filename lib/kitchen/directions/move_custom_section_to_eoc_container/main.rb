@@ -4,7 +4,7 @@
 # More parameters are ok here because these generic classes DRY up a lot of other code
 module Kitchen
   module Directions
-    module BakeGenericEocSection
+    module MoveCustomSectionToEocContainer
       def self.v1(chapter:, metadata_source:, klass:, append_to: nil, uuid_prefix: '.',
                   include_intro_page: true)
         V1.new.bake(

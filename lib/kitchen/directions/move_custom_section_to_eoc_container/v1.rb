@@ -2,7 +2,7 @@
 
 # rubocop:disable Metrics/ParameterLists
 # More parameters are ok here because these generic classes DRY up a lot of other code
-module Kitchen::Directions::BakeGenericEocSection
+module Kitchen::Directions::MoveCustomSectionToEocContainer
   class V1
     renderable
 

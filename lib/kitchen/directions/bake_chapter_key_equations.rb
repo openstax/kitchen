@@ -17,7 +17,7 @@ module Kitchen
       class V1
         renderable
         def bake(chapter:, metadata_source:, append_to:, uuid_prefix:)
-          BakeGenericEocSection.v1(
+          MoveCustomSectionToEocContainer.v1(
             chapter: chapter,
             metadata_source: metadata_source,
             klass: 'key-equations',

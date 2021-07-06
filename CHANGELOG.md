@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Add a `BakeGenericEocSection` to allow for custom sections (minor)
+* Add a `MoveCustomSectionToEocContainer` to allow for custom sections (minor)
 * Add a `EocCompositePageContainer` direction to handle creation of eoc page wrapper (minor)
 * Refactor `BakeChapterKeyEquations`, `BakeChapterGlossary`, `BakeChapterSummary`, `BakeFurtherResearch` (major)
 * Fix metadata title in composite pages (major)

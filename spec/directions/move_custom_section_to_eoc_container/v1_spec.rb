@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeGenericEocSection do
+RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
   before do
     stub_locales({
       'eoc': {
