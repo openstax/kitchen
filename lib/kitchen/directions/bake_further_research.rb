@@ -23,7 +23,7 @@ module Kitchen
             uuid_prefix: uuid_prefix,
             include_intro_page: false
           ) do |further_research|
-            further_research.first("[data-type='title']")&.trash # get rid of old title if exists
+            RemoveSectionTitle.v1(section: further_research)
             title = EocSectionTitleLinkSnippet.v1(page: further_research.ancestor(:page))
             further_research.prepend(child: title)
             further_research.first('h3')[:itemprop] = 'name'

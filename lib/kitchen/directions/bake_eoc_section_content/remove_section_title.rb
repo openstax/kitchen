@@ -4,7 +4,7 @@ module Kitchen
   module Directions
     module RemoveSectionTitle
       def self.v1(section:)
-        section.first('h3').trash
+        section.first('[data-type="title"]')&.trash
       end
     end
   end

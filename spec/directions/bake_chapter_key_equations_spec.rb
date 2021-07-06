@@ -19,7 +19,7 @@ RSpec.describe Kitchen::Directions::BakeChapterKeyEquations do
       page_element(
         <<~HTML
           <section class="key-equations">
-            <h3>WWF History</h3>
+            <h3 data-type="title">WWF History</h3>
             <p>Equations blah.</p>
           </section>
         HTML
