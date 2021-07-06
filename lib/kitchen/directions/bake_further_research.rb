@@ -21,7 +21,7 @@ module Kitchen
             klass: 'further-research',
             append_to: nil,
             uuid_prefix: uuid_prefix,
-            include_intro: false
+            include_intro_page: false
           ) do |further_research|
             further_research.first("[data-type='title']")&.trash # get rid of old title if exists
             title = EocSectionTitleLinkSnippet.v1(page: further_research.ancestor(:page))

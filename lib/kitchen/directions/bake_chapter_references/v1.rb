@@ -20,7 +20,7 @@ module Kitchen::Directions::BakeChapterReferences
 
       @content = chapter.pages.references.cut.paste
       chapter.append(child: render(file:
-        '../../templates/eoc_section_title_template.xhtml.erb'))
+        '../../templates/eoc_section_template.xhtml.erb'))
     end
 
     def bake_page_references(page:)

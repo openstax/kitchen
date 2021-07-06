@@ -107,7 +107,7 @@ RSpec.describe Kitchen::Directions::BakeGenericEocSection do
     end
 
     it 'works without intro pages' do
-      described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, append_to: append_to, klass: 'some-eoc-section', include_intro: false)
+      described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, append_to: append_to, klass: 'some-eoc-section', include_intro_page: false)
       expect(append_to.first('$.os-some-eoc-section-container')).to match_normalized_html(
         <<~HTML
           <div class="os-eoc os-some-eoc-section-container" data-type="composite-page" data-uuid-key=".some-eoc-section">

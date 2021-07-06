@@ -16,7 +16,7 @@ Metrics/PerceivedComplexity:
   Enabled: false
 
 Metrics/ParameterLists:
-  Max: 10
+  Max: 5
 
 Style/ClassAndModuleChildren:
   Enabled: false

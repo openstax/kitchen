@@ -31,7 +31,7 @@ module Kitchen::Directions::BakeChapterSolutions
       @in_composite_chapter = false
 
       chapter.append(child: render(file:
-        '../../templates/eoc_section_title_template.xhtml.erb'))
+        '../../templates/eoc_section_template.xhtml.erb'))
     end
   end
 end

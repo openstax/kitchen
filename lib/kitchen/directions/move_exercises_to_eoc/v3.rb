@@ -43,7 +43,7 @@ module Kitchen::Directions::MoveExercisesToEOC
       @in_composite_chapter = append_to_element.is?(:composite_chapter)
 
       append_to_element.append(child: render(file:
-        '../../templates/eoc_section_title_template.xhtml.erb'))
+        '../../templates/eoc_section_template.xhtml.erb'))
     end
   end
 end
