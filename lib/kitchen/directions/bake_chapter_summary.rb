@@ -34,11 +34,12 @@ module Kitchen
           return if summaries.none?
 
           EocCompositePageContainer.v1(
+            title_key: klass,
+            uuid_key: "#{uuid_prefix}#{klass}",
+            container_class_type: klass,
             metadata_source: metadata_source,
             content: summaries.paste,
-            append_to: chapter,
-            klass: klass,
-            uuid_prefix: uuid_prefix
+            append_to: chapter
           )
         end
       end

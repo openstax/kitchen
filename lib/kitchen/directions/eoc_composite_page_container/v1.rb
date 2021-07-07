@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ParameterLists
+# More parameters are ok here because these generic classes DRY up a lot of other code
 module Kitchen::Directions::EocCompositePageContainer
   class V1
     renderable
 
-    def bake(metadata_source:, klass:, content:, append_to:, uuid_prefix: '.')
-      @klass = klass
+    def bake(title_key:, uuid_key:, container_class_type:, metadata_source:, content:, append_to:)
+      @title = I18n.t(:"eoc.#{title_key}")
+      @uuid_key = uuid_key
+      @container_class_type = container_class_type
       @metadata = metadata_source.children_to_keep.copy
-      @title = I18n.t(:"eoc.#{klass}")
-      @uuid_prefix = uuid_prefix
       @content = content
       @in_composite_chapter = append_to.is?(:composite_chapter)
 
@@ -17,3 +19,4 @@ module Kitchen::Directions::EocCompositePageContainer
     end
   end
 end
+# rubocop:enable Metrics/ParameterLists

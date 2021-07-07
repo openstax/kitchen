@@ -5,14 +5,16 @@
 module Kitchen
   module Directions
     module MoveCustomSectionToEocContainer
-      def self.v1(chapter:, metadata_source:, klass:, append_to: nil, uuid_prefix: '.',
-                  include_intro_page: true)
+      def self.v1(chapter:, metadata_source:, title_key:, uuid_key:, container_class_type:,
+                  section_selector:, append_to: nil, include_intro_page: true)
         V1.new.bake(
           chapter: chapter,
           metadata_source: metadata_source,
-          append_to: append_to,
-          klass: klass,
-          uuid_prefix: uuid_prefix,
+          title_key: title_key,
+          uuid_key: uuid_key,
+          container_class_type: container_class_type,
+          section_selector: section_selector,
+          append_to: append_to || chapter,
           include_intro_page: include_intro_page
         ) do |section|
           yield section if block_given?

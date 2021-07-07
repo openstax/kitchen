@@ -66,17 +66,25 @@ RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
     )
   end
 
-  context 'when append_to is not null' do
+  context 'when append_to is not nil' do
     it 'works with intro pages' do
-      described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, append_to: append_to, klass: 'some-eoc-section')
+      described_class.v1(
+        chapter: book_with_section_to_move.chapters.first,
+        metadata_source: metadata_element,
+        title_key: 'some-eoc-section',
+        uuid_key: '.some-eoc-section',
+        container_class_type: 'some-eoc-section',
+        section_selector: 'section.some-eoc-section',
+        append_to: append_to
+      )
       expect(append_to).to match_normalized_html(
         <<~HTML
           <div class="os-eoc os-top-level-container" data-type="composite-chapter" data-uuid-key=".top-level">
             <h2 data-type="document-title" id="composite-chapter-1">
-              <span class="os-text">#{I18n.t(:'eoc.top-level')}</span>
+              <span class="os-text">Top Level Container</span>
             </h2>
             <div data-type="metadata" style="display: none;">
-              <h1 data-type="document-title" itemprop="name">#{I18n.t(:'eoc.top-level')}</h1>
+              <h1 data-type="document-title" itemprop="name">Top Level Container</h1>
               <div>metadata</div>
             </div>
             <div class="os-eoc os-some-eoc-section-container" data-type="composite-page" data-uuid-key=".some-eoc-section">
@@ -107,7 +115,16 @@ RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
     end
 
     it 'works without intro pages' do
-      described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, append_to: append_to, klass: 'some-eoc-section', include_intro_page: false)
+      described_class.v1(
+        chapter: book_with_section_to_move.chapters.first,
+        metadata_source: metadata_element,
+        title_key: 'some-eoc-section',
+        uuid_key: '.some-eoc-section',
+        container_class_type: 'some-eoc-section',
+        section_selector: 'section.some-eoc-section',
+        append_to: append_to,
+        include_intro_page: false
+      )
       expect(append_to.first('$.os-some-eoc-section-container')).to match_normalized_html(
         <<~HTML
           <div class="os-eoc os-some-eoc-section-container" data-type="composite-page" data-uuid-key=".some-eoc-section">
@@ -131,9 +148,16 @@ RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
     end
   end
 
-  context 'when append_to is null' do
+  context 'when append_to is nil' do
     it 'works' do
-      described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, klass: 'some-eoc-section')
+      described_class.v1(
+        chapter: book_with_section_to_move.chapters.first,
+        metadata_source: metadata_element,
+        title_key: 'some-eoc-section',
+        uuid_key: '.some-eoc-section',
+        container_class_type: 'some-eoc-section',
+        section_selector: 'section.some-eoc-section'
+      )
       expect(book_with_section_to_move.chapters.search('.os-eoc').first).to match_normalized_html(
         <<~HTML
           <div class="os-eoc os-some-eoc-section-container" data-type="composite-page" data-uuid-key=".some-eoc-section">
@@ -165,7 +189,8 @@ RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
 
   it 'yields the sections' do
     counter = 1
-    described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, klass: 'some-eoc-section') do |section|
+    described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, title_key: 'abc', uuid_key: '.def',
+                       container_class_type: 'ghi', section_selector: 'div.jkl') do |section|
       expect(section.id).to eq("sectionId#{counter}")
       counter += 1
     end
@@ -173,7 +198,8 @@ RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
 
   it 'doesn\'t do anything weird when there are no sections' do
     empty_wrapper = new_element('<div></div>')
-    described_class.v1(chapter: book_without_section.chapters.first, metadata_source: metadata_element, klass: 'some-eoc-section', append_to: empty_wrapper)
+    described_class.v1(chapter: book_without_section.chapters.first, metadata_source: metadata_element, title_key: 'abc', uuid_key: '.def',
+                       container_class_type: 'ghi', section_selector: 'div.jkl', append_to: empty_wrapper)
     expect(empty_wrapper).to match_normalized_html('<div></div>')
   end
 end

@@ -20,9 +20,11 @@ module Kitchen
           MoveCustomSectionToEocContainer.v1(
             chapter: chapter,
             metadata_source: metadata_source,
-            klass: 'key-equations',
-            append_to: append_to,
-            uuid_prefix: uuid_prefix
+            title_key: 'key-equations',
+            uuid_key: "#{uuid_prefix}key-equations",
+            container_class_type: 'key-equations',
+            section_selector: 'section.key-equations',
+            append_to: append_to
           ) do |section|
             RemoveSectionTitle.v1(section: section)
           end
