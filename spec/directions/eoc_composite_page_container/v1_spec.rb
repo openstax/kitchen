@@ -40,7 +40,7 @@ RSpec.describe Kitchen::Directions::EocCompositePageContainer do
   end
 
   it 'works' do
-    described_class.v1(title_key: 'some-eoc-section', uuid_key: '.some-eoc-section', container_class_type: 'some-eoc-section', metadata_source: metadata_element, content: some_content, append_to: append_to)
+    described_class.v1(container_key: 'some-eoc-section', uuid_key: '.some-eoc-section', metadata_source: metadata_element, content: some_content, append_to: append_to)
     expect(append_to).to match_normalized_html(
       <<~HTML
         <div class="os-eoc os-top-level-container" data-type="composite-chapter" data-uuid-key=".top-level">

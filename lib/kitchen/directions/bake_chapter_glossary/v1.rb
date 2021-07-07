@@ -35,9 +35,8 @@ module Kitchen::Directions::BakeChapterGlossary
       content = @glossary.sort.map { |definition| definition.element.paste }.join
 
       Kitchen::Directions::EocCompositePageContainer.v1(
-        title_key: 'glossary',
+        container_key: 'glossary',
         uuid_key: "#{uuid_prefix}glossary",
-        container_class_type: 'glossary',
         metadata_source: metadata_source,
         content: content,
         append_to: append_to || chapter
