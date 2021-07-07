@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Fixed `BakeExample.v1` to also search inside `.body` for titles (minor)
+* Add documentation to `MoveCustomSectionToEocContainer` & `EocCompositePageContainer` (minor)
+* Add a `MoveCustomSectionToEocContainer` to allow for custom sections (minor)
+* Add a `EocCompositePageContainer` direction to handle creation of eoc page wrapper (minor)
+* Refactor `BakeChapterKeyEquations`, `BakeChapterGlossary`, `BakeChapterSummary`, `BakeFurtherResearch` (major)
+* Fix metadata title in composite pages (major)
+
+## [8.0.1] - 2021-06-29
+
+* Added tags to classnames to optimize searches in `calculus strategy` for `move_solutions_to_answer_key` (minor)
 
 ## [8.0.0] - 2021-06-29
 
