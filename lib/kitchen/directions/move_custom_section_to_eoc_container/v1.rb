@@ -6,7 +6,7 @@ module Kitchen::Directions::MoveCustomSectionToEocContainer
   class V1
     renderable
 
-    def bake(chapter:, metadata_source:, title_key:, uuid_key:, container_class_type:,
+    def bake(chapter:, metadata_source:, container_key:, uuid_key:,
              section_selector:, append_to:, include_intro_page:, &block)
       section_clipboard = Kitchen::Clipboard.new
       pages = include_intro_page ? chapter.pages : chapter.non_introduction_pages
@@ -17,9 +17,8 @@ module Kitchen::Directions::MoveCustomSectionToEocContainer
       return if section_clipboard.none?
 
       Kitchen::Directions::EocCompositePageContainer.v1(
-        title_key: title_key,
+        container_key: container_key,
         uuid_key: uuid_key,
-        container_class_type: container_class_type,
         metadata_source: metadata_source,
         content: section_clipboard.paste,
         append_to: append_to || chapter

@@ -18,9 +18,8 @@ module Kitchen
           MoveCustomSectionToEocContainer.v1(
             chapter: chapter,
             metadata_source: metadata_source,
-            title_key: 'further-research',
+            container_key: 'further-research',
             uuid_key: "#{uuid_prefix}further-research",
-            container_class_type: 'further-research',
             section_selector: 'section.further-research',
             append_to: nil,
             include_intro_page: false

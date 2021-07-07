@@ -71,9 +71,8 @@ RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
       described_class.v1(
         chapter: book_with_section_to_move.chapters.first,
         metadata_source: metadata_element,
-        title_key: 'some-eoc-section',
+        container_key: 'some-eoc-section',
         uuid_key: '.some-eoc-section',
-        container_class_type: 'some-eoc-section',
         section_selector: 'section.some-eoc-section',
         append_to: append_to
       )
@@ -118,9 +117,8 @@ RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
       described_class.v1(
         chapter: book_with_section_to_move.chapters.first,
         metadata_source: metadata_element,
-        title_key: 'some-eoc-section',
+        container_key: 'some-eoc-section',
         uuid_key: '.some-eoc-section',
-        container_class_type: 'some-eoc-section',
         section_selector: 'section.some-eoc-section',
         append_to: append_to,
         include_intro_page: false
@@ -153,9 +151,8 @@ RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
       described_class.v1(
         chapter: book_with_section_to_move.chapters.first,
         metadata_source: metadata_element,
-        title_key: 'some-eoc-section',
+        container_key: 'some-eoc-section',
         uuid_key: '.some-eoc-section',
-        container_class_type: 'some-eoc-section',
         section_selector: 'section.some-eoc-section'
       )
       expect(book_with_section_to_move.chapters.search('.os-eoc').first).to match_normalized_html(
@@ -189,8 +186,8 @@ RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
 
   it 'yields the sections' do
     counter = 1
-    described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, title_key: 'abc', uuid_key: '.def',
-                       container_class_type: 'ghi', section_selector: 'div.jkl') do |section|
+    described_class.v1(chapter: book_with_section_to_move.chapters.first, metadata_source: metadata_element, container_key: 'abc', uuid_key: '.def',
+                       section_selector: 'div.jkl') do |section|
       expect(section.id).to eq("sectionId#{counter}")
       counter += 1
     end
@@ -198,8 +195,8 @@ RSpec.describe Kitchen::Directions::MoveCustomSectionToEocContainer do
 
   it 'doesn\'t do anything weird when there are no sections' do
     empty_wrapper = new_element('<div></div>')
-    described_class.v1(chapter: book_without_section.chapters.first, metadata_source: metadata_element, title_key: 'abc', uuid_key: '.def',
-                       container_class_type: 'ghi', section_selector: 'div.jkl', append_to: empty_wrapper)
+    described_class.v1(chapter: book_without_section.chapters.first, metadata_source: metadata_element, container_key: 'abc', uuid_key: '.def',
+                       section_selector: 'div.jkl', append_to: empty_wrapper)
     expect(empty_wrapper).to match_normalized_html('<div></div>')
   end
 end
