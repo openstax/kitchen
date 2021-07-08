@@ -2,7 +2,6 @@
 
 module Kitchen::Directions::BakeChapterKeyConcepts
   class V1
-    renderable
     def bake(chapter:, metadata_source:, append_to:, uuid_prefix:)
       key_concepts_clipboard = Kitchen::Clipboard.new
       chapter.non_introduction_pages.each do |page|
