@@ -19,7 +19,7 @@ pl:
   eoc_solutions_title: Rozwiązania
   eob_index_title: Skorowidz rzeczowy
   eob_index_symbols_group: Symbole
-  references: Bibliografia # is this used somewhere outside eoc?
+  references: Bibliografia
   eoc:
     glossary: Kluczowe pojęcia
     key-equations: Najważniejsze wzory
