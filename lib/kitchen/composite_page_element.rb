@@ -29,7 +29,8 @@ module Kitchen
     # @return [Element]
     #
     def title
-      first!('h3[data-type="title"], h2[data-type="document-title"], h1[data-type="document-title"]')
+      first!('h3[data-type="title"], h2[data-type="document-title"],' \
+             'h1[data-type="document-title"]')
     end
 
     # Returns true if this page is a book index
