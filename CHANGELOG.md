@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Tweaks inline list seperators to only target
+* Tweaks inline list seperators to only target labeled items (major?)
 
 ## [9.0.0] - 2021-07-12
 
