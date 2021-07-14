@@ -112,9 +112,13 @@ module Kitchen::Directions::BakeIndex
       end
     end
 
-    def bake(book:, types: %w[main])
+    def bake(book:, types: %w[main], uuid_prefix: '')
       @metadata_elements = book.metadata.children_to_keep.copy
-      @indexes = types.with_object({}).each { |type, hash| hash[type] = Index.new }
+      @uuid_prefix = uuid_prefix
+      @indexes = types.each.with_object({}) do |type, hash|
+        index_name = type == 'main' ? 'term' : type
+        hash[index_name] = Index.new
+      end
 
       # Numbering of IDs doesn't depend on term type
 
@@ -136,9 +140,11 @@ module Kitchen::Directions::BakeIndex
 
       types.each do |type|
         @container_class = "os-index#{'-' + type unless 'main' == type}-container"
-        @uuid_key = "index#{'-' + type unless 'main' == type}"
+        @uuid_key = "#{uuid_prefix}index#{'-' + type unless 'main' == type}"
         @title = I18n.t("index.#{type}")
-        @index = @indexes[type]
+
+        index_name = type == 'main' ? 'term' : type
+        @index = @indexes[index_name]
 
         book.first('body').append(child: render(file: 'v1.xhtml.erb'))
       end
@@ -146,15 +152,15 @@ module Kitchen::Directions::BakeIndex
 
     def add_term_to_index(term_element, page_title)
       type =
-        if term_element.some_check_of_its_attributes
+        if !term_element.key?('index')
           'term'
-        elsif term_element.some_other_check
+        elsif term_element['cxlxt:index'] == 'name'
+          'name'
+        elsif term_element['cxlxt:index'] == 'foreign'
           'foreign'
-        elsif term_element.some_different_check
-          'whatever'
         end
 
-      if term_element.key?('reference') # maybe this check is now duplicated with the setting of `type` just above
+      if term_element.key?('reference')
         term_reference = term_element['cmlnle:reference']
         group_by = term_reference[0]
         content = term_reference
