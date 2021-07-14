@@ -6,8 +6,9 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary::V1 do
 
   before do
     stub_locales({
-      'eoc_key_terms_title': 'Key Terms',
-      'eoc_composite_metadata_title': 'Chapter Review'
+      'eoc': {
+        'glossary': 'Key Terms'
+      }
     })
   end
 
@@ -19,6 +20,33 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary::V1 do
             <dl>
               <dt>ZzZ</dt>
               <dd>Test 1</dd>
+            </dl>
+            <dl>
+              <dt>ZzZ</dt>
+              <dd>Achoo</dd>
+            </dl>
+            <dl>
+              <dt>ABD</dt>
+              <dd>Test 2</dd>
+            </dl>
+          </div>
+        </div>
+      HTML
+    )
+  end
+
+  let(:chapter_with_pl_diacritics) do
+    chapter_element(
+      <<~HTML
+        <div data-type='glossary'>
+          <div>
+            <dl>
+              <dt>ZzZ</dt>
+              <dd>Test 1</dd>
+            </dl>
+            <dl>
+              <dt>ĄBD</dt>
+              <dd>Hey</dd>
             </dl>
             <dl>
               <dt>ZzZ</dt>
@@ -112,7 +140,7 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary::V1 do
                 <span class="os-text">Key Terms</span>
               </h3>
               <div data-type="metadata" style="display: none;">
-                <h1 data-type="document-title" itemprop="name">Chapter Review</h1>
+                <h1 data-type="document-title" itemprop="name">Key Terms</h1>
                 <div class="authors" id="authors_copy_1">Authors</div><div class="publishers" id="publishers_copy_1">Publishers</div><div class="print-style" id="print-style_copy_1">Print Style</div><div class="permissions" id="permissions_copy_1">Permissions</div><div data-type="subject" id="subject_copy_1">Subject</div>
               </div>
               <dl>
@@ -131,6 +159,60 @@ RSpec.describe Kitchen::Directions::BakeChapterGlossary::V1 do
           </div>
         HTML
       )
+    end
+  end
+
+  context 'when terms contain polish diacritics' do
+    it 'works' do
+      with_locale(:pl) do
+        stub_locales({
+          'eoc': {
+            'glossary': 'Kluczowe pojęcia'
+          }
+        })
+        metadata = metadata_element.append(child:
+          <<~HTML
+            <div data-type="random" id="subject">Random - should not be included</div>
+          HTML
+        )
+        expect(
+          described_class.new.bake(chapter: chapter_with_pl_diacritics, metadata_source: metadata)
+        ).to match_normalized_html(
+          <<~HTML
+            <div data-type="chapter">
+              <div class="os-eoc os-glossary-container" data-type="composite-page" data-uuid-key="glossary">
+                <h2 data-type="document-title">
+                  <span class="os-text">Kluczowe pojęcia</span>
+                </h2>
+                <div data-type="metadata" style="display: none;">
+                  <h1 data-type="document-title" itemprop="name">Kluczowe pojęcia</h1>
+                  <div class="authors" id="authors_copy_1">Authors</div>
+                  <div class="publishers" id="publishers_copy_1">Publishers</div>
+                  <div class="print-style" id="print-style_copy_1">Print Style</div>
+                  <div class="permissions" id="permissions_copy_1">Permissions</div>
+                  <div data-type="subject" id="subject_copy_1">Subject</div>
+                </div>
+                <dl>
+                  <dt>ABD</dt>
+                  <dd>Test 2</dd>
+                </dl>
+                <dl>
+                  <dt>ĄBD</dt>
+                  <dd>Hey</dd>
+                </dl>
+                <dl>
+                  <dt>ZzZ</dt>
+                  <dd>Achoo</dd>
+                </dl>
+                <dl>
+                  <dt>ZzZ</dt>
+                  <dd>Test 1</dd>
+                </dl>
+              </div>
+            </div>
+          HTML
+        )
+      end
     end
   end
 end
