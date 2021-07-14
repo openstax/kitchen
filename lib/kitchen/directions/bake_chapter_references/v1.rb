@@ -11,6 +11,15 @@ module Kitchen::Directions::BakeChapterReferences
 
       content = chapter.pages.references.cut.paste
 
+      if content.empty?
+        content = Kitchen::Clipboard.new
+        chapter.search('section.references').each do |section|
+          section.search('h3').cut
+          section.cut(to: content)
+        end
+        content = content.paste
+      end
+
       Kitchen::Directions::EocCompositePageContainer.v1(
         container_key: klass,
         uuid_key: "#{uuid_prefix}#{klass}",
