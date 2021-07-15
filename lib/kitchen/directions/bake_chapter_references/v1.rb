@@ -40,9 +40,7 @@ module Kitchen::Directions::BakeChapterReferences
 
       references.each do |reference|
         Kitchen::Directions::RemoveSectionTitle.v1(section: reference)
-        if module_title
-          reference.prepend(child: title)
-        end
+        reference.prepend(child: title) if module_title
       end
     end
   end

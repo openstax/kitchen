@@ -2,7 +2,6 @@
 
 module Kitchen::Directions::BakeFurtherReading
   def self.v1(chapter:, metadata_source:, uuid_prefix: '.', klass: 'further-reading')
-
     further_reading = Kitchen::Clipboard.new
 
     chapter.search('section.further-reading').each do |section|
