@@ -2,23 +2,14 @@
 
 module Kitchen::Directions::BakeChapterReferences
   class V1
-    def bake(chapter:, metadata_source:, uuid_prefix: '.', klass: 'references')
-      bake_page_references(page: chapter.introduction_page)
+    def bake(chapter:, metadata_source:, uuid_prefix: '.', klass: 'references', module_title: true)
+      bake_page_references(page: chapter.introduction_page, module_title: module_title)
 
       chapter.non_introduction_pages.each do |page|
-        bake_page_references(page: page)
+        bake_page_references(page: page, module_title: module_title)
       end
 
       content = chapter.pages.references.cut.paste
-
-      if content.empty?
-        content = Kitchen::Clipboard.new
-        chapter.search('section.references').each do |section|
-          section.search('h3').cut
-          section.cut(to: content)
-        end
-        content = content.paste
-      end
 
       Kitchen::Directions::EocCompositePageContainer.v1(
         container_key: klass,
@@ -29,7 +20,7 @@ module Kitchen::Directions::BakeChapterReferences
       )
     end
 
-    def bake_page_references(page:)
+    def bake_page_references(page:, module_title:)
       return if page.nil?
 
       references = page.references
@@ -49,7 +40,9 @@ module Kitchen::Directions::BakeChapterReferences
 
       references.each do |reference|
         Kitchen::Directions::RemoveSectionTitle.v1(section: reference)
-        reference.prepend(child: title)
+        if module_title
+          reference.prepend(child: title)
+        end
       end
     end
   end
