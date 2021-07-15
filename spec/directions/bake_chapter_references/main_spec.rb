@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe Kitchen::Directions::BakeChapterReferences do
   it 'calls v1' do
     expect_any_instance_of(Kitchen::Directions::BakeChapterReferences::V1).to receive(:bake)
-      .with(chapter: 'chapter1', metadata_source: 'metadata', uuid_prefix: 'uuid', klass: 'klass')
-    described_class.v1(chapter: 'chapter1', metadata_source: 'metadata', uuid_prefix: 'uuid', klass: 'klass')
+      .with(chapter: 'chapter1', metadata_source: 'metadata', uuid_prefix: 'uuid', klass: 'klass', module_title: true)
+    described_class.v1(chapter: 'chapter1', metadata_source: 'metadata', uuid_prefix: 'uuid', klass: 'klass', module_title: true)
   end
 end
