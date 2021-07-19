@@ -11,7 +11,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedTable::V1 do
   end
 
   let(:caption) { '<caption>A caption</caption>' }
-  let(:caption_with_title) {"<caption>A caption<span data-type='title'>Secret Title</span></caption>"}
+  let(:caption_with_title) { "<caption>A caption<span data-type='title'>Secret Title</span></caption>" }
 
   let(:top_titled_table) do
     book_containing(html:
@@ -241,6 +241,80 @@ RSpec.describe Kitchen::Directions::BakeNumberedTable::V1 do
               <span class="os-divider"> </span>
               <span class="os-divider"> </span>
               <span class="os-caption"></span>
+            </div>
+          </div>
+        HTML
+      )
+    end
+  end
+
+  context 'when blank caption and always_caption false' do
+    let(:caption) { "\n     \n    " }
+
+    it 'does not include an os-caption' do
+      described_class.new.bake(table: top_titled_table, number: '2.3')
+      expect(top_titled_table.document).not_to match('os-caption')
+    end
+  end
+
+  context 'when blank caption and always_caption true' do
+    let(:caption) { " \n    \n " }
+
+    it 'does include an os-caption' do
+      described_class.new.bake(table: column_header_table, number: '2.3', always_caption: true)
+      expect(column_header_table.document.search('.os-table').first).to match_normalized_html(
+        <<~HTML
+          <div class="os-table os-column-header-container">
+            <table class="column-header" id="tId">
+          </table>
+            <div class="os-caption-container">
+              <span class="os-title-label">Table </span>
+              <span class="os-number">2.3</span>
+              <span class="os-divider"> </span>
+              <span class="os-divider"> </span>
+              <span class="os-caption"></span>
+            </div>
+          </div>
+        HTML
+      )
+    end
+  end
+
+  context 'when h4 title in caption' do
+    let(:caption_with_title) { "<caption>A caption<h4 data-type='title'>Secret Title</h4></caption>" }
+    it 'bakes another table with a h4 caption title' do
+      described_class.new.bake(
+        table: table_with_caption_title,
+        number: '2.3',
+        always_caption: true,
+        title_css: "h4[data-type='title']"
+      )
+
+      expect(table_with_caption_title.document.search('.os-table').first).to match_normalized_html(
+        <<~HTML
+          <div class="os-table">
+            <table class="some-class" id="tId">
+              <thead>
+                <tr>
+                  <th>A title</th>
+                </tr>
+                <tr>
+                  <th>Another heading cell</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>One lonely cell</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="os-caption-container">
+              <span class="os-title-label">Table </span>
+              <span class="os-number">2.3</span>
+              <span class="os-divider"> </span>
+              <span class="os-title" data-type="title">Secret Title</span>
+              <span class="os-divider"> </span>
+              <span class="os-caption">A caption</span>
             </div>
           </div>
         HTML
