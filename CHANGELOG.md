@@ -6,9 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Update `BakeFirstElements` to also add the `.has-first-inline-list` class (minor)
+
+## [9.1.0] - 2021-07-16
+
+* Add `BakeNoteIFrames` direction (minor)
 * Selector optimization in precalculus `Strategy` & elsewhere (patch)
 * Tweaks inline list seperators to only target labeled items (major?)
 * Add option to remove module title from `BakeChapterReferences` and created `BakeFurtherReading` direction (minor)
+* Add definition of handbook page selector needed for BakeToc, create a link class for this page (minor)
 
 ## [9.0.0] - 2021-07-12
 
