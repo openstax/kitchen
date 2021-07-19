@@ -10,13 +10,14 @@ module Kitchen::Directions::BakeNumberedTable
       new_caption = ''
       caption_title = ''
 
-      if (title = table.first("span[data-type='title']")&.cut)
+      if (title = table.first("[data-type='title']")&.cut)
         caption_title = <<~HTML
           \n<span class="os-title" data-type="title">#{title.children}</span>
         HTML
       end
 
       if (caption = table.caption&.cut)
+        caption.children = '' if caption.children.to_s.blank?
         new_caption = <<~HTML
           \n<span class="os-caption">#{caption.children}</span>
         HTML
