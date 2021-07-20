@@ -18,6 +18,10 @@ module Kitchen
           metadata_source: metadata_source
         )
       end
+
+      def self.v3(book:)
+        V3.new.bake(book: book)
+      end
     end
   end
 end
