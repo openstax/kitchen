@@ -32,6 +32,23 @@ module Kitchen::Directions::BakeHandbook
       bake_handbook_objectives(book: book)
     end
 
+    # Bake Handbook First Section Title
+    def bake_first_section_title(page:)
+      page.search('> section').each do |section|
+        first_section_title = section.titles.first
+        first_section_title_text = first_section_title.text
+        first_section_title.replace_children(with:
+          <<~HTML
+            <span class="os-part-text">H</span>
+            <span class="os-number">#{section.count_in(:page)}</span>
+            <span class="os-divider">. </span>
+            <span class="os-text">#{first_section_title_text}</span>
+          HTML
+        )
+        first_section_title.name = 'h2'
+      end
+    end
+
     # Change section headers
     def fix_nested_section_headers(page:)
       page.search('> section > section').each do |section|
@@ -66,23 +83,6 @@ module Kitchen::Directions::BakeHandbook
           #{outline_items_html}
         HTML
       )
-    end
-
-    # Bake Handbook First Section Title
-    def bake_first_section_title(page:)
-      page.search('> section').each do |section|
-        first_section_title = section.titles.first
-        first_section_title_text = first_section_title.text
-        first_section_title.replace_children(with:
-          <<~HTML
-            <span class="os-part-text">H</span>
-            <span class="os-number">#{section.count_in(:page)}</span>
-            <span class="os-divider">. </span>
-            <span class="os-text">#{first_section_title_text}</span>
-          HTML
-        )
-        first_section_title.name = 'h2'
-      end
     end
   end
 end
