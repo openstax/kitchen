@@ -50,18 +50,31 @@ module Kitchen::Directions::BakeHandbook
     end
 
     # Change section headers
+    # def fix_nested_section_headers(page:)
+    #   page.search('> section > section').each do |section|
+    #     second_section_title = section.titles.first
+    #     second_section_title.name = 'h3'
+    #   end
+    #   page.search('> section > section > section').each do |section|
+    #     third_section_title = section.titles.first
+    #     third_section_title.name = 'h4'
+    #   end
+    #   page.search('> section > section > section > section').each do |section|
+    #     fourth_section_title = section.titles.first
+    #     fourth_section_title.name = 'h5'
+    #   end
+    # end
     def fix_nested_section_headers(page:)
-      page.search('> section > section').each do |section|
-        second_section_title = section.titles.first
-        second_section_title.name = 'h3'
-      end
-      page.search('> section > section > section').each do |section|
-        third_section_title = section.titles.first
-        third_section_title.name = 'h4'
-      end
-      page.search('> section > section > section > section').each do |section|
-        fourth_section_title = section.titles.first
-        fourth_section_title.name = 'h5'
+      page.search('section').each do |section|
+        section_data_depth = section.raw['data-depth']
+        case section_data_depth
+        when '2'
+          section.titles.first.name = 'h3'
+        when '3'
+          section.titles.first.name = 'h4'
+        when '4'
+          section.titles.first.name = 'h5'
+        end
       end
     end
 
