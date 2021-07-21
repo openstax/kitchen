@@ -60,7 +60,7 @@ RSpec.describe Kitchen::Directions::BakeHandbook::V1 do
 
   it 'works' do
     described_class.new.bake(book: book1, title_element: 'h1')
-
+    expect(book1).to match_normalized_html(
     expected = <<~HTML
       <div class="handbook" data-type="page">
         <h1 data-type="document-title">
@@ -138,8 +138,8 @@ RSpec.describe Kitchen::Directions::BakeHandbook::V1 do
         </section>
       </div>
     HTML
-
-    expect(book1.search('div.handbook')).to all(match_normalized_html(expected))
+    # expect(book1.search('div.handbook')).to all(match_normalized_html(expected))
+    )
   end
 
 end
