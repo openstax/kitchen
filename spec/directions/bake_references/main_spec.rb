@@ -14,4 +14,10 @@ RSpec.describe Kitchen::Directions::BakeReferences do
       .with(book: 'book1', metadata_source: 'metadata')
     described_class.v2(book: 'book1', metadata_source: 'metadata')
   end
+
+  it 'calls v3' do
+    expect_any_instance_of(Kitchen::Directions::BakeReferences::V3).to receive(:bake)
+      .with(book: 'book1')
+    described_class.v3(book: 'book1')
+  end
 end
