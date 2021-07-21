@@ -80,6 +80,7 @@ RSpec.describe Kitchen::Directions::BakeHandbook::V1 do
             <span class="os-divider">. </span>
             <span class="os-text">Paragraphs and Transitions</span>
           </a>
+          </div>
         </div>
         <div class="os-handbook-objective">
           <a class="os-handbook-objective" href="#auto_2075f23e-ddf7-4a36-84dc-7d988ec136c6_sec-002">
