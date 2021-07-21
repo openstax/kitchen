@@ -5,7 +5,7 @@ module Kitchen::Directions::BakeHandbook
     def bake(book:, title_element:)
       outline_html = ''
       outline_items_html = ''
-
+      # Bake Handbook First Section Title
       book.pages('$.handbook').each do |page|
         page.titles.each do |title|
           title.replace_children(with:
@@ -28,7 +28,7 @@ module Kitchen::Directions::BakeHandbook
           )
           first_section_title.name = 'h2'
         end
-
+        # Bake Outline Title
         outline_html = <<~HTML
           <div class="os-handbook-outline">
             <h3 class="os-title">#{I18n.t(:handbook_outline_title)}</h3>
@@ -40,11 +40,23 @@ module Kitchen::Directions::BakeHandbook
             #{outline_html}
           HTML
         )
+        # Change section headers
+        page.search('> section > section').each do |section|
+          second_section_title = section.titles.first
+          second_section_title.name = 'h3'
+        end
+        page.search('> section > section > section').each do |section|
+          third_section_title = section.titles.first
+          third_section_title.name = 'h4'
+        end
+        page.search('> section > section > section > section').each do |section|
+          fourth_section_title = section.titles.first
+          fourth_section_title.name = 'h5'
+        end
       end
-
+      # Bake Handbook Objectives
       outline_items_html = book.pages('$.handbook').search('> section').map do |section|
         section_title = section.titles.first
-        section_title_text = section_title.text
         section_title_children = section_title.children
         <<~HTML
           <div class="os-handbook-objective">
