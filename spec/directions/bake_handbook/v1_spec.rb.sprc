@@ -40,8 +40,8 @@ RSpec.describe Kitchen::Directions::BakeHandbook::V1 do
                 <p>Text</p>
               </section>
             </section>
-        </section>
-        <section data-depth="1">
+          </section>
+          <section data-depth="1">
             <h3 id="auto_2075f23e-ddf7-4a36-84dc-7d988ec136c6_sec-002" data-type="title">Another First Section Title</h3>
             <p>Text</p>
             <section data-depth="2">
@@ -52,7 +52,7 @@ RSpec.describe Kitchen::Directions::BakeHandbook::V1 do
                 <p>Text</p>
               </section>
             </section>
-        </section>
+          </section>
         </div>
       HTML
     )
@@ -71,7 +71,7 @@ RSpec.describe Kitchen::Directions::BakeHandbook::V1 do
             <span class="os-text" data-type="" itemprop="">Handbook</span>
           </h1>
         </div>
-        <div class class="os-handbook-outline">
+        <div class="os-handbook-outline">
           <h3 class="os-title">Outline</h3>
           <div class="os-handbook-objective">
           <a class="os-handbook-objective" href="#auto_2075f23e-ddf7-4a36-84dc-7d988ec136c6_sec-001">
@@ -88,54 +88,53 @@ RSpec.describe Kitchen::Directions::BakeHandbook::V1 do
             <span class="os-divider">. </span>
             <span class="os-text">Another Section Here</span>
           </a>
-          <section data-depth="1">
-            <h2 data-type="title" id="auto_2075f23e-ddf7-4a36-84dc-7d988ec136c6_sec-001">
-              <span class="os-part-text">H</span>
-              <span class="os-number">1</span>
-              <span class="os-divider">. </span>
-              <span class="os-text">Paragraphs and Transitions</span>
-            </h2>
+        </div>
+        <section data-depth="1">
+          <h2 data-type="title" id="auto_2075f23e-ddf7-4a36-84dc-7d988ec136c6_sec-001">
+            <span class="os-part-text">H</span>
+            <span class="os-number">1</span>
+            <span class="os-divider">. </span>
+            <span class="os-text">Paragraphs and Transitions</span>
+          </h2>
+          <p>Text</p>
+          <section data-depth="2">
+            <h3 data-type="title">Effective Paragraphs</h3>
             <p>Text</p>
-            <section data-depth="2">
-              <h3 data-type="title">Effective Paragraphs</h3>
+            <section data-depth="3">
+              <h4 data-type="title">Developing a Main Point</h4>
               <p>Text</p>
-              <section data-depth="3">
-                <h4 data-type="title">Developing a Main Point</h4>
-                <p>Text</p>
-              </section>
-              <section data-depth="3">
-                <h4 data-type="title">Supporting Evidence and Analysis</h4>
-                <p>Text</p>
-              </section>
             </section>
-            <section data-depth="2">
-              <h3 data-type="title">Transitions</h3>
+            <section data-depth="3">
+              <h4 data-type="title">Supporting Evidence and Analysis</h4>
               <p>Text</p>
-              <section data-depth="3">
-                <h4 data-type="title">Flow</h4>
-                <p>Text</p>
-              </section>
             </section>
           </section>
-          <section data-depth="1">
-            <h2 data-type="title" id="auto_2075f23e-ddf7-4a36-84dc-7d988ec136c6_sec-002">
-              <span class="os-part-text">H</span>
-              <span class="os-number">2</span>
-              <span class="os-divider">. </span>
-              <span class="os-text">Another First Section Title</span>
-            </h2>
-            <p>text</p>
-            <section data-depth="2">
-              <h3 data-type="title">Second Section Title</h3>
+          <section data-depth="2">
+            <h3 data-type="title">Transitions</h3>
+            <p>Text</p>
+            <section data-depth="3">
+              <h4 data-type="title">Flow</h4>
               <p>Text</p>
-              <section data-depth="3">
-                <h4 data-type="title">Third Section Title</h4>
-                <p>Text</p>
-              </section>
             </section>
           </section>
-        </div>
-        </div>
+        </section>
+        <section data-depth="1">
+          <h2 data-type="title" id="auto_2075f23e-ddf7-4a36-84dc-7d988ec136c6_sec-002">
+            <span class="os-part-text">H</span>
+            <span class="os-number">2</span>
+            <span class="os-divider">. </span>
+            <span class="os-text">Another First Section Title</span>
+          </h2>
+          <p>text</p>
+          <section data-depth="2">
+            <h3 data-type="title">Second Section Title</h3>
+            <p>Text</p>
+            <section data-depth="3">
+              <h4 data-type="title">Third Section Title</h4>
+              <p>Text</p>
+            </section>
+          </section>
+        </section>
       </div>
     HTML
 
