@@ -3,14 +3,14 @@
 module Kitchen::Directions::BakeNumberedTable
   class V1
 
-    def bake(table:, number:, always_caption: false, title_css: "span[data-type='title']")
+    def bake(table:, number:, always_caption: false)
       Kitchen::Directions::BakeTableBody.v1(table: table, number: number)
 
       # TODO: extra spaces added here to match legacy implementation, but probably not meaningful?
       new_caption = ''
       caption_title = ''
 
-      if (title = table.first(title_css)&.cut)
+      if (title = table.first("span[data-type='title']")&.cut)
         caption_title = <<~HTML
           \n<span class="os-title" data-type="title">#{title.children}</span>
         HTML
