@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Tweak `BakeNumberedTables.v1` to cut extra white space and include non-span titles (major)
+* Tweak `BakeExample` to not touch unbaked titles in captions (major)
+* Tweak `BakeNumberedTables.v1` to cut extra white space (minor)
 * Update `BakeFirstElements` to also add the `.has-first-inline-list` class (minor)
 
 ## [9.1.0] - 2021-07-16
