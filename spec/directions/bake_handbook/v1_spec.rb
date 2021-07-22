@@ -38,6 +38,10 @@ RSpec.describe Kitchen::Directions::BakeHandbook::V1 do
               <section data-depth="3">
                 <h5 data-type="title">Flow</h5>
                 <p>Text</p>
+                <section data-depth="4">
+                  <h6 data-type="title">Opening Paragraphs</h6>
+                  <p>Text</p>
+                </section>
               </section>
             </section>
           </section>
@@ -114,6 +118,10 @@ RSpec.describe Kitchen::Directions::BakeHandbook::V1 do
               <section data-depth="3">
                 <h4 data-type="title">Flow</h4>
                 <p>Text</p>
+                <section data-depth="4">
+                  <h5 data-type="title">Opening Paragraphs</h5>
+                  <p>Text</p>
+                </section>
               </section>
             </section>
           </section>
