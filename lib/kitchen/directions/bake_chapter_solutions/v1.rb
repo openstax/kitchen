@@ -2,11 +2,11 @@
 
 module Kitchen::Directions::BakeChapterSolutions
   class V1
-    def bake(chapter:, metadata_source:, uuid_prefix: '')
+    def bake(chapter:, metadata_source:, uuid_prefix: '', section_class: 'free-response')
       solutions_clipboard = Kitchen::Clipboard.new
 
-      chapter.search('section.free-response').each do |free_response_question|
-        exercises = free_response_question.exercises
+      chapter.search("section.#{section_class}").each do |question|
+        exercises = question.exercises
         # must run AFTER .free-response notes are baked
 
         next if exercises.none?
