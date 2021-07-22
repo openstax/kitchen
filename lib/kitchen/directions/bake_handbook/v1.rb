@@ -64,6 +64,7 @@ module Kitchen::Directions::BakeHandbook
     #     fourth_section_title.name = 'h5'
     #   end
     # end
+
     def fix_nested_section_headers(page:)
       page.search('section').each do |section|
         section_data_depth = section.raw['data-depth']
