@@ -3,7 +3,7 @@
 module Kitchen
   module Directions
     module BakeChapterIntroductions
-      def self.v1(book:, bake_chapter_objectives: true)
+      def self.v1(book:, bake_chapter_objectives: true, bake_chapter_outline: true)
         book.chapters.each do |chapter|
           chapter_outline_html = ''
 
@@ -21,12 +21,14 @@ module Kitchen
               HTML
             end.join('')
 
-            chapter_outline_html = <<~HTML
-              <div class="os-chapter-outline">
-                <h3 class="os-title">#{I18n.t(:chapter_outline)}</h3>
-                #{outline_items_html}
-              </div>
-            HTML
+            if bake_chapter_outline
+              chapter_outline_html = <<~HTML
+                <div class="os-chapter-outline">
+                  <h3 class="os-title">#{I18n.t(:chapter_outline)}</h3>
+                  #{outline_items_html}
+                </div>
+              HTML
+            end
           end
 
           introduction_page = chapter.introduction_page
