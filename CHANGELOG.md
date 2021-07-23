@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Allow `BakeChapterSolutions` to bake solutions from multiple sections (minor)
 * Tweak `BakeExample` to not touch unbaked titles in captions (major)
 * Tweak `BakeNumberedTables.v1` to cut extra white space (minor)
 ## [9.2.0] - 2021-07-19
