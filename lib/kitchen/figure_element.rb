@@ -47,7 +47,8 @@ module Kitchen
       parent.name == 'figure'
     end
 
-    # Returns true if the figure is a child of another figure
+    # Returns true unless the figure is a subfigure or has the 'unnumbered' class,
+    # unless the figure has both the 'unnumbered' and the 'splash' classes.
     #
     # @return [Boolean]
     #
