@@ -47,5 +47,15 @@ module Kitchen
       parent.name == 'figure'
     end
 
+    # Returns true if the figure is a child of another figure
+    #
+    # @return [Boolean]
+    #
+    def figure_to_bake?
+      return false if subfigure? || (has_class?('unnumbered') && !has_class?('splash'))
+
+      true
+    end
+
   end
 end
