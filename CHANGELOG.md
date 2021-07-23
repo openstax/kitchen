@@ -6,8 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Tweak `BakeExample` to not touch unbaked titles in captions (major)
+* Fix `NoteElement#title` to exclude nested element titles (patch)
+* Remove `BakeTheorem` (minor)
+* Tweak `BakeExample` to not touch unbaked titles in captions (minor/patch)
 * Tweak `BakeNumberedTables.v1` to cut extra white space (minor)
+
 ## [9.2.0] - 2021-07-19
 
 * Update `BakeFirstElements` to also add the `.has-first-inline-list` class (minor)
