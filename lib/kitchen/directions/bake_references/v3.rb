@@ -20,14 +20,6 @@ module Kitchen::Directions::BakeReferences
                 title_tag: 'h2'
               )
             )
-
-            # title.name = 'h2'
-            # title['data-type'] = 'document-title'
-            # title['id'] = page.title.copied_id
-            # title.inner_html = Kitchen::Directions::EocSectionTitleLinkSnippet.title_snipet(
-            #   page: page,
-            #   title_tag: 'h2'
-            # )
           end
         end
       end
