@@ -39,6 +39,10 @@ module Kitchen
       first("div[data-type='solution']")
     end
 
+    # Returns whether the exercise has been baked
+    #
+    # @return [Boolean]
+    #
     def baked?
       search('div.os-problem-container').any?
     end
