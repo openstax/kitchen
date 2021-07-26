@@ -38,5 +38,9 @@ module Kitchen
     def solution
       first("div[data-type='solution']")
     end
+
+    def baked?
+      search('div.os-problem-container').any?
+    end
   end
 end
