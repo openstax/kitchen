@@ -139,8 +139,8 @@ module Kitchen::Directions::BakeIndex
       end
 
       types.each do |type|
-        @container_class = "os-index#{'-' + type unless 'main' == type}-container"
-        @uuid_key = "#{uuid_prefix}index#{'-' + type unless 'main' == type}"
+        @container_class = "os-index#{"-#{type}" unless type == 'main'}-container"
+        @uuid_key = "#{uuid_prefix}index#{"-#{type}" unless type == 'main'}"
         @title = I18n.t("index.#{type}")
 
         index_name = type == 'main' ? 'term' : type
