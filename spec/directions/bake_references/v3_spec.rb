@@ -60,23 +60,23 @@ RSpec.describe Kitchen::Directions::BakeReferences::V3 do
       <<~HTML
         <div data-type="note" class="reference" display="inline" id="auto_12345">
           <h2 data-type="document-title" id="someId1_copy_1">
-            <span class="os-number">1.1 Page</span>
+            <span class="os-number">1.1</span>
             <span class="os-divider"> </span>
-            <span class="os-text" data-type="" itemprop="">1.1 Page </span>
+            <span class="os-text" data-type="" itemprop="">1.1 Page</span>
           </h2>
         </div>
         <div data-type="note" class="reference" display="inline" id="auto_54321">
           <h2 data-type="document-title" id="someId1_copy_2">
-            <span class="os-number">1.1 Page</span>
+            <span class="os-number">1.1</span>
             <span class="os-divider"> </span>
-            <span class="os-text" data-type="" itemprop="">1.1 Page </span>
+            <span class="os-text" data-type="" itemprop="">1.1 Page</span>
           </h2>
         </div>
         <div data-type="note" class="reference" display="inline" id="auto_6789">
           <h2 data-type="document-title" id="someId2_copy_1">
-            <span class="os-number">2.1 Page</span>
+            <span class="os-number">2.1</span>
             <span class="os-divider"> </span>
-            <span class="os-text" data-type="" itemprop="">2.1 Page </span>
+            <span class="os-text" data-type="" itemprop="">2.1 Page</span>
           </h2>
         </div>
       HTML

@@ -39,6 +39,17 @@ module Kitchen
           title_snippet
         end
       end
+
+      def self.title_snipet(page:, title_tag: 'h3')
+        chapter = page.ancestor(:chapter)
+        <<~HTML
+          <#{title_tag} data-type="document-title" id="#{page.title.copied_id}">
+            <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
+            <span class="os-divider"> </span>
+            <span class="os-text" data-type="" itemprop="">#{page.title_text}</span>
+          </#{title_tag}>
+        HTML
+      end
     end
   end
 end
