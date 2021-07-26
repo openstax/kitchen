@@ -7,9 +7,4 @@ RSpec.describe Kitchen::Directions::BakeIndex do
     expect_any_instance_of(Kitchen::Directions::BakeIndex::V1).to receive(:bake).with(book: 'blah', types: %w[foo1 foo2 foo3], uuid_prefix: '')
     described_class.v1(book: 'blah', types: %w[foo1 foo2 foo3], uuid_prefix: '')
   end
-
-  it 'calls v2' do
-    expect_any_instance_of(Kitchen::Directions::BakeIndex::V2).to receive(:bake).with(book: 'blah', types: %w[foo1 foo2 foo3])
-    described_class.v2(book: 'blah', types: %w[foo1 foo2 foo3])
-  end
 end
