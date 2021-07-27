@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Refactor `MoveExercisesToEOC::V2` & `BakeChapterKeyConcepts` to use `MoveCustomSectionToEocContainer` (minor)
 * Add wrapper support for `MoveCustomSectionToEocContainer` (minor)
 * Fix `BakeExample` to skip baked exercises (patch)
 * Add `FigureElement#figure_to_bake?` (minor)
