@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Add `has_para` option to `BakeChapterGlossary` for books from Adaptarr (minor)
 * Fix `BakeExample` to skip baked exercises (patch)
 * Add `FigureElement#figure_to_bake?` (minor)
 * Remove `itemprop` attribute from `BakeChapterSummary` and `BakeFurtherResearch` (major)
