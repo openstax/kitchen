@@ -6,8 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 * Create `BakeUnitPageTitle` (minor)
-* Tweak `BakeExample` to not touch unbaked titles in captions (major)
+* Add `FigureElement#figure_to_bake?` (minor)
+* Remove `itemprop` attribute from `BakeChapterSummary` and `BakeFurtherResearch` (major)
+* Fix `NoteElement#title` to exclude nested element titles (patch)
+* Remove `BakeTheorem` (minor)
+* Allow `BakeChapterSolutions` to bake solutions from multiple sections (minor)
+* Add `.os-problem-container` to `BakeFirstElement` selectors (minor)
+* Tweak `BakeExample` to not touch unbaked titles in captions (minor/patch)
 * Tweak `BakeNumberedTables.v1` to cut extra white space (minor)
+
 ## [9.2.0] - 2021-07-19
 
 * Update `BakeFirstElements` to also add the `.has-first-inline-list` class (minor)
