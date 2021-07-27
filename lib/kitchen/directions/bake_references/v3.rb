@@ -15,9 +15,10 @@ module Kitchen::Directions::BakeReferences
           page.references.each do |reference|
             reference.titles.trash
             reference.prepend(child:
-              Kitchen::Directions::EocSectionTitleLinkSnippet.title_snipet(
+              Kitchen::Directions::EocSectionTitleLinkSnippet.v1(
                 page: page,
-                title_tag: 'h2'
+                title_tag: 'h2',
+                wrapper: nil
               )
             )
           end
