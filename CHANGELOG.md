@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Create `BakeListsWithPara` to remove paragraphs from lists in books created by Adaptarr (minor)
 * Fix `BakeExample` to skip baked exercises (patch)
 * Add `FigureElement#figure_to_bake?` (minor)
 * Remove `itemprop` attribute from `BakeChapterSummary` and `BakeFurtherResearch` (major)
