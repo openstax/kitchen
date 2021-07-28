@@ -13,27 +13,26 @@ module Kitchen::Directions::BakeHandbook
           title.name = title_element
         end
 
-        bake_first_section_title(page: page)
-
         # Create Outline Title
         outline_html = <<~HTML
           <div class="os-handbook-outline">
             <h3 class="os-title">#{I18n.t(:handbook_outline_title)}</h3>
           </div>
         HTML
-
         page.title.append(sibling:
           <<~HTML
             #{outline_html}
           HTML
         )
+
+        bake_first_section_title_and_objectives(page: page)
         fix_nested_section_headers(page: page)
       end
-      bake_handbook_objectives(book: book)
     end
 
     # Bake Handbook First Section Title
-    def bake_first_section_title(page:)
+    def bake_first_section_title_and_objectives(page:)
+      outline_items_html = []
       page.search('> section').each do |section|
         first_section_title = section.titles.first
         first_section_title_text = first_section_title.text
@@ -46,24 +45,23 @@ module Kitchen::Directions::BakeHandbook
           HTML
         )
         first_section_title.name = 'h2'
-      end
-    end
+        first_section_title_children = first_section_title.children
 
-    # Change section headers
-    # def fix_nested_section_headers(page:)
-    #   page.search('> section > section').each do |section|
-    #     second_section_title = section.titles.first
-    #     second_section_title.name = 'h3'
-    #   end
-    #   page.search('> section > section > section').each do |section|
-    #     third_section_title = section.titles.first
-    #     third_section_title.name = 'h4'
-    #   end
-    #   page.search('> section > section > section > section').each do |section|
-    #     fourth_section_title = section.titles.first
-    #     fourth_section_title.name = 'h5'
-    #   end
-    # end
+        outline_item_html = <<~HTML
+          <div class="os-handbook-objective">
+            <a class="os-handbook-objective" href="##{first_section_title[:id]}">
+              #{first_section_title_children}
+            </a>
+          </div>
+        HTML
+        outline_items_html.push(outline_item_html)
+      end
+      page.search('.os-handbook-outline').first.append(child:
+        <<~HTML
+          #{outline_items_html.join}
+        HTML
+      )
+    end
 
     def fix_nested_section_headers(page:)
       page.search('section').each do |section|
@@ -77,26 +75,6 @@ module Kitchen::Directions::BakeHandbook
           section.titles.first.name = 'h5'
         end
       end
-    end
-
-    # Bake Handbook Objectives
-    def bake_handbook_objectives(book:)
-      outline_items_html = book.pages('$.handbook').search('> section').map do |section|
-        section_title = section.titles.first
-        section_title_children = section_title.children
-        <<~HTML
-          <div class="os-handbook-objective">
-            <a class="os-handbook-objective" href="##{section_title[:id]}">
-              #{section_title_children}
-            </a>
-          </div>
-        HTML
-      end.join('')
-      book.pages('$.handbook').search('.os-handbook-outline').first.append(child:
-        <<~HTML
-          #{outline_items_html}
-        HTML
-      )
     end
   end
 end
