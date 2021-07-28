@@ -7,6 +7,8 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
         case strategy
         when :calculus
           Strategies::Calculus.new
+        when :contemporary_math
+          Strategies::ContemporaryMath.new
         when :uphysics
           Strategies::UPhysics.new
         when :precalculus
