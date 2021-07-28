@@ -63,7 +63,7 @@ module Kitchen::Directions::BakeHandbook
 
     def fix_nested_section_headers(page:)
       page.search('section').each do |section|
-        section_data_depth = section.raw['data-depth']
+        section_data_depth = section[:'data-depth']
         case section_data_depth
         when '2'
           section.titles.first.name = 'h3'
