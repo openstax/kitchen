@@ -35,22 +35,20 @@ module Kitchen::Directions::BakeHandbook
       outline_items_html = []
       page.search('> section').each do |section|
         first_section_title = section.titles.first
-        first_section_title_text = first_section_title.text
         first_section_title.replace_children(with:
           <<~HTML
             <span class="os-part-text">H</span>
             <span class="os-number">#{section.count_in(:page)}</span>
             <span class="os-divider">. </span>
-            <span class="os-text">#{first_section_title_text}</span>
+            <span class="os-text">#{first_section_title.text}</span>
           HTML
         )
         first_section_title.name = 'h2'
-        first_section_title_children = first_section_title.children
 
         outline_item_html = <<~HTML
           <div class="os-handbook-objective">
             <a class="os-handbook-objective" href="##{first_section_title[:id]}">
-              #{first_section_title_children}
+              #{first_section_title.children}
             </a>
           </div>
         HTML
