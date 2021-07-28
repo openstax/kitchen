@@ -22,7 +22,8 @@ module Kitchen
 
         example.titles.each do |title|
           if title.parent.has_class?('os-caption-container') || \
-             title.parent.has_class?('os-caption')
+             title.parent.has_class?('os-caption') || \
+             title.parent.name == 'caption'
             next
           end
 
@@ -30,6 +31,8 @@ module Kitchen
         end
 
         example.exercises.each do |exercise|
+          next if exercise.baked?
+
           if (problem = exercise.problem)
             problem.titles.each { |title| title.name = 'h4' }
             problem.wrap_children(class: 'os-problem-container')
