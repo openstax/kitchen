@@ -2,7 +2,10 @@
 
 module Kitchen::Directions::MoveSolutionsToAnswerKey
   class V1
-    def bake(chapter:, metadata_source:, strategy:, append_to:, strategy_options: {}, solutions_plural: true)
+    # rubocop:disable Metrics/ParameterLists
+    # This direction may need refactoring to simplify parameters
+    def bake(chapter:, metadata_source:, strategy:, append_to:, strategy_options: {},
+             solutions_plural: true)
       strategy =
         case strategy
         when :calculus
@@ -36,5 +39,6 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
       )
       strategy.bake(chapter: chapter, append_to: append_to.last_element)
     end
+    # rubocop:enable Metrics/ParameterLists
   end
 end
