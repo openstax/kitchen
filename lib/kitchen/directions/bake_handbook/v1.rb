@@ -19,11 +19,7 @@ module Kitchen::Directions::BakeHandbook
             <h3 class="os-title">#{I18n.t(:handbook_outline_title)}</h3>
           </div>
         HTML
-        page.title.append(sibling:
-          <<~HTML
-            #{outline_html}
-          HTML
-        )
+        page.title.append(sibling: outline_html)
 
         bake_first_section_title_and_objectives(page: page)
         fix_nested_section_headers(page: page)
