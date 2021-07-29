@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Add support for baking multipart questions to `BakeNumberedExercise` (minor)
 * Refactor `MoveExercisesToEOC::V2` & `BakeChapterKeyConcepts` to use `MoveCustomSectionToEocContainer` (minor)
 * Add wrapper support for `MoveCustomSectionToEocContainer` (minor)
 * Create `BakeHandbook` direction (minor)
