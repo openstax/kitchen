@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Create `BakeHandbook` direction (minor)
+* Add `ExampleElement#titles_to_rename` & refactor `BakeExample` (patch)
 * Create `BakeUnitPageTitle` (minor)
 * Fix `BakeExample` to skip baked exercises (patch)
 * Add `FigureElement#figure_to_bake?` (minor)
