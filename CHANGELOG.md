@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Add `has_para` option to `BakeChapterGlossary` for books from Adaptarr (minor)
+* Create `BakeListsWithPara` to remove paragraphs from lists in books created by Adaptarr (minor)
+* Create `Strategy::ContemporaryMath` (minor)
+* Stop `BakeTableBody` from blowing up when table doesn't have an ID (patch)
+* Refactor `MoveExercisesToEOC::V2` & `BakeChapterKeyConcepts` to use `MoveCustomSectionToEocContainer` (minor)
+* Add wrapper support for `MoveCustomSectionToEocContainer` (minor)
+* Create `BakeHandbook` direction (minor)
+* Add `ExampleElement#titles_to_rename` & refactor `BakeExample` (patch)
+* Create `BakeUnitPageTitle` (minor)
 * Fix `BakeExample` to skip baked exercises (patch)
 * Add `FigureElement#figure_to_bake?` (minor)
 * Remove `itemprop` attribute from `BakeChapterSummary` and `BakeFurtherResearch` (major)
