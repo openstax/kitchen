@@ -24,7 +24,8 @@ module Kitchen::Directions::BakeChapterGlossary
     def bake(chapter:, metadata_source:, append_to: nil, uuid_prefix: '', has_para: false)
       @glossary = []
 
-      # Use for books created by Adaptarr
+      # Use for books created by Adaptarr, where dd contains paragraphs
+      # More info: https://github.com/openstax/kitchen/issues/284
       if has_para
         chapter.glossaries.search('dd').each do |description|
           description_content = description.first('p').text
