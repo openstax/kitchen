@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Patch `BakeExample` crashing if an example has commentary but no title (patch)
 * Add `BakeFolio` to set spanish translation variables in the html tag for folio-pdf purposes
 
 ## [10.0.0] - 2021-07-30
