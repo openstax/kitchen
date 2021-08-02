@@ -18,6 +18,16 @@ module Kitchen::Directions::BakeCustomSections
           class: 'quick-launch',
           text: 'Quick Launch:',
           inject: 'title_prefix'
+        },
+        drafting: {
+          class: 'drafting',
+          text: 'Drafting:',
+          inject: 'title_prefix'
+        },
+        peer_review: {
+          class: 'peer-review',
+          text: 'Peer Review:',
+          inject: 'title_prefix'
         }
       }
 
