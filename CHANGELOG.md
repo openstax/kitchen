@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Add `BakeFolio` to set spanish translation variables in the html tag for folio-pdf purposes
+
 ## [10.0.0] - 2021-07-30
 
 * Add support for baking multipart questions to `BakeNumberedExercise` (minor)
