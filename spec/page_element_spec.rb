@@ -101,7 +101,7 @@ RSpec.describe Kitchen::PageElement do
 
   describe '#count_in_chapter_without_intro_page' do
     context 'with no intro page' do
-      let(:introduction_page) {''}
+      let(:introduction_page) { '' }
 
       it 'numbers each page correctly' do
         count = sample_chapter.pages.map { |page| page.count_in_chapter_without_intro_page }
