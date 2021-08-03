@@ -28,6 +28,11 @@ module Kitchen::Directions::BakeCustomSections
           class: 'peer-review',
           text: 'Peer Review: ',
           inject: 'title_prefix'
+        },
+        revising: {
+          class: 'revising',
+          text: 'Revising: ',
+          inject: 'title_prefix'
         }
       }
 
@@ -42,7 +47,7 @@ module Kitchen::Directions::BakeCustomSections
             custom_section_title = custom_section.first('h2')
             custom_section_title_os_text = custom_section_title.first('.os-text')
             custom_section_title_sibling = custom_section.first('h2 + div')
-            div_id = custom_section_title_sibling["id"]
+            div_id = custom_section_title_sibling['id']
             custom_section_title_sibling.trash
             custom_section_title.append(sibling:
               <<~HTML

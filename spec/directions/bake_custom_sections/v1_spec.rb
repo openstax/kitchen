@@ -36,6 +36,9 @@ RSpec.describe Kitchen::Directions::BakeCustomSections::V1 do
           <section class="drafting" data-depth="1">
             <h3 data-type="title">Writing from Personal Experience and Observation</h3>
           </section>
+          <section class="revising" data-depth="1">
+              <h3 data-type="title">Adding and Deleting Information</h3>
+          </section>
         </div>
       HTML
     )
@@ -65,6 +68,9 @@ RSpec.describe Kitchen::Directions::BakeCustomSections::V1 do
             </section>
             <section class="drafting" data-depth="1">
               <h3 data-type="title">Drafting: Writing from Personal Experience and Observation</h3>
+            </section>
+            <section class="revising" data-depth="1">
+              <h3 data-type="title">Revising: Adding and Deleting Information</h3>
             </section>
           </div>
         </div>
