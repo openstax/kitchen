@@ -102,7 +102,7 @@ RSpec.describe Kitchen::PageElement do
   describe '#count_in_chapter_without_intro_page' do
     context 'with an intro page' do
       it 'breaks when asked to count an introduction page' do
-        expect { sample_chapter.introduction_page.count_in_chapter_without_intro_page }.to raise_error('Introduction pages cannot be counted with this method')
+        expect{ sample_chapter.introduction_page.count_in_chapter_without_intro_page }.to raise_error('Introduction pages cannot be counted with this method')
       end
 
       it 'numbers each page correctly' do
