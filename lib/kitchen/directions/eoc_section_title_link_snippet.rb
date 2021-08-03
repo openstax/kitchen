@@ -39,7 +39,6 @@ module Kitchen
           title_snippet
         end
       end
-
     end
   end
 end
