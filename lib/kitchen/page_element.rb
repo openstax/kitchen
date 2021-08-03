@@ -58,7 +58,7 @@ module Kitchen
     # @return [Boolean]
     #
     def is_introduction?
-      has_class?('introduction')
+      @is_introduction ||= has_class?('introduction')
     end
 
     # Returns  replaces generic call to page.count_in(:chapter)
