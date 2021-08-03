@@ -61,6 +61,14 @@ module Kitchen
       has_class?('introduction')
     end
 
+    # Returns  replaces generic call to page.count_in(:chapter)
+    #
+    # return [Integer]
+    #
+    def count_in_chapter_without_intro_page
+      count_in(:chapter) - ( ancestor(:chapter).has_introduction? ? 1 : 0 )
+    end
+
     # Returns true if this page is a preface
     #
     # @return [Boolean]
