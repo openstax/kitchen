@@ -16,17 +16,17 @@ module Kitchen::Directions::BakeCustomSections
         },
         quick_launch: {
           class: 'quick-launch',
-          text: 'Quick Launch:',
+          text: 'Quick Launch: ',
           inject: 'title_prefix'
         },
         drafting: {
           class: 'drafting',
-          text: 'Drafting:',
+          text: 'Drafting: ',
           inject: 'title_prefix'
         },
         peer_review: {
           class: 'peer-review',
-          text: 'Peer Review:',
+          text: 'Peer Review: ',
           inject: 'title_prefix'
         }
       }
@@ -49,26 +49,18 @@ module Kitchen::Directions::BakeCustomSections
                 <h3 class="os-subtitle" id="#{div_id}">#{custom_section_title_os_text.text}</h3>
               HTML
             )
-            custom_section_title_os_text.replace_children(with:
-              <<~HTML
-                #{property[:text]}
-              HTML
-            )
+            custom_section_title_os_text.replace_children(with: property[:text])
           when 'subtitle'
             custom_section_title = custom_section.titles.first
             custom_section_title.name = 'h4'
             custom_section_title.prepend(sibling:
               <<~HTML
-                <h3 class="os-title">#{property[:text]}</span>
+                <h3 class="os-title">#{property[:text]}</h3>
               HTML
             )
           when 'title_prefix'
             custom_section_title = custom_section.titles.first
-            custom_section_title.replace_children(with:
-              <<~HTML
-                #{property[:text]} #{custom_section_title.text}</span>
-              HTML
-            )
+            custom_section_title.replace_children(with: property[:text] + custom_section_title.text)
           end
         end
       end

@@ -23,7 +23,7 @@ RSpec.describe Kitchen::Directions::BakeCustomSections::V1 do
             <span class="os-divider"> </span>
             <span class="os-text" data-type="" itemprop="">Tara Westover (b. 1986)</span>
           </h2>
-          <div><!-- no-selfclose --></div>
+          <div id="id1"><!-- no-selfclose --></div>
           <section class="peer-review" data-depth="1">
             <h3 data-type="title">Giving Specific Praise and Constructive Feedback</h3>
           </section>
@@ -52,7 +52,7 @@ RSpec.describe Kitchen::Directions::BakeCustomSections::V1 do
               <span class="os-divider"> </span>
               <span class="os-text" data-type="" itemprop="">Literacy Narrative Trailblazer</span>
             </h2>
-            <h3 class="os-subtitle">Tara Westover (b. 1986)</h3>
+            <h3 class="os-subtitle" id="id1">Tara Westover (b. 1986)</h3>
             <section class="peer-review" data-depth="1">
               <h3 data-type="title">Peer Review: Giving Specific Praise and Constructive Feedback</h3>
             </section>
@@ -60,7 +60,7 @@ RSpec.describe Kitchen::Directions::BakeCustomSections::V1 do
               <h3 data-type="title">Quick Launch: Defining Your Rhetorical Situation, Generating Ideas, and Organizing</h3>
             </section>
             <section class="living-words" data-depth="1">
-              <h3 data-type="title">Living by Their Own Words</h3>
+              <h3 class="os-title">Living by Their Own Words</h3>
               <h4 data-type="title">Literacy from Unexpected Sources</h4>
             </section>
             <section class="drafting" data-depth="1">
