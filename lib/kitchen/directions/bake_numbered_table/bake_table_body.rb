@@ -5,12 +5,12 @@ module Kitchen
     # Bake directions for table body
     #
     module BakeTableBody
-      def self.v1(table:, number:)
+      def self.v1(table:, number:, cases: false)
         table.remove_attribute('summary')
         table.wrap(%(<div class="os-table">))
 
-        table_label = "#{I18n.t(:table_label)} #{number}"
-        table.pantry(name: :link_text).store table_label, label: table.id
+        # Store label information
+        table.target_label(label_text: 'table', custom_content: number, cases: cases)
 
         if table.top_titled?
           table.parent.add_class('os-top-titled-container')
