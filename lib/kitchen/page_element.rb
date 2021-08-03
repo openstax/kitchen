@@ -63,9 +63,12 @@ module Kitchen
 
     # Returns  replaces generic call to page.count_in(:chapter)
     #
-    # return [Integer]
+    # @raise [StandardError] if called on an introduction page
+    # @return [Integer]
     #
     def count_in_chapter_without_intro_page
+      raise 'Introduction pages cannot be counted with this method' if is_introduction?
+
       count_in(:chapter) - (ancestor(:chapter).has_introduction? ? 1 : 0)
     end
 
