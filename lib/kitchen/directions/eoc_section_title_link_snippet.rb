@@ -4,14 +4,13 @@ module Kitchen
   module Directions
     module EocSectionTitleLinkSnippet
       def self.v1(page:, title_tag: 'h3', wrapper: 'link')
-
         if page.is_introduction?
           os_number = ''
         else
           chapter = page.ancestor(:chapter)
           os_number =
             <<~HTML
-              <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in(:chapter)}</span>
+              <span class="os-number">#{chapter.count_in(:book)}.#{page.count_in_chapter_without_intro_page}</span>
               <span class="os-divider"> </span>
             HTML
         end
