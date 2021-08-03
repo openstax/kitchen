@@ -32,9 +32,9 @@ RSpec.describe Kitchen::Directions::BakeCustomSections::V1 do
           </section>
           <section class="living-words" data-depth="1">
             <h3 data-type="title">Literacy from Unexpected Sources</h3>
-          <section>
+          </section>
           <section class="drafting" data-depth="1">
-          <h3 data-type="title">Writing from Personal Experience and Observation</h3>
+            <h3 data-type="title">Writing from Personal Experience and Observation</h3>
           </section>
         </div>
       HTML

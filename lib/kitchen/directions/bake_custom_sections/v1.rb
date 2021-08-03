@@ -39,12 +39,16 @@ module Kitchen::Directions::BakeCustomSections
 
           case inject
           when 'title'
-            custom_section_title = custom_section.at('h2')
-            custom_section_title_os_text = custom_section.at('h2').first('.os-text')
-            custom_section_title_sibling = custom_section_title.raw.next
-            custom_section_title_sibling.name = 'h3'
-            custom_section_title_sibling.add_class('os-subtitle')
-            custom_section_title_sibling.children = custom_section_title_os_text.text
+            custom_section_title = custom_section.first('h2')
+            custom_section_title_os_text = custom_section_title.first('.os-text')
+            custom_section_title_sibling = custom_section.first('h2 + div')
+            div_id = custom_section_title_sibling["id"]
+            custom_section_title_sibling.trash
+            custom_section_title.append(sibling:
+              <<~HTML
+                <h3 class="os-subtitle" id="#{div_id}">#{custom_section_title_os_text.text}</h3>
+              HTML
+            )
             custom_section_title_os_text.replace_children(with:
               <<~HTML
                 #{property[:text]}
