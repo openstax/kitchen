@@ -49,7 +49,7 @@ module Kitchen
     # @return [Boolean]
     #
     def has_introduction?
-      introduction_page.present?
+      @has_introduction ||= introduction_page.present?
     end
 
     # Returns an enumerator for the glossaries
