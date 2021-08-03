@@ -5,7 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+* Create `BakeCustomSections` direction (minor)
+* Update `BakeFirstElement` to optionally add the `has-first-inline-element` class (patch)
+* Patch `BakeExample` crashing if an example has commentary but no title (patch)
+* Refactor `EocSectionTitleLinkSnippet` to only have v1 with optional params (major)
 
+## [10.0.0] - 2021-07-30
+
+* Add support for baking multipart questions to `BakeNumberedExercise` (minor)
 * Add `has_para` option to `BakeChapterGlossary` for books from Adaptarr (minor)
 * Create `BakeListsWithPara` to remove paragraphs from lists in books created by Adaptarr (minor)
 * Create `Strategy::ContemporaryMath` (minor)
