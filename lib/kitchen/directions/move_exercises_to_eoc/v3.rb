@@ -11,7 +11,7 @@ module Kitchen::Directions::MoveExercisesToEOC
         container_key: klass,
         uuid_key: "#{uuid_prefix}#{klass}",
         section_selector: "section.#{klass}",
-        append_to: append_to || chapter,
+        append_to: append_to || chapter
       ) do |exercise_section|
         Kitchen::Directions::RemoveSectionTitle.v1(section: exercise_section)
         title = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(
