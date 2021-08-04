@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Patch `BakeExample` crashing if an example has commentary but no title (patch)
+* Refactor `EocSectionTitleLinkSnippet` to only have v1 with optional params (major)
+
+## [10.0.0] - 2021-07-30
+
+* Add support for baking multipart questions to `BakeNumberedExercise` (minor)
+* Add `has_para` option to `BakeChapterGlossary` for books from Adaptarr (minor)
+* Create `BakeListsWithPara` to remove paragraphs from lists in books created by Adaptarr (minor)
+* Create `Strategy::ContemporaryMath` (minor)
+* Stop `BakeTableBody` from blowing up when table doesn't have an ID (patch)
+* Refactor `MoveExercisesToEOC::V2` & `BakeChapterKeyConcepts` to use `MoveCustomSectionToEocContainer` (minor)
+* Add wrapper support for `MoveCustomSectionToEocContainer` (minor)
+* Create `BakeHandbook` direction (minor)
 * Add `ExampleElement#titles_to_rename` & refactor `BakeExample` (patch)
 * Create `BakeUnitPageTitle` (minor)
 * Fix `BakeExample` to skip baked exercises (patch)

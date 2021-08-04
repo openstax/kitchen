@@ -750,7 +750,7 @@ module Kitchen
 
           element_label_case = element_labels[label_case]
 
-          pantry(name: "#{label_case}_link_text").store element_label_case, label: id
+          pantry(name: "#{label_case}_link_text").store element_label_case, label: id if id
         end
       else
         element_label = if label_text
@@ -758,7 +758,7 @@ module Kitchen
                         else
                           custom_content
                         end
-        pantry(name: :link_text).store element_label, label: id
+        pantry(name: :link_text).store element_label, label: id if id
       end
     end
 
