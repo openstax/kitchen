@@ -128,7 +128,7 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
                 <span data-type="term" id="auto_composite_page_term2" group-by="c">composite page at the top level</span>
               </div>
             </div>
-            <div class="os-eob os-index-name-container " data-type="composite-page" data-uuid-key=".index-name">
+            <div class="os-eob os-index-name-container" data-type="composite-page" data-uuid-key=".index-name">
               <h1 data-type="document-title">
                 <span class="os-text">Skorowidz nazwisk</span>
               </h1>
@@ -163,7 +163,7 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
                 </div>
               </div>
             </div>
-            <div class="os-eob os-index-term-container " data-type="composite-page" data-uuid-key=".index-term">
+            <div class="os-eob os-index-term-container" data-type="composite-page" data-uuid-key=".index-term">
               <h1 data-type="document-title">
                 <span class="os-text">Skorowidz rzeczowy</span>
               </h1>
@@ -235,7 +235,7 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
                 </div>
               </div>
             </div>
-            <div class="os-eob os-index-foreign-container " data-type="composite-page" data-uuid-key=".index-foreign">
+            <div class="os-eob os-index-foreign-container" data-type="composite-page" data-uuid-key=".index-foreign">
               <h1 data-type="document-title">
                 <span class="os-text">Skorowidz terminów obcojęzycznych</span>
               </h1>

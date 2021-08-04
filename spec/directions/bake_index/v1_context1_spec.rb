@@ -65,7 +65,7 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
       described_class.new.bake(book: book1, types: %w[main])
       expect(book1.first('.os-index-container').to_s).to match_normalized_html(
         <<~HTML
-          <div class="os-eob os-index-container " data-type="composite-page" data-uuid-key="index">
+          <div class="os-eob os-index-container" data-type="composite-page" data-uuid-key="index">
             <h1 data-type="document-title">
               <span class="os-text">Index</span>
             </h1>
