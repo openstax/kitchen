@@ -6,7 +6,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedTable::V1 do
 
   before do
     stub_locales({
-      'table_label': 'Table'
+      'table': 'Table'
     })
   end
 
@@ -277,6 +277,47 @@ RSpec.describe Kitchen::Directions::BakeNumberedTable::V1 do
           </div>
         HTML
       )
+    end
+  end
+
+  context 'when book uses grammatical cases' do
+    it 'bakes another kind of table with cases' do
+      with_locale(:pl) do
+        stub_locales({
+          'table': {
+            'nominative': 'Tabela'
+          }
+        })
+        described_class.new.bake(table: other_table, number: '2.3', cases: true)
+        expect(other_table.document.search('.os-table').first).to match_normalized_html(
+          <<~HTML
+            <div class="os-table">
+              <table class="some-class" id="tId">
+                <thead>
+                  <tr>
+                    <th>A title</th>
+                  </tr>
+                  <tr>
+                    <th>Another heading cell</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>One lonely cell</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="os-caption-container">
+                <span class="os-title-label">Tabela </span>
+                <span class="os-number">2.3</span>
+                <span class="os-divider"> </span>
+                <span class="os-divider"> </span>
+                <span class="os-caption">A caption</span>
+              </div>
+            </div>
+          HTML
+        )
+      end
     end
   end
 
