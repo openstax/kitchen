@@ -7,7 +7,10 @@ module Kitchen
         book.chapters.each do |chapter|
           chapter_outline_html = ''
 
-          if bake_chapter_objectives
+          case bake_chapter_objectives
+          when 'title'
+            # Go through chapter objective titles and give them a nice title
+          when true
             outline_items_html = chapter.non_introduction_pages.map do |page|
 
               <<~HTML
