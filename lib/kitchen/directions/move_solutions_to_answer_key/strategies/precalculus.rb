@@ -27,7 +27,16 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
       protected
 
       def try_note_solutions(chapter:, append_to:)
-        chapter.non_introduction_pages.each do |page|
+        append_to.append(child:
+          <<~HTML
+            <div class="os-module-reset-solution-area os-try-solution-area">
+              <h3 data-type="title">
+                <span class="os-title-label">#{I18n.t(:"notes.try")}</span>
+              </h3>
+            </div>
+          HTML
+        )
+        chapter.pages.each do |page|
           solutions = Kitchen::Clipboard.new
           page.notes('$.try').each do |note|
             note.exercises.each do |exercise|
@@ -42,19 +51,10 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
             wrapper: 'div'
           )
 
-          append_to.append(child:
-            <<~HTML
-              <div class="os-module-reset-solution-area os-try-solution-area">
-                <h3 data-type="title">
-                  <span class="os-title-label">#{I18n.t(:"notes.try")}</span>
-                </h3>
-                #{
-                  Kitchen::Directions::SolutionAreaSnippet.v1(
-                    title: title_snippet, solutions_clipboard: solutions
-                  )
-                }
-              </div>
-            HTML
+          append_to.first('div.os-try-solution-area').append(child:
+            Kitchen::Directions::SolutionAreaSnippet.v1(
+              title: title_snippet, solutions_clipboard: solutions
+            )
           )
         end
       end
