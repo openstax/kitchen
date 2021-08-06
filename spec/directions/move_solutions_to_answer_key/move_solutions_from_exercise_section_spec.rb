@@ -1,14 +1,17 @@
 # frozen_string_literal: true
 
 RSpec.describe Kitchen::Directions::MoveSolutionsFromExerciseSection do
+  # rubocop:disable Style/FormatStringToken
+  # Token formatting within locales is different from template formatting & shouldn't be linted.
   before do
     stub_locales({
       'eoc': {
         'exercise-section': 'Exercise Section',
-        'another-exercise-section': 'Another Exercise %{number} Section' # section_exercises: ! 'Section %{number} Exercises'
+        'another-exercise-section': 'Another Exercise %{number} Section'
       }
     })
   end
+  # rubocop:enable Style/FormatStringToken
 
   let(:section_with_exercises) do
     book_containing(html:
