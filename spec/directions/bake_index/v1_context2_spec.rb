@@ -56,7 +56,7 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
           <div data-type="composite-chapter">
             <div data-type="document-title">Chapter Review</div>
             <div data-type="composite-page">
-              <div data-type="title">EOC Section Title</div>
+              <h3 data-type="title">EOC Section Title</h3>
               <span data-type="term">composite page in a composite chapter</span>
             </div>
           </div>
@@ -64,7 +64,7 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
         <div data-type="chapter">
           <div data-type="page" id="p4"/>
           <div data-type="composite-page">
-            <div data-type="document-title">Another EOC Section</div>
+            <h2 data-type="document-title">Another EOC Section</h2>
             <span data-type="term">composite page at the top level</span>
           </div>
         </div>
@@ -116,7 +116,7 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
               <div data-type="composite-chapter">
                 <div data-type="document-title">Chapter Review</div>
                 <div data-type="composite-page">
-                  <div data-type="title">EOC Section Title</div>
+                  <h3 data-type="title">EOC Section Title</h3>
                   <span data-type="term" id="auto_composite_page_term1" group-by="c">composite page in a composite chapter</span>
                 </div>
               </div>
@@ -124,7 +124,7 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
             <div data-type="chapter">
               <div data-type="page" id="p4"/>
               <div data-type="composite-page">
-                <div data-type="document-title">Another EOC Section</div>
+                <h2 data-type="document-title">Another EOC Section</h2>
                 <span data-type="term" id="auto_composite_page_term2" group-by="c">composite page at the top level</span>
               </div>
             </div>

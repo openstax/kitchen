@@ -7,6 +7,58 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Modify `BakeIndex` to bake multiple types of indexes (minor)
+* Fix `BakeUnitPageTite` to utilize only pages which are direct children of the unit (patch)
+* Patch `BakeFirstElements` to include first figure elements (patch)
+* Refactor `MoveCustomSectionToEocContainer` to remove `include_intro_page` (major)
+* Update `BakeFirstElement` to optionally add the `has-first-inline-element` class (patch)
+* Patch `BakeExample` crashing if an example has commentary but no title (patch)
+* Refactor `EocSectionTitleLinkSnippet` to only have v1 with optional params (major)
+* Adds `PageElement#count_in_chapter_without_intro_page` (minor)
+* Adds `ChapterElement#has_introduction?` (minor)
+* Adds `BakeFolio` to set spanish translation variables in the html tag for folio-pdf purposes (minor)
+
+## [10.0.0] - 2021-07-30
+
+* Add support for baking multipart questions to `BakeNumberedExercise` (minor)
+* Add `has_para` option to `BakeChapterGlossary` for books from Adaptarr (minor)
+* Create `BakeListsWithPara` to remove paragraphs from lists in books created by Adaptarr (minor)
+* Create `Strategy::ContemporaryMath` (minor)
+* Stop `BakeTableBody` from blowing up when table doesn't have an ID (patch)
+* Refactor `MoveExercisesToEOC::V2` & `BakeChapterKeyConcepts` to use `MoveCustomSectionToEocContainer` (minor)
+* Add wrapper support for `MoveCustomSectionToEocContainer` (minor)
+* Create `BakeHandbook` direction (minor)
+* Add `ExampleElement#titles_to_rename` & refactor `BakeExample` (patch)
+* Create `BakeUnitPageTitle` (minor)
+* Fix `BakeExample` to skip baked exercises (patch)
+* Add `FigureElement#figure_to_bake?` (minor)
+* Remove `itemprop` attribute from `BakeChapterSummary` and `BakeFurtherResearch` (major)
+* Fix `NoteElement#title` to exclude nested element titles (patch)
+* Remove `BakeTheorem` (minor)
+* Allow `BakeChapterSolutions` to bake solutions from multiple sections (minor)
+* Add `.os-problem-container` to `BakeFirstElement` selectors (minor)
+* Tweak `BakeExample` to not touch unbaked titles in captions (minor/patch)
+* Tweak `BakeNumberedTables.v1` to cut extra white space (minor)
+
+## [9.2.0] - 2021-07-19
+
+* Update `BakeFirstElements` to also add the `.has-first-inline-list` class (minor)
+
+## [9.1.0] - 2021-07-16
+
+* Add `BakeNoteIFrames` direction (minor)
+* Selector optimization in precalculus `Strategy` & elsewhere (patch)
+* Tweaks inline list seperators to only target labeled items (major?)
+* Add definition of handbook page selector needed for BakeToc, create a link class for this page (minor)
+
+## [9.0.0] - 2021-07-12
+
+* Refactor `BakeChapterKeyConcepts`, `BakeChapterReferences`, `BakeChapterSolutions`, and `MoveExercisesToEoc` versions 1-3 to use new general eoc directions (major)
+* Fixed `BakeExample.v1` to also search inside `.body` for titles (minor)
+* Add documentation to `MoveCustomSectionToEocContainer` & `EocCompositePageContainer` (minor)
+* Add a `MoveCustomSectionToEocContainer` to allow for custom sections (minor)
+* Add a `EocCompositePageContainer` direction to handle creation of eoc page wrapper (minor)
+* Refactor `BakeChapterKeyEquations`, `BakeChapterGlossary`, `BakeChapterSummary`, `BakeFurtherResearch` (major)
+* Fix metadata title in composite pages (major)
 
 ## [8.0.1] - 2021-06-29
 

@@ -24,8 +24,8 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
 
       def bake_section(chapter:, append_to:, klass:, number: nil)
         section_solutions_set = Kitchen::Clipboard.new
-        chapter.search(".#{klass}").each do |section|
-          section.search('[data-type="solution"]').each do |solution|
+        chapter.search("section.#{klass}").each do |section|
+          section.search('div[data-type="solution"]').each do |solution|
             solution.cut(to: section_solutions_set)
           end
         end
@@ -56,15 +56,18 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
           page.notes('$.try').each do |note|
             note.exercises.each do |exercise|
               solution = exercise.solution
-              solution&.cut(to: solutions) #if solution
+              solution&.cut(to: solutions)
             end
           end
           next if solutions.items.empty?
 
-          title_snippet = Kitchen::Directions::EocSectionTitleLinkSnippet.v2(page: page)
+          title_snippet = Kitchen::Directions::EocSectionTitleLinkSnippet.v1(
+            page: page,
+            wrapper: 'div'
+          )
 
           append_solution_area(title: title_snippet, solutions: solutions,
-                               append_to: append_to.search('.os-try-solution-area').first)
+                               append_to: append_to.search('div.os-try-solution-area').first)
         end
       end
 

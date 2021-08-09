@@ -58,7 +58,18 @@ module Kitchen
     # @return [Boolean]
     #
     def is_introduction?
-      has_class?('introduction')
+      @is_introduction ||= has_class?('introduction')
+    end
+
+    # Returns  replaces generic call to page.count_in(:chapter)
+    #
+    # @raise [StandardError] if called on an introduction page
+    # @return [Integer]
+    #
+    def count_in_chapter_without_intro_page
+      raise 'Introduction pages cannot be counted with this method' if is_introduction?
+
+      count_in(:chapter) - (ancestor(:chapter).has_introduction? ? 1 : 0)
     end
 
     # Returns true if this page is a preface
@@ -103,20 +114,20 @@ module Kitchen
       first!('section.exercises')
     end
 
-    # Returns the key concepts
-    #
-    # @return [Element]
-    #
-    def key_concepts
-      search('section.key-concepts')
-    end
-
     # Returns the free response questions
     #
     # @return [Element]
     #
     def free_response
       search('section.free-response')
+    end
+
+    # Returns true if this page is a handbook
+    #
+    # @return [Boolean]
+    #
+    def is_handbook?
+      has_class?('handbook')
     end
 
   end

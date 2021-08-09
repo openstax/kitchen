@@ -6,7 +6,9 @@ RSpec.describe Kitchen::Directions::BakeFurtherResearch do
 
   before do
     stub_locales({
-      'eoc_further_research_title': 'Further Research'
+      'eoc': {
+        'further-research': 'Further Research'
+      }
     })
   end
 
@@ -17,7 +19,7 @@ RSpec.describe Kitchen::Directions::BakeFurtherResearch do
           <h1 data-type="document-title" itemprop="name" id="intro">Introduction page!</h1>
           <section class="further-research" data-element-type="further-research">
               <h3 data-type='title'>Kitchen Prep</h3>
-              <p>This should stay where it is.</p>
+              <p>This moves too!</p>
           </section>
         </div>
         <div data-type='page' id ="01">
@@ -53,10 +55,6 @@ RSpec.describe Kitchen::Directions::BakeFurtherResearch do
           <div data-type="chapter">
             <div data-type='page' id="00" class="introduction">
               <h1 data-type="document-title" id="intro" itemprop="name">Introduction page!</h1>
-              <section class="further-research" data-element-type="further-research">
-                <h3 data-type='title'>Kitchen Prep</h3>
-                <p>This should stay where it is.</p>
-              </section>
             </div>
             <div data-type="page" id="01">
               <h1 data-type="document-title" id="first" itemprop="name">First Title</h1>
@@ -66,7 +64,7 @@ RSpec.describe Kitchen::Directions::BakeFurtherResearch do
             </div>
             <div class="os-eoc os-further-research-container" data-type="composite-page" data-uuid-key=".further-research">
               <h2 data-type="document-title">
-                <span class="os-text">#{I18n.t(:eoc_further_research_title)}</span>
+                <span class="os-text">Further Research</span>
               </h2>
               <div data-type="metadata" style="display: none;">
                 <h1 data-type="document-title" itemprop="name">Further Research</h1>
@@ -77,8 +75,16 @@ RSpec.describe Kitchen::Directions::BakeFurtherResearch do
                 <div data-type="subject" id="subject_copy_1">Subject</div>
               </div>
               <section class="further-research" data-element-type="further-research">
+                <a href="#intro">
+                  <h3 data-type="document-title" id="intro_copy_1">
+                    <span class="os-text" data-type="" itemprop="">Introduction page!</span>
+                  </h3>
+                </a>
+                <p>This moves too!</p>
+              </section>
+              <section class="further-research" data-element-type="further-research">
                 <a href="#first">
-                  <h3 data-type="document-title" id="first_copy_1" itemprop="name">
+                  <h3 data-type="document-title" id="first_copy_1">
                     <span class="os-number">1.1</span>
                     <span class="os-divider"> </span>
                     <span class="os-text" data-type="" itemprop="">First Title</span>
@@ -88,7 +94,7 @@ RSpec.describe Kitchen::Directions::BakeFurtherResearch do
               </section>
               <section class="further-research" data-element-type="further-research">
                 <a href="#second">
-                  <h3 data-type="document-title" id="second_copy_1" itemprop="name">
+                  <h3 data-type="document-title" id="second_copy_1">
                     <span class="os-number">1.2</span>
                     <span class="os-divider"> </span>
                     <span class="os-text" data-type="" itemprop="">Second Title</span>
