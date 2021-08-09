@@ -5,7 +5,8 @@ require 'spec_helper'
 RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
   before do
     stub_locales({
-      'chapter_outline': 'Chapter Outline'
+      'chapter_outline': 'Chapter Outline',
+      'chapter_objectives': 'Chapter Objectives'
     })
   end
 
@@ -40,6 +41,31 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
           </div>
           <div data-type="page">
             <div data-type="document-title">should be objective 2.1</div>
+          </div>
+        </div>
+      HTML
+    )
+  end
+
+  let(:book_with_intro_objectives) do
+    book_containing(html:
+      <<~HTML
+        <div data-type="chapter">
+          <div class="introduction" data-type="page">
+            <div data-type="document-title">Introduction 1</div>
+            <div data-type="description">trash this</div>
+            <div data-type="abstract">and this</div>
+            <div data-type="metadata">don't touch this</div>
+            <figure class="splash">can't touch this (stop! hammer time)</figure>
+            <figure>move this</figure>
+            <div>content</div>
+            <div data-type="note" data-has-label="true" id="1" class="chapter-objectives">
+              <div data-type="title">Chapter Objectives</div>
+              <p>Some Text</p>
+              <ul>
+                <li>Some List</li>
+              </ul>
+            </div>
           </div>
         </div>
       HTML
@@ -171,6 +197,44 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
               </div>
               <div data-type="page">
                 <div data-type="document-title">should be objective 2.1</div>
+              </div>
+            </div>
+          </body>
+        HTML
+      )
+    end
+  end
+
+  context 'when v1 is called on a book with chapter-objectives: div' do
+    it 'works' do
+      described_class.v1(book: book_with_intro_objectives, bake_chapter_objectives: 'div')
+      expect(book_with_intro_objectives.body).to match_normalized_html(
+        <<~HTML
+          <body>
+            <div data-type="chapter">
+              <div class="introduction" data-type="page">
+                <div data-type="metadata">don't touch this</div>
+                <figure class="splash">can't touch this (stop! hammer time)</figure>
+                <div class="intro-body">
+                <div class="chapter-objectives" data-has-label="true" data-type="note" id="1">
+                  <h3 class="os-title" data-type="title">
+                    <span class="os-title-label">Chapter Objectives</span>
+                  </h3>
+                  <div class="os-note-body">
+                    <p>Some Text</p>
+                    <ul>
+                      <li>Some List</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="intro-text">
+                    <h2 data-type="document-title">
+                      <span class="os-text" data-type="" itemprop="">Introduction 1</span>
+                    </h2>
+                    <figure>move this</figure>
+                    <div>content</div>
+                  </div>
+                </div>
               </div>
             </div>
           </body>

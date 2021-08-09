@@ -7,9 +7,23 @@ module Kitchen
         book.chapters.each do |chapter|
           chapter_outline_html = ''
 
-          if bake_chapter_objectives
+          case bake_chapter_objectives
+          when 'div'
+            chapter_objectives = chapter.first('div.chapter-objectives')&.cut
+            if chapter_objectives
+              chapter_objectives.search('div[data-type="title"]')&.trash
+              chapter_objectives.wrap_children('div', class: 'os-note-body')
+              chapter_objectives.prepend(child:
+                <<~HTML
+                  <h3 class="os-title" data-type="title">
+                    <span class="os-title-label">#{I18n.t(:chapter_objectives)}</span>
+                  </h3>
+                HTML
+              )
+              chapter_outline_html = chapter_objectives.cut
+            end
+          when true
             outline_items_html = chapter.non_introduction_pages.map do |page|
-
               <<~HTML
                 <div class="os-chapter-objective">
                   <a class="os-chapter-objective" href="##{page.title[:id]}">
@@ -38,7 +52,9 @@ module Kitchen
           title.name = 'h2'
           MoveTitleTextIntoSpan.v1(title: title)
 
-          intro_content = introduction_page.search("> :not([data-type='metadata']):not(.splash):not(.has-splash)").cut
+          intro_content = introduction_page
+                          .search("> :not([data-type='metadata']):not(.splash):not(.has-splash)")
+                          .cut
 
           introduction_page.append(child:
             <<~HTML
