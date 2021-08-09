@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adds `PageElement#count_in_chapter_without_intro_page` (minor)
 * Adds `ChapterElement#has_introduction?` (minor)
 * Adds `BakeFolio` to set spanish translation variables in the html tag for folio-pdf purposes (minor)
+* Refactor `EocCompositePageContainer` to be used by `EOB` sections as well
+* Refactor `bake_references` `v1, v2 and v3` to use `CompositePageContainer`
 
 ## [10.0.0] - 2021-07-30
 

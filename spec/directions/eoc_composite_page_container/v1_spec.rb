@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::EocCompositePageContainer do
+RSpec.describe Kitchen::Directions::CompositePageContainer do
   before do
     stub_locales({
       'eoc': {

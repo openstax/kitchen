@@ -1,5 +1,5 @@
-<% main_title_tag = @in_composite_chapter ? 'h3' : 'h2' %>
-<div class="os-eoc os-<%=@container_class_type%>-container" data-type="composite-page" data-uuid-key="<%= @uuid_key %>">
+<% main_title_tag = @in_composite_chapter ? 'h3' : @is_eoc ? 'h2' : 'h1' %>
+<div class="os-<%= @section%> os-<%=@container_class_type%>-container" data-type="composite-page" data-uuid-key="<%= @uuid_key %>">
   <<%= main_title_tag %> data-type="<%= @in_composite_chapter ? 'title' : 'document-title' %>">
     <span class="os-text"><%= @title %></span>
   </<%= main_title_tag %>>
