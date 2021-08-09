@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Create V2 for `BakeIndex` to bake different types of indexes (minor)
+* Modify `BakeIndex` to bake multiple types of indexes (minor)
 
 ## [8.0.1] - 2021-06-29
 
