@@ -56,63 +56,59 @@ RSpec.describe Kitchen::Directions::BakeReferences::V1 do
     described_class.new.bake(book: book1)
     expect(book1.body.chapters).to match_normalized_html(
       <<~HTML
-        <div data-type="chapter">
-        <h1 data-type="document-title" id="chapTitle1">
-          <span class="os-part-text">Chapter </span>
-          <span class="os-number">1</span>
-          <span class="os-divider"> </span>
-          <span class="os-text" data-type="" itemprop="">Title Text Chapter 1</span>
-        </h1>
-        <div data-type="page">
-          #{metadata_element}
-          <p>
-            <a href="#auto_12345" data-type="cite"><sup class="os-citation-number">1</sup>
-
-
-            </a>
-            <a href="#auto_54321" data-type="cite"><sup class="os-citation-number">2</sup>
-
-
-            </a>
-          </p>
+          <div data-type="chapter">
+          <h1 data-type="document-title" id="chapTitle1">
+            <span class="os-part-text">Chapter </span>
+            <span class="os-number">1</span>
+            <span class="os-divider"> </span>
+            <span class="os-text" data-type="" itemprop="">Title Text Chapter 1</span>
+          </h1>
+          <div data-type="page">
+            #{metadata_element}
+            <p>
+              <a href="#auto_12345" data-type="cite"><sup class="os-citation-number">1</sup>
+              </a>
+              <a href="#auto_54321" data-type="cite"><sup class="os-citation-number">2</sup>
+              </a>
+            </p>
+          </div>
+        <div class="os-chapter-area">
+          <h2 data-type="document-title"><span class="os-text" data-type="" itemprop="">Title Text Chapter 1</span></h2>
+          <div data-type="note" class="reference" display="inline" id="auto_12345"><span class="os-reference-number">1. </span>
+                  Reference 1
+                </div><div data-type="note" class="reference" display="inline" id="auto_54321"><span class="os-reference-number">2. </span>
+                  Reference 2
+                </div>
         </div>
-      <div class="os-chapter-area">
-        <h2 data-type="document-title"><span class="os-text" data-type="" itemprop="">Title Text Chapter 1</span></h2>
-        <div data-type="note" class="reference" display="inline" id="auto_12345"><span class="os-reference-number">1. </span>
-                Reference 1
-              </div><div data-type="note" class="reference" display="inline" id="auto_54321"><span class="os-reference-number">2. </span>
-                Reference 2
-              </div>
-      </div>
-      </div><div data-type="chapter">
-        <h1 data-type="document-title" id="chapTitle2">
-          <span class="os-part-text">Chapter </span>
-          <span class="os-number">2</span>
-          <span class="os-divider"> </span>
-          <span class="os-text" data-type="" itemprop="">Title Text Chapter 2</span>
-        </h1>
-        <div data-type="page">
-          <div data-type="metadata" style="display: none;">
-        <div class="authors" id="authors">Authors</div>
-        <div class="publishers" id="publishers">Publishers</div>
-        <div class="print-style" id="print-style">Print Style</div>
-        <div class="permissions" id="permissions">Permissions</div>
-        <div data-type="subject" id="subject">Subject</div>
-      </div>
-          <p>
-            <a href="#auto_6789" data-type="cite"><sup class="os-citation-number">1</sup>
-
-
-            </a>
-          </p>
+        </div><div data-type="chapter">
+          <h1 data-type="document-title" id="chapTitle2">
+            <span class="os-part-text">Chapter </span>
+            <span class="os-number">2</span>
+            <span class="os-divider"> </span>
+            <span class="os-text" data-type="" itemprop="">Title Text Chapter 2</span>
+          </h1>
+          <div data-type="page">
+            <div data-type="metadata" style="display: none;">
+          <div class="authors" id="authors">Authors</div>
+          <div class="publishers" id="publishers">Publishers</div>
+          <div class="print-style" id="print-style">Print Style</div>
+          <div class="permissions" id="permissions">Permissions</div>
+          <div data-type="subject" id="subject">Subject</div>
         </div>
-      <div class="os-chapter-area">
-        <h2 data-type="document-title"><span class="os-text" data-type="" itemprop="">Title Text Chapter 2</span></h2>
-        <div data-type="note" class="reference" display="inline" id="auto_6789"><span class="os-reference-number">1. </span>
-                Reference 3
-              </div>
-      </div>
-      </div>
+            <p>
+              <a href="#auto_6789" data-type="cite"><sup class="os-citation-number">1</sup>
+
+
+              </a>
+            </p>
+          </div>
+        <div class="os-chapter-area">
+          <h2 data-type="document-title"><span class="os-text" data-type="" itemprop="">Title Text Chapter 2</span></h2>
+          <div data-type="note" class="reference" display="inline" id="auto_6789"><span class="os-reference-number">1. </span>
+                  Reference 3
+                </div>
+        </div>
+        </div>
       HTML
     )
   end
