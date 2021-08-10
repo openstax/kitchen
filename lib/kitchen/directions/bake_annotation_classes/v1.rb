@@ -19,7 +19,7 @@ module Kitchen::Directions::BakeAnnotationClasses
                                    auditory-icon kinesthetic-icon]
       annotation_icon_classes.each do |annotation_icon_class|
         chapter.search("p.#{annotation_icon_class}").each do |annotation_with_icon_class|
-          annotation_with_icon_class.search('.os-icons').first.append(child:
+          annotation_with_icon_class.search('div.os-icons').first.append(child:
             <<~HTML
               <span class = "#{annotation_icon_class}"></span>
             HTML
