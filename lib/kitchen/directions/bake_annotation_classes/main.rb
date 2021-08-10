@@ -10,4 +10,3 @@ module Kitchen
     end
   end
 end
-
