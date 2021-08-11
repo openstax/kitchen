@@ -32,7 +32,8 @@ module Kitchen::Directions::BakeCustomSections
             )
           when 'title_prefix'
             custom_section_title = custom_section.titles.first
-            custom_section_title.replace_children(with: "#{title_text}: " + custom_section_title.text)
+            custom_section_title.replace_children(with: "#{title_text}: " +
+                                                  custom_section_title.text)
           end
         end
       end
