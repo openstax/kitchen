@@ -18,11 +18,12 @@ module Kitchen::Directions::BakeChapterIntroductions
           '> :not([data-type="metadata"]):not(.splash):not(.has-splash)'
         ).cut
 
-        chapter_outline_html = Kitchen::Directions::BakeChapterIntroductions.bake_chapter_objectives(
-          chapter: chapter,
-          bake_chapter_objectives: bake_chapter_objectives,
-          bake_chapter_outline: bake_chapter_outline
-        )
+        chapter_outline_html =
+          Kitchen::Directions::BakeChapterIntroductions.bake_chapter_objectives(
+            chapter: chapter,
+            bake_chapter_objectives: bake_chapter_objectives,
+            bake_chapter_outline: bake_chapter_outline
+          )
 
         introduction_page.append(child:
           <<~HTML
