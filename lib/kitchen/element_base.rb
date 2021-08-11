@@ -725,10 +725,6 @@ module Kitchen
       end
     end
 
-    def last_element
-      node.last_element_child
-    end
-
     # Creates labels for links to inside elements
     # like Figures, Tables, Equations, Exercises, Notes.
     #
