@@ -16,7 +16,8 @@ module Kitchen::Directions::BakeAnnotationClasses
                                    dreaming-icon
                                    visual-icon
                                    speech-icon
-                                   auditory-icon kinesthetic-icon]
+                                   auditory-icon
+                                   kinesthetic-icon]
       annotation_icon_classes.each do |annotation_icon_class|
         chapter.search("p.#{annotation_icon_class}").each do |annotation_with_icon_class|
           annotation_with_icon_class.search('div.os-icons').first.append(child:
