@@ -6,14 +6,44 @@ RSpec.describe Kitchen::Directions::BakeCustomSections::V1 do
 
   before do
     stub_locales({
-      'custom_sections': {
-        'narrative_trailblazer': 'Literacy Narrative Trailblazer',
-        'living_words': 'Living by Their Own Words',
-        'quick_launch': 'Quick Launch:',
-        'drafting': 'Drafting:',
-        'peer-review': 'Peer Review:'
+      'custom-sections': {
+        'narrative-trailblazer': 'Literacy Narrative Trailblazer',
+        'living-words': 'Living by Their Own Words',
+        'quick-launch': 'Quick Launch',
+        'drafting': 'Drafting',
+        'peer-review': 'Peer Review',
+        'revising': 'Revising'
         }
       })
+  end
+
+  let(:custom_sections_properties) do
+    {
+      living_words: {
+        class: 'living-words',
+        inject: 'subtitle'
+      },
+      narrative_trailblazer: {
+        class: 'narrative-trailblazer',
+        inject: 'title'
+      },
+      quick_launch: {
+        class: 'quick-launch',
+        inject: 'title_prefix'
+      },
+      drafting: {
+        class: 'drafting',
+        inject: 'title_prefix'
+      },
+      peer_review: {
+        class: 'peer-review',
+        inject: 'title_prefix'
+      },
+      revising: {
+        class: 'revising',
+        inject: 'title_prefix'
+      }
+    }
   end
 
   let(:chapter) do
@@ -47,7 +77,7 @@ RSpec.describe Kitchen::Directions::BakeCustomSections::V1 do
   end
 
   it 'works' do
-    described_class.new.bake(chapter: chapter)
+    described_class.new.bake(chapter: chapter, custom_sections_properties: custom_sections_properties)
     expect(chapter).to match_normalized_html(
       <<~HTML
         <div data-type="chapter">

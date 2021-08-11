@@ -3,12 +3,11 @@
 module Kitchen
   module Directions
     module BakeCustomSections
-      def self.v1(chapter:, property_classes:, inject:, text:)
+      def self.v1(chapter:, custom_sections_properties:)
         V1.new.bake(
           chapter: chapter,
-          property_classes: property_classes,
-          inject: inject,
-          text: text)
+          custom_sections_properties: custom_sections_properties
+        )
       end
     end
   end
