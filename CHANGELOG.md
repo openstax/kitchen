@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Expand `BakeChapterIntroductions` to bake div.chapter-objectives in intro (minor)
+* Create `BakeChapterIntroductions.v2` to add chapter_objective_strategies (minor)
 * Fix `BakeUnitPageTite` to utilize only pages which are direct children of the unit (patch)
 * Patch `BakeFirstElements` to include first figure elements (patch)
 * Refactor `MoveCustomSectionToEocContainer` to remove `include_intro_page` (major)
