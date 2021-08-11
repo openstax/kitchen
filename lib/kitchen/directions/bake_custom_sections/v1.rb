@@ -21,7 +21,7 @@ module Kitchen::Directions::BakeCustomSections
                 <h3 class="os-subtitle" id="#{div_id}">#{custom_section_title_os_text.text}</h3>
               HTML
             )
-            custom_section_title_os_text.replace_children(with: "#{title_text}")
+            custom_section_title_os_text.replace_children(with: title_text)
           when 'subtitle'
             custom_section_title = custom_section.titles.first
             custom_section_title.name = 'h4'
