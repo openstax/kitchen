@@ -5,10 +5,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-* Create `BakeCustomSections` direction (minor)
+
+* Add `MoveSolutionsFromNumberedNote`, `MoveSolutionsFromExerciseSection`, and `SolutionAreaSnippet` for answer key baking (minor)
+* Refactor the following `Strategies`: contemporary math, precalculus, uphysics (minor)
+* Fix `BakeUnitPageTite` to utilize only pages which are direct children of the unit (patch)
+* Patch `BakeFirstElements` to include first figure elements (patch)
+* Refactor `MoveCustomSectionToEocContainer` to remove `include_intro_page` (major)
 * Update `BakeFirstElement` to optionally add the `has-first-inline-element` class (patch)
 * Patch `BakeExample` crashing if an example has commentary but no title (patch)
 * Refactor `EocSectionTitleLinkSnippet` to only have v1 with optional params (major)
+* Adds `PageElement#count_in_chapter_without_intro_page` (minor)
+* Adds `ChapterElement#has_introduction?` (minor)
+* Adds `BakeFolio` to set spanish translation variables in the html tag for folio-pdf purposes (minor)
+* Create `BakeCustomSections` direction for English Composition (minor)
 
 ## [10.0.0] - 2021-07-30
 
