@@ -10,7 +10,7 @@ module Kitchen
 
         # Store label information
         note_label = title.children
-        note.target_label(custom_content: note_label, cases: cases)
+        note.target_label(custom_content: note_label.to_s, cases: cases)
 
         title.name = 'h4'
         title.add_class('os-subtitle')
