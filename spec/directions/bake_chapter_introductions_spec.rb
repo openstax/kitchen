@@ -310,4 +310,44 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
     end
   end
 
+  context 'when v2 is called on a book with chapter-objectives strategy: ' do
+    it 'none works' do
+      described_class.v2(book: book_with_intro_objectives, chapter_objectives_strategy: :none)
+      expect(book_with_intro_objectives.body).to match_normalized_html(
+        <<~HTML
+          <body>
+            <div data-type="chapter">
+              <div class="introduction" data-type="page">
+                <div data-type="metadata">don't touch this</div>
+                <figure class="splash">can't touch this (stop! hammer time)</figure>
+                <div class="intro-body">
+                <div class="chapter-objectives" data-has-label="true" data-type="note" id="1">
+                  <div data-type="title">Chapter Objectives</div>
+                  <p>Some Text</p>
+                  <ul>
+                    <li>Some List</li>
+                  </ul>
+                </div>
+                <div class="intro-text">
+                    <h2 data-type="document-title">
+                      <span class="os-text" data-type="" itemprop="">Introduction 1</span>
+                    </h2>
+                    <figure>move this</figure>
+                    <div>content</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </body>
+        HTML
+      )
+    end
+
+    it 'other raises' do
+      expect {
+        described_class.v2(book: book_with_intro_objectives, chapter_objectives_strategy: :hello)
+      }.to raise_error('No such strategy')
+    end
+  end
+
 end
