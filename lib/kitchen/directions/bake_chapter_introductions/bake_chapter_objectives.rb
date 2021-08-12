@@ -2,12 +2,12 @@
 
 module Kitchen::Directions::BakeChapterIntroductions
   class BakeChapterObjectives
-    def bake(chapter:, bake_chapter_objectives:, bake_chapter_outline:)
+    def bake(chapter:, chapter_objectives_strategy: :default)
       chapter_outline_html = ''
 
-      if bake_chapter_objectives
-        outline_items_html = chapter.non_introduction_pages.map do |page|
-
+      case chapter_objectives_strategy
+      when :default
+        chapter_outline_html = chapter.non_introduction_pages.map do |page|
           <<~HTML
             <div class="os-chapter-objective">
               <a class="os-chapter-objective" href="##{page.title[:id]}">
@@ -18,15 +18,24 @@ module Kitchen::Directions::BakeChapterIntroductions
             </div>
           HTML
         end.join('')
-
-        if bake_chapter_outline
-          chapter_outline_html = <<~HTML
-            <div class="os-chapter-outline">
-              <h3 class="os-title">#{I18n.t(:chapter_outline)}</h3>
-              #{outline_items_html}
-            </div>
-          HTML
+      when :preexisting_title
+        chapter_objectives = chapter.first('[data-type="note"].chapter-objectives')&.cut
+        if chapter_objectives
+          chapter_objectives.search('div[data-type="title"]')&.trash
+          chapter_objectives.wrap_children('div', class: 'os-note-body')
+          chapter_objectives.prepend(child:
+            <<~HTML
+              <h3 class="os-title" data-type="title">
+                <span class="os-title-label">#{I18n.t(:chapter_objectives)}</span>
+              </h3>
+            HTML
+          )
+          chapter_outline_html = chapter_objectives.cut
         end
+      when :none
+        return
+      else
+        raise 'No such strategy'
       end
 
       chapter_outline_html

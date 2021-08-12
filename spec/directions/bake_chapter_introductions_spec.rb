@@ -5,7 +5,8 @@ require 'spec_helper'
 RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
   before do
     stub_locales({
-      'chapter_outline': 'Chapter Outline'
+      'chapter_outline': 'Chapter Outline',
+      'chapter_objectives': 'Chapter Objectives'
     })
   end
 
@@ -69,6 +70,31 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
             </div>
             <p id="123">Though you may approach a course in anatomy and physiology...</p>
             <p id="123">This chapter begins with an overview of anatomy and...</p>
+          </div>
+        </div>
+      HTML
+    )
+  end
+
+  let(:book_with_intro_objectives) do
+    book_containing(html:
+      <<~HTML
+        <div data-type="chapter">
+          <div class="introduction" data-type="page">
+            <div data-type="document-title">Introduction 1</div>
+            <div data-type="description">trash this</div>
+            <div data-type="abstract">and this</div>
+            <div data-type="metadata">don't touch this</div>
+            <figure class="splash">can't touch this (stop! hammer time)</figure>
+            <figure>move this</figure>
+            <div>content</div>
+            <div data-type="note" data-has-label="true" id="1" class="chapter-objectives">
+              <div data-type="title">Chapter Objectives</div>
+              <p>Some Text</p>
+              <ul>
+                <li>Some List</li>
+              </ul>
+            </div>
           </div>
         </div>
       HTML
@@ -210,7 +236,7 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
 
   context 'when v2 called on book without chapter outline' do
     it 'works' do
-      described_class.v2(book: book_with_diff_order, bake_chapter_outline: false)
+      described_class.v2(book: book_with_diff_order, chapter_objectives_strategy: :default)
       expect(book_with_diff_order.body).to match_normalized_html(
         <<~HTML
           <body>
@@ -236,6 +262,44 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
                     <h2 data-type="document-title"><span data-type="" itemprop="" class="os-text">Introduction</span></h2>
                     <p id="123">Though you may approach a course in anatomy and physiology...</p>
                     <p id="123_copy_1">This chapter begins with an overview of anatomy and...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </body>
+        HTML
+      )
+    end
+  end
+
+  context 'when v2 is called on a book with chapter-objectives: preexisting-title' do
+    it 'works' do
+      described_class.v2(book: book_with_intro_objectives, chapter_objectives_strategy: :preexisting_title)
+      expect(book_with_intro_objectives.body).to match_normalized_html(
+        <<~HTML
+          <body>
+            <div data-type="chapter">
+              <div class="introduction" data-type="page">
+                <div data-type="metadata">don't touch this</div>
+                <figure class="splash">can't touch this (stop! hammer time)</figure>
+                <div class="intro-body">
+                <div class="chapter-objectives" data-has-label="true" data-type="note" id="1">
+                  <h3 class="os-title" data-type="title">
+                    <span class="os-title-label">Chapter Objectives</span>
+                  </h3>
+                  <div class="os-note-body">
+                    <p>Some Text</p>
+                    <ul>
+                      <li>Some List</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="intro-text">
+                    <h2 data-type="document-title">
+                      <span class="os-text" data-type="" itemprop="">Introduction 1</span>
+                    </h2>
+                    <figure>move this</figure>
+                    <div>content</div>
                   </div>
                 </div>
               </div>

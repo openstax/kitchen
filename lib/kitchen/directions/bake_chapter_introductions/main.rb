@@ -11,19 +11,23 @@ module Kitchen
         )
       end
 
-      def self.v2(book:, bake_chapter_objectives: true, bake_chapter_outline: true)
+      def self.v2(book:, chapter_objectives_strategy:)
         V2.new.bake(
           book: book,
-          bake_chapter_objectives: bake_chapter_objectives,
-          bake_chapter_outline: bake_chapter_outline
+          chapter_objectives_strategy: chapter_objectives_strategy
         )
       end
 
-      def self.bake_chapter_objectives(chapter:, bake_chapter_objectives:, bake_chapter_outline:)
+      def self.bake_chapter_objectives(chapter:, chapter_objectives_strategy:)
         BakeChapterObjectives.new.bake(
           chapter: chapter,
-          bake_chapter_objectives: bake_chapter_objectives,
-          bake_chapter_outline: bake_chapter_outline
+          chapter_objectives_strategy: chapter_objectives_strategy
+        )
+      end
+
+      def self.bake_chapter_outline(chapter_objectives_html:)
+        BakeChapterOutline.new.bake(
+          chapter_objectives_html: chapter_objectives_html
         )
       end
 
