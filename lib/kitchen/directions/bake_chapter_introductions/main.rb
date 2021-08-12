@@ -18,7 +18,7 @@ module Kitchen
         )
       end
 
-      def self.bake_chapter_objectives(chapter:, chapter_objectives_strategy:)
+      def self.bake_chapter_objectives(chapter:, chapter_objectives_strategy: :default)
         BakeChapterObjectives.new.bake(
           chapter: chapter,
           chapter_objectives_strategy: chapter_objectives_strategy

@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::BakeChapterIntroductions
   class BakeChapterObjectives
-    def bake(chapter:, chapter_objectives_strategy: :default)
+    def bake(chapter:, chapter_objectives_strategy:)
       chapter_outline_html = ''
 
       case chapter_objectives_strategy

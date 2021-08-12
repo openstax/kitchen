@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Kitchen::Directions::BakeChapterIntroductions
   class BakeChapterOutline
     def bake(chapter_objectives_html:)
