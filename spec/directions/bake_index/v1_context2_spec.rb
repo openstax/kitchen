@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeIndex::V1 do
+RSpec.describe Kitchen::Directions::BakeIndex do
 
   before do
     stub_locales({
@@ -74,7 +74,7 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
 
   context 'when v1 has multiple types' do
     it 'works' do
-      described_class.new.bake(book: book2, types: %w[name term foreign], uuid_prefix: '.')
+      described_class.v1(book: book2, types: %w[name term foreign], uuid_prefix: '.')
       expect(book2.body).to match_normalized_html(
         <<~HTML
           <body>

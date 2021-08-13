@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeIndex::V1 do
+RSpec.describe Kitchen::Directions::BakeIndex do
 
   before do
     stub_locales({
@@ -62,7 +62,7 @@ RSpec.describe Kitchen::Directions::BakeIndex::V1 do
 
   context 'when v1 has one type' do
     it 'works' do
-      described_class.new.bake(book: book1, types: %w[main])
+      described_class.v1(book: book1)
       expect(book1.first('.os-index-container').to_s).to match_normalized_html(
         <<~HTML
           <div class="os-eob os-index-container" data-type="composite-page" data-uuid-key="index">

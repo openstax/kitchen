@@ -65,7 +65,7 @@ module Kitchen::Directions::BakeIndex
         return -1 if force_first
         return 1 if other.force_first
 
-        name <=> other.name
+        I18n.sort_strings(name, other.name)
       end
 
       protected

@@ -46,8 +46,7 @@ module Kitchen
     # @return [Boolean]
     #
     def is_index_of_type?
-      indexes_types = %w[os-index-name-container os-index-term-container os-index-foreign-container]
-      indexes_types.any? { |klass| has_class?(klass.to_s) }
+      (self[:class] || '').match?(/os-index-.+-container/)
     end
 
     # In books we can find two types of EOB References.
