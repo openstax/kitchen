@@ -143,47 +143,6 @@ RSpec.describe Kitchen::Directions::BakeNumberedExercise do
           )
         ).chapters.exercises.first
       end
-
-      it 'bakes a multipart exercise' do
-        described_class.v1(exercise: multipart_exercise, number: 2)
-        expect(multipart_exercise).to match_normalized_html(
-          <<~HTML
-            <div data-type="exercise" id="ex1">
-              <div data-type="problem" id="prob1">
-                <span class="os-number">2</span>
-                <span class="os-divider">. </span>
-                <div class="os-problem-container">
-                  <div class="question-stimulus">Stimulus</div>
-                  <ol type="a">
-                    <li><div class="question-stem">question 1</div></li>
-                    <li><div class="question-stem">question 2</div></li>
-                    <li><div class="question-stem">question 3</div></li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          HTML
-        )
-      end
-
-      it 'doesn\'t add a list when there is just one part' do
-        described_class.v1(exercise: multipart_exercise_with_one_part, number: 2)
-        expect(multipart_exercise_with_one_part).to match_normalized_html(
-          <<~HTML
-            <div data-type="exercise" id="ex1">
-              <div data-type="problem" id="prob1">
-                <span class="os-number">2</span>
-                <span class="os-divider">. </span>
-                <div class="os-problem-container">
-                  <div class="question-stimulus">Stimulus</div>
-                  <div class="question-stem">question 1</div>
-                </div>
-              </div>
-            </div>
-          HTML
-        )
-      end
     end
-
   end
 end

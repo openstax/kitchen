@@ -1,0 +1,245 @@
+# frozen_string_literal: true
+
+RSpec.describe Kitchen::Directions::BakeInjectedExerciseQuestion do
+  before do
+    stub_locales({})
+  end
+
+  let(:book_with_injected_section) do
+    book_containing(html:
+      one_chapter_with_one_page_containing(
+        <<~HTML
+          <section class="section-with-injected-exercises">
+            <div data-type="injected-exercise" data-injected-from-nickname="multiFR" data-injected-from-version="2" data-injected-from-url="url" data-tags="type:practice all" data-is-vocab="False">
+              <div data-type="exercise-stimulus">Exercise stimulus</div>
+              <div data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+                <div data-type="question-stem">Question 1</div>
+                <div data-type="question-solution" data-solution-source="collaborator" data-solution-type="detailed">
+                  solution 1
+                </div>
+              </div>
+              <div data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+                <div data-type="question-stem">Question 2</div>
+                <div data-type="question-solution" data-solution-source="collaborator" data-solution-type="detailed">
+                  solution 2
+                </div>
+              </div>
+              <div data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+                <div data-type="question-stem">Question 3</div>
+                <div data-type="question-solution" data-solution-source="collaborator" data-solution-type="detailed">
+                  solution 3
+                </div>
+              </div>
+            </div>
+            <div data-type="injected-exercise" data-injected-from-nickname="singleFR" data-injected-from-version="2" data-injected-from-url="url" data-tags="type:practice all" data-is-vocab="False">
+              <div data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+                <div data-type="question-stimulus">Question 1 stimulus</div>
+                <div data-type="question-stem">Question 1</div>
+                <div data-type="question-solution" data-solution-source="collaborator" data-solution-type="detailed">
+                  solution 1
+                </div>
+              </div>
+            </div>
+            <div data-type="injected-exercise" data-injected-from-nickname="singleMC" data-injected-from-version="2" data-injected-from-url="url" data-tags="tags" data-is-vocab="False">
+              <div data-type="exercise-question" data-is-answer-order-important="True" data-formats="multiple-choice test-format">
+                <div data-type="question-stimulus">i'm a question stimulus</div>
+                <div data-type="question-stem">Testing a multiple choice question</div>
+                <ol data-type="question-answers" type="a">
+                  <li data-type="question-answer" data-correctness="0.0" data-id="668496">
+                    <div data-type="answer-content">mean - i'm distractor</div>
+                    <div data-type="answer-feedback">choice level feedback</div>
+                  </li>
+                  <li data-type="question-answer" data-correctness="0.0" data-id="668497">
+                    <div data-type="answer-content">median - distractor</div>
+                  </li>
+                  <li data-type="question-answer" data-correctness="1.0" data-id="668498">
+                    <div data-type="answer-content">mode - correct answer</div>
+                    <div data-type="answer-feedback">choice level feedback</div>
+                  </li>
+                  <li data-type="question-answer" data-correctness="0.0" data-id="668499">
+                    <div data-type="answer-content">all of the above - distractor</div>
+                    <div data-type="answer-feedback">choice level feedback</div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+            <div data-type="injected-exercise" data-injected-from-nickname="singleFR" data-injected-from-version="2" data-injected-from-url="url" data-tags="type:practice all" data-is-vocab="False">
+              <div data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+                <div data-type="question-stem">question without solution</div>
+              </div>
+            </div>
+          </section>
+        HTML
+      )
+    )
+  end
+
+  it 'bakes' do
+    book_with_injected_section.pages.first.search('div[data-type="exercise-question"]').each do |question|
+      described_class.v1(question: question, number: question.count_in(:page))
+    end
+    expect(book_with_injected_section.search('section').first).to match_normalized_html(
+      <<~HTML
+        <section class="section-with-injected-exercises">
+          <div data-type="injected-exercise" data-injected-from-nickname="multiFR" data-injected-from-version="2" data-injected-from-url="url" data-tags="type:practice all" data-is-vocab="False">
+            <div data-type="exercise-stimulus">Exercise stimulus</div>
+            <div class="os-hasSolution" data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+              <a class='os-number' href='#solution-ref'>1</a>
+              <span class='os-divider'>. </span>
+              <div class="os-problem-container">
+                <div data-type="question-stem">Question 1</div>
+              </div>
+              <div data-type="question-solution" data-solution-source="collaborator" data-solution-type="detailed">
+                <a class='os-number' href='#exercise-ref'>1</a>
+                <span class='os-divider'>. </span>
+                <div class="os-solution-container">
+                solution 1
+              </div>
+              </div>
+            </div>
+            <div class="os-hasSolution" data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+              <a class='os-number' href='#solution-ref'>2</a>
+              <span class='os-divider'>. </span>
+              <div class="os-problem-container">
+                <div data-type="question-stem">Question 2</div>
+              </div>
+              <div data-type="question-solution" data-solution-source="collaborator" data-solution-type="detailed">
+                <a class='os-number' href='#exercise-ref'>2</a>
+                <span class='os-divider'>. </span>
+                <div class="os-solution-container">
+                solution 2
+              </div>
+              </div>
+            </div>
+            <div class="os-hasSolution" data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+              <a class='os-number' href='#solution-ref'>3</a>
+              <span class='os-divider'>. </span>
+              <div class="os-problem-container">
+                <div data-type="question-stem">Question 3</div>
+              </div>
+              <div data-type="question-solution" data-solution-source="collaborator" data-solution-type="detailed">
+                <a class='os-number' href='#exercise-ref'>3</a>
+                <span class='os-divider'>. </span>
+                <div class="os-solution-container">
+                solution 3
+              </div>
+              </div>
+            </div>
+          </div>
+          <div data-type="injected-exercise" data-injected-from-nickname="singleFR" data-injected-from-version="2" data-injected-from-url="url" data-tags="type:practice all" data-is-vocab="False">
+            <div class="os-hasSolution" data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+              <a class='os-number' href='#solution-ref'>4</a>
+              <span class='os-divider'>. </span>
+              <div class="os-problem-container">
+                <div data-type="question-stimulus">Question 1 stimulus</div>
+                <div data-type="question-stem">Question 1</div>
+              </div>
+              <div data-type="question-solution" data-solution-source="collaborator" data-solution-type="detailed">
+                <a class='os-number' href='#exercise-ref'>4</a>
+                <span class='os-divider'>. </span>
+                <div class="os-solution-container">
+                solution 1
+              </div>
+              </div>
+            </div>
+          </div>
+          <div data-type="injected-exercise" data-injected-from-nickname="singleMC" data-injected-from-version="2" data-injected-from-url="url" data-tags="tags" data-is-vocab="False">
+            <div class="os-hasSolution" data-type="exercise-question" data-is-answer-order-important="True" data-formats="multiple-choice test-format">
+              <a class='os-number' href='#solution-ref'>5</a>
+              <span class='os-divider'>. </span>
+              <div class="os-problem-container">
+                <div data-type="question-stimulus">i'm a question stimulus</div>
+                <div data-type="question-stem">Testing a multiple choice question</div>
+                <ol data-type="question-answers" type="a">
+                  <li data-type="question-answer" data-correctness="0.0" data-id="668496">
+                    <div data-type="answer-content">mean - i'm distractor</div>
+                    <div data-type="answer-feedback">choice level feedback</div>
+                  </li>
+                  <li data-type="question-answer" data-correctness="0.0" data-id="668497">
+                    <div data-type="answer-content">median - distractor</div>
+                  </li>
+                  <li data-type="question-answer" data-correctness="1.0" data-id="668498">
+                    <div data-type="answer-content">mode - correct answer</div>
+                    <div data-type="answer-feedback">choice level feedback</div>
+                  </li>
+                  <li data-type="question-answer" data-correctness="0.0" data-id="668499">
+                    <div data-type="answer-content">all of the above - distractor</div>
+                    <div data-type="answer-feedback">choice level feedback</div>
+                  </li>
+                </ol>
+              </div>
+              <div data-type="question-solution">
+                <a class='os-number' href='#exercise-ref'>5</a>
+                <span class='os-divider'>. </span>
+                <div class="os-solution-container">c</div>
+              </div>
+            </div>
+          </div>
+          <div data-type="injected-exercise" data-injected-from-nickname="singleFR" data-injected-from-version="2" data-injected-from-url="url" data-tags="type:practice all" data-is-vocab="False">
+            <div data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+              <span class='os-number'>6</span>
+              <span class='os-divider'>. </span>
+              <div class="os-problem-container">
+                <div data-type="question-stem">question without solution</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      HTML
+    )
+  end
+
+  describe '#map_correctness_to_letter_answer' do
+    let(:answers_with_many_correct) do
+      new_element(
+        <<~HTML
+          <ol data-type="question-answers" type="a">
+            <li data-type="question-answer" data-correctness="1.0" data-id="668496">
+              answer 1
+            </li>
+            <li data-type="question-answer" data-correctness="0.0" data-id="668497">
+              answer 2
+            </li>
+            <li data-type="question-answer" data-correctness="1.0" data-id="668498">
+              answer 3
+            </li>
+            <li data-type="question-answer" data-correctness="1.0" data-id="668499">
+              answer 4
+            </li>
+          </ol>
+        HTML
+      )
+    end
+
+    let(:answers_without_correctness) do
+      new_element(
+        <<~HTML
+          <ol data-type="question-answers" type="a">
+            <li data-type="question-answer" data-correctness="" data-id="668496">
+              answer 1
+            </li>
+            <li data-type="question-answer" data-correctness="" data-id="668497">
+              answer 2
+            </li>
+            <li data-type="question-answer" data-id="668498">
+              answer 3
+            </li>
+            <li data-type="question-answer" data-id="668499">
+              answer 4
+            </li>
+          </ol>
+        HTML
+      )
+    end
+
+    it 'handles answers with many correct options' do
+      letters = described_class::V1.new.map_correctness_to_letter_answer(answers: answers_with_many_correct)
+      expect(letters).to eq('a, c, d')
+    end
+
+    it 'handles answers without correctness' do
+      letters = described_class::V1.new.map_correctness_to_letter_answer(answers: answers_without_correctness)
+      expect(letters).to eq(nil)
+    end
+  end
+end
