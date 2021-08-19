@@ -118,40 +118,6 @@ RSpec.describe Kitchen::Directions::BakeNumberedExercise do
       end
     end
 
-    context 'when there is a stimulus' do
-      let(:multipart_exercise) do
-        book_containing(html:
-          one_chapter_with_one_page_containing(
-            <<~HTML
-              <div data-type="exercise" id="ex1">
-                <div data-type="problem" id="prob1">
-                  <div class="question-stimulus">Stimulus</div>
-                  <div class="question-stem">question 1</div>
-                  <div class="question-stem">question 2</div>
-                  <div class="question-stem">question 3</div>
-                </div>
-              </div>
-            HTML
-          )
-        ).chapters.exercises.first
-      end
-
-      let(:multipart_exercise_with_one_part) do
-        book_containing(html:
-          one_chapter_with_one_page_containing(
-            <<~HTML
-              <div data-type="exercise" id="ex1">
-                <div data-type="problem" id="prob1">
-                  <div class="question-stimulus">Stimulus</div>
-                  <div class="question-stem">question 1</div>
-                </div>
-              </div>
-            HTML
-          )
-        ).chapters.exercises.first
-      end
-    end
-
     context 'when book does not use grammatical cases' do
       it 'stores link text' do
         pantry = exercise1.pantry(name: :link_text)
