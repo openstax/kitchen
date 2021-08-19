@@ -186,7 +186,7 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
 
   context 'when v1 called on book without chapter objectives' do
     it 'works' do
-      described_class.v1(book: book, bake_chapter_objectives: false)
+      described_class.v2(book: book, chapter_objectives_strategy: :none)
       expect(book.body).to match_normalized_html(
         <<~HTML
           <body>

@@ -3,11 +3,9 @@
 module Kitchen
   module Directions
     module BakeChapterIntroductions
-      def self.v1(book:, bake_chapter_objectives: true, bake_chapter_outline: true)
+      def self.v1(book:)
         V1.new.bake(
-          book: book,
-          bake_chapter_objectives: bake_chapter_objectives,
-          bake_chapter_outline: bake_chapter_outline
+          book: book
         )
       end
 

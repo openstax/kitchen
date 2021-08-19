@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::BakeChapterIntroductions
   class V1
-    def bake(book:, bake_chapter_objectives:, bake_chapter_outline:)
+    def bake(book:)
       book.chapters.each do |chapter|
         introduction_page = chapter.introduction_page
 
@@ -18,27 +18,18 @@ module Kitchen::Directions::BakeChapterIntroductions
         ).cut
 
         chapter_objectives_html =
-          if bake_chapter_objectives
-            Kitchen::Directions::BakeChapterIntroductions.bake_chapter_objectives(
-              chapter: chapter
-            )
-          else
-            ''
-          end
-
-        final_section =
-          if bake_chapter_outline && bake_chapter_objectives
-            Kitchen::Directions::BakeChapterIntroductions.bake_chapter_outline(
-              chapter_objectives_html: chapter_objectives_html
-            )
-          else
-            chapter_objectives_html
-          end
+          Kitchen::Directions::BakeChapterIntroductions.bake_chapter_objectives(
+            chapter: chapter
+          )
+        chapter_outline =
+          Kitchen::Directions::BakeChapterIntroductions.bake_chapter_outline(
+            chapter_objectives_html: chapter_objectives_html
+          )
 
         introduction_page.append(child:
           <<~HTML
             <div class="intro-body">
-              #{final_section}
+              #{chapter_outline}
               <div class="intro-text">
                 #{title.paste}
                 #{intro_content.paste}
