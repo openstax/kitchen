@@ -6,10 +6,10 @@ module Kitchen::Directions::BakeNumberedTable
   class V2
 
     def bake(table:, number:, cases: false)
-      Kitchen::Directions::BakeTableBody.v1(table: table, number: number, cases: cases)
+      Kitchen::Directions::BakeTableBody::V1.new.bake(table: table, number: number, cases: cases)
 
       caption = ''
-      if table&.caption&.first("span[data-type='title']")
+      if table&.caption&.first("span[data-type='title']") && !table.top_captioned?
         caption_el = table.caption
         caption_el.add_class('os-caption')
         caption_el.name = 'span'

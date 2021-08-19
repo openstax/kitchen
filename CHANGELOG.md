@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Modify target labels to use grammatical cases (minor)
+* Modify `BakeIndex` to bake multiple types of indexes (minor)
+## [11.0.0] - 2021-08-6
+
+* Add `ChangeSubsectionTitleTag` direction for modifying eoc sections (minor)
 * Add `MoveSolutionsFromNumberedNote`, `MoveSolutionsFromExerciseSection`, and `SolutionAreaSnippet` for answer key baking (minor)
 * Refactor the following `Strategies`: contemporary math, precalculus, uphysics (minor)
 * Fix `BakeUnitPageTite` to utilize only pages which are direct children of the unit (patch)
@@ -18,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adds `PageElement#count_in_chapter_without_intro_page` (minor)
 * Adds `ChapterElement#has_introduction?` (minor)
 * Adds `BakeFolio` to set spanish translation variables in the html tag for folio-pdf purposes (minor)
+* Create `BakeCustomSections` direction for English Composition (minor)
+* Create `BakeAnnotationClasses` v1 for English Composition (minor)
 
 ## [10.0.0] - 2021-07-30
 
