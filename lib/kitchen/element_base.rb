@@ -69,7 +69,7 @@ module Kitchen
     #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#remove_attribute-instance_method Nokogiri::XML::Node#remove_attribute
     # @!method key?(attribute)
     #   Returns true if attribute is set
-    #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri%2FXML%2FNode:key%3F Nokogiri::XML::Node#key?(attribute)
+    #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#key%3F-instance_method Nokogiri::XML::Node#key?(attribute)
     # @!method classes
     #   Gets the element's classes
     #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#classes-instance_method Nokogiri::XML::Node#classes
