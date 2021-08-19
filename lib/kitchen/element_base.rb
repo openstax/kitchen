@@ -67,6 +67,9 @@ module Kitchen
     # @!method remove_attribute
     #   Removes an attribute from the element
     #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#remove_attribute-instance_method Nokogiri::XML::Node#remove_attribute
+    # @!method key?(attribute)
+    #   Returns true if attribute is set
+    #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#key%3F-instance_method Nokogiri::XML::Node#key?(attribute)
     # @!method classes
     #   Gets the element's classes
     #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#classes-instance_method Nokogiri::XML::Node#classes
@@ -81,7 +84,7 @@ module Kitchen
     #   @return Object
     def_delegators :@node, :name=, :name, :[], :[]=, :add_class, :remove_class,
                    :text, :wrap, :children, :to_html, :remove_attribute,
-                   :classes, :path, :inner_html=
+                   :key?, :classes, :path, :inner_html=
 
     # @!method config
     #   Get the config for this element's document
@@ -719,6 +722,39 @@ module Kitchen
         #
         element.node = node.dup
         element.is_a_clone = true
+      end
+    end
+
+    # Creates labels for links to inside elements
+    # like Figures, Tables, Equations, Exercises, Notes.
+    #
+    # @param label_text [String] label of the element defined in yml file.
+    #   (e.g. "Figure", "Table", "Equation")
+    # @param custom_content [String] might be numbering of the element or text
+    #   copied from content (e.g. note title)
+    # @param cases [Boolean] true if labels should use grammatical cases
+    #   (used in Polish books)
+    # @return [Pantry]
+    #
+    def target_label(label_text: nil, custom_content: nil, cases: false)
+      if cases
+        cases = %w[nominative genitive dative accusative instrumental locative vocative]
+        element_labels = {}
+
+        cases.each do |label_case|
+          element_labels[label_case] = "#{I18n.t("#{label_text}.#{label_case}")} #{custom_content}"
+
+          element_label_case = element_labels[label_case]
+
+          pantry(name: "#{label_case}_link_text").store element_label_case, label: id if id
+        end
+      else
+        element_label = if label_text
+                          "#{I18n.t(label_text.to_s)} #{custom_content}"
+                        else
+                          custom_content
+                        end
+        pantry(name: :link_text).store element_label, label: id if id
       end
     end
 
