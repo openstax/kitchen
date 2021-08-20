@@ -56,6 +56,9 @@ module Kitchen
       # Selector for an unit
       # @return [String]
       attr_accessor :unit
+      # Selector for an unit
+      # @return [String]
+      attr_accessor :solution
 
       # Override specific selectors
       #

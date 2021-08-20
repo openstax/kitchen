@@ -9,10 +9,7 @@ module Kitchen::Directions::MoveSolutionsFromExerciseSection
   class V1
     def bake(chapter:, append_to:, section_class:, title_number:)
       solutions_clipboard = Kitchen::Clipboard.new
-      chapter.search("section.#{section_class}").exercises.each do |exercise|
-        solution = exercise.solution
-        next unless solution
-
+      chapter.search("section.#{section_class}").solutions.each do |solution|
         solution.cut(to: solutions_clipboard)
       end
 

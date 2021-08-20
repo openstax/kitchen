@@ -26,6 +26,8 @@ module Kitchen
         self.example                    = "div[data-type='example']"
         self.exercise                   = "div[data-type='exercise']"
         self.unit                       = "div[data-type='unit']"
+        self.solution                   = "div[data-type='solution'], " \
+                                          "div[data-type='question-solution']"
       end
 
     end
