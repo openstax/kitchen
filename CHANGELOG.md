@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Create `BakeInjectedExercise` and `BakeInjectedExerciseQuestion` directions (minor)
+* Update `MoveSolutionsFromExerciseSection` and `MoveSolutionsFromNumberedNote` to move injected solutions (minor)
 * Modify target labels to use grammatical cases (minor)
 * Modify `BakeIndex` to bake multiple types of indexes (minor)
 
