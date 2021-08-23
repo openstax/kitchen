@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 module Kitchen::Directions::BakeNumberedNotes
-
   class V1
     def bake(book:, classes:)
       classes.each do |klass|
         book.chapters.notes("$.#{klass}").each do |note|
           bake_note(note: note)
           note.all_exercise_types.each do |exercise|
-            Kitchen::Directions::BakeNumberedNotes.bake_note_exercise(note: note, exercise: exercise)
+            Kitchen::Directions::BakeNumberedNotes.bake_note_exercise(
+              note: note, exercise: exercise
+            )
           end
         end
       end

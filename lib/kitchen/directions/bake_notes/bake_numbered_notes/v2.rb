@@ -16,7 +16,9 @@ module Kitchen::Directions::BakeNumberedNotes
             HTML
           )
           note.all_exercise_types.each do |exercise|
-            Kitchen::Directions::BakeNumberedNotes.bake_note_exercise(note: note, exercise: exercise, divider: '. ')
+            Kitchen::Directions::BakeNumberedNotes.bake_note_exercise(
+              note: note, exercise: exercise, divider: '. '
+            )
           end
         end
       end
