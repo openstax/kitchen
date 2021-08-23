@@ -74,8 +74,28 @@ RSpec.describe Kitchen::Directions::BakeInjectedExerciseQuestion do
     )
   end
 
+  let(:exercise_no_question_number) do
+    book_containing(html:
+      <<~HTML
+        <div data-type="note">
+          <div data-type="note-body">
+            <div data-type="injected-exercise" data-injected-from-nickname="singleFR" data-injected-from-version="2" data-injected-from-url="url" data-tags="type:practice all" data-is-vocab="False">
+              <div data-type="exercise-question" data-is-answer-order-important="False" data-formats="free-response">
+                <div data-type="question-stimulus">Question 1 stimulus</div>
+                <div data-type="question-stem">Question 1</div>
+                <div data-type="question-solution" data-solution-source="collaborator" data-solution-type="detailed">
+                  solution 1
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      HTML
+    ).notes.first
+  end
+
   it 'bakes' do
-    book_with_injected_section.pages.first.search('div[data-type="exercise-question"]').each do |question|
+    book_with_injected_section.pages.first.injected_questions.each do |question|
       described_class.v1(question: question, number: question.count_in(:page))
     end
     expect(book_with_injected_section.search('section').first).to match_normalized_html(
@@ -185,6 +205,33 @@ RSpec.describe Kitchen::Directions::BakeInjectedExerciseQuestion do
             </div>
           </div>
         </section>
+      HTML
+    )
+  end
+
+  it 'bakes without question number' do
+    described_class.v1(question: exercise_no_question_number.injected_questions.first, number: 4, only_number_solution: true)
+    expect(exercise_no_question_number).to match_normalized_html(
+      <<~HTML
+        <div data-type="note">
+          <div data-type="note-body">
+            <div data-injected-from-nickname="singleFR" data-injected-from-url="url" data-injected-from-version="2" data-is-vocab="False" data-tags="type:practice all" data-type="injected-exercise">
+              <div class="os-hasSolution" data-formats="free-response" data-is-answer-order-important="False" data-type="exercise-question">
+                <div class="os-problem-container">
+                  <div data-type="question-stimulus">Question 1 stimulus</div>
+                  <div data-type="question-stem">Question 1</div>
+                </div>
+                <div data-solution-source="collaborator" data-solution-type="detailed" data-type="question-solution">
+                  <a class="os-number" href="#exercise-ref">4</a>
+                  <span class="os-divider">. </span>
+                  <div class="os-solution-container">
+                  solution 1
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       HTML
     )
   end

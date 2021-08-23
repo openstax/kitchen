@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 module Kitchen::Directions::BakeInjectedExerciseQuestion
-  def self.v1(question:, number:)
-    V1.new.bake(question: question, number: number)
+  def self.v1(question:, number:, only_number_solution: false)
+    V1.new.bake(question: question, number: number, only_number_solution: only_number_solution)
   end
 
   class V1
-    def bake(question:, number:)
+    def bake(question:, number:, only_number_solution:)
       # TODO: store label in pantry
 
       # Synthesize multiple choice solution
-      question_answers = question.first('ol[data-type="question-answers"]')&.cut
+      question_answers = question.answers&.cut
       if question_answers
         letter_answer = map_correctness_to_letter_answer(answers: question_answers)
       end
@@ -23,18 +23,19 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
       end
 
       # Bake question
-      problem_number = "<span class='os-number'>#{number}</span>"
-      if question.search('div[data-type="question-solution"]')&.first
-        question.add_class('os-hasSolution')
-        problem_number = "<a class='os-number' href='#solution-ref'>#{number}</a>" # TODO: link to solution ID
+      unless only_number_solution
+        problem_number = "<span class='os-number'>#{number}</span>"
+        if question.solution
+          problem_number = "<a class='os-number' href='#solution-ref'>#{number}</a>" # TODO: link to solution ID
+        end
       end
 
-      question_stimulus = question.first('div[data-type="question-stimulus"]')&.cut
-      question_stem = question.first('div[data-type="question-stem"]').cut
+      question_stimulus = question.stimulus&.cut
+      question_stem = question.stem.cut
       question.prepend(child:
         <<~HTML
-          #{problem_number}
-          <span class='os-divider'>. </span>
+          #{problem_number unless only_number_solution}
+          #{"<span class='os-divider'>. </span>" unless only_number_solution}
           <div class="os-problem-container">
             #{question_stimulus&.paste}
             #{question_stem.paste}
@@ -44,9 +45,10 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
       )
 
       # Bake solution
-      solution = question&.first('div[data-type="question-solution"]')
+      solution = question.solution
       return unless solution
 
+      question.add_class('os-hasSolution')
       solution.replace_children(with:   # TODO: link to exercise/question ID
         <<~HTML
           <a class='os-number' href='#exercise-ref'>#{number}</a>

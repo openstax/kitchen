@@ -59,6 +59,9 @@ module Kitchen
       # Selector for an unit
       # @return [String]
       attr_accessor :solution
+      # Selector for an injected question
+      # @return [String]
+      attr_accessor :injected_question
 
       # Override specific selectors
       #
