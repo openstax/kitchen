@@ -772,6 +772,15 @@ module Kitchen
       enumerator_class.new(search_query: search_query_that_found_me) { |block| block.yield(self) }
     end
 
+    # Returns an enumerator over exercises of all types
+    # dynamically cast to ExerciseElement or InjectedQuestionElement at runtime
+    #
+    # @return [TypeCastingElementEnumerator]
+    #
+    def all_exercise_types
+      search_with(Kitchen::ExerciseElementEnumerator, Kitchen::InjectedQuestionElementEnumerator)
+    end
+
     protected
 
     # The wrapped Nokogiri node

@@ -20,7 +20,7 @@ module Kitchen::Directions::BakeNumberedNotes
           )
 
           note.title&.trash
-          note.exercises.each do |exercise|
+          note.all_exercise_types.each do |exercise|
             Kitchen::Directions::BakeNumberedNotes.bake_note_exercise(
               note: note, exercise: exercise, divider: '. ', suppress_solution: suppress_solution
             )

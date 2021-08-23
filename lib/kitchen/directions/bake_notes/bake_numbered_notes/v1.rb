@@ -7,7 +7,7 @@ module Kitchen::Directions::BakeNumberedNotes
       classes.each do |klass|
         book.chapters.notes("$.#{klass}").each do |note|
           bake_note(note: note)
-          note.exercises.each do |exercise|
+          note.all_exercise_types.each do |exercise|
             Kitchen::Directions::BakeNumberedNotes.bake_note_exercise(note: note, exercise: exercise)
           end
         end
