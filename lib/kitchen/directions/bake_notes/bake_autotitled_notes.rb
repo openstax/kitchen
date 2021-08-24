@@ -3,19 +3,19 @@
 module Kitchen
   module Directions
     module BakeAutotitledNotes
-      def self.v1(book:, classes:)
+      def self.v1(book:, classes:, cases: false)
         book.notes.each do |note|
           next unless (note.classes & classes).any?
 
-          bake_note(note: note)
+          bake_note(note: note, cases: cases)
         end
       end
 
-      def self.bake_note(note:)
+      def self.bake_note(note:, cases: false)
         BakeNoteIFrames.v1(note: note)
         note.wrap_children(class: 'os-note-body')
 
-        BakeNoteSubtitle.v1(note: note)
+        BakeNoteSubtitle.v1(note: note, cases: cases)
 
         note.prepend(child:
           <<~HTML
