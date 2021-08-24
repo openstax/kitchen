@@ -23,14 +23,6 @@ module Kitchen
         exercise.add_class('unnumbered')
         number = note.first('.os-number').text.gsub(/#/, '')
 
-        # Bake an injected question
-        if exercise.instance_of?(Kitchen::InjectedQuestionElement)
-          BakeInjectedExerciseQuestion.v1(
-            question: exercise, number: number, only_number_solution: true
-          )
-          return
-        end
-
         # bake problem
         exercise.problem.wrap_children('div', class: 'os-problem-container')
         exercise.search('[data-type="commentary"]').each(&:trash)

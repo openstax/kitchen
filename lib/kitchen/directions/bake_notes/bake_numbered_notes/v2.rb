@@ -15,9 +15,16 @@ module Kitchen::Directions::BakeNumberedNotes
               </h3>
             HTML
           )
-          note.all_exercise_types.each do |exercise|
+          note.exercises.each do |exercise|
             Kitchen::Directions::BakeNumberedNotes.bake_note_exercise(
               note: note, exercise: exercise, divider: '. '
+            )
+          end
+          note.injected_questions.each do |question|
+            question.add_class('unnumbered')
+            number = note.first('.os-number').text.gsub(/#/, '')
+            Kitchen::Directions::BakeInjectedExerciseQuestion.v1(
+              question: question, number: number, only_number_solution: true
             )
           end
         end
