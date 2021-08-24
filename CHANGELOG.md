@@ -7,7 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Update `BakeNumberedNotes` to handle injected questions in notes (minor)
-* Add `all_exercises_types` enumerator method to `ElementBase` (minor)
 * Create `InjectedQuestionElement` and `InjectedQuestionElementEnumerator` classes (minor)
 * Create `BakeInjectedExercise` and `BakeInjectedExerciseQuestion` directions (minor)
 * Update `MoveSolutionsFromExerciseSection` and `MoveSolutionsFromNumberedNote` to move injected solutions (minor)

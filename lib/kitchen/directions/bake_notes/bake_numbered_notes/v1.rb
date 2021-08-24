@@ -12,10 +12,8 @@ module Kitchen::Directions::BakeNumberedNotes
             )
           end
           note.injected_questions.each do |question|
-            question.add_class('unnumbered')
-            number = note.first('.os-number').text.gsub(/#/, '')
-            Kitchen::Directions::BakeInjectedExerciseQuestion.v1(
-              question: question, number: number, only_number_solution: true
+            Kitchen::Directions::BakeNumberedNotes.bake_note_injected_question(
+              note: note, question: question
             )
           end
         end
