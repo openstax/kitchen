@@ -3,10 +3,10 @@
 module Kitchen::Directions::BakeNumberedNotes
 
   class V1
-    def bake(book:, classes:)
+    def bake(book:, classes:, cases: false)
       classes.each do |klass|
         book.chapters.notes("$.#{klass}").each do |note|
-          bake_note(note: note)
+          bake_note(note: note, cases: cases)
           note.exercises.each do |exercise|
             Kitchen::Directions::BakeNumberedNotes.bake_note_exercise(note: note, exercise: exercise)
           end
@@ -14,7 +14,7 @@ module Kitchen::Directions::BakeNumberedNotes
       end
     end
 
-    def bake_note(note:)
+    def bake_note(note:, cases: false)
       note.wrap_children(class: 'os-note-body')
 
       chapter_count = note.ancestor(:chapter).count_in(:book)
@@ -31,7 +31,7 @@ module Kitchen::Directions::BakeNumberedNotes
 
       return unless note['use-subtitle']
 
-      Kitchen::Directions::BakeNoteSubtitle.v1(note: note)
+      Kitchen::Directions::BakeNoteSubtitle.v1(note: note, cases: cases)
     end
   end
 end
