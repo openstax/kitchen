@@ -59,15 +59,12 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
     end
 
     def map_correctness_to_letter_answer(answers:)
-      letter_answer = ''
       alphabet = %w[a b c d e f g h i j k l m n o p q r s t u v w x y z]
-      answers.search('li[data-type="question-answer"]').each_with_index do |answer, index|
-        correctness = answer[:'data-correctness'].to_i
-        if correctness == 1
-          letter_answer += letter_answer.empty? ? alphabet[index] : ", #{alphabet[index]}"
-        end
-      end
-      letter_answer.empty? ? nil : letter_answer
+      letter_answers = answers.search('li[data-type="question-answer"]').each_with_index.map \
+        do |answer, index|
+        answer[:'data-correctness'] == '1.0' ? alphabet[index] : nil
+      end.compact
+      letter_answers.empty? ? nil : letter_answers.join(', ')
     end
   end
 end
