@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-module Kitchen
-  module Directions
-    module BakeNoteIFrames
-      def self.v1(note:)
-        iframes = note.search('iframe')
+module Kitchen::Directions::BakeIframes
+  class V1
+      def bake(outer_element:)
+        iframes = outer_element.search('iframe')
         return unless iframes.any?
 
         iframes.each do |iframe|
@@ -22,6 +21,5 @@ module Kitchen
           )
         end
       end
-    end
   end
 end
