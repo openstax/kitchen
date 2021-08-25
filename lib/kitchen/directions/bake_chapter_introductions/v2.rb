@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::BakeChapterIntroductions
   class V2
-    def bake(book:, chapter_objectives_strategy:)
+    def bake(book:, strategy_options:)
       book.chapters.each do |chapter|
         introduction_page = chapter.introduction_page
 
@@ -13,11 +13,18 @@ module Kitchen::Directions::BakeChapterIntroductions
         title.name = 'h2'
         Kitchen::Directions::MoveTitleTextIntoSpan.v1(title: title)
 
-        chapter_objectives_html =
+        chapter_intro_html =
           Kitchen::Directions::BakeChapterIntroductions.bake_chapter_objectives(
             chapter: chapter,
-            chapter_objectives_strategy: chapter_objectives_strategy
+            strategy: strategy_options[:strategy]
           )
+
+        if strategy_options[:bake_chapter_outline]
+          chapter_intro_html =
+            Kitchen::Directions::BakeChapterIntroductions.bake_chapter_outline(
+              chapter_objectives_html: chapter_intro_html
+            )
+        end
 
         intro_content = introduction_page.search('[data-type="note"].chapter-objectives').cut
         extra_content = introduction_page.search(
@@ -27,7 +34,7 @@ module Kitchen::Directions::BakeChapterIntroductions
         introduction_page.append(child:
           <<~HTML
             <div class="intro-body">
-              #{chapter_objectives_html}
+              #{chapter_intro_html}
               #{intro_content.paste}
               <div class="intro-text">
                 #{title.paste}

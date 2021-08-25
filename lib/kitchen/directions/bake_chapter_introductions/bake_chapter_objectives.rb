@@ -2,25 +2,25 @@
 
 module Kitchen::Directions::BakeChapterIntroductions
   class BakeChapterObjectives
-    def bake(chapter:, chapter_objectives_strategy:)
-      chapter_objectives_html = ''
-
-      case chapter_objectives_strategy
+    def bake(chapter:, strategy:)
+      case strategy
       when :default
+        chapter_objectives_note = chapter.notes('$.chapter-objectives').first
+
         # trash existing title
-        chapter.notes('$.chapter-objectives').titles.first&.trash
+        chapter_objectives_note.titles.first&.trash
         Kitchen::Directions::BakeAutotitledNotes.v1(
           book: chapter,
           classes: %w[chapter-objectives],
           bake_subtitle: false
         )
+
+        chapter_objectives_note.cut.paste
       when :none
-        return
+        ''
       else
         raise 'No such strategy'
       end
-
-      chapter_objectives_html
     end
   end
 end

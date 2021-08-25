@@ -9,17 +9,17 @@ module Kitchen
         )
       end
 
-      def self.v2(book:, chapter_objectives_strategy:)
+      def self.v2(book:, strategy_options: { strategy: :default, bake_chapter_outline: false })
         V2.new.bake(
           book: book,
-          chapter_objectives_strategy: chapter_objectives_strategy
+          strategy_options: strategy_options
         )
       end
 
-      def self.bake_chapter_objectives(chapter:, chapter_objectives_strategy: :default)
+      def self.bake_chapter_objectives(chapter:, strategy:)
         BakeChapterObjectives.new.bake(
           chapter: chapter,
-          chapter_objectives_strategy: chapter_objectives_strategy
+          strategy: strategy
         )
       end
 

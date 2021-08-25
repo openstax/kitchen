@@ -66,9 +66,55 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
     )
   end
 
-  context 'when v2 called on book without chapter outline' do
-    it 'works' do
-      described_class.v2(book: book_with_diff_order, chapter_objectives_strategy: :default)
+  context 'when v2 called on book with chapter objectives' do
+    it 'with chapter outline' do
+      described_class.v2(
+        book: book_with_diff_order,
+        strategy_options: { strategy: :default, bake_chapter_outline: true }
+      )
+      expect(book_with_diff_order.body).to match_normalized_html(
+        <<~HTML
+          <body>
+            <div data-type="chapter">
+              <h1 data-type="document-title">Chapter 1 Title</h1>
+              <div class="introduction" data-type="page">
+                <figure class="splash">
+                  <div data-type="title">Blood Pressure</div>
+                  <figcaption>A proficiency in anatomy and physiology... (credit: Bryan Mason/flickr)</figcaption>
+                  <span data-type="media" data-alt="This photo shows a nurse taking a woman&#x2019;s...">
+                  <img src="ccc4ed14-6c87-408b-9934-7a0d279d853a/100_Blood_Pressure.jpg" data-media-type="image/jpg" alt="This photo shows a nurse taking..."/>
+                  </span>
+                </figure>
+                <div class="intro-body">
+                  <div class="os-chapter-outline">
+                    <h3 class="os-title">Chapter Outline</h3>
+                    <div data-type="note" class="chapter-objectives">
+                      <h3 class="os-title" data-type="title">
+                        <span class="os-title-label">Chapter Objectives</span>
+                      </h3>
+                      <div class="os-note-body">
+                        <p>After studying this chapter, you will be able to:</p>
+                        <ul>
+                          <li>Distinguish between anatomy and physiology, and identify several branches of each</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="intro-text">
+                    <h2 data-type="document-title"><span data-type="" itemprop="" class="os-text">Introduction</span></h2>
+                    <p id="123">Though you may approach a course in anatomy and physiology...</p>
+                    <p id="123_copy_1">This chapter begins with an overview of anatomy and...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </body>
+        HTML
+      )
+    end
+
+    it 'without chapter outline' do
+      described_class.v2(book: book_with_diff_order)
       expect(book_with_diff_order.body).to match_normalized_html(
         <<~HTML
           <body>
@@ -108,9 +154,9 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
     end
   end
 
-  context 'when v2 is called on a book with chapter-objectives: preexisting-title' do
+  context 'when v2 is called on a book with chapter-objectives' do
     it 'works' do
-      described_class.v2(book: book_with_intro_objectives, chapter_objectives_strategy: :default)
+      described_class.v2(book: book_with_intro_objectives)
       expect(book_with_intro_objectives.body).to match_normalized_html(
         <<~HTML
           <body>
@@ -146,9 +192,9 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
     end
   end
 
-  context 'when v2 is called on a book with chapter-objectives strategy: ' do
-    it 'none works' do
-      described_class.v2(book: book_with_intro_objectives, chapter_objectives_strategy: :none)
+  context 'when v2 is called on a book without chapter-objectives' do
+    it 'works' do
+      described_class.v2(book: book_with_intro_objectives, strategy_options: { strategy: :none })
       expect(book_with_intro_objectives.body).to match_normalized_html(
         <<~HTML
           <body>
@@ -181,7 +227,7 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
 
     it 'other raises' do
       expect {
-        described_class.v2(book: book_with_intro_objectives, chapter_objectives_strategy: :hello)
+        described_class.v2(book: book_with_intro_objectives, strategy_options: { strategy: :hello })
       }.to raise_error('No such strategy')
     end
   end
