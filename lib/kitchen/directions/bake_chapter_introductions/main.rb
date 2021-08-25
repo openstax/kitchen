@@ -9,7 +9,12 @@ module Kitchen
         )
       end
 
-      def self.v2(book:, strategy_options: { strategy: :default, bake_chapter_outline: false })
+      def self.v2(
+        book:,
+        strategy_options: {
+          strategy: :default, bake_chapter_outline: false, introduction_order: :v1
+        }
+      )
         V2.new.bake(
           book: book,
           strategy_options: strategy_options
