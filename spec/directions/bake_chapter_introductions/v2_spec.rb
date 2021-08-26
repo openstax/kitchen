@@ -191,46 +191,6 @@ RSpec.describe Kitchen::Directions::BakeChapterIntroductions do
     end
   end
 
-  context 'when v2 is called on a book with chapter-objectives' do
-    it 'works' do
-      described_class.v2(
-        book: book_with_intro_objectives, strategy_options: { strategy: :default, introduction_order: :v2 }
-      )
-      expect(book_with_intro_objectives.body).to match_normalized_html(
-        <<~HTML
-          <body>
-            <div data-type="chapter">
-              <div class="introduction" data-type="page">
-                <div data-type="metadata">don't touch this</div>
-                <figure class="splash">can't touch this (stop! hammer time)</figure>
-                <div class="intro-body">
-                <div class="chapter-objectives" data-has-label="true" data-type="note" id="1">
-                  <h3 class="os-title" data-type="title">
-                    <span class="os-title-label">Chapter Objectives</span>
-                  </h3>
-                  <div class="os-note-body">
-                    <p>Some Text</p>
-                    <ul>
-                      <li>Some List</li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="intro-text">
-                    <h2 data-type="document-title">
-                      <span class="os-text" data-type="" itemprop="">Introduction 1</span>
-                    </h2>
-                    <figure>move this</figure>
-                    <div>content</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </body>
-        HTML
-      )
-    end
-  end
-
   context 'when v2 is called on a book without chapter-objectives' do
     it 'works' do
       described_class.v2(
