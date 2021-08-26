@@ -12,7 +12,7 @@ module Kitchen
       end
 
       def self.bake_note(note:)
-        Kichen::Directions::BakeIframes.v1(outer_element: note)
+        Kitchen::Directions::BakeIframes.v1(outer_element: note)
         note.wrap_children(class: 'os-note-body')
 
         BakeNoteSubtitle.v1(note: note)
