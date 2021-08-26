@@ -10,14 +10,19 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
       # TODO: store label in pantry
 
       # Synthesize multiple choice solution
-      question_answers = question.answers&.cut
-      if question_answers
-        letter_answer = map_correctness_to_letter_answer(answers: question_answers)
+      if question.answers
+        case question.answers[:type]
+        when 'a'
+          alphabet = *('a'..'z')
+        else
+          raise('Unsupported list type for multiple choice options')
+        end
+        letter_answers = question.correct_answer_letters(alphabet)
       end
-      if letter_answer
+      if letter_answers.present?
         question.append(child:
           <<~HTML
-            <div data-type="question-solution">#{letter_answer}</div>
+            <div data-type="question-solution">#{letter_answers.join(', ')}</div>
           HTML
         )
       end
@@ -30,16 +35,14 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
         end
       end
 
-      question_stimulus = question.stimulus&.cut
-      question_stem = question.stem.cut
       question.prepend(child:
         <<~HTML
           #{problem_number unless only_number_solution}
           #{"<span class='os-divider'>. </span>" unless only_number_solution}
           <div class="os-problem-container">
-            #{question_stimulus&.paste}
-            #{question_stem.paste}
-            #{question_answers&.paste}
+            #{question.stimulus&.cut&.paste}
+            #{question.stem.cut.paste}
+            #{question.answers&.cut&.paste}
           </div>
         HTML
       )
@@ -56,18 +59,6 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
           <div class="os-solution-container">#{solution.children}</div>
         HTML
       )
-    end
-
-    def map_correctness_to_letter_answer(answers:)
-      letter_answer = ''
-      alphabet = %w[a b c d e f g h i j k l m n o p q r s t u v w x y z]
-      answers.search('li[data-type="question-answer"]').each_with_index do |answer, index|
-        correctness = answer[:'data-correctness'].to_i
-        if correctness == 1
-          letter_answer += letter_answer.empty? ? alphabet[index] : ", #{alphabet[index]}"
-        end
-      end
-      letter_answer.empty? ? nil : letter_answer
     end
   end
 end
