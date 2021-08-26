@@ -18,12 +18,11 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
           raise('Unsupported list type for multiple choice options')
         end
         letter_answers = question.correct_answer_letters(alphabet)
-        letter_answer = letter_answers.empty? ? nil : letter_answers.join(', ')
       end
-      if letter_answer
+      if letter_answers.present?
         question.append(child:
           <<~HTML
-            <div data-type="question-solution">#{letter_answer}</div>
+            <div data-type="question-solution">#{letter_answers.join(', ')}</div>
           HTML
         )
       end
@@ -36,17 +35,14 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
         end
       end
 
-      question_stimulus = question.stimulus&.cut
-      question_stem = question.stem.cut
-      question_answers = question.answers&.cut
       question.prepend(child:
         <<~HTML
           #{problem_number unless only_number_solution}
           #{"<span class='os-divider'>. </span>" unless only_number_solution}
           <div class="os-problem-container">
-            #{question_stimulus&.paste}
-            #{question_stem.paste}
-            #{question_answers&.paste}
+            #{question.stimulus&.cut&.paste}
+            #{question.stem.cut.paste}
+            #{question.answers&.cut&.paste}
           </div>
         HTML
       )
