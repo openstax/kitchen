@@ -54,5 +54,16 @@ module Kitchen
     def solution
       first("div[data-type='question-solution']")
     end
+
+    # Returns the answer correctness given an alphabet
+    #
+    # @return [Array]
+    #
+    def correct_answer_letters(alphabet)
+      answers.search('li[data-type="question-answer"]').each_with_index.map \
+        do |answer, index|
+        answer[:'data-correctness'] == '1.0' ? alphabet[index] : nil
+      end.compact
+    end
   end
 end

@@ -236,57 +236,27 @@ RSpec.describe Kitchen::Directions::BakeInjectedExerciseQuestion do
     )
   end
 
-  describe '#map_correctness_to_letter_answer' do
-    let(:answers_with_many_correct) do
-      new_element(
+  context 'when the question-answers list type is not lower alpha' do
+    let(:question_with_all_correct) do
+      book_containing(html:
         <<~HTML
-          <ol data-type="question-answers" type="a">
-            <li data-type="question-answer" data-correctness="1.0" data-id="668496">
-              answer 1
-            </li>
-            <li data-type="question-answer" data-correctness="0.0" data-id="668497">
-              answer 2
-            </li>
-            <li data-type="question-answer" data-correctness="1.0" data-id="668498">
-              answer 3
-            </li>
-            <li data-type="question-answer" data-correctness="1.0" data-id="668499">
-              answer 4
-            </li>
-          </ol>
+          <div data-type="exercise-question">
+            <div data-type="question-stem">test</div>
+            <ol data-type="question-answers">
+              <li data-type="question-answer" data-correctness="1.0">option a</li>
+              <li data-type="question-answer" data-correctness="1.0">option b</li>
+              <li data-type="question-answer" data-correctness="1.0">option c</li>
+              <li data-type="question-answer" data-correctness="1.0">option d</li>
+            </ol>
+          </div>
         HTML
-      )
+      ).injected_questions.first
     end
 
-    let(:answers_without_correctness) do
-      new_element(
-        <<~HTML
-          <ol data-type="question-answers" type="a">
-            <li data-type="question-answer" data-correctness="" data-id="668496">
-              answer 1
-            </li>
-            <li data-type="question-answer" data-correctness="" data-id="668497">
-              answer 2
-            </li>
-            <li data-type="question-answer" data-id="668498">
-              answer 3
-            </li>
-            <li data-type="question-answer" data-id="668499">
-              answer 4
-            </li>
-          </ol>
-        HTML
-      )
-    end
-
-    it 'handles answers with many correct options' do
-      letters = described_class::V1.new.map_correctness_to_letter_answer(answers: answers_with_many_correct)
-      expect(letters).to eq('a, c, d')
-    end
-
-    it 'handles answers without correctness' do
-      letters = described_class::V1.new.map_correctness_to_letter_answer(answers: answers_without_correctness)
-      expect(letters).to eq(nil)
+    it 'raises an error' do
+      expect {
+        described_class.v1(question: question_with_all_correct, number: 2)
+      }.to raise_error('Unsupported list type for multiple choice options')
     end
   end
 end

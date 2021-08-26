@@ -10,9 +10,15 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
       # TODO: store label in pantry
 
       # Synthesize multiple choice solution
-      question_answers = question.answers&.cut
-      if question_answers
-        letter_answer = map_correctness_to_letter_answer(answers: question_answers)
+      if question.answers
+        case question.answers[:type]
+        when 'a'
+          alphabet = *('a'..'z')
+        else
+          raise('Unsupported list type for multiple choice options')
+        end
+        letter_answers = question.correct_answer_letters(alphabet)
+        letter_answer = letter_answers.empty? ? nil : letter_answers.join(', ')
       end
       if letter_answer
         question.append(child:
@@ -32,6 +38,7 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
 
       question_stimulus = question.stimulus&.cut
       question_stem = question.stem.cut
+      question_answers = question.answers&.cut
       question.prepend(child:
         <<~HTML
           #{problem_number unless only_number_solution}
@@ -56,15 +63,6 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
           <div class="os-solution-container">#{solution.children}</div>
         HTML
       )
-    end
-
-    def map_correctness_to_letter_answer(answers:)
-      alphabet = %w[a b c d e f g h i j k l m n o p q r s t u v w x y z]
-      letter_answers = answers.search('li[data-type="question-answer"]').each_with_index.map \
-        do |answer, index|
-        answer[:'data-correctness'] == '1.0' ? alphabet[index] : nil
-      end.compact
-      letter_answers.empty? ? nil : letter_answers.join(', ')
     end
   end
 end
