@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Update injected questions to synthesize ids during baking (minor)
+* Fix `BakeListsWithPara` to copy all children from para not just text (minor)
+* Implement labels with cases to `BakeAutotitledNotes` and `BakeNumberedNotes` (minor)
 * Add ids to injected questions (minor)
 * Create `BakeIframes` outer directory to allow bake iframes also from outside notes, remove `BakeNoteIFrames` module from notes directory (minor)
 * Update the contemporary math `Strategy` to target injected solution sections (minor)
