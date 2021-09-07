@@ -6,18 +6,14 @@ module Kitchen
       def self.v1(figure:, number:, cases: false)
         return if figure.has_class?('unnumbered') && !figure.has_class?('splash')
 
-        figure.wrap(%(<div class="os-figure#{' has-splash' if figure.has_class?('splash')}">))
         if figure.has_class?('unnumbered') && figure.has_class?('splash')
-          caption = figure.caption&.cut
-          figure.append(sibling:
-            <<~HTML
-              <div class="os-caption-container">
-                #{"<span class=\"os-caption\">#{caption.children}</span>" if caption}
-              </div>
-            HTML
-          )
+          return if figure.has_class?('has-caption')
+
+          puts 'warning! add BakeUnnumberedFigures to recipe before BakeFigure'
           return
         end
+
+        figure.wrap(%(<div class="os-figure#{' has-splash' if figure.has_class?('splash')}">))
 
         # Store label information
         figure.target_label(label_text: 'figure', custom_content: number, cases: cases)
