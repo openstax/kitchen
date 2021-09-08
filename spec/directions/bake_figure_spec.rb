@@ -144,24 +144,26 @@ RSpec.describe Kitchen::Directions::BakeFigure do
     end
 
     context 'when figure is unnumbered but also a splash' do
-      it 'bakes' do
+      it 'does not change original figure' do
         described_class.v1(figure: book_with_unnumbered_splash.figures.first, number: 'blah')
         expect(book_with_unnumbered_splash.pages.first).to match_normalized_html(
           <<~HTML
             <div data-type="page">
-              <div class="os-figure has-splash">
-                <figure class="unnumbered splash" id="someId">
-                  <span>
-                    <img src="img.jpg" />
-                  </span>
-                </figure>
-                <div class="os-caption-container">
-                  <span class="os-caption">figure caption</span>
-                </div>
-              </div>
+              <figure class="unnumbered splash" id="someId">
+                <figcaption>figure caption</figcaption>
+                <span>
+                  <img src="img.jpg" />
+                </span>
+              </figure>
             </div>
           HTML
         )
+      end
+
+      it 'logs a warning' do
+        allow($stdout).to receive(:puts)
+        expect($stdout).to receive(:puts).with('warning! add BakeUnnumberedFigures to recipe before BakeFigure')
+        described_class.v1(figure: book_with_unnumbered_splash.figures.first, number: 'blah')
       end
     end
 
