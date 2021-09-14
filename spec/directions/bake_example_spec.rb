@@ -110,7 +110,6 @@ RSpec.describe Kitchen::Directions::BakeExample do
     end
   end
 
-
   context 'when there is a list with a title inside the exercise commentary' do
     let(:exercise) do
       <<~HTML
