@@ -7,7 +7,7 @@ module Kitchen
         return if figure.has_class?('unnumbered') && !figure.has_class?('splash')
 
         if figure.has_class?('unnumbered') && figure.has_class?('splash')
-          return if figure.has_class?('has-caption')
+          return if figure.parent.has_class?('has-splash')
 
           puts 'warning! add BakeUnnumberedFigures to recipe before BakeFigure'
           return

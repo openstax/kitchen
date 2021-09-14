@@ -4,10 +4,8 @@ module Kitchen
   module Directions
     module BakeUnnumberedFigures
       def self.v1(book:)
-        bake_figure_with_caption(book: book)
-
         book.figures('$.unnumbered').each do |figure|
-          next unless figure.has_class?('has-caption')
+          next unless figure.caption
 
           figure.wrap(%(<div class="os-figure#{' has-splash' if figure.has_class?('splash')}">))
 
@@ -19,12 +17,6 @@ module Kitchen
               </div>
             HTML
           )
-        end
-      end
-
-      def self.bake_figure_with_caption(book:)
-        book.figures('$.unnumbered').search('figcaption').each do |figure_caption|
-          figure_caption.parent.add_class('has-caption')
         end
       end
     end

@@ -71,7 +71,7 @@ RSpec.describe Kitchen::Directions::BakeUnnumberedFigures do
       expect(unnumbered_figure_with_caption.search('.os-figure').first).to match_html_nodes(
         <<~HTML
           <div class="os-figure">
-            <figure class="unnumbered has-caption" id="someId">
+            <figure class="unnumbered" id="someId">
               <span >
                 <img src="img.jpg" />
               </span>
@@ -91,7 +91,7 @@ RSpec.describe Kitchen::Directions::BakeUnnumberedFigures do
       expect(unnumbered_splash_figure_with_caption.search('.os-figure').first).to match_html_nodes(
         <<~HTML
           <div class="os-figure has-splash">
-            <figure class="unnumbered splash has-caption" id="someId">
+            <figure class="unnumbered splash" id="someId">
               <span >
                 <img src="img.jpg" />
               </span>
