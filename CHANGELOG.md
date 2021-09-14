@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Renames `BakePageAbstracts` to `BakeLearningObjectives` and adds optional parameter for titles in `v2` (major)
+
 ## [11.2.0] - 2021-09-10
 
 * Adds `BakeAccessibilityFixes` direction for (minor)
