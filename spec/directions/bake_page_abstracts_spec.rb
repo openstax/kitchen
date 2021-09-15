@@ -16,7 +16,7 @@ RSpec.describe Kitchen::Directions::BakePageAbstracts do
           <h1 data-type="document-title">Chapter 1 title</h1>
           <div data-type="page" class="introduction">Chapter intro</div>
           <div data-type="page" class="chapter-content-module">
-            <h2 data-type="document-title">Module 1.1 title</div>
+            <h2 data-type="document-title">Module 1.1 title</h2>
             <div data-type="abstract">
               By the end of this module, you will be able to:
                 <ul>
@@ -37,7 +37,7 @@ RSpec.describe Kitchen::Directions::BakePageAbstracts do
           <h1 data-type="document-title">Chapter 1 title</h1>
           <div data-type="page" class="introduction">Chapter intro</div>
           <div data-type="page" class="chapter-content-module">
-            <h2 data-type="document-title">Module 1.1 title</div>
+            <h2 data-type="document-title">Module 1.1 title</h2>
             <section class="learning-objectives">
               <h3 data-type="title">Learning Objectives</h3>
               <p>By the end of this module, you will be able to:</p>
