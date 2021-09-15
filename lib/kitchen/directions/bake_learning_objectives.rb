@@ -10,7 +10,8 @@ module Kitchen
       end
 
       def self.v2(chapter:, add_title: true)
-        learning_objectives = chapter.abstracts.any? ? chapter.abstracts : chapter.learning_objectives
+        learning_objectives =
+          chapter.abstracts.any? ? chapter.abstracts : chapter.learning_objectives
 
         learning_objectives.each do |abstract|
           if add_title
