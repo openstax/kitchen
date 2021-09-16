@@ -41,3 +41,7 @@ en:
     access_for_free: Access for free at openstax.org
   index:
     main: Index
+  exercises:
+    your-turn: Your Turn
+    solution: Solution
+    exercise: Exercise

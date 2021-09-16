@@ -37,3 +37,7 @@ es:
     access_for_free: Acceso gratis en openstax.org
   index:
     main: Índice
+  exercises:
+    your-turn: Tu Turno
+    solution: Solución
+    exercise: Ejercicio
