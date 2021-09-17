@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Lets `BakeExample` not count titles in lists as commentary titles (minor)
 * Renames `BakePageAbstracts` to `BakeLearningObjectives` and adds optional parameter for titles in `v2` (major)
 * Adds `BakeAutotitledExercise` direction and the option to `bake_unclassified_exercises` within `BakeAutotitledNotes`
+* Adds optional numbering for `BakeReferences.v1` (minor)
 
 ## [11.2.0] - 2021-09-10
 
