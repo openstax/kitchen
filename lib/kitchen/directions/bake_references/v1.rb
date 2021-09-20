@@ -28,9 +28,12 @@ module Kitchen::Directions::BakeReferences
         end
 
         chapter_references = chapter.pages.references.cut
-        chapter_title = chapter.title.search('.os-text')
 
-        chapter_title = chapter.title.search('.os-number, .os-divider, .os-text') if numbered_title
+        chapter_title = if numbered_title
+                          chapter.title.search('.os-number, .os-divider, .os-text')
+                        else
+                          chapter.title.search('.os-text')
+                        end
 
         chapter.append(child:
           <<~HTML
