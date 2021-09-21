@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Fix `NoteElement#title` to be more specific about finding the title (patch)
 * Fixes `BakeStepwise` to skip nested lists (patch)
 * Adds an optional selector to `RemoveSectionTitles` (minor)
 * Patches `BakeFreeResponse` to only delete the first h3, not all h3s (patch)
