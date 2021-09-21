@@ -13,6 +13,9 @@ RSpec.describe Kitchen::Directions::BakeAutotitledNotes do
           <div data-type="note" id="noteId" class="baz">
             <div data-type="title" id="titleId">note <em data-effect="italics">title</em></div>
             <p>content</p>
+            <div>
+              <h3 data-type="title">Subsection title</h3>
+            </div>
           </div>
           <div data-type="note" id="untitlednote" class="123">
             <p>content</p>
@@ -72,6 +75,24 @@ RSpec.describe Kitchen::Directions::BakeAutotitledNotes do
     )
   end
 
+  let(:exercise_within_note) do
+    book_containing(html:
+      one_chapter_with_one_page_containing(
+        <<~HTML
+          <div data-type="note" id="untitlednote" class="foo">
+          <p>this is a note</p>
+          <div data-type="exercise" id="3360">
+            <div data-type="problem" id="504">
+              <ul>
+                <li>What do you need to know to perform this analysis at the very minimum?</li>
+              </ul>
+            </div>
+          </div>
+        HTML
+      )
+    )
+  end
+
   before do
     stub_locales({
       'iframe_link_text': 'Click to view content',
@@ -81,6 +102,9 @@ RSpec.describe Kitchen::Directions::BakeAutotitledNotes do
         'project': 'Project',
         'media-2': 'Media',
         'interactive': 'Link to Learning'
+      },
+      'exercises': {
+        'exercise': 'Exercise'
       }
     })
   end
@@ -107,6 +131,9 @@ RSpec.describe Kitchen::Directions::BakeAutotitledNotes do
                 <span class="os-subtitle-label">note <em data-effect="italics">title</em></span>
               </h4>
               <p>content</p>
+            <div>
+              <h3 data-type="title">Subsection title</h3>
+            </div>
             </div>
           </div>
           <div data-type="note" id="untitlednote" class="123">
@@ -194,6 +221,33 @@ RSpec.describe Kitchen::Directions::BakeAutotitledNotes do
               </div>
             </li>
               </ul>
+            </div>
+          </div>
+        </div>
+      HTML
+    )
+  end
+
+  it 'bakes unclassified exercises within autotitled notes' do
+    described_class.v1(book: exercise_within_note, classes: %w[foo], bake_exercises: true)
+    expect(exercise_within_note.body.pages.first.notes).to match_normalized_html(
+      <<~HTML
+        <div class="foo" data-type="note" id="untitlednote">
+          <h3 class="os-title" data-type="title">
+            <span class="os-title-label">Bar</span>
+          </h3>
+          <div class="os-note-body">
+            <p>this is a note</p>
+            <div data-type="exercise" id="3360">
+              <div data-type="problem" id="504">
+                <span class="os-title-label">Exercise </span>
+                <span class="os-number">1</span>
+                <div class="os-problem-container">
+                  <ul>
+                    <li>What do you need to know to perform this analysis at the very minimum?</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>

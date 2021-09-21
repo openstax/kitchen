@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Fixes `BakeStepwise` to skip nested lists (patch)
+* Adds an optional selector to `RemoveSectionTitles` (minor)
+* Patches `BakeFreeResponse` to only delete the first h3, not all h3s (patch)
+* Lets `BakeExample` not count titles in lists as commentary titles (minor)
+* Renames `BakePageAbstracts` to `BakeLearningObjectives` and adds optional parameter for titles in `v2` (major)
+* Gets rid of extraneous titles in `BakeAutoTitledNotes` when subtitles are off (minor)
+* Adds `BakeAutotitledExercise` direction and the option to `bake_unclassified_exercises` within `BakeAutotitledNotes`
+* Adds optional numbering for `BakeReferences.v1` (minor)
+
+## [11.2.0] - 2021-09-10
+
 * Adds `BakeAccessibilityFixes` direction for (minor)
 * Remove deprecation warning from `BakeChapterIntroductions.v1` and adapted to be used like `.v2` (minor)
 * Small class fix for `BakeFootnotes.v1` (patch)
@@ -15,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Small fixes to return when no elements are found and not add an empty wrapper in `BakeChapterReferences` and
 `BakeFreeResponse` (minor)
 * Adding class `os-timeline-table-container` to numbered tables when required (minor)
+* Fix `BakeExample` to catch the multiple solutions to one exercise (patch)
 
 ## [11.1.0] - 2021-08-30
 
