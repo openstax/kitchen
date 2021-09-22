@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Fix `NoteElement#title` to be more specific about finding the title (patch)
+
+## [12.0.0] - 2021-09-21
+
 * Fixes `BakeStepwise` to skip nested lists (patch)
 * Adds an optional selector to `RemoveSectionTitles` (minor)
 * Patches `BakeFreeResponse` to only delete the first h3, not all h3s (patch)
@@ -15,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Gets rid of extraneous titles in `BakeAutoTitledNotes` when subtitles are off (minor)
 * Adds `BakeAutotitledExercise` direction and the option to `bake_unclassified_exercises` within `BakeAutotitledNotes`
 * Adds optional numbering for `BakeReferences.v1` (minor)
+* Patches`BakeNumberedNotes.v3` to suppress solutions outside examples when suppress_solutions is true (minor)
 
 ## [11.2.0] - 2021-09-10
 
