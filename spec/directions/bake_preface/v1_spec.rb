@@ -91,8 +91,6 @@ RSpec.describe Kitchen::Directions::BakePreface::V1 do
           </div>
         HTML
       )
-
-      # expect(book_containing_preface_with_figures.search('div.preface')).to all(match_normalized_html(expected))
     end
   end
 end
