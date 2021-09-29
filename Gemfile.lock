@@ -7,12 +7,7 @@ PATH
       nokogiri
       rainbow
       twitter_cldr
-GIT
-  remote: https://github.com/randym/axlsx.git
-  revision: e907691ad25a7cb956c851acb60f23227a5a7004
-  ref: e907691ad25a7cb956c851acb60f23227a5a7004
-  specs:
-    unnumberedfigurespreface (1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
