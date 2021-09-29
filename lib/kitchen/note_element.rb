@@ -33,6 +33,8 @@ module Kitchen
       # 1. it is the note body's first child
       # 2. it is the first child's first child and the first child is a paragraph
       first_child = first_note_body_child
+      return unless first_child
+
       first_grandchild = first_child&.element_children&.[](0) if first_child.name == 'p'
 
       if first_child.data_type == 'title'
