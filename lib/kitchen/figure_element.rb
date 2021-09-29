@@ -53,7 +53,9 @@ module Kitchen
     # @return [Boolean]
     #
     def figure_to_bake?
-      return false if subfigure? || (has_class?('unnumbered') && !has_class?('splash') && !caption)
+      return false if subfigure? || (has_class?('unnumbered') &&
+                                    !has_class?('splash') && !caption &&
+                                    !title)
 
       true
     end
