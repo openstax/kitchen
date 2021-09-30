@@ -6,6 +6,71 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Support top-titled tables in `BakeUnnumberedTables` (minor)
+* Stop `NoteElement#title` from breaking for empty notes (patch)
+* Add text heavy tables to `BakeTableBody` (minor)
+* Modify `BakeAutotitledNotes` to bake unnumbered exercises with solution (minor)
+* Create `AddInjectedExerciseId` to separate creating ids from `BakeInjectedExerciseQuestion` (minor)
+* Rework `AddInjectedExerciseId` to use loop inside module (minor)
+* Refactor `EocCompositePageContainer` to be used by `EOB` sections as well (major)
+* Refactor `bake_references` `v1, v2 and v3` to use `CompositePageContainer` (major)
+
+## [12.1.0] - 2021-09-24
+
+* Fix `BakeExample#titles_to_rename` to exclude exercise titles (patch)
+* Modify `BakeFigure` to bake unnumbered figures with caption (minor)
+* Fix `NoteElement#title` to be more specific about finding the title (patch)
+* Adds `data-type="slug"` to `metadata_lement` `children_to_keep` method, updates spec helper `metadata_element` and related spec files(minor)
+
+## [12.0.0] - 2021-09-21
+
+* Fixes `BakeStepwise` to skip nested lists (patch)
+* Adds an optional selector to `RemoveSectionTitles` (minor)
+* Patches `BakeFreeResponse` to only delete the first h3, not all h3s (patch)
+* Lets `BakeExample` not count titles in lists as commentary titles (minor)
+* Renames `BakePageAbstracts` to `BakeLearningObjectives` and adds optional parameter for titles in `v2` (major)
+* Gets rid of extraneous titles in `BakeAutoTitledNotes` when subtitles are off (minor)
+* Adds `BakeAutotitledExercise` direction and the option to `bake_unclassified_exercises` within `BakeAutotitledNotes`
+* Adds optional numbering for `BakeReferences.v1` (minor)
+* Patches`BakeNumberedNotes.v3` to suppress solutions outside examples when suppress_solutions is true (minor)
+
+## [11.2.0] - 2021-09-10
+
+* Adds `BakeAccessibilityFixes` direction for (minor)
+* Remove deprecation warning from `BakeChapterIntroductions.v1` and adapted to be used like `.v2` (minor)
+* Small class fix for `BakeFootnotes.v1` (patch)
+* Fix `BakeNumberedNotes` to find related example better (minor)
+* Small fix for parameter in `bake_note` definition (minor)
+* Small fixes to return when no elements are found and not add an empty wrapper in `BakeChapterReferences` and
+`BakeFreeResponse` (minor)
+* Adding class `os-timeline-table-container` to numbered tables when required (minor)
+* Fix `BakeExample` to catch the multiple solutions to one exercise (patch)
+
+## [11.1.0] - 2021-08-30
+
+* Update injected questions to synthesize ids during baking (minor)
+* Fix `BakeListsWithPara` to copy all children from para not just text (minor)
+* Implement labels with cases to `BakeAutotitledNotes` and `BakeNumberedNotes` (minor)
+* Add ids to injected questions (minor)
+* Create `BakeIframes` outer directory to allow bake iframes also from outside notes, remove `BakeNoteIFrames` module from notes directory (minor)
+* Update the contemporary math `Strategy` to target injected solution sections (minor)
+* Update `BakeNumberedNotes` to handle injected questions in notes (minor)
+* Create `InjectedQuestionElement` and `InjectedQuestionElementEnumerator` classes (minor)
+* Create `BakeInjectedExercise` and `BakeInjectedExerciseQuestion` directions (minor)
+* Update `MoveSolutionsFromExerciseSection` and `MoveSolutionsFromNumberedNote` to move injected solutions (minor)
+* Add `SolutionElementEnumerator` to support the above (minor)
+* Remove multipart exercise baking from `BakeNumberedExercise`; this is now done in `InjectedExercise` directions (patch)
+* Modify target labels to use grammatical cases (minor)
+* Modify `BakeIndex` to bake multiple types of indexes (minor)
+* Create `v2` in `BakeChapterIntroductions` that should replace `v1` (minor)
+* Added a DEPRECATION warning in `v1` for `BakeChapterIntroductions` (minor)
+* Added a bit more description to deprecation warning for `BakeChapterIntroductions.v1`  (minor)
+
+## [11.0.0] - 2021-08-6
+
+* Add `ChangeSubsectionTitleTag` direction for modifying eoc sections (minor)
+* Add `MoveSolutionsFromNumberedNote`, `MoveSolutionsFromExerciseSection`, and `SolutionAreaSnippet` for answer key baking (minor)
+* Refactor the following `Strategies`: contemporary math, precalculus, uphysics (minor)
 * Fix `BakeUnitPageTite` to utilize only pages which are direct children of the unit (patch)
 * Patch `BakeFirstElements` to include first figure elements (patch)
 * Refactor `MoveCustomSectionToEocContainer` to remove `include_intro_page` (major)
@@ -15,8 +80,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Adds `PageElement#count_in_chapter_without_intro_page` (minor)
 * Adds `ChapterElement#has_introduction?` (minor)
 * Adds `BakeFolio` to set spanish translation variables in the html tag for folio-pdf purposes (minor)
-* Refactor `EocCompositePageContainer` to be used by `EOB` sections as well (major)
-* Refactor `bake_references` `v1, v2 and v3` to use `CompositePageContainer` (major)
+* Create `BakeCustomSections` direction for English Composition (minor)
+* Create `BakeAnnotationClasses` v1 for English Composition (minor)
 
 ## [10.0.0] - 2021-07-30
 

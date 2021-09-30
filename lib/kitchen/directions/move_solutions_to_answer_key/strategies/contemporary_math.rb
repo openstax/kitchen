@@ -4,36 +4,36 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
   module Strategies
     class ContemporaryMath
       def bake(chapter:, append_to:)
-        solutions_clipboard = Kitchen::Clipboard.new
+        # Hacky numbering fix
         chapter.notes('$.your-turn').exercises.each do |exercise|
           solution = exercise.solution
           next unless solution
 
-          # Hacky numbering fix
           number = exercise.ancestor(:note).count_in(:chapter)
           solution.first('a.os-number').inner_html = number.to_s
           solution.first('span.os-divider').inner_html = '. '
-          solution.cut(to: solutions_clipboard)
         end
-        title = <<~HTML
-          <h3 data-type="title">
-            <span class="os-title-label">#{I18n.t(:'notes.your-turn')}</span>
-          </h3>
-        HTML
-        append_solution_area(title: title, solutions: solutions_clipboard,
-                             append_to: append_to)
-      end
 
-      def append_solution_area(title:, solutions:, append_to:)
-        append_to = append_to.add_child(
-          <<~HTML
-            <div class="os-solution-area">
-              #{title}
-            </div>
-          HTML
-        ).first
+        Kitchen::Directions::MoveSolutionsFromNumberedNote.v1(
+          chapter: chapter, append_to: append_to, note_class: 'your-turn'
+        )
 
-        append_to.add_child(solutions.paste)
+        # Bake section exercises
+        chapter.non_introduction_pages.each do |page|
+          number = "#{chapter.count_in(:book)}.#{page.count_in(:chapter)}"
+          Kitchen::Directions::MoveSolutionsFromExerciseSection.v1(
+            chapter: page, append_to: append_to, section_class: 'section-exercises',
+            title_number: number
+          )
+        end
+
+        # Bake other exercise sections
+        classes = %w[chapter-review chapter-test]
+        classes.each do |klass|
+          Kitchen::Directions::MoveSolutionsFromExerciseSection.v1(
+            chapter: chapter, append_to: append_to, section_class: klass
+          )
+        end
       end
     end
   end

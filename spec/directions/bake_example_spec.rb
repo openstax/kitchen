@@ -3,6 +3,14 @@
 require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::BakeExample do
+
+  before do
+    stub_locales({
+      'example': 'Example',
+      'solution': 'Solution'
+    })
+  end
+
   let(:exercise) { '' }
   let(:table) { '' }
   let(:title) { '<span data-type="title">example title becomes h4</span>' }
@@ -87,6 +95,143 @@ RSpec.describe Kitchen::Directions::BakeExample do
                   </h4>
                   <div class="os-solution-container">
                     <p>Solution content</p>
+                  </div>
+                </div>
+                <div data-type="commentary" id="commentary_id">
+                  <h4 data-type="commentary-title" id="title_id">
+                    <span class="os-title-label">Analysis</span>
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        HTML
+      )
+    end
+  end
+
+  context 'when there is a list with a title inside the exercise commentary' do
+    let(:exercise) do
+      <<~HTML
+        <div data-type="exercise" id="exercise_id">
+          <div data-type="problem" id="problem_id">
+            <div data-type="title" id="title_id">Evaluating Functions</div>
+            <p>example content</p>
+          </div>
+          <div data-type="solution" id="solution_id">
+            <p>Solution content</p>
+          </div>
+          <div data-type="commentary" id="commentary_id">
+            <div data-type="list" id="list_id">
+              <div data-type="title" id="title_id">List Title</div>
+              <ul>
+                <li>List Item</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      HTML
+    end
+
+    it 'works' do
+      described_class.v1(example: example, number: 4, title_tag: 'title-tag-name')
+      expect(example).to match_normalized_html(
+        <<~HTML
+          <div data-type="example" id="example-test">
+            <title-tag-name class="os-title">
+              <span class="os-title-label">Example </span>
+              <span class="os-number">4</span>
+              <span class="os-divider"> </span>
+            </title-tag-name>
+            <div class="body">
+              <h4 data-type="title">example title becomes h4</h4>
+              <p>content</p>
+              <div data-type="exercise" id="exercise_id" class="unnumbered">
+                <div data-type="problem" id="problem_id">
+                  <div class="os-problem-container">
+                    <h4 data-type="title" id="title_id">Evaluating Functions</h4>
+                    <p>example content</p>
+                  </div>
+                </div>
+                <div data-type="solution" id="solution_id">
+                  <h4 data-type="solution-title">
+                    <span class="os-title-label">Solution </span>
+                  </h4>
+                  <div class="os-solution-container">
+                    <p>Solution content</p>
+                  </div>
+                </div>
+                <div data-type="commentary" id="commentary_id">
+                  <div data-type="list" id="list_id">
+                    <h4 data-type="title" id="title_id">List Title</h4>
+                    <ul>
+                      <li>List Item</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        HTML
+      )
+    end
+  end
+
+  context 'when there is an example with multiple solutions' do
+    let(:exercise) do
+      <<~HTML
+        <div data-type="exercise" id="exercise_id">
+          <div data-type="problem" id="problem_id">
+            <div data-type="title" id="title_id">Evaluating Functions</div>
+            <p>example content</p>
+          </div>
+          <div data-type="solution" id="solution_id_1">
+            <p>Solution content</p>
+          </div>
+          <div data-type="solution" id="solution_id_2">
+            <p>A second solution</p>
+          </div>
+          <div data-type="commentary" id="commentary_id">
+            <div data-type="title" id="title_id">Analysis</div>
+          </div>
+        </div>
+      HTML
+    end
+
+    it 'works' do
+      described_class.v1(example: example, number: 4, title_tag: 'title-tag-name')
+      expect(example).to match_normalized_html(
+        <<~HTML
+          <div data-type="example" id="example-test">
+            <title-tag-name class="os-title">
+              <span class="os-title-label">Example </span>
+              <span class="os-number">4</span>
+              <span class="os-divider"> </span>
+            </title-tag-name>
+            <div class="body">
+              <h4 data-type="title">example title becomes h4</h4>
+              <p>content</p>
+              <div data-type="exercise" id="exercise_id" class="unnumbered">
+                <div data-type="problem" id="problem_id">
+                  <div class="os-problem-container">
+                    <h4 data-type="title" id="title_id">Evaluating Functions</h4>
+                    <p>example content</p>
+                  </div>
+                </div>
+                <div data-type="solution" id="solution_id_1">
+                  <h4 data-type="solution-title">
+                    <span class="os-title-label">Solution </span>
+                  </h4>
+                  <div class="os-solution-container">
+                    <p>Solution content</p>
+                  </div>
+                </div>
+                <div data-type="solution" id="solution_id_2">
+                  <h4 data-type="solution-title">
+                    <span class="os-title-label">Solution </span>
+                  </h4>
+                  <div class="os-solution-container">
+                    <p>A second solution</p>
                   </div>
                 </div>
                 <div data-type="commentary" id="commentary_id">
@@ -379,10 +524,32 @@ RSpec.describe Kitchen::Directions::BakeExample do
     end
   end
 
-  it 'stores info in the pantry' do
-    expect { described_class.v1(example: example, number: 4, title_tag: 'title-tag-name') }.to change {
-      example.pantry(name: :link_text).get(example.id)
-    }.from(nil)
+  context 'when book does not use grammatical cases' do
+    it 'stores link text' do
+      pantry = example.pantry(name: :link_text)
+      expect(pantry).to receive(:store).with('Example 4', { label: 'example-test' })
+      described_class.v1(example: example, number: 4, title_tag: 'title-tag-name')
+    end
+  end
+
+  context 'when book uses grammatical cases' do
+    it 'stores link text' do
+      with_locale(:pl) do
+        stub_locales({
+          'example': {
+            'nominative': 'Przykład',
+            'genitive': 'Przykładu'
+          }
+        })
+
+        pantry = example.pantry(name: :nominative_link_text)
+        expect(pantry).to receive(:store).with('Przykład 4', { label: 'example-test' })
+
+        pantry = example.pantry(name: :genitive_link_text)
+        expect(pantry).to receive(:store).with('Przykładu 4', { label: 'example-test' })
+        described_class.v1(example: example, number: 4, title_tag: 'title-tag-name', cases: true)
+      end
+    end
   end
 
   describe 'ExampleElement#titles_to_rename' do
@@ -395,7 +562,7 @@ RSpec.describe Kitchen::Directions::BakeExample do
               <div data-type='example' id='example-test'>
                 <span data-type="title" id="title1">example title becomes h4</span>
                 <div data-type="exercise">
-                  <span data-type="title" id="title2">exercises title becomes h4(?)</span>
+                  <span data-type="title" id="title2">exercise title is skipped</span>
                 </div>
                 <div data-type="note">
                   <h3 data-type="title" id="title3">note title is skipped</h3>
@@ -423,10 +590,8 @@ RSpec.describe Kitchen::Directions::BakeExample do
     end
 
     it 'skips titles within tables & notes' do
-      ids = %w[title1 title2]
-      example.titles_to_rename.each_with_index do |title, index|
-        expect(title.id).to eq(ids[index])
-      end
+      renamed_title_ids = example.titles_to_rename.map { |title| title.id }
+      expect(renamed_title_ids).to eq(%w[title1])
     end
   end
 end

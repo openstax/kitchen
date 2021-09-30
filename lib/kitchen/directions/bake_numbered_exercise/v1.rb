@@ -2,14 +2,15 @@
 
 module Kitchen::Directions::BakeNumberedExercise
   class V1
-    def bake(exercise:, number:, suppress_solution_if: false, note_suppressed_solutions: false)
+    def bake(exercise:, number:, suppress_solution_if: false,
+             note_suppressed_solutions: false, cases: false)
       problem = exercise.problem
       solution = exercise.solution
 
-      exercise.pantry(name: :link_text).store(
-        "#{I18n.t(:exercise_label)} #{exercise.ancestor(:chapter).count_in(:book)}.#{number}",
-        label: exercise.id
-      )
+      # Store label information
+      label_number = "#{exercise.ancestor(:chapter).count_in(:book)}.#{number}"
+      exercise.target_label(label_text: 'exercise', custom_content: label_number, cases: cases)
+
       problem_number = "<span class='os-number'>#{number}</span>"
 
       suppress_solution =
@@ -35,25 +36,6 @@ module Kitchen::Directions::BakeNumberedExercise
           #{problem_number}
           <span class='os-divider'>. </span>
           <div class="os-problem-container">#{problem.children}</div>
-        HTML
-      )
-
-      # Bake multipart questions
-      multipart_questions = problem.search('div.question-stem')
-      return unless multipart_questions.count > 1
-
-      multipart_clipboard = Kitchen::Clipboard.new
-      multipart_questions.each do |question|
-        question.wrap('<li>')
-        question = question.parent
-        question.cut(to: multipart_clipboard)
-      end
-
-      problem.first('div.question-stimulus, div.exercise-stimulus').append(sibling:
-        <<~HTML
-          <ol type="a">
-            #{multipart_clipboard.paste}
-          </ol>
         HTML
       )
     end

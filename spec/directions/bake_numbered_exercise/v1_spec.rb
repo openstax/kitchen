@@ -3,6 +3,13 @@
 require 'spec_helper'
 
 RSpec.describe Kitchen::Directions::BakeNumberedExercise do
+
+  before do
+    stub_locales({
+      'exercise': 'Exercise'
+    })
+  end
+
   let(:exercise1) do
     book_containing(html:
       one_chapter_with_one_page_containing(
@@ -111,77 +118,31 @@ RSpec.describe Kitchen::Directions::BakeNumberedExercise do
       end
     end
 
-    context 'when there is a stimulus' do
-      let(:multipart_exercise) do
-        book_containing(html:
-          one_chapter_with_one_page_containing(
-            <<~HTML
-              <div data-type="exercise" id="ex1">
-                <div data-type="problem" id="prob1">
-                  <div class="question-stimulus">Stimulus</div>
-                  <div class="question-stem">question 1</div>
-                  <div class="question-stem">question 2</div>
-                  <div class="question-stem">question 3</div>
-                </div>
-              </div>
-            HTML
-          )
-        ).chapters.exercises.first
+    context 'when book does not use grammatical cases' do
+      it 'stores link text' do
+        pantry = exercise1.pantry(name: :link_text)
+        expect(pantry).to receive(:store).with('Exercise 1.1', { label: 'exercise_id' })
+        described_class.v1(exercise: exercise1, number: '1')
       end
+    end
 
-      let(:multipart_exercise_with_one_part) do
-        book_containing(html:
-          one_chapter_with_one_page_containing(
-            <<~HTML
-              <div data-type="exercise" id="ex1">
-                <div data-type="problem" id="prob1">
-                  <div class="question-stimulus">Stimulus</div>
-                  <div class="question-stem">question 1</div>
-                </div>
-              </div>
-            HTML
-          )
-        ).chapters.exercises.first
-      end
+    context 'when book uses grammatical cases' do
+      it 'stores link text' do
+        with_locale(:pl) do
+          stub_locales({
+            'exercise': {
+              'nominative': 'Ćwiczenie',
+              'genitive': 'Ćwiczenia'
+            }
+          })
 
-      it 'bakes a multipart exercise' do
-        described_class.v1(exercise: multipart_exercise, number: 2)
-        expect(multipart_exercise).to match_normalized_html(
-          <<~HTML
-            <div data-type="exercise" id="ex1">
-              <div data-type="problem" id="prob1">
-                <span class="os-number">2</span>
-                <span class="os-divider">. </span>
-                <div class="os-problem-container">
-                  <div class="question-stimulus">Stimulus</div>
-                  <ol type="a">
-                    <li><div class="question-stem">question 1</div></li>
-                    <li><div class="question-stem">question 2</div></li>
-                    <li><div class="question-stem">question 3</div></li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          HTML
-        )
-      end
+          pantry = exercise1.pantry(name: :nominative_link_text)
+          expect(pantry).to receive(:store).with('Ćwiczenie 1.1', { label: 'exercise_id' })
 
-      it 'doesn\'t add a list when there is just one part' do
-        described_class.v1(exercise: multipart_exercise_with_one_part, number: 2)
-        expect(multipart_exercise_with_one_part).to match_normalized_html(
-          <<~HTML
-            <div data-type="exercise" id="ex1">
-              <div data-type="problem" id="prob1">
-                <span class="os-number">2</span>
-                <span class="os-divider">. </span>
-                <div class="os-problem-container">
-                  <div class="question-stimulus">Stimulus</div>
-                  <div class="question-stem">question 1</div>
-                </div>
-              </div>
-            </div>
-          HTML
-        )
+          pantry = exercise1.pantry(name: :genitive_link_text)
+          expect(pantry).to receive(:store).with('Ćwiczenia 1.1', { label: 'exercise_id' })
+          described_class.v1(exercise: exercise1, number: '1', cases: true)
+        end
       end
     end
 
