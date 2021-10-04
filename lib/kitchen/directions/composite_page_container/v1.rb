@@ -15,7 +15,7 @@ module Kitchen::Directions::CompositePageContainer
       @content = content
 
       append_to.append(child: render(file:
-        '../../templates/eoc_section_template.xhtml.erb'))
+        '../../templates/composite_page_template.xhtml.erb'))
     end
   end
 end

@@ -4,12 +4,7 @@ module Kitchen::Directions::BakeReferences
   class V1
     renderable
 
-    def bake(book:, metadata_source:, numbered_title:)
-      @metadata = metadata_source.children_to_keep.copy
-      @klass = 'reference'
-      @uuid_prefix = '.'
-      @title = I18n.t(:references)
-
+    def bake(book:, numbered_title:)
       book.chapters.each do |chapter|
         chapter.search('[data-type="cite"]').each do |link|
           link.prepend(child:

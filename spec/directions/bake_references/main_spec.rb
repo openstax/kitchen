@@ -53,8 +53,8 @@ RSpec.describe Kitchen::Directions::BakeReferences do
 
   it 'calls v1' do
     expect_any_instance_of(Kitchen::Directions::BakeReferences::V1).to receive(:bake)
-      .with(book: 'book1', metadata_source: 'metadata', numbered_title: false)
-    described_class.v1(book: 'book1', metadata_source: 'metadata')
+      .with(book: book1, numbered_title: false)
+    described_class.v1(book: book1, metadata_source: metadata_element)
   end
 
   it 'calls v2' do

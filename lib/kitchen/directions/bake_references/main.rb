@@ -5,8 +5,8 @@ module Kitchen
     # Bake directions for EOB references
     #
     module BakeReferences
-      def self.v1(book:, metadata_source:)
-        V1.new.bake(book: book)
+      def self.v1(book:, metadata_source:, numbered_title: false)
+        V1.new.bake(book: book, numbered_title: numbered_title)
 
         chapter_area_references = book.chapters.search('.os-chapter-area').cut
 

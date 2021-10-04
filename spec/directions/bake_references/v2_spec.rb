@@ -2,7 +2,16 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeReferences::V2 do
+RSpec.describe Kitchen::Directions::BakeReferences do
+
+  before do
+    stub_locales({
+      'eob': {
+        'references': 'References'
+      }
+    })
+  end
+
   let(:book1) do
     book_containing(html:
     <<~HTML
@@ -50,8 +59,8 @@ RSpec.describe Kitchen::Directions::BakeReferences::V2 do
   end
 
   it 'works' do
-    described_class.new.bake(book: book1)
-    expect(book1.chapters.search('.os-chapter-area').to_s).to match_normalized_html(
+    described_class.v2(book: book1, metadata_source: metadata_element)
+    expect(book1.first('.os-references-container').to_s).to match_normalized_html(
       <<~HTML
         <div class="os-eob os-references-container" data-type="composite-page" data-uuid-key=".references">
           <h1 data-type="document-title">

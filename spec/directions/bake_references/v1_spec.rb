@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BakeReferences::V1 do
+RSpec.describe Kitchen::Directions::BakeReferences do
 
   let(:book1) do
     book_containing(html:
@@ -53,7 +53,7 @@ RSpec.describe Kitchen::Directions::BakeReferences::V1 do
   end
 
   it 'works' do
-    described_class.new.bake(book: book1, metadata_source: metadata_element, numbered_title: false)
+    described_class.v1(book: book1, metadata_source: metadata_element, numbered_title: false)
 
     expect(book1.body).to match_normalized_html(
       <<~HTML
@@ -129,45 +129,27 @@ RSpec.describe Kitchen::Directions::BakeReferences::V1 do
               </h2>
               <div class="reference" data-type="note" display="inline" id="auto_12345"><span class="os-reference-number">1. </span>
                   Reference 1
-                </div><div data-type="note" class="reference" display="inline" id="auto_54321"><span class="os-reference-number">2. </span>
+                </div>
+              <div class="reference" data-type="note" display="inline" id="auto_54321"><span class="os-reference-number">2. </span>
                   Reference 2
                 </div>
-        </div>
-        </div><div data-type="chapter">
-          <h1 data-type="document-title" id="chapTitle2">
-            <span class="os-part-text">Chapter </span>
-            <span class="os-number">2</span>
-            <span class="os-divider"> </span>
-            <span class="os-text" data-type="" itemprop="">Title Text Chapter 2</span>
-          </h1>
-          <div data-type="page">
-            <div data-type="metadata" style="display: none;">
-          <div class="authors" id="authors">Authors</div>
-          <div class="publishers" id="publishers">Publishers</div>
-          <div class="print-style" id="print-style">Print Style</div>
-          <div class="permissions" id="permissions">Permissions</div>
-          <div data-type="subject" id="subject">Subject</div>
-        </div>
-            <p>
-              <a href="#auto_6789" data-type="cite"><sup class="os-citation-number">1</sup>
-
-
-              </a>
-            </p>
-          </div>
-        <div class="os-chapter-area">
-          <h2 data-type="document-title"><span class="os-text" data-type="" itemprop="">Title Text Chapter 2</span></h2>
-          <div data-type="note" class="reference" display="inline" id="auto_6789"><span class="os-reference-number">1. </span>
+            </div>
+            <div class="os-chapter-area">
+              <h2 data-type="document-title">
+                <span class="os-text" data-type="" itemprop="">Title Text Chapter 2</span>
+              </h2>
+              <div class="reference" data-type="note" display="inline" id="auto_6789"><span class="os-reference-number">1. </span>
                   Reference 3
                 </div>
-        </div>
-        </div>
+            </div>
+          </div>
+        </body>
       HTML
     )
   end
 
   it 'add chapter number to references title' do
-    described_class.new.bake(book: book1, metadata_source: metadata_element, numbered_title: true)
+    described_class.v1(book: book1, metadata_source: metadata_element, numbered_title: true)
     expect(
       book1.body.search('div.os-reference-container').search('div.os-chapter-area > [data-type="document-title"]')
     ).to match_normalized_html(
