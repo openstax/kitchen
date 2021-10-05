@@ -318,6 +318,24 @@ module Kitchen
                css_or_xpath: css_or_xpath, only: only, except: except)
     end
 
+    # Returns an enumerator that iterates through sections within the scope of this enumerator
+    #
+    # @param css_or_xpath [String] additional selectors to further narrow the element iterated over;
+    #   a "$" in this argument will be replaced with the default selector for the element being
+    #   iterated over.
+    # @param only [Symbol, Callable] the name of a method to call on an element or a
+    #   lambda or proc that accepts an element; elements will only be included in the
+    #   search results if the method or callable returns true
+    # @param except [Symbol, Callable] the name of a method to call on an element or a
+    #   lambda or proc that accepts an element; elements will not be included in the
+    #   search results if the method or callable returns false
+    #
+    def sections(css_or_xpath=nil, only: nil, except: nil)
+      block_error_if(block_given?)
+      chain_to(SectionElementEnumerator,
+               css_or_xpath: css_or_xpath, only: only, except: except)
+    end
+
     # Returns an enumerator that iterates within the scope of this enumerator
     #
     # @param css_or_xpath [String] additional selectors to further narrow the element iterated over
@@ -325,6 +343,23 @@ module Kitchen
     def search(css_or_xpath=nil, only: nil, except: nil)
       block_error_if(block_given?)
       chain_to(ElementEnumerator, css_or_xpath: css_or_xpath, only: only, except: except)
+    end
+
+    # Searches for elements handled by a list of enumerator classes.  All element that
+    # matches one of those enumerator classes are iterated over.
+    #
+    # @param enumerator_classes [Array<ElementEnumeratorBase>]
+    # @return [TypeCastingElementEnumerator]
+    #
+    def search_with(*enumerator_classes)
+      block_error_if(block_given?)
+      raise 'must supply at least one enumerator class' if enumerator_classes.empty?
+
+      factory = enumerator_classes[0].factory
+      enumerator_classes[1..-1].each do |enumerator_class|
+        factory = factory.or_with(enumerator_class.factory)
+      end
+      factory.build_within(self)
     end
 
     # Returns an enumerator that iterates through elements within the scope of this enumerator
