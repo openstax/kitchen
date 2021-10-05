@@ -5,18 +5,16 @@ module Kitchen::Directions::BakeReferences
     def bake(book:)
       return unless book.references.any?
 
-      book.chapters.each do |chapter|
-        chapter.pages.each do |page|
-          page.references.each do |reference|
-            reference.titles.trash
-            reference.prepend(child:
-              Kitchen::Directions::EocSectionTitleLinkSnippet.v1(
-                page: page,
-                title_tag: 'h2',
-                wrapper: nil
-              )
+      book.chapters.pages.each do |page|
+        page.references.each do |reference|
+          reference.titles.trash
+          reference.prepend(child:
+            Kitchen::Directions::EocSectionTitleLinkSnippet.v1(
+              page: page,
+              title_tag: 'h2',
+              wrapper: nil
             )
-          end
+          )
         end
       end
     end

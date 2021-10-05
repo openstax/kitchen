@@ -10,11 +10,12 @@ module Kitchen
 
         chapter_area_references = book.chapters.search('.os-chapter-area').cut
 
-        section(
-          book: book,
+        Kitchen::Directions::CompositePageContainer.v1(
+          container_key: 'reference',
+          uuid_key: '.reference',
           metadata_source: metadata_source,
-          chapter_area_references: chapter_area_references.paste,
-          plural: false
+          content: chapter_area_references.paste,
+          append_to: book.body
         )
       end
 
@@ -23,10 +24,12 @@ module Kitchen
 
         chapter_area_references = book.chapters.search('.os-chapter-area').cut
 
-        section(
-          book: book,
+        Kitchen::Directions::CompositePageContainer.v1(
+          container_key: 'references',
+          uuid_key: '.references',
           metadata_source: metadata_source,
-          chapter_area_references: chapter_area_references.paste
+          content: chapter_area_references.paste,
+          append_to: book.body
         )
       end
 
@@ -35,19 +38,11 @@ module Kitchen
 
         chapter_area_references = book.chapters.references.cut
 
-        section(
-          book: book,
-          metadata_source: metadata_source,
-          chapter_area_references: chapter_area_references.paste
-        )
-      end
-
-      def self.section(book:, metadata_source:, chapter_area_references:, plural: true)
         Kitchen::Directions::CompositePageContainer.v1(
-          container_key: plural ? 'references' : 'reference',
-          uuid_key: plural ? '.references' : '.reference',
+          container_key: 'references',
+          uuid_key: '.references',
           metadata_source: metadata_source,
-          content: chapter_area_references,
+          content: chapter_area_references.paste,
           append_to: book.body
         )
       end

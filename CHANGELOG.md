@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Add `SectionElement` and `SectionElementEnumerator` classes (minor)
+* Refactor `EocCompositePageContainer` to be used by `EOB` sections as well (major)
+* Refactor `bake_references` `v1, v2 and v3` to use `CompositePageContainer` (major)
 
 ## [12.2.0] - 2021-10-1
 
@@ -18,8 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Modify `BakeAutotitledNotes` to bake unnumbered exercises with solution (minor)
 * Create `AddInjectedExerciseId` to separate creating ids from `BakeInjectedExerciseQuestion` (minor)
 * Rework `AddInjectedExerciseId` to use loop inside module (minor)
-* Refactor `EocCompositePageContainer` to be used by `EOB` sections as well (major)
-* Refactor `bake_references` `v1, v2 and v3` to use `CompositePageContainer` (major)
 
 ## [12.1.0] - 2021-09-24
 
