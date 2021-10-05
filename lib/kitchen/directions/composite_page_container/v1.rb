@@ -13,6 +13,13 @@ module Kitchen::Directions::CompositePageContainer
       @container_class_type = container_key
       @metadata = metadata_source.children_to_keep.copy
       @content = content
+      @main_title_tag = 'h1'
+
+      if @in_composite_chapter
+        @main_title_tag = 'h3'
+      elsif @is_eoc
+        @main_title_tag = 'h2'
+      end
 
       append_to.append(child: render(file:
         '../../templates/composite_page_template.xhtml.erb'))
