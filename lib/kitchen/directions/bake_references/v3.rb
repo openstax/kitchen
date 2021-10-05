@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::BakeReferences
   class V3
-    def bake(book:)
+    def bake(book:, metadata_source:)
       return unless book.references.any?
 
       book.chapters.pages.each do |page|
@@ -17,6 +17,16 @@ module Kitchen::Directions::BakeReferences
           )
         end
       end
+
+      chapter_area_references = book.chapters.references.cut
+
+      Kitchen::Directions::CompositePageContainer.v1(
+        container_key: 'references',
+        uuid_key: '.references',
+        metadata_source: metadata_source,
+        content: chapter_area_references.paste,
+        append_to: book.body
+      )
     end
   end
 end

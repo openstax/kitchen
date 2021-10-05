@@ -2,7 +2,7 @@
 
 module Kitchen::Directions::BakeReferences
   class V2
-    def bake(book:)
+    def bake(book:, metadata_source:)
       book.chapters.each do |chapter|
 
         chapter.references.search('h3').trash
@@ -19,6 +19,16 @@ module Kitchen::Directions::BakeReferences
           HTML
         )
       end
+
+      chapter_area_references = book.chapters.search('.os-chapter-area').cut
+
+      Kitchen::Directions::CompositePageContainer.v1(
+        container_key: 'references',
+        uuid_key: '.references',
+        metadata_source: metadata_source,
+        content: chapter_area_references.paste,
+        append_to: book.body
+      )
     end
   end
 end

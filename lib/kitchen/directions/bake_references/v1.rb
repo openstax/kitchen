@@ -4,7 +4,7 @@ module Kitchen::Directions::BakeReferences
   class V1
     renderable
 
-    def bake(book:, numbered_title:)
+    def bake(book:, metadata_source:, numbered_title:)
       book.chapters.each do |chapter|
         chapter.search('[data-type="cite"]').each do |link|
           link.prepend(child:
@@ -39,6 +39,16 @@ module Kitchen::Directions::BakeReferences
           HTML
         )
       end
+
+      chapter_area_references = book.chapters.search('.os-chapter-area').cut
+
+      Kitchen::Directions::CompositePageContainer.v1(
+        container_key: 'reference',
+        uuid_key: '.reference',
+        metadata_source: metadata_source,
+        content: chapter_area_references.paste,
+        append_to: book.body
+      )
     end
   end
 end
