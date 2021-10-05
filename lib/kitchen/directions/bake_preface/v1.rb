@@ -13,11 +13,11 @@ module Kitchen::Directions::BakePreface
           )
           title.name = title_element
         end
-        unnumbered_figures = page.figures('$.unnumbered')
-        next if unnumbered_figures.none?
+        uncounted_figures = page.figures(only: :figure_to_bake_without_count?)
+        next if uncounted_figures.none?
 
-        unnumbered_figures.each do |unnumbered_figure|
-          Kitchen::Directions::BakeFigure.v1(figure: unnumbered_figure)
+        uncounted_figures.each do |uncounted_figure|
+          Kitchen::Directions::BakeFigure.v1(figure: uncounted_figure, number: nil)
         end
       end
     end

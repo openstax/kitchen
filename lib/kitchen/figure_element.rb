@@ -60,5 +60,25 @@ module Kitchen
       true
     end
 
+    # Returns true unless the figure is a subfigure or has the 'unnumbered' class
+    #
+    # @return [Boolean]
+    def figure_to_bake_and_count?
+      return false if subfigure? || has_class?('unnumbered')
+
+      true
+    end
+
+    # Returns true unless the figure is a not a subfigure or not has the 'unnumbered' class,
+    # unless together with 'splash' classes, caption, title
+    #
+    # @return [Boolean]
+    def figure_to_bake_without_count?
+      return false if !subfigure? || (!has_class?('unnumbered') &&
+                                    has_class?('splash') && caption &&
+                                    title)
+
+      true
+    end
   end
 end
