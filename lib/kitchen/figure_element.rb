@@ -47,11 +47,21 @@ module Kitchen
       parent.name == 'figure'
     end
 
+    # Returns true if the figure is unnumbered
+    #
+    # @return [Boolean]
+    #
+
+    def unnumbered_figure?
+      has_class?('unnumbered')
+    end
+
     # Returns true unless the figure is a subfigure or has the 'unnumbered' class,
     # unless the figure has both the 'unnumbered' and the 'splash' classes.
     #
     # @return [Boolean]
-    #
+
+    # TODO, remove this method from other books recipes to prevent counting unnumbered baked figures
     def figure_to_bake?
       return false if subfigure? || (has_class?('unnumbered') &&
                                     !has_class?('splash') && !caption &&
@@ -60,23 +70,17 @@ module Kitchen
       true
     end
 
-    # Returns true unless the figure is a subfigure or has the 'unnumbered' class
-    #
-    # @return [Boolean]
-    def figure_to_bake_and_count?
-      return false if subfigure? || has_class?('unnumbered')
+    def figure_to_bake_without_count?
+      return false if subfigure? || !unnumbered_figure?
 
       true
     end
 
-    # Returns true unless the figure is a not a subfigure or not has the 'unnumbered' class,
-    # unless together with 'splash' classes, caption, title
+    # Returns true unless the figure is a subfigure or has the 'unnumbered' class
     #
     # @return [Boolean]
-    def figure_to_bake_without_count?
-      return false if !subfigure? || (!has_class?('unnumbered') &&
-                                    has_class?('splash') && caption &&
-                                    title)
+    def figure_to_bake_and_count?
+      return false if subfigure? || unnumbered_figure?
 
       true
     end

@@ -24,16 +24,33 @@ RSpec.describe Kitchen::Directions::BakePreface::V1 do
     )
   end
 
-  let(:book_containing_preface_with_figures) do
+  let(:book_containing_preface_with_unnumbered_figures) do
     book_containing(html:
       <<~HTML
         <div data-type="page" class="preface">
           <section>
-            <figure id="auto_65d6f438-78c0-4b74-8701-ef973b62bdbf_people" class="unnumbered">
-              <div data-type="title" id="auto_65d6f438-78c0-4b74-8701-ef973b62bdbf_1">People of the World</div>
-              <figcaption>People of the World. The figure title for this piece of art is “People of the World” and the caption follows. Captions should be written in complete sentences.</figcaption>
-                <span data-type="media" id="auto_65d6f438-78c0-4b74-8701-ef973b62bdbf_peopleoftheworld" data-alt="Alt text placeholder">
-                  <img src="65d6f438-78c0-4b74-8701-ef973b62bdbf/Figure 00_PP_Art1.png" data-media-type="image/png" alt="Alt text placeholder" id="auto_65d6f438-78c0-4b74-8701-ef973b62bdbf_2"/>
+            <figure class="unnumbered" id="someId-1">
+              <div data-type="title" id="someId-1">First Figure Title</div>
+              <span data-alt="Alt text placeholder" data-type="media" id="someId-1">
+                <img alt="Alt text placeholder" data-media-type="image/png" id="someId-1" src="First Image.png" />
+              </span>
+            </figure>
+            <figure id="someId-2" class="unnumbered">
+              <div data-type="title" id="someId-2">Second Figure Title</div>
+              <figcaption>Second Figure Title</figcaption>
+                <span data-type="media" id="someId-2" data-alt="Alt text placeholder">
+                  <img src="Second Image.png" data-media-type="image/png" alt="Alt text placeholder" id="someId-2"/>
+                </span>
+            </figure>
+            <figure id="someId-3" class="unnumbered">
+              <figcaption>Third Figure Caption</figcaption>
+                <span data-type="media" id="someId-3" data-alt="Alt text placeholder">
+                  <img src="Third Image.png" data-media-type="image/png" alt="Alt text placeholder" id="someId-3"/>
+                </span>
+            </figure>
+            <figure id="someId-4" class="unnumbered">
+                <span data-type="media" id="someId-4" data-alt="Alt text placeholder">
+                  <img src="Fourth Image.png" data-media-type="image/png" alt="Alt text placeholder" id="someId-4"/>
                 </span>
             </figure>
           </section>
@@ -71,22 +88,47 @@ RSpec.describe Kitchen::Directions::BakePreface::V1 do
 
   context 'when preface contains figures' do
     it 'bakes' do
-      described_class.new.bake(book: book_containing_preface_with_figures, title_element: 'h1')
-      expect(book_containing_preface_with_figures.pages.first).to match_normalized_html(
+      described_class.new.bake(book: book_containing_preface_with_unnumbered_figures, title_element: 'h1')
+      expect(book_containing_preface_with_unnumbered_figures.pages.first).to match_normalized_html(
         <<~HTML
           <div class="preface" data-type="page">
             <section>
               <div class="os-figure">
-                <figure class="unnumbered" id="auto_65d6f438-78c0-4b74-8701-ef973b62bdbf_people">
-                  <div data-type="title" id="auto_65d6f438-78c0-4b74-8701-ef973b62bdbf_1">People of the World</div>
-                  <span data-alt="Alt text placeholder" data-type="media" id="auto_65d6f438-78c0-4b74-8701-ef973b62bdbf_peopleoftheworld">
-                    <img alt="Alt text placeholder" data-media-type="image/png" id="auto_65d6f438-78c0-4b74-8701-ef973b62bdbf_2" src="65d6f438-78c0-4b74-8701-ef973b62bdbf/Figure 00_PP_Art1.png" />
+                <figure class="unnumbered" id="someId-1">
+                  <span data-alt="Alt text placeholder" data-type="media" id="someId-1">
+                  <img alt="Alt text placeholder" data-media-type="image/png" id="someId-1" src="First Image.png" />
                   </span>
                 </figure>
                 <div class="os-caption-container">
-                  <span class="os-caption">People of the World. The figure title for this piece of art is &#x201C;People of the World&#x201D; and the caption follows. Captions should be written in complete sentences.</span>
+                  <span class="os-title" data-type="title" id="someId-1">First Figure Title</span>
                 </div>
               </div>
+              <div class="os-figure">
+                  <figure class="unnumbered" id="someId-2">
+                    <span data-alt="Alt text placeholder" data-type="media" id="someId-2">
+                      <img alt="Alt text placeholder" data-media-type="image/png" id="someId-2" src="Second Image.png" />
+                   </span>
+                  </figure>
+                  <div class="os-caption-container">
+                    <span class="os-title" data-type="title" id="someId-2">Second Figure Title</span>
+                    <span class="os-caption">Second Figure Title</span>
+                  </div>
+                </div>
+                <div class="os-figure">
+                  <figure class="unnumbered" id="someId-3">
+                    <span data-alt="Alt text placeholder" data-type="media" id="someId-3">
+                      <img alt="Alt text placeholder" data-media-type="image/png" id="someId-3" src="Third Image.png" />
+                    </span>
+                  </figure>
+                  <div class="os-caption-container">
+                    <span class="os-caption">Third Figure Caption</span>
+                  </div>
+                </div>
+                <figure class="unnumbered" id="someId-4">
+                  <span data-alt="Alt text placeholder" data-type="media" id="someId-4">
+                    <img alt="Alt text placeholder" data-media-type="image/png" id="someId-4" src="Fourth Image.png" />
+                  </span>
+                </figure>
             </section>
           </div>
         HTML

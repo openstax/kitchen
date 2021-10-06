@@ -78,6 +78,37 @@ RSpec.describe Kitchen::Directions::BakeFigure do
     )
   end
 
+  let(:book_with_unnumbered_with_title) do
+    book_containing(html:
+      one_chapter_with_one_page_containing(
+        <<~HTML
+          <figure id="someId" class="unnumbered">
+          <div data-type="title" id="someId">Title</div>
+          <span>
+            <img src="img.jpg"/>
+          </span>
+          </figure>
+        HTML
+      )
+    )
+  end
+
+  let(:book_with_unnumbered_with_title_and_caption) do
+    book_containing(html:
+      one_chapter_with_one_page_containing(
+        <<~HTML
+          <figure id="someId" class="unnumbered">
+          <div data-type="title" id="someId">Title</div>
+          <figcaption>figure caption</figcaption>
+          <span>
+            <img src="img.jpg"/>
+          </span>
+          </figure>
+        HTML
+      )
+    )
+  end
+
   let(:book_with_problematic_figures) do
     book_containing(html:
       one_chapter_with_one_page_containing(
@@ -94,6 +125,13 @@ RSpec.describe Kitchen::Directions::BakeFigure do
           </figure>
           <figure id="fig6" class="unnumbered">
             <figcaption>figure caption</figcaption>
+          </figure>
+          <figure id="fig7" class="unnumbered">
+            <figcaption>figure caption</figcaption>
+            <div data-type="title">Title</div>
+          </figure>
+          <figure id="fig8" class="unnumbered">
+            <div data-type="title">Title</div>
           </figure>
         HTML
       )
@@ -163,7 +201,7 @@ RSpec.describe Kitchen::Directions::BakeFigure do
 
     context 'when figure is unnumbered but also a splash' do
       it 'bakes' do
-        described_class.v1(figure: book_with_unnumbered_splash.figures.first, number: 'blah')
+        described_class.v1(figure: book_with_unnumbered_splash.figures.first)
         expect(book_with_unnumbered_splash.pages.first).to match_normalized_html(
           <<~HTML
             <div data-type="page">
@@ -185,7 +223,7 @@ RSpec.describe Kitchen::Directions::BakeFigure do
 
     context 'when figure is unnumbered but has caption' do
       it 'bakes' do
-        described_class.v1(figure: book_with_unnumbered_with_caption.figures.first, number: 'blah')
+        described_class.v1(figure: book_with_unnumbered_with_caption.figures.first)
         expect(book_with_unnumbered_with_caption.pages.first).to match_normalized_html(
           <<~HTML
             <div data-type="page">
@@ -196,6 +234,51 @@ RSpec.describe Kitchen::Directions::BakeFigure do
                   </span>
                 </figure>
                 <div class="os-caption-container">
+                  <span class="os-caption">figure caption</span>
+                </div>
+              </div>
+            </div>
+          HTML
+        )
+      end
+    end
+
+    context 'when figure is unnumbered but has title' do
+      it 'bakes' do
+        described_class.v1(figure: book_with_unnumbered_with_title.figures.first)
+        expect(book_with_unnumbered_with_title.pages.first).to match_normalized_html(
+          <<~HTML
+            <div data-type="page">
+              <div class="os-figure">
+                <figure class="unnumbered" id="someId">
+                  <span>
+                    <img src="img.jpg" />
+                  </span>
+                </figure>
+                <div class="os-caption-container">
+                <span class="os-title" data-type="title" id="someId">Title</span>
+                </div>
+              </div>
+            </div>
+          HTML
+        )
+      end
+    end
+
+    context 'when figure is unnumbered but has caption & title' do
+      it 'bakes' do
+        described_class.v1(figure: book_with_unnumbered_with_title_and_caption.figures.first)
+        expect(book_with_unnumbered_with_title_and_caption.pages.first).to match_normalized_html(
+          <<~HTML
+            <div data-type="page">
+              <div class="os-figure">
+                <figure class="unnumbered" id="someId">
+                  <span>
+                    <img src="img.jpg" />
+                  </span>
+                </figure>
+                <div class="os-caption-container">
+                  <span class="os-title" data-type="title" id="someId">Title</div>
                   <span class="os-caption">figure caption</span>
                 </div>
               </div>
@@ -242,7 +325,19 @@ RSpec.describe Kitchen::Directions::BakeFigure do
 
   describe '#figure_to_bake?' do
     it 'can select what figures should be baked' do
-      expect(book_with_problematic_figures.figures.map(&:figure_to_bake?)).to eq([true, true, false, true, false, true])
+      expect(book_with_problematic_figures.figures.map(&:figure_to_bake?)).to eq([true, true, false, true, false, true, true, true])
+    end
+  end
+
+  describe '#figure_to_bake_and_count?' do
+    it 'can select what figures should be baked and counted' do
+      expect(book_with_problematic_figures.figures.map(&:figure_to_bake_and_count?)).to eq([false, true, false, true, false, false, false, false])
+    end
+  end
+
+  describe '#figure_to_bake_without_count?' do
+    it 'can select what figures should be baked and not counted' do
+      expect(book_with_problematic_figures.figures.map(&:figure_to_bake_without_count?)).to eq([true, false, true, false, false, true, true, true])
     end
   end
 
