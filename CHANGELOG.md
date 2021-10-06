@@ -6,9 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Add `BakeFigures` to `bakePreface` module (patch)
+* Add `BakeFigures` to `bakePreface` module (patch) plus `figure_element` methods for baking numbered and unnumbered figures separately
+
+## [13.0.0] - 2021-10-6
+
+* Add `BakeLearningObjectives` v3 (minor)
+* Fix `BakeIframes` to skip already-baked iframes (patch)
+* Add `SectionElement` and `SectionElementEnumerator` classes (minor)
+* Refactor `EocCompositePageContainer` to be used by `EOB` sections as well (major)
+* Refactor `bake_references` `v1, v2 and v3` to use `CompositePageContainer` (major)
+
+## [12.2.0] - 2021-10-1
+
+* Add `context_lead_text` to translations (minor)
+* Make `ElementBase#search_with` callable from an `ElementEnumerator` (minor)
+* Support top-titled tables in `BakeUnnumberedTables` (minor)
+* Stop `NoteElement#title` from breaking for empty notes (patch)
+* Add text heavy tables to `BakeTableBody` (minor)
 * Modify `BakeAutotitledNotes` to bake unnumbered exercises with solution (minor)
 * Create `AddInjectedExerciseId` to separate creating ids from `BakeInjectedExerciseQuestion` (minor)
+* Rework `AddInjectedExerciseId` to use loop inside module (minor)
 
 ## [12.1.0] - 2021-09-24
 
