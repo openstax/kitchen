@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Add `BakeFigures` to `bakePreface` module (patch) plus `figure_element` methods for baking numbered and unnumbered figures separately
+* Add `BakeFigures` to `BakePreface` module (patch) plus `FigureElement` methods for baking numbered and unnumbered figures separately
 
 ## [13.0.0] - 2021-10-6
 

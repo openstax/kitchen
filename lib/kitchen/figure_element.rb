@@ -70,6 +70,10 @@ module Kitchen
       true
     end
 
+    # Returns true unless the figure is a subfigure or doesn't have the 'unnumbered' class
+    #
+    # @return [Boolean]
+
     def figure_to_bake_without_count?
       return false if subfigure? || !unnumbered_figure?
 
