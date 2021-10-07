@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Create `BakeNoteExercise` and `BakeNoteInjectedQuestion` and support exercises in `BakeUnclassifiedNotes` (minor)
 
 ## [13.0.0] - 2021-10-6
 
