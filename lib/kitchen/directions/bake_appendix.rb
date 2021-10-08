@@ -21,10 +21,7 @@ module Kitchen
           next unless title.present?
 
           title.name = "h#{section['data-depth'].to_i + 1}"
-          section_column_container = section if section.has_class?('column-container')
-          next unless section_column_container.present?
-
-          section_column_container.name = 'div'
+          section.name = 'div' if section.has_class?('column-container')
         end
       end
     end
