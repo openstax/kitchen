@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Fix `BakeChapterGlossary::V1` to stop adding an empty wrapper if there is no content (patch)
 * Add baking section with class `column header` to `BakeAppendix` (patch)
 * Expand `BakeAnnotationClasses` to book from chapter to bake also paragraphs from Preface (major)
+* Fix `BakeIndex` to group terms by character in polish books and transliterate it for others (minor)
 
 ## [13.0.0] - 2021-10-6
 
