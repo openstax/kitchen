@@ -46,6 +46,7 @@ RSpec.describe Kitchen::Directions::ChapterReviewContainer::V1 do
               <div class="print-style" id="print-style_copy_1">Print Style</div>
               <div class="permissions" id="permissions_copy_1">Permissions</div>
               <div data-type="subject" id="subject_copy_1">Subject</div>
+              <div class="description" id="description_copy_1">Description</div>
             </div>
           </div>
           <div class="os-eoc os-exercises-container" data-type="composite-chapter" data-uuid-key=".exercises">
@@ -61,6 +62,7 @@ RSpec.describe Kitchen::Directions::ChapterReviewContainer::V1 do
               <div class="print-style" id="print-style_copy_1">Print Style</div>
               <div class="permissions" id="permissions_copy_1">Permissions</div>
               <div data-type="subject" id="subject_copy_1">Subject</div>
+              <div class="description" id="description_copy_1">Description</div>
             </div>
           </div>
         </div>

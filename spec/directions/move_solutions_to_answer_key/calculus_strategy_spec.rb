@@ -150,6 +150,7 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
                 </p>
               </div>
               <div itemprop="about" data-type="subject">Math</div>
+              <div class="description" id="description">Description</div>
             </div>
           </div>
           <div class="os-eob os-solutions-container" data-type="composite-page" data-uuid-key=".solutions1">
@@ -176,6 +177,7 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
                 </p>
               </div>
               <div itemprop="about" data-type="subject">Math</div>
+              <div class="description" id="description_copy_1">Description</div>
             </div>
             <div class="os-solution-area">
               <h3 data-type="title">
@@ -247,6 +249,7 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
           </p>
         </div>
         <div itemprop="about" data-type="subject">Math</div>
+        <div class="description" id="description">Description</div>
       </div>
     HTML
   end

@@ -33,7 +33,8 @@ module Kitchen
                 div.publishers
                 div.print-style
                 div.permissions
-                div[data-type='subject']))
+                div[data-type='subject']
+                div.description))
     end
   end
 end

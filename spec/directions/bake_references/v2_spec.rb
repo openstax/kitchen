@@ -23,6 +23,7 @@ RSpec.describe Kitchen::Directions::BakeReferences do
         <div class="print-style" id="print-style">Print Style</div>
         <div class="permissions" id="permissions">Permissions</div>
         <div data-type="subject" id="subject">Subject</div>
+        <div class="description" id="description">Description</div>
       </div>
       <div data-type="chapter">
         <h1 data-type="document-title" id="chapTitle1">
@@ -75,6 +76,7 @@ RSpec.describe Kitchen::Directions::BakeReferences do
             <div class="print-style" id="print-style_copy_1">Print Style</div>
             <div class="permissions" id="permissions_copy_1">Permissions</div>
             <div data-type="subject" id="subject_copy_1">Subject</div>
+            <div class="description" id="description_copy_1">Description</div>
           </div>
           <div class="os-chapter-area">
             <h2 data-type="document-title">

@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Add description to metadata (minor)
 * Add `BakeAutotitledExercise` V2 (minor)
 * Fix `BakeChapterGlossary::V1` to stop adding an empty wrapper if there is no content (patch)
 * Add baking section with class `column header` to `BakeAppendix` (patch)

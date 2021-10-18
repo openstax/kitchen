@@ -32,6 +32,7 @@ RSpec.describe Kitchen::BookElement do
             <div class="print-style" id="print-style">Print Style</div>
             <div class="permissions" id="permissions">Permissions</div>
             <div data-type="subject" id="subject">Subject</div>
+            <div class="description" id="description">Description</div>
           </div>
         </body>
       HTML
@@ -49,6 +50,7 @@ RSpec.describe Kitchen::BookElement do
           <div class="print-style" id="print-style">Print Style</div>
           <div class="permissions" id="permissions">Permissions</div>
           <div data-type="subject" id="subject">Subject</div>
+          <div class="description" id="description">Description</div>
         </div>
       HTML
     )

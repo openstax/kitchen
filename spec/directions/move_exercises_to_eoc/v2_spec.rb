@@ -61,6 +61,7 @@ RSpec.describe Kitchen::Directions::MoveExercisesToEOC::V2 do
                     <div class="print-style" id="print-style_copy_1">Print Style</div>
                     <div class="permissions" id="permissions_copy_1">Permissions</div>
                     <div data-type="subject" id="subject_copy_1">Subject</div>
+                    <div class="description" id="description_copy_1">Description</div>
                   </div>
                   <div class="os-CLASSNAME">
                     <div class="os-section-area">
@@ -126,6 +127,7 @@ RSpec.describe Kitchen::Directions::MoveExercisesToEOC::V2 do
                 <div class="print-style" id="print-style_copy_1">Print Style</div>
                 <div class="permissions" id="permissions_copy_1">Permissions</div>
                 <div data-type="subject" id="subject_copy_1">Subject</div>
+                <div class="description" id="description_copy_1">Description</div>
               </div>
               <div class="os-CLASSNAME">
                 <div class="os-section-area">
