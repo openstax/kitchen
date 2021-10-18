@@ -323,6 +323,12 @@ RSpec.describe Kitchen::Directions::BakeFigure do
     end
   end
 
+  describe '#unnumbered?' do
+    it 'can detect unnumbered figures' do
+      expect(book_with_problematic_figures.figures.map(&:unnumbered?)).to eq([true, false, true, false, false, true, true, true])
+    end
+  end
+
   describe '#figure_to_bake?' do
     it 'can select what figures should be baked' do
       expect(book_with_problematic_figures.figures.map(&:figure_to_bake?)).to eq([true, true, false, true, false, true, true, true])

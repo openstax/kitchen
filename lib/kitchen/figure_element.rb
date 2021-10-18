@@ -52,7 +52,7 @@ module Kitchen
     # @return [Boolean]
     #
 
-    def unnumbered_figure?
+    def unnumbered?
       has_class?('unnumbered')
     end
 
@@ -75,7 +75,7 @@ module Kitchen
     # @return [Boolean]
 
     def figure_to_bake_without_count?
-      return false if subfigure? || !unnumbered_figure?
+      return false if subfigure? || !unnumbered?
 
       true
     end
@@ -84,7 +84,7 @@ module Kitchen
     #
     # @return [Boolean]
     def figure_to_bake_and_count?
-      return false if subfigure? || unnumbered_figure?
+      return false if subfigure? || unnumbered?
 
       true
     end
