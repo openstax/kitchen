@@ -18,6 +18,8 @@ module Kitchen::Directions::BakeAutotitledExercise
         HTML
       )
       exercise.problem.wrap_children(class: 'os-problem-container')
+      return unless exercise.solution
+
       exercise.solution.wrap_children(class: 'os-solution-container')
       exercise.solution.prepend(child:
         <<~HTML
