@@ -6,8 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Add `BakeFigures` to `BakePreface` module (patch) plus `FigureElement` methods for baking numbered and unnumbered figures separately
-
+* Create separate direction `BakeUnnumberedFigure`, clean `BakeFigure` to only match unnumbered figures, rename and update `figure_to_bake?` method to `figure_to_bake_and_count?` to support only countable figures except subfigures (major)
 ## [13.0.0] - 2021-10-6
 
 * Add `BakeLearningObjectives` v3 (minor)
