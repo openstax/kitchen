@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Create `BakeNoteExercise` and `BakeNoteInjectedQuestion` and support exercises in `BakeUnclassifiedNotes` (minor)
+* Add `BakeAutotitledExercise` V2 (minor)
+* Fix `BakeChapterGlossary::V1` to stop adding an empty wrapper if there is no content (patch)
+* Add baking section with class `column header` to `BakeAppendix` (patch)
+* Expand `BakeAnnotationClasses` to book from chapter to bake also paragraphs from Preface (major)
 * Create separate direction `BakeUnnumberedFigure`, clean `BakeFigure` to only match unnumbered figures, rename and update `figure_to_bake?` method to `figure_to_bake_and_count?` to support only countable figures except subfigures (major)
+
 ## [13.0.0] - 2021-10-6
 
 * Add `BakeLearningObjectives` v3 (minor)
