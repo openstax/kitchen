@@ -61,28 +61,6 @@ module Kitchen
     #
     # @return [Boolean]
 
-    # TODO, remove this method from other books recipes to prevent counting unnumbered baked figures
-    def figure_to_bake?
-      return false if subfigure? || (has_class?('unnumbered') &&
-                                    !has_class?('splash') && !caption &&
-                                    !title)
-
-      true
-    end
-
-    # Returns true unless the figure is a subfigure or doesn't have the 'unnumbered' class
-    #
-    # @return [Boolean]
-
-    def figure_to_bake_without_count?
-      return false if subfigure? || !unnumbered?
-
-      true
-    end
-
-    # Returns true unless the figure is a subfigure or has the 'unnumbered' class
-    #
-    # @return [Boolean]
     def figure_to_bake_and_count?
       return false if subfigure? || unnumbered?
 

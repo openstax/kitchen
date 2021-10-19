@@ -3,33 +3,15 @@
 module Kitchen
   module Directions
     module BakeFigure
-      def self.v1(figure:, number: nil, cases: false)
-        return if figure.has_class?('unnumbered') &&
-                  !figure.has_class?('splash') &&
-                  !figure.caption && !figure.title
+      def self.v1(figure:, number:, cases: false)
+        return if figure.has_class?('unnumbered')
 
         figure.wrap(%(<div class="os-figure#{' has-splash' if figure.has_class?('splash')}">))
-
-        if figure.has_class?('unnumbered') &&
-           (figure.title || figure.caption || figure.has_class?('splash'))
-          title = figure.title&.cut
-          caption = figure.caption&.cut
-          figure.append(sibling:
-            <<~HTML
-              <div class="os-caption-container">
-                #{"<span class=\"os-title\" data-type=\"title\" id=\"#{title.id}\">#{title.children}</span>" if title}
-                #{"<span class=\"os-caption\">#{caption.children}</span>" if caption}
-              </div>
-            HTML
-          )
-          return
-        end
 
         # Store label information
         figure.target_label(label_text: 'figure', custom_content: number, cases: cases)
 
         title = figure.title&.cut
-
         caption = figure.caption&.cut
         figure.append(sibling:
           <<~HTML
