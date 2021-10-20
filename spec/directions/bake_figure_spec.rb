@@ -212,9 +212,9 @@ RSpec.describe Kitchen::Directions::BakeFigure do
     end
   end
 
-  describe '#figure_to_bake_and_count?' do
+  describe '#figure_to_number?' do
     it 'can select what figures should be baked and counted' do
-      expect(book_with_problematic_figures.figures.map(&:figure_to_bake_and_count?)).to eq([false, true, false, true, false, false, false, false])
+      expect(book_with_problematic_figures.figures.map(&:figure_to_number?)).to eq([false, true, false, true, false, false, false, false])
     end
   end
 
