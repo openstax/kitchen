@@ -61,7 +61,7 @@ module Kitchen
     #
     # @return [Boolean]
 
-    def figure_to_bake_and_count?
+    def figure_to_number?
       return false if subfigure? || unnumbered?
 
       true

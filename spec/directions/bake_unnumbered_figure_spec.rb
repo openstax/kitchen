@@ -176,6 +176,7 @@ RSpec.describe Kitchen::Directions::BakeUnnumberedFigure do
               </figure>
               <div class="os-caption-container">
                 <span class="os-title" data-type="title" id="someId">Title</div>
+                <span class="os-divider"> </span>
                 <span class="os-caption">figure caption</span>
               </div>
             </div>
