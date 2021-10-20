@@ -47,10 +47,10 @@ module Kitchen::Directions::BakeNumberedExercise
     end
     # rubocop:enable Metrics/ParameterLists
 
-    def bake_solution(exercise:, number:, divider: '. ', solution_stays_put:)
+    def bake_solution(exercise:, number:, solution_stays_put:, divider: '. ')
       solution = exercise.solution
       if solution_stays_put
-        solution.wrap_children(class:'os-solution-container')
+        solution.wrap_children(class: 'os-solution-container')
         solution.prepend(child:
           <<~HTML
             <h4 class="solution-title" data-type="title">
