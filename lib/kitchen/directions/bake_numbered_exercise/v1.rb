@@ -2,6 +2,7 @@
 
 module Kitchen::Directions::BakeNumberedExercise
   class V1
+    # rubocop:disable Metrics/ParameterLists
     def bake(exercise:, number:, suppress_solution_if: false,
              note_suppressed_solutions: false, cases: false, solution_stays_put: false)
       problem = exercise.problem
@@ -44,6 +45,7 @@ module Kitchen::Directions::BakeNumberedExercise
         HTML
       )
     end
+    # rubocop:enable Metrics/ParameterLists
 
     def bake_solution(exercise:, number:, divider: '. ', solution_stays_put:)
       solution = exercise.solution
