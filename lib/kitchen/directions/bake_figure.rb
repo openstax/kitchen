@@ -4,8 +4,7 @@ module Kitchen
   module Directions
     module BakeFigure
       def self.v1(figure:, number:, cases: false)
-        return if figure.has_class?('unnumbered')
-
+        warn 'warning! exclude unnumbered figures from `BakeFigure` loop' if figure.unnumbered?
         figure.wrap(%(<div class="os-figure#{' has-splash' if figure.has_class?('splash')}">))
 
         # Store label information

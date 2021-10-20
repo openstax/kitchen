@@ -180,24 +180,6 @@ RSpec.describe Kitchen::Directions::BakeFigure do
         end
       end
     end
-
-    context 'when figure is unnumbered but also a splash' do
-      it 'does not change original figure' do
-        described_class.v1(figure: book_with_unnumbered_splash.figures.first, number: 'blah')
-        expect(book_with_unnumbered_splash.pages.first).to match_normalized_html(
-          <<~HTML
-            <div data-type="page">
-              <figure class="unnumbered splash" id="someId">
-                <figcaption>figure caption</figcaption>
-                <span>
-                  <img src="img.jpg" />
-                </span>
-              </figure>
-            </div>
-          HTML
-        )
-      end
-    end
   end
 
   describe '#subfigure?' do
@@ -216,6 +198,11 @@ RSpec.describe Kitchen::Directions::BakeFigure do
     it 'can select what figures should be baked and counted' do
       expect(book_with_problematic_figures.figures.map(&:figure_to_number?)).to eq([false, true, false, true, false, false, false, false])
     end
+  end
+
+  it 'logs a warning' do
+    expect(Warning).to receive(:warn).with(/warning! exclude unnumbered figures from `BakeFigure` loop/)
+    described_class.v1(figure: book_with_unnumbered_splash.figures.first, number: 'blah')
   end
 
 end
