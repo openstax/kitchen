@@ -41,7 +41,7 @@ RSpec.describe Kitchen::Directions::BakeAutotitledExercise do
     expect(exercise).to match_normalized_html(
       <<~HTML
         <div class="unnumbered" data-element-type="check-understanding" data-type="exercise">
-          <h3 class="os-title">
+          <h3 class="os-title" data-type="title">
             <span class="os-title-label">Check Your Understanding</span>
           </h3>
           <div data-type="problem">
@@ -67,7 +67,7 @@ RSpec.describe Kitchen::Directions::BakeAutotitledExercise do
     expect(exercise_no_solution).to match_normalized_html(
       <<~HTML
         <div class="unnumbered" data-element-type="grasp-check" data-type="exercise">
-          <h3 class="os-title">
+          <h3 class="os-title" data-type="title">
             <span class="os-title-label">abc</span>
           </h3>
           <div data-type="problem">

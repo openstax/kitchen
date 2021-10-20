@@ -12,7 +12,7 @@ module Kitchen::Directions::BakeAutotitledExercise
       # bake problem
       exercise.prepend(child:
         <<~HTML
-          <h3 class="os-title">
+          <h3 class="os-title" data-type="title">
             <span class="os-title-label">#{title}</span>
           </h3>
         HTML
