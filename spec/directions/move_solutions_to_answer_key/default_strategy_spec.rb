@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
+RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey do
   let(:book1) do
     book_containing(html:
       <<~HTML
@@ -50,10 +50,9 @@ RSpec.describe Kitchen::Directions::MoveSolutionsToAnswerKey::V1 do
 
   it 'works' do
     book1.chapters.each do |chapter|
-      described_class.new.bake(
+      described_class.v1(
         chapter: chapter,
         metadata_source: metadata_element,
-        strategy: :default,
         append_to: append_to,
         strategy_options: { selectors: %w[section.review-questions] }
       )

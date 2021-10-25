@@ -2,8 +2,8 @@
 
 module Kitchen::Directions::BakeNumberedExercise
   class V1
-    def bake(exercise:, number:, suppress_solution_if: false,
-             note_suppressed_solutions: false, cases: false)
+    def bake(exercise:, number:, suppress_solution_if:,
+             note_suppressed_solutions:, cases:)
       problem = exercise.problem
       solution = exercise.solution
 

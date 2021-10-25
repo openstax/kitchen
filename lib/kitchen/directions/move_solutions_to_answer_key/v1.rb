@@ -2,46 +2,42 @@
 
 module Kitchen::Directions::MoveSolutionsToAnswerKey
   class V1
-    # rubocop:disable Metrics/ParameterLists
-    # This direction may need refactoring to simplify parameters
-    def bake(chapter:, metadata_source:, strategy:, append_to:, strategy_options: {},
-             solutions_plural: true)
-      strategy =
-        case strategy
-        when :calculus
-          Strategies::Calculus.new
-        when :contemporary_math
-          Strategies::ContemporaryMath.new
-        when :uphysics
-          Strategies::UPhysics.new
-        when :precalculus
-          Strategies::Precalculus.new
-        when :default
-          Strategies::Default.new(strategy_options)
-        else
-          raise 'No such strategy'
-        end
+    renderable
+    def bake(chapter:, metadata_source:, append_to:, solutions_plural:, strategy_options:)
+      # strategy =
+      #   case strategy
+      #   when :calculus
+      #     Strategies::Calculus.new
+      #   when :contemporary_math
+      #     Strategies::ContemporaryMath.new
+      #   when :uphysics
+      #     Strategies::UPhysics.new
+      #   when :precalculus
+      #     Strategies::Precalculus.new
+      #   when :history
+      #     Strategies::History.new
+      #   when :default
+      #     Strategies::Default.new(strategy_options)
+      #   else
+      #     raise 'No such strategy'
+      #   end
 
-      solutions_or_solution = solutions_plural ? 'solutions' : 'solution'
-      uuid_key = ".#{solutions_or_solution}#{chapter.count_in(:book)}"
-      append_to.append(child:
-        <<~HTML
-          <div class="os-eob os-#{solutions_or_solution}-container" data-type="composite-page" \
-          data-uuid-key="#{uuid_key}">
-            <h2 data-type="document-title">
-              <span class="os-text">#{I18n.t(:chapter)} #{chapter.count_in(:book)}</span>
-            </h2>
-            <div data-type="metadata" style="display: none;">
-              <h1 data-type="document-title" itemprop="name">#{I18n.t(:chapter)} #{chapter.count_in(:book)}</h1>
-              #{metadata_source.children_to_keep.copy.paste}
-            </div>
-          </div>
-        HTML
+      @solutions_or_solution = solutions_plural ? 'solutions' : 'solution'
+      @uuid_key = "#{@solutions_or_solution}#{chapter.count_in(:book)}"
+      @metadata = metadata_source.children_to_keep.copy
+      @composite_element = 'composite-page'
+      @title = "#{I18n.t(:chapter)} #{chapter.count_in(:book)}"
+      @main_title_tag = 'h2'
+
+      append_to.append(
+        child: render(file: '../book_answer_key_container/eob_answer_key_outer_container.xhtml.erb')
       )
-      strategy.bake(
-        chapter: chapter, append_to: append_to.first("div[data-uuid-key='#{uuid_key}']")
+
+      return append_to.first("div[data-uuid-key='.#{@uuid_key}']") if strategy_options.empty?
+
+      DefaultStrategy.new(strategy_options).bake(
+        chapter: chapter, append_to: append_to.first("div[data-uuid-key='.#{@uuid_key}']")
       )
     end
-    # rubocop:enable Metrics/ParameterLists
   end
 end

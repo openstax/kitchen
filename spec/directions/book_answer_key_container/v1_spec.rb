@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::BookAnswerKeyContainer::V1 do
+RSpec.describe Kitchen::Directions::BookAnswerKeyContainer do
   let(:book) do
     book_containing(html:
       <<~HTML
@@ -16,8 +16,8 @@ RSpec.describe Kitchen::Directions::BookAnswerKeyContainer::V1 do
     )
   end
 
-  it 'works' do
-    expect(described_class.new.bake(book: book)).to match_normalized_html(
+  it 'v1 works' do
+    expect(described_class.v1(book: book)).to match_normalized_html(
       <<~HTML
         <div class="os-eob os-solutions-container" data-type="composite-chapter" data-uuid-key=".solutions">
           <h1 data-type="document-title">
@@ -38,8 +38,8 @@ RSpec.describe Kitchen::Directions::BookAnswerKeyContainer::V1 do
     )
   end
 
-  it 'generates container with solution (singular) class' do
-    expect(described_class.new.bake(book: book, solutions_plural: false)).to match_normalized_html(
+  it 'v1 generates container with solution (singular) class' do
+    expect(described_class.v1(book: book, solutions_plural: false)).to match_normalized_html(
       <<~HTML
         <div class="os-eob os-solution-container" data-type="composite-chapter" data-uuid-key=".solution">
           <h1 data-type="document-title">
