@@ -4,24 +4,6 @@ module Kitchen::Directions::MoveSolutionsToAnswerKey
   class V1
     renderable
     def bake(chapter:, metadata_source:, append_to:, solutions_plural:, strategy_options:)
-      # strategy =
-      #   case strategy
-      #   when :calculus
-      #     Strategies::Calculus.new
-      #   when :contemporary_math
-      #     Strategies::ContemporaryMath.new
-      #   when :uphysics
-      #     Strategies::UPhysics.new
-      #   when :precalculus
-      #     Strategies::Precalculus.new
-      #   when :history
-      #     Strategies::History.new
-      #   when :default
-      #     Strategies::Default.new(strategy_options)
-      #   else
-      #     raise 'No such strategy'
-      #   end
-
       @solutions_or_solution = solutions_plural ? 'solutions' : 'solution'
       @uuid_key = "#{@solutions_or_solution}#{chapter.count_in(:book)}"
       @metadata = metadata_source.children_to_keep.copy
