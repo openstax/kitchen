@@ -727,7 +727,7 @@ module Kitchen
     #   (used in Polish books)
     # @return [Pantry]
     #
-    def target_label(label_text: nil, custom_content: nil, cases: false)
+    def target_label(label_text: nil, custom_content: nil, cases: false, iln: false)
       if cases
         cases = %w[nominative genitive dative accusative instrumental locative vocative]
         element_labels = {}
@@ -741,7 +741,11 @@ module Kitchen
         end
       else
         element_label = if label_text
+                          if iln
+                            "#{label_text.to_s} #{custom_content}"
+                          else
                           "#{I18n.t(label_text.to_s)} #{custom_content}"
+                          end
                         else
                           custom_content
                         end

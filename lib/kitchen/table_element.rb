@@ -28,7 +28,7 @@ module Kitchen
     # @return [Element, nil]
     #
     def title_row
-      top_titled? ? first('thead').first('tr') : nil
+      top_titled? ? first('thead')&.first('tr') : nil
     end
 
     # Returns the title nodes in the first title row element
