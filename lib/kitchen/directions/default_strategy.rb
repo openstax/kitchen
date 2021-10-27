@@ -1,7 +1,16 @@
 # frozen_string_literal: true
 
-module Kitchen::Directions::MoveSolutionsToAnswerKey
-  class DefaultStrategy
+module Kitchen::Directions::DefaultStrategy
+  def self.v1(strategy_options:, chapter:, append_to:)
+    V1.new(
+      strategy_options
+    ).bake(
+      chapter: chapter,
+      append_to: append_to
+    )
+  end
+
+  class V1
     def bake(chapter:, append_to:)
       bake_section(chapter: chapter, append_to: append_to)
     end

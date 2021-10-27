@@ -4,13 +4,12 @@ module Kitchen
   module Directions
     module MoveSolutionsToAnswerKey
       def self.v1(
-        chapter:, metadata_source:, append_to:, strategy_options: {}, solutions_plural: true
+        chapter:, metadata_source:, append_to:, solutions_plural: true
       )
-        V1.new.bake(
+        AnswerKeyInnerContainer.v1(
           chapter: chapter,
           metadata_source: metadata_source,
           append_to: append_to,
-          strategy_options: strategy_options,
           solutions_plural: solutions_plural
         )
       end
