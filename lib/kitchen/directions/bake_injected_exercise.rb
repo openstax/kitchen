@@ -7,7 +7,8 @@ module Kitchen::Directions::BakeInjectedExercise
 
   class V1
     def bake(exercise:)
-      context = exercise.search('div[data-type="exercise-context"]')&.first
+      context = exercise.injected_questions.first.exercise_context
+
       return unless context
 
       # link replacement is done by BakeLinkPlaceholders
