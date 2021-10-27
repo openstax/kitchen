@@ -2,7 +2,8 @@
 
 module Kitchen::Directions::BakeInjectedExerciseQuestion
   def self.v1(question:, number:, only_number_solution: false, figure_reference: false)
-    V1.new.bake(question: question, number: number, only_number_solution: only_number_solution, figure_reference: figure_reference )
+    V1.new.bake(question: question, number: number, only_number_solution: only_number_solution,
+                figure_reference: figure_reference)
   end
 
   class V1
@@ -41,15 +42,13 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
         end
       end
 
-      if figure_reference
-        exercise_context = question.exercise_context&.cut&.paste
-      end
+      exercise_context = question.exercise_context&.cut&.paste if figure_reference
 
       question.prepend(child:
         <<~HTML
           #{problem_number unless only_number_solution}
           #{"<span class='os-divider'>. </span>" unless only_number_solution}
-          #{exercise_context if figure_reference }
+          #{exercise_context if figure_reference}
           <div class="os-problem-container">
             #{question.stimulus&.cut&.paste}
             #{question.stem.cut.paste}
