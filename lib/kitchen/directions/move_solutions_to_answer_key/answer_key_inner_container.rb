@@ -22,16 +22,8 @@ module Kitchen::Directions::AnswerKeyInnerContainer
       @main_title_tag = 'h2'
 
       append_to.append(
-        child: render(file: '../book_answer_key_container/eob_answer_key_outer_container.xhtml.erb')
+        child: render(file: '../book_answer_key_container/eob_answer_key_container.xhtml.erb')
       ).first("div[data-uuid-key='.#{@uuid_key}']")
-
-      # append_to.first("div[data-uuid-key='.#{@uuid_key}']")
-
-      # return append_to.first("div[data-uuid-key='.#{@uuid_key}']") if strategy_options.empty?
-
-      # DefaultStrategy.new(strategy_options).bake(
-      #   chapter: chapter, append_to: append_to.first("div[data-uuid-key='.#{@uuid_key}']")
-      # )
     end
   end
 end

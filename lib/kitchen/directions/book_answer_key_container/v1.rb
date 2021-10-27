@@ -11,7 +11,7 @@ module Kitchen::Directions::BookAnswerKeyContainer
       @title = I18n.t(:answer_key_title)
       @main_title_tag = 'h1'
       @uuid_key = @solutions_or_solution
-      book.body.append(child: render(file: 'eob_answer_key_outer_container.xhtml.erb'))
+      book.body.append(child: render(file: 'eob_answer_key_container.xhtml.erb'))
       book.body.first("div.os-eob.os-#{@solutions_or_solution}-container")
     end
   end
