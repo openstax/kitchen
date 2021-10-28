@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Kitchen::Directions::DefaultStrategy do
+RSpec.describe Kitchen::Directions::DefaultStrategyForAnswerKeySolutions do
   let(:book1) do
     book_containing(html:
       <<~HTML

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Kitchen::Directions::DefaultStrategy
+module Kitchen::Directions::DefaultStrategyForAnswerKeySolutions
   def self.v1(strategy_options:, chapter:, append_to:)
     V1.new(
       strategy_options
