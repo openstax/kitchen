@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * Add `BakeAllNumberedExerciseTypes` direction for easier baking of compound sections (minor)
 * Add `solution_stays_put` option for `BakeNumberedExercise` (minor)
+* Adds missing spanish translations (minor)
 
 ## [14.0.0] - 2021-10-22
 
