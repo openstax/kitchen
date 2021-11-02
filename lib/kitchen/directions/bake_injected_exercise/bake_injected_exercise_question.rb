@@ -48,8 +48,8 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
         <<~HTML
           #{problem_number unless only_number_solution}
           #{"<span class='os-divider'>. </span>" unless only_number_solution}
-          #{exercise_context if figure_reference}
           <div class="os-problem-container">
+            #{exercise_context if figure_reference}
             #{question.stimulus&.cut&.paste}
             #{question.stem.cut.paste}
             #{question.answers&.cut&.paste}
