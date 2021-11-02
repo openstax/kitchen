@@ -50,7 +50,7 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
           #{"<span class='os-divider'>. </span>" unless only_number_solution}
           <div class="os-problem-container">
             #{exercise_context if figure_reference}
-            #{"<span class='os-divider'> </span>" if figure_reference}
+            #{"<span class='os-divider'>. </span>" if figure_reference}
             #{question.stimulus&.cut&.paste}
             #{question.stem.cut.paste}
             #{question.answers&.cut&.paste}
