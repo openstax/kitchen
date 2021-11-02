@@ -13,7 +13,7 @@ module Kitchen::Directions::BakeInjectedExercise
 
       # link replacement is done by BakeLinkPlaceholders
       link = context.first('a').cut
-      context.replace_children(with: "#{I18n.t(:context_lead_text)}#{link.paste} ")
+      context.replace_children(with: "#{I18n.t(:context_lead_text)}#{link.paste} #{' '}")
     end
   end
 end
