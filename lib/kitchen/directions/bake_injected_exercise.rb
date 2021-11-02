@@ -7,7 +7,7 @@ module Kitchen::Directions::BakeInjectedExercise
 
   class V1
     def bake(exercise:)
-      context = exercise.injected_questions.first.exercise_context
+    context = exercise.exercise_context
 
       return unless context
 

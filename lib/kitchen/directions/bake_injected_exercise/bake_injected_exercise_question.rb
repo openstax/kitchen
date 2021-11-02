@@ -42,15 +42,15 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
         end
       end
 
-      exercise_context = question.exercise_context&.cut&.paste if figure_reference
+      context = question.ancestor(:injected_exercise).exercise_context&.cut&.paste if figure_reference
 
       question.prepend(child:
         <<~HTML
           #{problem_number unless only_number_solution}
           #{"<span class='os-divider'>. </span>" unless only_number_solution}
           <div class="os-problem-container">
-            #{exercise_context if figure_reference}
-            #{"<span class='os-divider'>. </span>" if figure_reference && exercise_context.present?}
+            #{context if figure_reference && context.present?}
+            #{"<span class='os-divider'>. </span>" if figure_reference && context.present?}
             #{question.stimulus&.cut&.paste}
             #{question.stem.cut.paste}
             #{question.answers&.cut&.paste}
