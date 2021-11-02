@@ -9,10 +9,10 @@ module Kitchen
         within.search_with(ExerciseElementEnumerator, InjectedQuestionElementEnumerator)\
               .each do |exercise|
 
-              solution = exercise.solution
-              next unless solution.present?
+          solution = exercise.solution
+          next unless solution.present?
 
-              solution.cut(to: solutions_clipboard)
+          solution.cut(to: solutions_clipboard)
         end
 
         content = solutions_clipboard.paste
