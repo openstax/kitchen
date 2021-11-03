@@ -8,7 +8,7 @@ module Kitchen::Directions::BakeNumberedExercise
       problem = exercise.problem
       solution = exercise.solution
 
-      in_appendix = exercise.has_ancestor?(:page) && exercise.ancestor(:page)&.has_class?('appendix')
+      in_appendix = exercise.has_ancestor?(:page) && exercise.ancestor(:page).has_class?('appendix')
 
       # Store label information
       if in_appendix
