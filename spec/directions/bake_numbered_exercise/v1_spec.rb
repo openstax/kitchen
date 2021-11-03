@@ -202,7 +202,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedExercise do
         <<~HTML
           <div data-type="exercise" id="exercise_id" class="os-hasSolution">
             <div data-type="problem" id="problem_id">
-              <span class="os-title-label">Exercise </span>
+              <span class="os-title-label">Exercise</span>
               <span class="os-number">A1</a>
               <div class="os-problem-container">
                 <p>example content</p>
