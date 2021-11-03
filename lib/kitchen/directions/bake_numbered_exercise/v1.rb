@@ -78,16 +78,13 @@ module Kitchen::Directions::BakeNumberedExercise
         return
       end
 
-      if in_appendix
-        solution.id = "#{exercise.id}-solution"
-        exercise.add_class('os-hasSolution')
+      solution.id = "#{exercise.id}-solution"
+      exercise.add_class('os-hasSolution')
 
+      if in_appendix
         solution.wrap_children(class: 'os-solution-container')
         return
       end
-
-      solution.id = "#{exercise.id}-solution"
-      exercise.add_class('os-hasSolution')
 
       solution.replace_children(with:
         <<~HTML
