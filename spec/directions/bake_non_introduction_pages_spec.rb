@@ -55,7 +55,7 @@ RSpec.describe Kitchen::Directions::BakeNonIntroductionPages do
     it 'stores link text' do
       pantry = chapter2.pantry(name: :link_text)
       expect(pantry).to receive(:store).with("<span class='label-text'>LO </span><span class='label-counter'>1.1</span>", { label: 'page_123' })
-      described_class.v1(chapter: chapter2, add_target_label: true, iln: "#{iln}")
+      described_class.v1(chapter: chapter2, add_target_label: true, iln: iln.to_s)
     end
   end
 end
