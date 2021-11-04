@@ -742,7 +742,7 @@ module Kitchen
       else
         element_label = if label_text
                           if iln
-                            "#{label_text.to_s} #{custom_content}"
+                            "<span class='label-text'>#{label_text.to_s}</span><span class='label-counter'>#{custom_content}</span>"
                           else
                           "#{I18n.t(label_text.to_s)} #{custom_content}"
                           end
