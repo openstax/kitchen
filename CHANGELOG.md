@@ -6,7 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-* Add target labels to pages in `BakeNonIntroductionPages`, adjust `target-label` method to optionally add `.label-text`, `.label-counter` spans wrappers
+* Add target labels to pages in `BakeNonIntroductionPages`, adjust `target-label` method to optionally add `.label-text`, `.label-counter` spans wrappers (minor)
+* Add to `BakeNumberedExercises` rules for baking exercises in appendecies (minor)
 * Add `BakeUnnumberedExercise` direction (minor)
 * Change whitespace for `BakeIndex` and `BakeExample` (major)
 * Add `BakeAllNumberedExerciseTypes` direction for easier baking of compound sections (minor)
