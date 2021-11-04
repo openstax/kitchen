@@ -3,8 +3,8 @@
 module Kitchen
   module Directions
     module BakeNonIntroductionPages
-      def self.v1(chapter:, add_target_label: false, iln:)
-        @iln = iln
+      def self.v1(chapter:, add_target_label: false, iln: nil)
+        @iln = iln if add_target_label
         chapter.non_introduction_pages.each do |page|
           number = "#{chapter.count_in(:book)}.#{page.count_in(:chapter)}"
 
