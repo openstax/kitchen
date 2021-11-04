@@ -6,11 +6,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Add `BakeUnnumberedExercise` direction (minor)
+* Change whitespace for `BakeIndex` and `BakeExample` (major)
+* Add `BakeAllNumberedExerciseTypes` direction for easier baking of compound sections (minor)
+* Add `solution_stays_put` option for `BakeNumberedExercise` (minor)
+* Add `BakeAllChapterSolutionsTypes` direction to move injected solutions and regular ones to EOC (minor)
+* Refactor: moves all `Answer key strategies` that are book-specific to the
+recipes side and keeps the `Default Strategy`in kitchen (major)
+* Adds missing spanish translations (minor)
+* Fix `BakeIndex` to group terms by character in polish books and transliterate it for others (minor)
+
+## [14.0.0] - 2021-10-22
+
+* Fix `BakeAutotitledExercise` V2 to stop breaking for exercises without solutions (patch)
 * Add `BakeAutotitledExercise` V2 (minor)
 * Fix `BakeChapterGlossary::V1` to stop adding an empty wrapper if there is no content (patch)
+* Create `BakeNoteExercise` and `BakeNoteInjectedQuestion` and support exercises in `BakeUnclassifiedNotes` (minor)
 * Add baking section with class `column header` to `BakeAppendix` (patch)
 * Expand `BakeAnnotationClasses` to book from chapter to bake also paragraphs from Preface (major)
-* Fix `BakeIndex` to group terms by character in polish books and transliterate it for others (minor)
+* Create separate direction `BakeUnnumberedFigure`, clean `BakeFigure` to not match unnumbered figures , rename and update `figure_to_bake?` method to `figure_to_number?` to support only numbered figures except subfigures (major)
 
 ## [13.0.0] - 2021-10-6
 
