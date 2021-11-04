@@ -10,9 +10,11 @@ module Kitchen
 
           page.search("div[data-type='description']").each(&:trash)
           page.add_class('chapter-content-module')
-
-          page.target_label(label_text: 'LO ', custom_content: number, iln: @iln) if add_target_label
-
+          if add_target_label
+            page.target_label(label_text: 'LO ',
+                              custom_content: number,
+                              iln: @iln)
+          end
           title = page.title
           title.name = 'h2'
           title.replace_children(with:
