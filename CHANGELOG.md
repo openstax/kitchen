@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Add target labels to chapter content module pages option in `BakeNonIntroductionPages`, adjust `BakeLinkPlaceholders` to optionally add `.label-text`, `.label-counter` spans wrappers for links with `.lo-reference` class (minor)
+## [15.0.0] - 2021-11-05
+
+* Add unstyled tables to `BakeTableBody` (minor)
 * Add to `BakeNumberedExercises` rules for baking exercises in appendecies (minor)
 * Add `BakeUnnumberedExercise` direction (minor)
 * Change whitespace for `BakeIndex` and `BakeExample` (major)
