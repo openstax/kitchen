@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Kitchen
-
   module Directions
-    # Bake directions for LOlink labels
+    # Bake directions for LO link labels
     module BakeLOLinkLabels
       def self.v1(book:)
         book.search('a.lo-reference').each do |anchor|
