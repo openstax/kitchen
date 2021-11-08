@@ -5,7 +5,7 @@ module Kitchen
     # Bake directions for link placeholders
     #
     module BakeLinkPlaceholders
-      def self.v1(book:, cases: false, label_wrappers: false)
+      def self.v1(book:, cases: false)
         book.search('a').each do |anchor|
           next unless anchor.text == '[link]'
 
@@ -26,14 +26,6 @@ module Kitchen
 
           if replacement.present?
             anchor.replace_children(with: replacement)
-            if label_wrappers && anchor.has_class?('lo-reference')
-              anchor.wrap_children('span', class: 'label-counter')
-              anchor.prepend(child:
-                <<~HTML
-                  <span class="label-text">#{I18n.t(:lo_label_text)}</span>
-                HTML
-              )
-            end
           else
             # TODO: log a warning!
             puts "warning! could not find a replacement for '[link]' on an element with ID '#{id}'"
