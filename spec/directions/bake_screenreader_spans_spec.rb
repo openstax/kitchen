@@ -14,7 +14,7 @@ RSpec.describe Kitchen::Directions::BakeScreenreaderSpans do
     book_containing(html:
       one_chapter_with_one_page_containing(
         <<~HTML
-          <div>hello <u data-effect="double-underline">world</u>.</div>
+          <div>hello <u data-effect="double-underline">world</u>. <u data-effect="underline">aaaaah</u></div>
         HTML
       )
     )
@@ -26,7 +26,7 @@ RSpec.describe Kitchen::Directions::BakeScreenreaderSpans do
     expect(book1.pages.first).to match_normalized_html(
       <<~HTML
         <div data-type="page">
-          <div>hello <span data-screenreader-only="true">double underline</span><u data-effect="double-underline">world</u>.</div>
+          <div>hello <span data-screenreader-only="true">double underline</span><u data-effect="double-underline">world</u>. <span data-screenreader-only="true">underline</span><u data-effect="underline">aaaaah</u></div>
         </div>
       HTML
     )

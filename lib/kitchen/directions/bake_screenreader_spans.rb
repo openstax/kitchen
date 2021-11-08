@@ -11,6 +11,11 @@ module Kitchen
             '<span data-screenreader-only="true">double underline</span>'
           )
         end
+        book.search('u[data-effect="underline"]').each do |element|
+          element.add_previous_sibling(
+            '<span data-screenreader-only="true">underline</span>'
+          )
+        end
       end
     end
   end
