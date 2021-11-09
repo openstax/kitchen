@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * Add `BakeScreenreaderSpans` direction (minor)
+* Fix `BakeIndex` to group terms by character in polish books and transliterate it for others (minor)
 
 ## [15.0.0] - 2021-11-05
 
@@ -20,7 +21,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactor: moves all `Answer key strategies` that are book-specific to the
 recipes side and keeps the `Default Strategy`in kitchen (major)
 * Adds missing spanish translations (minor)
-* Fix `BakeIndex` to group terms by character in polish books and transliterate it for others (minor)
 
 ## [14.0.0] - 2021-10-22
 
