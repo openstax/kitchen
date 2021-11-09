@@ -8,12 +8,12 @@ RSpec.describe I18n do
   end
 
   it 'transliterate character' do
-    expect(described_class.group_by('Ć')).to eq 'C'
+    expect(described_class.character_to_group('Ć')).to eq 'C'
   end
 
   it 'return character when polish' do
     with_locale(:pl) do
-      expect(described_class.group_by('Ć')).to eq 'Ć'
+      expect(described_class.character_to_group('Ć')).to eq 'Ć'
     end
   end
 end

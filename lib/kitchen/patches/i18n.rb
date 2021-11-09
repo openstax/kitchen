@@ -4,7 +4,7 @@ require 'twitter_cldr'
 
 # rubocop:disable Style/Documentation
 module I18n
-  def self.group_by(character)
+  def self.character_to_group(character)
     I18n.locale == :pl ? character : I18n.transliterate(character)
   end
 
