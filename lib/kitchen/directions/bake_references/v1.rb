@@ -12,8 +12,8 @@ module Kitchen::Directions::BakeReferences
               <sup class="os-citation-number">#{link.count_in(:chapter)}</sup>
             HTML
           )
-          link_sibling_data_attr = link.raw.previous
-          next unless link_sibling_data_attr&.attr('data-type') == 'cite'
+          link_sibling = link.raw.previous
+          next unless link_sibling&.attr('data-type') == 'cite'
 
           link.prepend(sibling:
             <<~HTML
