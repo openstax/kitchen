@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [15.0.0] - 2021-11-05
-
+* Add reference link separator to `BakeReferences.v1` (patch)
 * Add unstyled tables to `BakeTableBody` (minor)
 * Add to `BakeNumberedExercises` rules for baking exercises in appendecies (minor)
 * Add `BakeUnnumberedExercise` direction (minor)
