@@ -17,7 +17,7 @@ module Kitchen::Directions::BakeReferences
 
           link.prepend(sibling:
             <<~HTML
-              <span class="os-link-separator">, </span>
+              <span class="os-reference-link-separator">, </span>
             HTML
           )
         end
