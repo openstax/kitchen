@@ -27,5 +27,12 @@ module Kitchen
     def exercise_context
       first("div[data-type='exercise-context']")
     end
+
+    # Returns the exercise question element.
+    # @return [Element]
+    #
+    def exercise_question
+      first("div[data-type='exercise-question']")
+    end
   end
 end
