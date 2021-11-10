@@ -6,9 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Add `BakeScreenreaderSpans` direction (minor)
+* Fix `BakeIndex` to group terms by character in polish books and transliterate it for others (minor)
+* Add `figure_reference` option for `BakeNoteInjectedQuestion` to bake exercise-context figure reference (minor)
+## [15.0.0] - 2021-11-05
+
+* Add unstyled tables to `BakeTableBody` (minor)
+* Add to `BakeNumberedExercises` rules for baking exercises in appendecies (minor)
+* Add `BakeUnnumberedExercise` direction (minor)
+* Change whitespace for `BakeIndex` and `BakeExample` (major)
 * Add `BakeAllNumberedExerciseTypes` direction for easier baking of compound sections (minor)
 * Add `solution_stays_put` option for `BakeNumberedExercise` (minor)
-* Add `figure_reference` option for `BakeNoteInjectedQuestion` to bake exercise-context figure reference (minor)
+* Add `BakeAllChapterSolutionsTypes` direction to move injected solutions and regular ones to EOC (minor)
+* Refactor: moves all `Answer key strategies` that are book-specific to the
+recipes side and keeps the `Default Strategy`in kitchen (major)
+* Adds missing spanish translations (minor)
 
 ## [14.0.0] - 2021-10-22
 
