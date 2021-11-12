@@ -354,7 +354,6 @@ module Kitchen
                css_or_xpath: css_or_xpath, only: only, except: except)
     end
 
-
     # Returns an enumerator that iterates within the scope of this enumerator
     #
     # @param css_or_xpath [String] additional selectors to further narrow the element iterated over
