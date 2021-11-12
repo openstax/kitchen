@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Kitchen
   # An element for an example
   #
@@ -34,5 +35,6 @@ module Kitchen
     def exercise_question
       first("div[data-type='exercise-question']")
     end
+
   end
 end

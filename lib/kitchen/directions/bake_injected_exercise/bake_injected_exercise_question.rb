@@ -42,7 +42,7 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
         end
       end
 
-      context = question.exercise_context&.cut&.paste if figure_reference
+      context = question.exercise_context_in_question&.cut&.paste if figure_reference
 
       question.prepend(child:
         <<~HTML

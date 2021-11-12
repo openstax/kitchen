@@ -7,20 +7,19 @@ module Kitchen::Directions::BakeInjectedExercise
 
   class V1
     def bake(exercise:)
-      context = exercise.exercise_context
+      context = exercise&.exercise_context
 
       return unless context
 
       # link replacement is done by BakeLinkPlaceholders
       link = context.first('a').cut
       context.replace_children(with: "#{I18n.t(:context_lead_text)}#{link.paste}")
-      figure_context = context&.cut
+      questions_amount = exercise.injected_questions.count
       question = exercise.exercise_question
-      question.append(child:
-        <<~HTML
-          #{figure_context}
-        HTML
-      )
+      return unless questions_amount == 1
+
+      context_to_move = context.cut
+      question.prepend(child: context_to_move.paste)
     end
   end
 end
