@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 module Kitchen::Directions::BakeInjectedExerciseQuestion
-  def self.v1(question:, number:, only_number_solution: false, figure_reference: false)
-    V1.new.bake(question: question, number: number, only_number_solution: only_number_solution,
-                figure_reference: figure_reference)
+  def self.v1(question:, number:, only_number_solution: false)
+    V1.new.bake(question: question, number: number, only_number_solution: only_number_solution)
   end
 
   class V1
-    def bake(question:, number:, only_number_solution:, figure_reference:)
+    def bake(question:, number:, only_number_solution:)
       id = question.id
 
       # Store label in pantry
@@ -42,15 +41,15 @@ module Kitchen::Directions::BakeInjectedExerciseQuestion
         end
       end
 
-      context = question.exercise_context_in_question&.cut&.paste if figure_reference
+      context = question.exercise_context_in_question&.cut&.paste
 
       question.prepend(child:
         <<~HTML
           #{problem_number unless only_number_solution}
           #{"<span class='os-divider'>. </span>" unless only_number_solution}
           <div class="os-problem-container">
-            #{context if figure_reference && context.present?}
-            #{"<span class='os-divider'>. </span>" if figure_reference && context.present?}
+            #{context if context.present?}
+            #{"<span class='os-divider'>. </span>" if context.present?}
             #{question.stimulus&.cut&.paste}
             #{question.stem.cut.paste}
             #{question.answers&.cut&.paste}
