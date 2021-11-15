@@ -18,7 +18,6 @@ module Kitchen::Directions::BakeInjectedExercise
       # link replacement is done by BakeLinkPlaceholders
       link = context.first('a').cut
       context.replace_children(with: "#{I18n.t(:context_lead_text)}#{link.paste}")
-      # questions_amount = exercise.injected_questions.count
       return unless question_count == 1
 
       question = exercise.exercise_question
