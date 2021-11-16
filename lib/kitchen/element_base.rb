@@ -84,7 +84,7 @@ module Kitchen
     #   @return Object
     def_delegators :@node, :name=, :name, :[], :[]=, :add_class, :remove_class,
                    :text, :wrap, :children, :to_html, :remove_attribute,
-                   :key?, :classes, :path, :inner_html=
+                   :key?, :classes, :path, :inner_html=, :add_previous_sibling
 
     # @!method config
     #   Get the config for this element's document
@@ -754,7 +754,7 @@ module Kitchen
     def_delegators :as_enumerator, :pages, :chapters, :terms, :figures, :notes, :tables, :examples,
                    :metadatas, :non_introduction_pages, :units, :titles, :exercises, :references,
                    :composite_pages, :composite_chapters, :solutions, :injected_questions,
-                   :search_with, :sections
+                   :search_with, :sections, :injected_exercises
 
     # Returns this element as an enumerator (over only one element, itself)
     #
