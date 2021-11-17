@@ -509,7 +509,6 @@ module Kitchen
     #
     def previous
       prev = raw.previous
-      while !prev.nil? && prev.text? do prev = prev.previous end
       return prev if prev.nil?
 
       Element.new(
