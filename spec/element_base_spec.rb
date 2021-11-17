@@ -153,6 +153,20 @@ RSpec.describe Kitchen::ElementBase do
     end
   end
 
+  describe '#preceded_by_text?' do
+    it 'returns true if preceded by text' do
+      expect(reference.preceded_by_text?).to eq true
+    end
+
+    it 'returns false if no previous siblings' do
+      expect(example.preceded_by_text?).to eq false
+    end
+
+    it 'returns false if previous sibling is an element' do
+      expect(figure.preceded_by_text?).to eq false
+    end
+  end
+
   describe '#set' do
     it 'changes the tag name of an element' do
       book.set(:name, 'section')
