@@ -504,10 +504,12 @@ module Kitchen
 
     # returns previous element
     # skips double indentations that the nokigiri sometimes picks up
+    # also skips text belonging to the parent node
     # nil if there's no previous sibling
     #
     def previous
       prev = raw.previous
+      while !prev.nil? && prev.text? do prev = prev.previous end
       return prev if prev.nil?
 
       Element.new(

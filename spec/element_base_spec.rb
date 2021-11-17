@@ -67,7 +67,11 @@ RSpec.describe Kitchen::ElementBase do
               <p>This is an example.</p>
             </div>
             <figure id="figure1">Who is my closest sibling?</figure>
-            <p>Some other Text</p>
+            <p>
+              <div data-type="note">Reference 1</div>
+              Some other Text
+              <div data-type="note" class="reference">Reference 2</div>
+            </p>
           </div>
         HTML
       )
@@ -79,6 +83,8 @@ RSpec.describe Kitchen::ElementBase do
   let(:para) { book.first!('p') }
 
   let(:figure) { sibling_book.first!('figure') }
+
+  let(:reference) { sibling_book.first!('div.reference') }
 
   describe '#initialize' do
     it 'explodes if given a bad document type' do
@@ -130,6 +136,14 @@ RSpec.describe Kitchen::ElementBase do
           <div data-type="example" class="class1" id="example1">
             <p>This is an example.</p>
           </div>
+        HTML
+      )
+    end
+
+    it 'skips text belonging to a parent element' do
+      expect(reference.previous).to match_normalized_html(
+        <<~HTML
+          <div data-type="note">Reference 1</div>
         HTML
       )
     end

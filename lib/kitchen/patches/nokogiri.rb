@@ -71,7 +71,7 @@ module Nokogiri
         prev = previous_element
         return nil if prev.nil?
 
-        prev.text? ? prev.previous : prev
+        prev.blank? ? prev.previous : prev
       end
 
       def self.selector_to_css_nodes(selector)
