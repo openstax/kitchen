@@ -71,7 +71,7 @@ module Nokogiri
         prev = previous_element
         return nil if prev.nil?
 
-        prev.blank? ? prev.previous : prev
+        prev.text? ? prev.previous : prev
       end
 
       def preceded_by_text?
