@@ -82,9 +82,13 @@ module Kitchen
     #   Set the inner HTML for this element
     #   @see https://www.rubydoc.info/github/sparklemotion/nokogiri/Nokogiri/XML/Node#inner_html=-instance_method Nokogiri::XML::Node#inner_html=
     #   @return Object
+    # @!method preceded_by_text
+    #   Returns true if the immediately preceding sibling is text
+    #   @return Boolean
     def_delegators :@node, :name=, :name, :[], :[]=, :add_class, :remove_class,
                    :text, :wrap, :children, :to_html, :remove_attribute,
-                   :key?, :classes, :path, :inner_html=, :add_previous_sibling
+                   :key?, :classes, :path, :inner_html=, :add_previous_sibling,
+                   :preceded_by_text?
 
     # @!method config
     #   Get the config for this element's document
@@ -515,13 +519,6 @@ module Kitchen
         document: document,
         short_type: "previous(#{short_type})"
       )
-    end
-
-    # returns boolean
-    # depending on whether there is non-contained text right before the element
-    #
-    def preceded_by_text?
-      raw.preceded_by_text?
     end
 
     # TODO: make it clear if all of these methods take Element, Node, or String
