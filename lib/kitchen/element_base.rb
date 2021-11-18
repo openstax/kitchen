@@ -504,7 +504,7 @@ module Kitchen
 
     # returns previous element
     # skips double indentations that the nokigiri sometimes picks up
-    # also skips text belonging to the parent node
+    # also skips sibling text nodes
     # nil if there's no previous sibling
     #
     def previous
