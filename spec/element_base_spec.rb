@@ -95,6 +95,7 @@ RSpec.describe Kitchen::ElementBase do
               <div data-type="note">Reference 1</div>
               "Some Text"
 
+
               <div class="text-above">Reference 1</div>
             </div>
           </div>
@@ -169,16 +170,16 @@ RSpec.describe Kitchen::ElementBase do
       )
     end
 
-    it 'skips text belonging to a parent element' do
-      expect(reference.previous).to match_normalized_html(
+    it 'returns nil when a previous sibling does not exist' do
+      expect(para.previous).to eq nil
+    end
+
+    it 'skips over sibling text and blank lines' do
+      expect(text_above.previous).to match_normalized_html(
         <<~HTML
           <div data-type="note">Reference 1</div>
         HTML
       )
-    end
-
-    it 'returns nil when a previous sibling does not exist' do
-      expect(para.previous).to eq nil
     end
   end
 
