@@ -73,7 +73,7 @@ RSpec.describe Kitchen::Directions::BakeNumberedTable::V2 do
 
   it 'another way of table captioning' do
     described_class.new.bake(table: table_with_only_caption_title, number: 'S')
-    expect(table_with_only_caption_title.document.search('.os-table')).to match_normalized_html(
+    expect(table_with_only_caption_title.document.search('.os-table').first).to match_normalized_html(
       <<~HTML
         <div class="os-table">
           <table class="some-class" id="tId">
