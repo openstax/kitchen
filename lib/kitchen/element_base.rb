@@ -502,9 +502,8 @@ module Kitchen
       Element.new(node: raw.parent, document: document, short_type: "parent(#{short_type})")
     end
 
-    # returns previous element
-    # skips double indentations that the nokigiri sometimes picks up
-    # also skips sibling text nodes
+    # returns previous element sibling
+    # (only returns elements or nil)
     # nil if there's no previous sibling
     #
     def previous
