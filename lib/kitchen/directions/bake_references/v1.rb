@@ -12,14 +12,29 @@ module Kitchen::Directions::BakeReferences
               <sup class="os-citation-number">#{link.count_in(:chapter)}</sup>
             HTML
           )
-          link_sibling = link.raw.previous
-          next unless link_sibling&.attr('data-type') == 'cite'
+          # link_sibling = link.previous unless link.preceded_by_text?
+          # byebug
+          # next unless link_sibling.raw&.attr('data-type') == 'cite'
+
+          # byebug
+          # next unless link.nil?
+
+          # next unless link.preceded_by_text? &&
+          #             link.previous.raw&.attr('data-type') == 'cite'
+
+          # next if !link.preceded_by_text? && link.raw.previous.raw&.attr('data-type') == 'cite'
+          next if link.nil?
+
+          link_sibling = link.previous unless link.preceded_by_text?
+          byebug
+          next if link_sibling.nil?
+          next unless link_sibling&.raw&.attr('data-type') == 'cite'
 
           link.prepend(sibling:
             <<~HTML
               <span class="os-reference-link-separator">, </span>
             HTML
-          )
+            )
         end
 
         chapter.references.each do |reference|

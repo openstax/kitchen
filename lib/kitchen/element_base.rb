@@ -517,6 +517,13 @@ module Kitchen
       )
     end
 
+    # returns boolean
+    # depending on whether there is non-contained text right before the element
+
+    def preceded_by_text?
+      raw.preceded_by_text?
+    end
+
     # TODO: make it clear if all of these methods take Element, Node, or String
 
     # If child argument given, prepends it before the element's current children.
