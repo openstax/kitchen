@@ -78,6 +78,31 @@ RSpec.describe Kitchen::ElementBase do
     )
   end
 
+  let(:blank_space_book) do
+    book_containing(html:
+      <<~HTML
+        <div data-type="chapter">
+          <h1 data-type="document-title" id="chapTitle1">
+            <span class="os-part-text">Chapter </span>
+            <span class="os-number">1</span>
+            <span class="os-divider"> </span>
+            <span class="os-text" data-type="" itemprop="">Title Text Chapter 1</span>
+          </h1>
+          <div data-type="page">
+            #{metadata_element}
+            <div class="parent">
+
+              <div data-type="note">Reference 1</div>
+              "Some Text"
+
+              <div class="text-above">Reference 1</div>
+            </div>
+          </div>
+        <div>
+      HTML
+    )
+  end
+
   let(:example) { book.first!('div[data-type="example"]') }
 
   let(:para) { book.first!('p') }
@@ -85,6 +110,10 @@ RSpec.describe Kitchen::ElementBase do
   let(:figure) { sibling_book.first!('figure') }
 
   let(:reference) { sibling_book.first!('div.reference') }
+
+  let(:note) { blank_space_book.first!('div[data-type="note"]') }
+
+  let(:text_above) { blank_space_book.first!('div.text-above') }
 
   describe '#initialize' do
     it 'explodes if given a bad document type' do
@@ -164,6 +193,14 @@ RSpec.describe Kitchen::ElementBase do
 
     it 'returns false if previous sibling is an element' do
       expect(figure.preceded_by_text?).to eq false
+    end
+
+    it 'returns false if no previous siblings except blank space' do
+      expect(note.preceded_by_text?).to eq false
+    end
+
+    it 'returns true if preceded by blank space and then text' do
+      expect(text_above.preceded_by_text?).to eq true
     end
   end
 
