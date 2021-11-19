@@ -26,7 +26,7 @@ module Kitchen::Directions::BakeReferences
           next if link.nil?
 
           link_sibling = link.previous unless link.preceded_by_text?
-          byebug
+          # byebug
           next if link_sibling.nil?
           next unless link_sibling&.raw&.attr('data-type') == 'cite'
 

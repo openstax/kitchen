@@ -89,11 +89,11 @@ RSpec.describe Kitchen::Directions::BakeReferences do
                 <a data-type="cite" href="#auto_54321">
                   <sup class="os-citation-number">2</sup>
                 </a>
-                " However, in the 2018 midterm elections, an estimated 31 percent of Americans under thirty turned out to vote, the highest level of young adult engagement in decades."
-                <a data-type="cite" href="#auto_54322">
-                  <sup class="os-citation-number">3</sup>
-                </a>
-              </p>
+              " However, in the 2018 midterm elections, an estimated 31 percent of Americans under thirty turned out to vote, the highest level of young adult engagement in decades."
+              <a data-type="cite" href="#auto_54322">
+                <sup class="os-citation-number">3</sup>
+              </a>
+            </p>
             </div>
           </div>
           <div data-type="chapter">
