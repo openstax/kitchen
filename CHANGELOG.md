@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [16.0.0] - 2021-11-19
+
+* Add reference link separator to `BakeReferences.v1` (patch)
 * Modify `BakeFootnotes` to be more general (minor)
 * Add `#preceded_by_text` method to element_base and the nokigiri patch (minor)
 * Broaden caption selection for `BakeNumberedTable#v2` (patch)
