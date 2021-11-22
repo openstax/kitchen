@@ -23,6 +23,16 @@ module FactoryHelpers
     HTML
   end
 
+  def one_chapter_with_one_composite_page_containing(html)
+    <<~HTML
+      <div data-type="chapter">
+        <div data-type="composite-page">
+          #{html}
+        </div>
+      </div>
+    HTML
+  end
+
   def page_element(page_children_html)
     book_containing(html: "<div data-type='page'>#{page_children_html}</div>").pages.first
   end

@@ -14,7 +14,7 @@ module Kitchen::Directions::BakeNumberedExercise
       exercise.target_label(label_text: 'exercise', custom_content: label_number, cases: cases)
 
       problem_number = "<span class='os-number'>#{number}</span>"
-      exercise_prefix = "<span class='os-number'>#{prefix}</span>"
+      exercise_prefix = "<span class='os-text'>#{prefix}</span>" unless prefix.nil?
 
       if solution.present?
         problem_number = \
@@ -27,10 +27,10 @@ module Kitchen::Directions::BakeNumberedExercise
 
       problem.replace_children(with:
         <<~HTML
-          #{exercise_prefix if exercise_prefix.present?}
+          #{exercise_prefix unless prefix.nil?}
           #{problem_number}
           #{problem_divider}
-          <div class="os-problem-container">#{problem.children}</div>
+          <div class='os-problem-container'>#{problem.children}</div>
         HTML
       )
     end
@@ -43,7 +43,6 @@ module Kitchen::Directions::BakeNumberedExercise
 
       solution.replace_children(with:
         <<~HTML
-          <span class='os-number'>#{prefix}</span>
           <a class='os-number' href='##{exercise.id}'>#{number}</a>
           <span class='os-divider'>#{divider}</span>
           <div class="os-solution-container">#{solution.children}</div>

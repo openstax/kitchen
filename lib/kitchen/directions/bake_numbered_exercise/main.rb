@@ -18,8 +18,8 @@ module Kitchen
                              solution_stays_put: false)
       end
 
-      def self.v2(exercise:, number:, prefix:)
-        V2.new.bake(exercise: exercise, number: number, prefix: prefix)
+      def self.v2(exercise:, number:, prefix:, cases: false)
+        V2.new.bake(exercise: exercise, number: number, prefix: prefix, cases: cases)
       end
 
       def self.bake_solution_v2(exercise:, number:, divider: '. ')
