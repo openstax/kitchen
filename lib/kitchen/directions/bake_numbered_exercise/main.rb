@@ -17,6 +17,14 @@ module Kitchen
         V1.new.bake_solution(exercise: exercise, number: number, divider: divider,
                              solution_stays_put: false)
       end
+
+      def self.v2(exercise:, number:, prefix: nil)
+        V2.new.bake(exercise: exercise, number: number, prefix: prefix)
+      end
+
+      def self.bake_solution_v2(exercise:, number:, divider: '. ')
+        V2.new.bake_solution(exercise: exercise, number: number, divider: divider)
+      end
     end
   end
 end
