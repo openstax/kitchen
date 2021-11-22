@@ -6,7 +6,7 @@ module Kitchen
     # with a <span> with class 'os-math-in-para'
     module BakeMathInParagraph
       def self.v1(book:)
-        book.search('p m|math', '//p//math | //p//m').each do |math|
+        book.search('//p//math | //p//m', 'p m|math').each do |math|
           math.wrap("<span class='os-math-in-para'>")
         end
       end
