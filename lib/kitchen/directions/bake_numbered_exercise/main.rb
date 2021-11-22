@@ -18,7 +18,7 @@ module Kitchen
                              solution_stays_put: false)
       end
 
-      def self.v2(exercise:, number:, prefix: nil)
+      def self.v2(exercise:, number:, prefix:)
         V2.new.bake(exercise: exercise, number: number, prefix: prefix)
       end
 

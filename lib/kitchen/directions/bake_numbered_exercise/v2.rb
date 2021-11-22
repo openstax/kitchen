@@ -3,7 +3,7 @@
 # The main difference between V1 is that in this version prefixes for exercises are added during baking
 module Kitchen::Directions::BakeNumberedExercise
   class V2
-    def bake(exercise:, number:, cases:, prefix: nil)
+    def bake(exercise:, number:, cases:, prefix:)
       problem = exercise.problem
       solution = exercise.solution
 
