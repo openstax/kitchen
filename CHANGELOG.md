@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Add url to baked iframe link text (major)
+
 ## [19.0.0] - 2022-1-28
 
 * Add features to `BakeScreenreaderSpans` & use translations instead of plaintext (minor)

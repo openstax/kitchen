@@ -16,9 +16,10 @@ module Kitchen::Directions::BakeIframes
 
         iframe = iframe.parent
         iframe.add_class('os-has-link')
+        iframe_content = "#{I18n.t(:iframe_link_text)} (\"#{link_ref}\")"
         iframe.prepend(child:
           <<~HTML
-            <a class="os-is-link" href="#{link_ref}" target="_window">#{I18n.t(:iframe_link_text)}</a>
+            <a class="os-is-link" href="#{link_ref}" target="_window">#{iframe_content}</a>
           HTML
         )
       end
