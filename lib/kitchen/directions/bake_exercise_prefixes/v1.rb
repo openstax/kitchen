@@ -7,7 +7,8 @@ module Kitchen::Directions::BakeExercisePrefixes
         chapter.composite_pages.each do |composite_page|
           composite_page.search("section.#{section_key}").exercises.each do |exercise|
             problem = exercise.problem
-            exercise_prefix = "<span class='os-text'>#{I18n.t(:"sections_prefixed.#{section_key}")}</span>"
+            exercise_prefix =
+              "<span class='os-text'>#{I18n.t(:"sections_prefixed.#{section_key}")}</span>"
             problem.prepend(child:
               <<~HTML
                 #{exercise_prefix}

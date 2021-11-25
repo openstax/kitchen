@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 require 'spec_helper'
@@ -9,4 +8,3 @@ RSpec.describe Kitchen::Directions::BakeExercisePrefixes do
     described_class.v1(chapter: 'chapter1', sections_prefixed: 'some-sections')
   end
 end
-
