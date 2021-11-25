@@ -32,7 +32,7 @@ module Kitchen
                 <div class="#{@fake_title_class}">#{@fake_title}</div>
               HTML
             )
-            @to_trash&.trash
+            @to_trash.trash
           end
         end
 
