@@ -6,7 +6,7 @@ module Kitchen::Directions::AnswerKeyInnerContainer
       chapter: chapter,
       metadata_source: metadata_source,
       append_to: append_to,
-      solutions_plural: solutions_plural
+      solutions_plural: solutions_plural,
     )
   end
 
@@ -14,8 +14,16 @@ module Kitchen::Directions::AnswerKeyInnerContainer
     renderable
 
     def bake(chapter:, metadata_source:, append_to:, solutions_plural:)
-      @solutions_or_solution = solutions_plural ? 'solutions' : 'solution'
-      @uuid_key = "#{@solutions_or_solution}#{chapter.count_in(:book)}"
+      @answer_key_class = case solutions_plural
+                          when true
+                            'solutions'
+                          when :prefix
+                            'end-of-book-solutions'
+                          else
+                            'solution'
+                          end
+      # @solutions_or_solution = solutions_plural ? 'solutions' : 'solution'
+      @uuid_key = "#{@answer_key_class}#{chapter.count_in(:book)}"
       @metadata = metadata_source.children_to_keep.copy
       @composite_element = 'composite-page'
       @title = "#{I18n.t(:chapter)} #{chapter.count_in(:book)}"
