@@ -228,7 +228,7 @@ module Kitchen
     # @return [String]
     #
     def href
-      self[:'href']
+      self[:href]
     end
 
     # Sets the element's href
