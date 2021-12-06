@@ -5,7 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
 * Create `V3` for `BakeChapterReferences`  which sorts references alphabetically (minor)
+
+## [17.0.0] - 2021-12-3
+
 * Create method in `Integer` class that generate roman numbers up to 100 (minor)
 * Add more roman numbers to `Integer` class (patch)
 * Create `V2` for `BakeChapterReferences` (minor)
