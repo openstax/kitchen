@@ -174,8 +174,7 @@ module Kitchen::Directions::BakeIndex
       end
 
       group_by = I18n.t(:eob_index_symbols_group) unless group_by.match?(/[[:alpha:]]/)
-      term_element['group-by'] = group_by=
-
+      term_element['group-by'] = group_by
 
       # Add it to our index object
       @indexes[type].add_term(
