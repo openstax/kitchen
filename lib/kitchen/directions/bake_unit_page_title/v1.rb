@@ -20,6 +20,7 @@ module Kitchen::Directions::BakeUnitPageTitle
         <<~HTML
           <span data-type="" itemprop="" class="os-part_text">#{unit_title_prefix}
           <span class="os-number">#{unit_number}</span>
+          <span class="os-divider"> </span>
           <span data-type="" itemprop="" class="os-text">#{title.text}</span>
         HTML
       )
