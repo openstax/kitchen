@@ -18,7 +18,7 @@ module Kitchen::Directions::BakeUnitPageTitle
       title.name = 'h2'
       title.replace_children(with:
         <<~HTML
-          <span data-type="" itemprop="" class="os-part_text">#{unit_title_prefix}</span>
+          <span class="os-part-text">#{unit_title_prefix}</span>
           <span class="os-number">#{unit_number}</span>
           <span class="os-divider"> </span>
           <span data-type="" itemprop="" class="os-text">#{title.text}</span>
