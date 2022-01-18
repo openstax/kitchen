@@ -20,11 +20,11 @@ module Kitchen::Directions::BakeReferences
 
           next unless link_sibling&.raw&.attr('data-type') == 'cite'
 
-          link.prepend(sibling:
+          link_sibling.append(child:
             <<~HTML
               <sup class="os-reference-link-separator">, </sup>
             HTML
-            )
+          )
         end
 
         chapter.references.each do |reference|

@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Change tag to `sup` for reference link separator in `BakeReferences.v1` (patch)
 
 ## [18.0.0] - 2022-01-14
 
