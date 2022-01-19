@@ -634,7 +634,8 @@ RSpec.describe Kitchen::Directions::BakeToc do
     it 'Page element classes not found' do
       expect do
         described_class.li_for_page(preface_page)
-      end.to raise_error("do not know what TOC class to use for page with classes #{preface_page.classes}")
+      end.to raise_error("could not detect which page type class to apply for page.id `#{page.id}` \ 
+      during baking the TOC. The classes on the page are: `#{page.classes}`")
     end
 
     it 'Composite page element classes not found' do
@@ -642,13 +643,14 @@ RSpec.describe Kitchen::Directions::BakeToc do
       composite_page = Kitchen::CompositePageElement.new(node: page1, document: dummy_document)
       expect do
         described_class.li_for_page(composite_page)
-      end.to raise_error("do not know what TOC class to use for page with classes #{composite_page.classes}")
+      end.to raise_error("could not detect which composite page type class to apply to TOC for page id `#{page.id}` \
+      during baking the TOC. The classes on the page are: `#{page.classes}`"
     end
 
     it 'No familiar classes found' do
       expect do
         described_class.li_for_page(page1)
-      end.to raise_error("don't know how to put `#{page1.class}` into the TOC")
+      end.to raise_error("could not detect any page type class to apply for `#{page.id}` during baking TOC")
     end
   end
 end
