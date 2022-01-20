@@ -642,7 +642,6 @@ RSpec.describe Kitchen::Directions::BakeToc do
       composite_page = Kitchen::CompositePageElement.new(node: page1, document: dummy_document)
       expect {
         described_class.li_for_page(composite_page)
-        put composite_page.id
       }.to raise_error(RuntimeError, /could not detect which composite page type class/)
     end
 
