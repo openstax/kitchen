@@ -302,7 +302,7 @@ RSpec.describe Kitchen::Directions::BakeToc do
   end
 
   let(:preface_page) do
-    new_element(
+    page_element(
       <<~HTML
         <div data-type="page" id="p1" class="preface">
           <h1 data-type="document-title">
@@ -634,7 +634,7 @@ RSpec.describe Kitchen::Directions::BakeToc do
     it 'Page element classes not found' do
       expect {
         described_class.li_for_page(preface_page)
-      }.to raise_error(ArgumentError, /could not detect any page type class/)
+      }.to raise_error(RuntimeError, /could not detect which page type class/)
     end
 
     it 'Composite page element classes not found' do
