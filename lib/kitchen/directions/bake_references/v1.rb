@@ -8,7 +8,7 @@ module Kitchen::Directions::BakeReferences
       book.chapters.each do |chapter|
         chapter.search('[data-type="cite"]').each do |link|
           link.prepend(child:
-            <<~HTML
+            <<~HTML.chomp
               <sup class="os-citation-number">#{link.count_in(:chapter)}</sup>
             HTML
           )
@@ -20,9 +20,11 @@ module Kitchen::Directions::BakeReferences
 
           next unless link_sibling&.raw&.attr('data-type') == 'cite'
 
-          link_sibling.append(child:
+          link.prepend(sibling:
             <<~HTML
-              <sup class="os-reference-link-separator">, </sup>
+              <span class="os-reference-link-separator">
+                <sup>, </sup>
+              </span>
             HTML
           )
         end

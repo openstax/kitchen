@@ -84,8 +84,10 @@ RSpec.describe Kitchen::Directions::BakeReferences do
               <p>
                 <a data-type="cite" href="#auto_12345">
                   <sup class="os-citation-number">1</sup>
-                  <sup class="os-reference-link-separator">, </sup>
                 </a>
+                <span class="os-reference-link-separator">
+                    <sup>, </sup>
+                  </span>
                 <a data-type="cite" href="#auto_54321">
                   <sup class="os-citation-number">2</sup>
                 </a>
