@@ -100,7 +100,7 @@ module Kitchen
                   page.has_ancestor?(:composite_chapter)
               'os-toc-unit-page'
             else
-              raise "could not detect which page type class to apply for page.id `#{page.id}` \
+              raise "could not detect which page type class to apply for page.id `#{page.id}`
                during baking the TOC. The classes on the page are: `#{page.classes}`"
             end
           when CompositePageElement

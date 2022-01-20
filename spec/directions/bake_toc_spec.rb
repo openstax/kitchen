@@ -302,7 +302,7 @@ RSpec.describe Kitchen::Directions::BakeToc do
   end
 
   let(:preface_page) do
-    page_element(
+    new_element(
       <<~HTML
         <div data-type="page" id="p1" class="preface">
           <h1 data-type="document-title">
@@ -632,18 +632,18 @@ RSpec.describe Kitchen::Directions::BakeToc do
 
   describe 'raises error' do
     it 'Page element classes not found' do
-      expect do
+      expect {
         described_class.li_for_page(preface_page)
-      end.to raise_error("could not detect which page type class to apply for page.id `#{preface_page.id}` \
-      during baking the TOC. The classes on the page are: `#{preface_page.classes}`")
+      }.to raise_error("could not detect any page type class to apply for `#{preface_page.id}`             during baking TOC")
+      # ("could not detect which page type class to apply for page.id `#{preface_page.id}`")
     end
 
     it 'Composite page element classes not found' do
       dummy_document = Kitchen::Document.new(nokogiri_document: nil)
       composite_page = Kitchen::CompositePageElement.new(node: page1, document: dummy_document)
-      expect do
+      expect {
         described_class.li_for_page(composite_page)
-      end.to raise_error("could not detect which composite page type class to apply to TOC for page id `#{composite_page.id}` \
+      }.to raise_error("could not detect which composite page type class to apply to TOC for page id `#{composite_page.id}` \
       during baking the TOC. The classes on the page are: `#{composite_page.classes}`")
     end
 
