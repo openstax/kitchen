@@ -21,7 +21,7 @@ module Kitchen::Directions::BakeReferences
           next unless link_sibling&.raw&.attr('data-type') == 'cite'
 
           link.prepend(sibling:
-            <<~HTML.lstrip
+            <<~HTML.strip
               <span class="os-reference-link-separator">
                 <sup>, </sup>
               </span>
