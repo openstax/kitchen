@@ -22,16 +22,14 @@ module Kitchen::Directions::BakeReferences
 
           link.prepend(sibling:
             <<~HTML.chomp
-              <span class="os-reference-link-separator">
-                <sup>, </sup>
-              </span>
+              <span class="os-reference-link-separator"><sup>, </sup></span>
             HTML
           )
         end
 
         chapter.references.each do |reference|
           reference.prepend(child:
-            <<~HTML.chomp
+            <<~HTML.strip.chomp
               <span class="os-reference-number">#{reference.count_in(:chapter)}. </span>
             HTML
           )
