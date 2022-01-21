@@ -21,7 +21,7 @@ module Kitchen::Directions::BakeReferences
           next unless link_sibling&.raw&.attr('data-type') == 'cite'
 
           link.prepend(sibling:
-            <<~HTML.chomp
+            <<~HTML.strip.chomp
               <span class="os-reference-link-separator"><sup>, </sup></span>
             HTML
           )
@@ -29,7 +29,7 @@ module Kitchen::Directions::BakeReferences
 
         chapter.references.each do |reference|
           reference.prepend(child:
-            <<~HTML.strip.chomp
+            <<~HTML.chomp
               <span class="os-reference-number">#{reference.count_in(:chapter)}. </span>
             HTML
           )
