@@ -8,7 +8,7 @@ module Kitchen::Directions::BakeReferences
       book.chapters.each do |chapter|
         chapter.search('[data-type="cite"]').each do |link|
           link.prepend(child:
-            <<~HTML
+            <<~HTML.rstrip
               <sup class="os-citation-number">#{link.count_in(:chapter)}</sup>
             HTML
           )
