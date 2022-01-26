@@ -32,14 +32,8 @@ RSpec.describe Kitchen::Directions::BakeScreenreaderSpans do
     expect(book1.pages.first).to match_normalized_html(
       <<~HTML
         <div data-type="page">
-          <div>hello <u data-effect="double-underline"><span data-screenreader-only="true">double underline</span>
-        world<span data-screenreader-only="true">end double underline</span>
-        </u>. <u data-effect="underline"><span data-screenreader-only="true">underline</span>
-        underlined<span data-screenreader-only="true">end underline</span>
-        </u></div>
-          <p class="public-domain"><span data-screenreader-only="true">public domain text</span>
-        Proud Immigrant Citizen @primmcit<span data-screenreader-only="true">end public domain text</span>
-        </p>
+          <div>hello <u data-effect="double-underline"><span data-screenreader-only="true">double underline</span>world<span data-screenreader-only="true">end double underline</span></u>. <u data-effect="underline"><span data-screenreader-only="true">underline</span>underlined<span data-screenreader-only="true">end underline</span></u></div>
+          <p class="public-domain"><span data-screenreader-only="true">public domain text</span>Proud Immigrant Citizen @primmcit<span data-screenreader-only="true">end public domain text</span></p>
         </div>
       HTML
     )

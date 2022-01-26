@@ -33,14 +33,10 @@ module Kitchen
 
       def self.add_screenreader_text(element:, begin_message:, end_message:)
         element.prepend(child:
-          <<~HTML
-            <span data-screenreader-only="true">#{begin_message}</span>
-          HTML
+          "<span data-screenreader-only=\"true\">#{begin_message}</span>"
         )
         element.append(child:
-          <<~HTML
-            <span data-screenreader-only="true">#{end_message}</span>
-          HTML
+          "<span data-screenreader-only=\"true\">#{end_message}</span>"
         )
       end
     end
