@@ -43,8 +43,6 @@ module Kitchen
         end
       end
 
-      protected
-
       def self.add_screenreader_text(element:, begin_message:, end_message:)
         element.prepend(child:
           "<span data-screenreader-only=\"true\">#{begin_message}</span>"
