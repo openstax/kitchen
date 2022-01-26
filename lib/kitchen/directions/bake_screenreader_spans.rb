@@ -27,6 +27,20 @@ module Kitchen
             end_message: "#{I18n.t(:'screenreader.end')} #{I18n.t(:'screenreader.public-domain')}"
           )
         end
+        book.search('p.student-sample').each do |element|
+          add_screenreader_text(
+            element: element,
+            begin_message: I18n.t(:'screenreader.student-sample'),
+            end_message: "#{I18n.t(:'screenreader.end')} #{I18n.t(:'screenreader.student-sample')}"
+          )
+        end
+        book.search('p.annotation-text').each do |element|
+          add_screenreader_text(
+            element: element,
+            begin_message: I18n.t(:'screenreader.annotation-text'),
+            end_message: "#{I18n.t(:'screenreader.end')} #{I18n.t(:'screenreader.annotation-text')}"
+          )
+        end
       end
 
       protected
