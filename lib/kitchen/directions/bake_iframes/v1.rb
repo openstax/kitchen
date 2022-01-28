@@ -14,14 +14,25 @@ module Kitchen::Directions::BakeIframes
         link_ref = iframe[:src]
         next unless link_ref
 
+        rexify_link_ref = link_ref.match(/..\/resources\/.*\/index.html/)
+        link_ref = "rex##{iframe.parent.parent.id}" if rexify_link_ref
+
         iframe = iframe.parent
         iframe.add_class('os-has-link')
-        iframe_content = "#{I18n.t(:iframe_link_text)} (\"#{link_ref}\")"
-        iframe.prepend(child:
-          <<~HTML
-            <a class="os-is-link" href="#{link_ref}" target="_window">#{iframe_content}</a>
-          HTML
-        )
+
+        if rexify_link_ref
+          iframe.prepend(child:
+            <<~HTML
+              <a class="os-is-link" data-rexify-href="true" href="#{link_ref}" target="_window">#{I18n.t(:iframe_link_text)} (<span data-rexify-text="true">#{link_ref}</span>)</a>
+            HTML
+          )
+        else
+          iframe.prepend(child:
+            <<~HTML
+              <a class="os-is-link" href="#{link_ref}" target="_window">#{I18n.t(:iframe_link_text)} (#{link_ref})</a>
+            HTML
+          )
+        end
       end
     end
   end
