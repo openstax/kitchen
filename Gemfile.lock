@@ -106,7 +106,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (1.7.0)
-    yard (0.9.24)
+    yard (0.9.35)
     zeitwerk (2.5.4)
 
 PLATFORMS
